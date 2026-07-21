@@ -1,4 +1,4 @@
-# Design Theater Pipeline
+# DesignTheater-Main
 
 This repository contains the source code for the Design Theater evaluation pipeline.
 
