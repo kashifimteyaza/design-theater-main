@@ -1,16 +1,16 @@
 # Design Theater 
 
-A benchmark platform for evaluating thinking authenticity in UI-generating AI agents.
+A benchmark for Generative UI 
 
 ## Tasks
 
 Tasks are organized into three tiers:
 
-- **Tier 1**: Structural Claims Verification
-- **Tier 2**: Styling Claims Verification
-- **Tier 3**: Functional/Interactive Claims Verification
+- **Tier 1**: Structural Design Tasks
+- **Tier 2**: Styling Design Tasks
+- **Tier 3**: Functional/Interactive Design Task
 
-## AI Models Evaluated
+## Tools Evaluated
 
 - ChatGPT (GPT-5 Thinking):  https://chat.openai.com/
 - Claude (Sonnet 4.5 Thinking): https://claude.ai/
