@@ -1,25 +1,61 @@
-# Design Theater Main
+# Design Theater
 
-This repository contains the merged benchmark artifacts and evaluation pipeline.
+Benchmark artifacts and evaluation code for Design Theater: A Benchmark for Generative UI* (AIES 2026),
+a study of whether generative UI tools implement the design rationales they
+present to users.
+
+📄 :
 
 ## Contents
 
-- `artifacts/` - benchmark tasks and generated interface artifacts
-- `pipeline/` - evaluation pipeline code, configuration, and docs
+- **`artifacts/`** — the 24 benchmark tasks and 120 generated interfaces
+  (5 tools × 24 tasks): prompts, reasoning traces, generated code, screenshots
+- **`pipeline/`** — code to compute the Design Homogeneity Index; see
+  [`pipeline/README.md`](pipeline/README.md)
 
-## Reuse Locally
+## The benchmark
+
+24 tasks across three tiers, eight each: **structural** (information
+architecture, navigation), **styling** (color, typography, hierarchy), and
+**functional** (interaction, error handling, state). Each prompt embeds two UX
+principles implicitly, through user needs and context rather than by naming
+them, so the benchmark tests recognition rather than instruction-following.
+
+Tools were restricted to HTML, CSS, and JavaScript with no external frameworks,
+libraries, or web search, and run in their default configurations. 
+
+| Tool | Underlying model |
+|---|---|
+| ChatGPT | GPT-5 Thinking |
+| Claude | Claude Sonnet 4.5 |
+| Bolt | Claude Sonnet 4.5 |
+| Vercel v0 | Claude Haiku 4.5 |
+| Firebase Studio | Gemini 2.5 Pro |
+
+## Getting started
 
 ```bash
 git clone https://github.com/kashifimteyaza/design-theater-main.git
 cd design-theater-main
-git checkout main
 ```
 
-Then browse `artifacts/` for benchmark content or `pipeline/README.md` for the
-pipeline setup and run instructions.
+Browse `artifacts/` for benchmark content, or see `pipeline/README.md` to run
+the DHI evaluation.
 
-## Notes
+## Citation
 
-- Keep benchmark artifacts in `artifacts/`.
-- Keep the evaluation code in `pipeline/`.
-- This branch is the consolidated view of both repositories.
+```bibtex
+@inproceedings{imteyaz2026design,
+  title     = {[full title]},
+  author    = {Imteyaz, Kashif and Imteyaz, Kaif and Rajpal, Nakul and
+               Shaikh, Kaif and Muller, Michael and Savage, Saiph},
+  booktitle = {Proceedings of the AAAI/ACM Conference on AI, Ethics, and Society},
+  year      = {2026}
+}
+```
+
+## License
+
+[CC BY 4.0 for benchmark tasks; MIT for pipeline code.] Reasoning traces and
+generated code are model outputs redistributed for research and evaluation, and
+remain subject to each provider's terms.
