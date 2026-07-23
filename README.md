@@ -1,7 +1,9 @@
-# DesignTheater-Main
+# DesignTheater Eval Pipeline
 
-This repository contains the source code for the Design Theater evaluation pipeline.
+This branch contains the evaluation pipeline for the Design Theater project.
 
+It is separate from the `main` branch, which now holds the uploaded
+`Design-Theater-task-artifacts` folder.
 
 ## Setup
 
