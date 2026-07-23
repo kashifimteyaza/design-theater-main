@@ -13,6 +13,8 @@ present to users.
 - **`pipeline/`** — code to compute the Design Homogeneity Index; see
   [`pipeline/README.md`](pipeline/README.md)
 
+  🌐 [Browse the interfaces](https://design-theater.vercel.app/) ·
+
 ## The benchmark
 
 24 tasks across three tiers, eight each: **structural** (information
