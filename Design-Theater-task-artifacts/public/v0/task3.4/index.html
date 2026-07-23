@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreelanceFlow - Quality Freelance Partnerships</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --accent: #10b981;
+            --neutral-bg: #f9fafb;
+            --neutral-text: #374151;
+            --border: #e5e7eb;
+            --success: #059669;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--neutral-text);
+            line-height: 1.6;
+            background: white;
+        }
+
+        /* Header Navigation */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: white;
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 4%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--neutral-text);
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            padding: 0.6rem 1.5rem;
+            border: 1px solid var(--primary);
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 5rem 4%;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            min-height: 600px;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: #111827;
+            text-wrap: balance;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            color: #6b7280;
+            margin-bottom: 2rem;
+            text-wrap: balance;
+            line-height: 1.8;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #9ca3af;
+            margin-top: 0.5rem;
+        }
+
+        .hero-visual {
+            background: linear-gradient(135deg, var(--neutral-bg) 0%, #f3f4f6 100%);
+            border-radius: 12px;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 450px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dashboard-preview {
+            width: 100%;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .dashboard-header {
+            background: var(--neutral-bg);
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dashboard-title {
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .dashboard-content {
+            padding: 1.5rem;
+        }
+
+        .project-card {
+            background: var(--neutral-bg);
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 3px solid var(--accent);
+        }
+
+        .project-info h4 {
+            font-size: 0.9rem;
+            color: #111827;
+            margin-bottom: 0.25rem;
+        }
+
+        .project-info p {
+            font-size: 0.8rem;
+            color: #9ca3af;
+        }
+
+        .status-badge {
+            background: var(--accent);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Features Section */
+        .features {
+            background: var(--neutral-bg);
+            padding: 5rem 4%;
+            margin: 3rem 0;
+        }
+
+        .features-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #111827;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: #6b7280;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+            border-color: var(--primary);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+            color: #111827;
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            color: #6b7280;
+            line-height: 1.7;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 5rem 4%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            position: relative;
+            margin-top: 3rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            width: 80%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+            transform: translateX(-50%);
+            display: none;
+        }
+
+        .timeline-step {
+            text-align: center;
+            position: relative;
+            padding-top: 2rem;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin: 0 auto 1rem;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .timeline-step h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #111827;
+        }
+
+        .timeline-step p {
+            font-size: 0.95rem;
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            background: white;
+            padding: 5rem 4%;
+            margin-top: 3rem;
+        }
+
+        .pricing-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .pricing-card {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--primary);
+            box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15);
+            transform: scale(1.05);
+        }
+
+        .pricing-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #111827;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .price-info {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .price-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .price-features li {
+            padding: 0.7rem 0;
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .price-features li::before {
+            content: '✓';
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .pricing-card .btn-primary {
+            width: 100%;
+            text-align: center;
+            display: block;
+        }
+
+        /* Trust Section */
+        .trust {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 4rem 4%;
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .trust-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .trust h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .trust-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .trust-item {
+            padding: 1.5rem;
+        }
+
+        .trust-item h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .trust-item p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 3rem 4%;
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #111827;
+        }
+
+        .cta p {
+            font-size: 1rem;
+            color: #6b7280;
+            margin-bottom: 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        footer {
+            background: #111827;
+            color: #d1d5db;
+            padding: 3rem 4%;
+            margin-top: 4rem;
+            border-top: 1px solid #1f2937;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: #d1d5db;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #1f2937;
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1.5rem;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-visual {
+                min-height: 300px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .trust-features {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        /* Animations */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feature-card {
+            animation: slideInUp 0.6s ease-out forwards;
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+        .feature-card:nth-child(4) { animation-delay: 0.4s; }
+        .feature-card:nth-child(5) { animation-delay: 0.5s; }
+        .feature-card:nth-child(6) { animation-delay: 0.6s; }
+
+        /* Interactive elements */
+        .interactive-demo {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .demo-toggle {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .demo-toggle button {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .demo-toggle button.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .demo-content {
+            display: none;
+            animation: slideInUp 0.3s ease-out;
+        }
+
+        .demo-content.active {
+            display: block;
+        }
+
+        .user-role-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .badge-client {
+            background: #dbeafe;
+            color: var(--primary);
+        }
+
+        .badge-freelancer {
+            background: #d1fae5;
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <header>
+        <nav>
+            <div class="logo">FreelanceFlow</div>
+            <ul>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#trust">Trust & Safety</a></li>
+                <li><button class="btn-secondary">Sign In</button></li>
+                <li><button class="btn-primary">Get Started</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Quality Freelance Partnerships, Not One-Off Gigs</h1>
+            <p>FreelanceFlow connects businesses with vetted designers, developers, writers, and marketers for meaningful long-term relationships. We handle the complexity so you focus on results.</p>
+            
+            <div class="hero-cta">
+                <button class="btn-primary">Post a Project</button>
+                <button class="btn-secondary">Find Clients</button>
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number">$2.8B+</div>
+                    <div class="stat-label">Projects completed</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">45K+</div>
+                    <div class="stat-label">Verified professionals</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">92%</div>
+                    <div class="stat-label">Long-term repeat clients</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="dashboard-preview">
+                <div class="dashboard-header">
+                    <div class="dashboard-title">Active Projects</div>
+                    <span style="color: #9ca3af; font-size: 0.9rem;">3 of 5 in progress</span>
+                </div>
+                <div class="dashboard-content">
+                    <div class="project-card">
+                        <div class="project-info">
+                            <h4>Enterprise Website Redesign</h4>
+                            <p>Due in 8 days • $18,500</p>
+                        </div>
+                        <div class="status-badge">In Progress</div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-info">
+                            <h4>Mobile App Development</h4>
+                            <p>Due in 22 days • $45,000</p>
+                        </div>
+                        <div class="status-badge">In Progress</div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-info">
+                            <h4>Brand Identity Package</h4>
+                            <p>Due in 5 days • $12,750</p>
+                        </div>
+                        <div class="status-badge">Review</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="features-container">
+            <div class="section-header">
+                <h2>Built for Complexity</h2>
+                <p>Everything you need to manage quality projects from proposal to payment</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📋</div>
+                    <h3>Smart Proposals</h3>
+                    <p>Freelancers submit custom proposals with timelines and deliverables, not generic bids. Clients see expertise before hiring.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Project Management</h3>
+                    <p>Integrated boards, milestones, and timelines with built-in communication. Track every deliverable and revision request.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📁</div>
+                    <h3>Secure File Sharing</h3>
+                    <p>Version-controlled file management with commenting, approvals, and audit trails. Everything in one place.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⏱️</div>
+                    <h3>Time Tracking</h3>
+                    <p>Transparent time logging for hourly projects. Freelancers track work, clients see progress in real-time.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💳</div>
+                    <h3>Payment Processing</h3>
+                    <p>Milestone-based payments with escrow protection. Automatic invoices, multi-currency support, and fast payouts.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">✅</div>
+                    <h3>Approval Workflows</h3>
+                    <p>Structured sign-off processes. Clients approve deliverables, funds release to freelancers. Disputes resolved fairly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="section-header">
+            <h2>Your Project Lifecycle</h2>
+            <p>From brief to completion, every step is designed for success</p>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-step">
+                <div class="step-number">1</div>
+                <h3>Post Brief</h3>
+                <p>Describe your project in detail. Share requirements, budget, timeline, and success criteria.</p>
+            </div>
+
+            <div class="timeline-step">
+                <div class="step-number">2</div>
+                <h3>Receive Proposals</h3>
+                <p>Vetted freelancers submit custom proposals with portfolios, timelines, and approaches.</p>
+            </div>
+
+            <div class="timeline-step">
+                <div class="step-number">3</div>
+                <h3>Interview & Match</h3>
+                <p>We facilitate interviews. Our AI helps ensure cultural and skill alignment for long-term success.</p>
+            </div>
+
+            <div class="timeline-step">
+                <div class="step-number">4</div>
+                <h3>Contract & Kickoff</h3>
+                <p>Formalize terms on our platform. Establish milestones, deliverables, and communication cadence.</p>
+            </div>
+
+            <div class="timeline-step">
+                <div class="step-number">5</div>
+                <h3>Execute & Track</h3>
+                <p>Freelancer delivers work in phases. You approve milestones, provide feedback, request revisions.</p>
+            </div>
+
+            <div class="timeline-step">
+                <div class="step-number">6</div>
+                <h3>Pay & Relate</h3>
+                <p>Approve final deliverable, release payment. Rate, build relationship for future projects.</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 3rem; padding: 2rem; background: var(--neutral-bg); border-radius: 12px;">
+            <h3 style="color: #111827; margin-bottom: 1.5rem;">Scope Creep Prevention</h3>
+            <p style="color: #6b7280; margin-bottom: 1rem;">Our milestone system prevents scope creep. Each deliverable has clear acceptance criteria. Extra requests become change orders with new estimates and timelines—protecting both parties.</p>
+        </div>
+    </section>
+
+    <!-- Interactive Demo -->
+    <section style="padding: 4rem 4%; background: var(--neutral-bg); margin-top: 2rem;">
+        <div style="max-width: 1400px; margin: 0 auto;">
+            <h2 style="color: #111827; margin-bottom: 2rem;">Platform Experience</h2>
+            
+            <div class="interactive-demo">
+                <div class="demo-toggle">
+                    <button class="active" onclick="toggleDemo('client')">For Clients</button>
+                    <button onclick="toggleDemo('freelancer')">For Freelancers</button>
+                </div>
+
+                <div id="client" class="demo-content active">
+                    <div class="user-role-badge badge-client">CLIENT EXPERIENCE</div>
+                    <h3 style="color: #111827; margin-bottom: 1rem;">Why Fortune 500s Trust FreelanceFlow</h3>
+                    <ul style="list-style: none; color: #6b7280; line-height: 2;">
+                        <li>✓ Pre-vetted talent matching your exact requirements</li>
+                        <li>✓ Clear contracts and milestone payments protect your investment</li>
+                        <li>✓ Integrated project management keeps teams aligned</li>
+                        <li>✓ Dedicated support for complex, high-value projects</li>
+                        <li>✓ Quality guarantees and revision support included</li>
+                        <li>✓ Build relationships with trusted partners for ongoing work</li>
+                    </ul>
+                </div>
+
+                <div id="freelancer" class="demo-content">
+                    <div class="user-role-badge badge-freelancer">FREELANCER EXPERIENCE</div>
+                    <h3 style="color: #111827; margin-bottom: 1rem;">Why Top Talent Chooses FreelanceFlow</h3>
+                    <ul style="list-style: none; color: #6b7280; line-height: 2;">
+                        <li>✓ Compete on expertise, not just hourly rate</li>
+                        <li>✓ Secure milestone-based payments with escrow protection</li>
+                        <li>✓ Work with quality clients who value long-term relationships</li>
+                        <li>✓ Access premium project opportunities ($500-$50K+)</li>
+                        <li>✓ Portfolio-building projects that establish authority</li>
+                        <li>✓ Repeat client relationships reduce project hunting</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing" id="pricing">
+        <div class="pricing-container">
+            <div class="section-header">
+                <h2>Simple, Transparent Pricing</h2>
+                <p>We only succeed when you do. Fees scale with your project size.</p>
+            </div>
+
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Small Projects</h3>
+                    <div class="price">8%</div>
+                    <div class="price-info">Platform fee on projects under $2,500</div>
+                    <ul class="price-features">
+                        <li>Project matching</li>
+                        <li>Contract templates</li>
+                        <li>File sharing</li>
+                        <li>Milestone payments</li>
+                        <li>Dispute resolution</li>
+                    </ul>
+                    <button class="btn-primary">Get Started</button>
+                </div>
+
+                <div class="pricing-card featured">
+                    <h3>Mid-Market Projects</h3>
+                    <div class="price">5%</div>
+                    <div class="price-info">Platform fee on projects $2,500-$25,000</div>
+                    <ul class="price-features">
+                        <li>Everything in Small</li>
+                        <li>Dedicated matching support</li>
+                        <li>Interview facilitation</li>
+                        <li>Custom contracts</li>
+                        <li>Priority support</li>
+                    </ul>
+                    <button class="btn-primary">Get Started</button>
+                </div>
+
+                <div class="pricing-card">
+                    <h3>Enterprise</h3>
+                    <div class="price">Custom</div>
+                    <div class="price-info">For projects over $25,000</div>
+                    <ul class="price-features">
+                        <li>Everything in Mid-Market</li>
+                        <li>Account manager</li>
+                        <li>Custom workflows</li>
+                        <li>Team collaboration</li>
+                        <li>SLA guarantees</li>
+                    </ul>
+                    <button class="btn-primary">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust & Safety -->
+    <section class="trust" id="trust">
+        <div class="trust-container">
+            <h2>Built on Trust</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 2rem;">We've invested deeply in safety systems that protect both sides</p>
+
+            <div class="trust-features">
+                <div class="trust-item">
+                    <h3>Vetting & Verification</h3>
+                    <p>Background checks, portfolio review, and past client verification for all freelancers.</p>
+                </div>
+
+                <div class="trust-item">
+                    <h3>Escrow Protection</h3>
+                    <p>Funds held securely until work is approved. Automatic release on completion.</p>
+                </div>
+
+                <div class="trust-item">
+                    <h3>Dispute Resolution</h3>
+                    <p>Fair, human-reviewed process for disagreements. Mediation before arbitration.</p>
+                </div>
+
+                <div class="trust-item">
+                    <h3>Quality Standards</h3>
+                    <p>We enforce delivery expectations. Non-compliance results in freelancer deactivation.</p>
+                </div>
+
+                <div class="trust-item">
+                    <h3>Legal Agreements</h3>
+                    <p>Jurisdictional contracts. Clear IP ownership, liability, and confidentiality terms.</p>
+                </div>
+
+                <div class="trust-item">
+                    <h3>Privacy First</h3>
+                    <p>Encrypted communications. Your data never sold. GDPR & international compliance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="cta">
+        <h2>Ready to Build Quality Partnerships?</h2>
+        <p>Join the platform where clients find talent and talent finds meaningful work.</p>
+        <div class="cta-buttons">
+            <button class="btn-primary" style="padding: 0.8rem 2rem; font-size: 1rem;">Post Your First Project</button>
+            <button class="btn-secondary" style="padding: 0.8rem 2rem; font-size: 1rem;">Browse Opportunities</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#trust">Trust & Safety</a></li>
+                        <li><a href="#">API Docs</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Community</a></li>
+                        <li><a href="#">Status</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy</a></li>
+                        <li><a href="#">Terms</a></li>
+                        <li><a href="#">Security</a></li>
+                        <li><a href="#">Compliance</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 FreelanceFlow. All rights reserved.</p>
+                <div style="display: flex; gap: 1.5rem;">
+                    <a href="#" style="color: #d1d5db; text-decoration: none;">Twitter</a>
+                    <a href="#" style="color: #d1d5db; text-decoration: none;">LinkedIn</a>
+                    <a href="#" style="color: #d1d5db; text-decoration: none;">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Interactive demo toggle
+        function toggleDemo(type) {
+            // Hide all demo content
+            document.querySelectorAll('.demo-content').forEach(el => {
+                el.classList.remove('active');
+            });
+
+            // Show selected demo
+            document.getElementById(type).classList.add('active');
+
+            // Update button states
+            document.querySelectorAll('.demo-toggle button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Add scroll effect to header
+        let lastScroll = 0;
+        const header = document.querySelector('header');
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll <= 0) {
+                header.style.boxShadow = 'none';
+            } else {
+                header.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Animate stats on scroll
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.animation = 'slideInUp 0.6s ease-out forwards';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe feature cards
+        document.querySelectorAll('.feature-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Button interactions
+        document.querySelectorAll('.btn-primary, .btn-secondary').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transition = 'all 0.3s ease';
+            });
+        });
+    </script>
+</body>
+</html>

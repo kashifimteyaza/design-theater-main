@@ -1,0 +1,748 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#144D3A" />
+  <title>ShopLocal · Handmade, Vintage & Produce</title>
+  <style>
+    :root {
+      /* Brand system — tuned for AA/AAA contrast */
+      --brand-1: #144D3A; /* deep pine */
+      --brand-2: #1E7A5D; /* market green */
+      --brand-3: #E8F5EF; /* mint wash */
+      --brand-4: #F7F2EA; /* craft paper */
+      --accent:   #B55E1B; /* terracotta */
+      --ink-1: #0a0a0a;   /* primary text */
+      --ink-2: #333;      /* secondary */
+      --ink-3: #5b5b5b;   /* muted */
+      --line: #D8D8D8;
+      --ok:   #17633a;
+      --warn: #8a4b00;
+      --bad:  #8a1f1f;
+
+      --radius: 16px;
+      --shadow-1: 0 1px 2px rgba(0,0,0,.05), 0 4px 12px rgba(0,0,0,.08);
+      --shadow-2: 0 6px 30px rgba(0,0,0,.12);
+
+      --bg: #ffffff;
+      --fg: var(--ink-1);
+      --surface: #fff;
+      --focus: #2f9e76;
+
+      --space-1: .25rem; --space-2: .5rem; --space-3: .75rem; --space-4: 1rem; --space-5: 1.25rem; --space-6: 1.5rem; --space-7: 2rem; --space-8: 3rem;
+
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+      --card-min: 240px;
+    }
+
+    /* High-contrast mode toggled on <html data-contrast="high"> */
+    html[data-contrast="high"]:root {
+      --brand-1: #021e14;
+      --brand-2: #004d33;
+      --brand-3: #e6fff5;
+      --brand-4: #fffef0;
+      --accent:  #7a2e00;
+      --ink-1: #000;
+      --ink-2: #111;
+      --ink-3: #222;
+      --line: #000;
+      --focus: #000; /* thick black focus ring */
+    }
+
+    /* Base */
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; color: var(--fg); background: var(--bg);
+      font-family: var(--font); line-height: 1.45; font-size: 16px;
+      -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+    }
+    a { color: var(--brand-2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { max-width: 100%; height: auto; }
+    .container { width: min(1200px, 100%); margin-inline: auto; padding: 0 var(--space-5); }
+
+    /* Skip link */
+    .skip-link { position: absolute; left: -999px; top: -999px; background: var(--brand-2); color: #fff; padding: var(--space-3) var(--space-4); border-radius: 8px; }
+    .skip-link:focus { left: var(--space-4); top: var(--space-4); z-index: 9999; }
+
+    /* Header */
+    header { position: sticky; top: 0; z-index: 50; backdrop-filter: saturate(120%) blur(8px); background: color-mix(in oklab, var(--bg) 70%, #fff 30%); border-bottom: 1px solid var(--line); }
+    .topbar { display: flex; align-items: center; gap: var(--space-5); padding: var(--space-4) 0; }
+    .logo { display: inline-flex; align-items: center; gap: var(--space-3); font-weight: 800; letter-spacing: .3px; color: var(--brand-1); }
+    .logo .mark { width: 28px; height: 28px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, var(--brand-2), var(--brand-1)); box-shadow: inset 0 0 0 2px #fff, var(--shadow-1); }
+    nav ul { margin: 0; padding: 0; list-style: none; display: flex; gap: var(--space-5); }
+    nav a { font-weight: 600; }
+    .spacer { flex: 1; }
+
+    .utility { display: flex; gap: var(--space-4); align-items: center; flex-wrap: wrap; }
+    .chip { display: inline-flex; align-items: center; gap: .5rem; border: 1px solid var(--line); padding: .5rem .75rem; border-radius: 999px; background: var(--surface); box-shadow: var(--shadow-1); }
+    .chip input[type="radio"] { appearance: none; width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--brand-2); display: inline-block; position: relative; }
+    .chip input[type="radio"]:checked { background: var(--brand-2); }
+    .chip label { cursor: pointer; }
+
+    /* Search */
+    .searchbar { display: grid; grid-template-columns: 1fr auto; gap: var(--space-3); padding: var(--space-4); background: var(--brand-3); border-radius: var(--radius); box-shadow: var(--shadow-1); border: 1px solid color-mix(in oklab, var(--brand-2) 10%, #fff 90%); }
+    .searchbar input[type="search"] { width: 100%; font-size: 1rem; padding: .875rem 1rem; border: 1.5px solid var(--line); border-radius: 12px; }
+    .searchbar button { padding: .9rem 1.1rem; border-radius: 12px; border: 0; background: var(--brand-2); color: #fff; font-weight: 700; box-shadow: var(--shadow-1); }
+    .searchbar button:focus { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+    /* Quick filters */
+    .filters { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: var(--space-3); }
+    .filter { padding: .5rem .8rem; border: 1px solid var(--line); border-radius: 999px; background: #fff; cursor: pointer; font-size: .95rem; }
+    .filter[aria-pressed="true"] { background: var(--brand-2); color:#fff; border-color: var(--brand-2); }
+
+    /* Hero */
+    .hero { display: grid; grid-template-columns: 1.5fr 1fr; align-items: center; gap: var(--space-7); padding: var(--space-8) 0 var(--space-7); }
+    .hero h1 { font-size: clamp(1.8rem, 2.8vw + 1rem, 3rem); margin: 0 0 .5rem; letter-spacing:.2px; }
+    .hero p { margin: 0; font-size: 1.125rem; color: var(--ink-2); }
+    .hero .cta { display: flex; gap: var(--space-4); margin-top: var(--space-5); }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; border: 0; border-radius: 12px; padding: .875rem 1rem; font-weight: 700; cursor: pointer; }
+    .btn.primary { background: var(--brand-2); color: #fff; }
+    .btn.ghost { background: transparent; border: 2px solid var(--brand-2); color: var(--brand-2); }
+
+    /* Trust row */
+    .trust { display:grid; grid-template-columns: repeat(3,1fr); gap: var(--space-5); margin: var(--space-7) 0; }
+    .trust .card { display:flex; gap: var(--space-4); padding: var(--space-5); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-1); background: var(--surface); }
+    .icon { width: 36px; height: 36px; border-radius: 10px; background: var(--brand-3); display: inline-grid; place-items: center; font-size: 20px; }
+
+    /* Sections */
+    main section { margin: var(--space-8) 0; }
+    h2 { font-size: clamp(1.4rem, 1.3vw + 1rem, 2rem); margin-bottom: var(--space-4); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--card-min), 1fr)); gap: var(--space-5); }
+
+    /* Product cards */
+    .product { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: #fff; box-shadow: var(--shadow-1); display:flex; flex-direction: column; }
+    .product .media { aspect-ratio: 4/3; background: linear-gradient(135deg, #eee, #ddd); display:grid; place-items:center; color:#666; font-size:.9rem; }
+    .product .body { padding: var(--space-4); display:flex; flex-direction: column; gap: .5rem; }
+    .product .meta { display:flex; justify-content: space-between; align-items: center; font-size:.9rem; color: var(--ink-3); }
+    .stars { letter-spacing: .15em; }
+    .badge { display:inline-flex; align-items:center; gap:.4rem; background: var(--brand-3); color: var(--brand-2); font-weight:700; border-radius:999px; padding:.25rem .5rem; font-size:.8rem; }
+
+    /* Seller workspace */
+    .workspace { display:grid; grid-template-columns: 1.6fr 1fr; gap: var(--space-6); }
+    .panel { border: 1px solid var(--line); border-radius: var(--radius); background:#fff; box-shadow: var(--shadow-1); overflow:hidden; }
+    .panel header { position: initial; backdrop-filter:none; background: var(--brand-4); border-bottom:1px solid var(--line); }
+    .panel header h3 { margin: 0; padding: var(--space-4); }
+    .panel .content { padding: var(--space-5); }
+
+    .form-row { display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+    .form-row .full { grid-column: 1/-1; }
+    label { font-weight:700; font-size:.95rem; }
+    input[type="text"], input[type="number"], input[type="search"], select, textarea { width:100%; padding:.75rem .9rem; border:1.5px solid var(--line); border-radius:12px; font-size:1rem; }
+    textarea { min-height: 100px; }
+    input:focus, select:focus, textarea:focus { outline: 3px solid var(--focus); outline-offset: 2px; }
+    .hint { font-size:.9rem; color: var(--ink-3); }
+
+    .actions { display:flex; gap: var(--space-3); flex-wrap:wrap; }
+
+    /* Admin dashboard */
+    .dashboard { display:grid; grid-template-columns: repeat(4,1fr); gap: var(--space-5); }
+    .stat { border: 1px solid var(--line); border-radius: var(--radius); background:#fff; padding: var(--space-5); box-shadow: var(--shadow-1); }
+    .stat b { font-size: 1.6rem; display:block; margin-top:.25rem; }
+
+    table { width:100%; border-collapse: collapse; }
+    th, td { text-align:left; padding: .75rem; border-bottom: 1px solid var(--line); }
+    tr[aria-selected="true"] { outline: 3px solid var(--focus); outline-offset: -3px; }
+
+    /* Announcement strip */
+    .announce { background: var(--brand-4); border-bottom: 1px solid var(--line); color: var(--ink-2); }
+    .announce .container { display:flex; gap: var(--space-4); align-items:center; padding: .6rem 0; font-size:.95rem; }
+
+    /* Footer */
+    footer { margin-top: var(--space-8); padding: var(--space-8) 0; background: var(--brand-1); color:#fff; }
+    .foot-grid { display:grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-6); }
+    .foot-grid a { color: #d7fff0; }
+
+    /* Toast/Undo */
+    .toast { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); background: var(--ink-1); color:#fff; padding: .75rem 1rem; border-radius: 12px; box-shadow: var(--shadow-2); display:none; gap: .75rem; align-items:center; z-index: 1000; }
+    .toast button { background:#fff; color:#000; border:0; border-radius: 10px; padding: .4rem .7rem; cursor: pointer; }
+    .toast[data-show="true"] { display:flex; }
+
+    /* Responsive */
+    @media (max-width: 1000px) {
+      .hero { grid-template-columns: 1fr; }
+      .workspace { grid-template-columns: 1fr; }
+      .dashboard { grid-template-columns: repeat(2,1fr); }
+      .trust { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      nav { display:none; }
+      .dashboard { grid-template-columns: 1fr; }
+      .foot-grid { grid-template-columns: 1fr 1fr; }
+      .searchbar { grid-template-columns: 1fr; }
+      .searchbar button { width: 100%; }
+      /* Bottom action bar for small screens */
+      .bottom-bar { position: sticky; bottom: 0; background: #fff; border-top: 1px solid var(--line); padding: .5rem; display:flex; gap: .5rem; z-index:50; }
+      .bottom-bar .btn { flex:1; }
+    }
+
+    /* Focus visibility */
+    :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="announce" role="region" aria-label="Service updates">
+    <div class="container">
+      <span class="badge" aria-hidden="true">New</span>
+      <span>ShopLocal now supports easy order corrections and accessible forms that meet WCAG 2.2 AA.</span>
+      <span class="spacer"></span>
+      <button class="btn ghost" id="contrastToggle" aria-pressed="false" aria-label="Toggle high contrast">High contrast</button>
+      <div class="chip" title="Adjust base font size">
+        <input id="sizeDown" type="radio" name="font" aria-label="Small text">
+        <label for="sizeDown">A−</label>
+      </div>
+      <div class="chip">
+        <input id="sizeReset" type="radio" name="font" aria-label="Default text" checked>
+        <label for="sizeReset">A</label>
+      </div>
+      <div class="chip">
+        <input id="sizeUp" type="radio" name="font" aria-label="Large text">
+        <label for="sizeUp">A+</label>
+      </div>
+    </div>
+  </div>
+
+  <header>
+    <div class="container topbar" role="navigation" aria-label="Primary">
+      <a class="logo" href="#" aria-label="ShopLocal home">
+        <span class="mark" aria-hidden="true"></span>
+        <span>ShopLocal</span>
+      </a>
+      <nav aria-label="Main links">
+        <ul>
+          <li><a href="#view-customer">Shop</a></li>
+          <li><a href="#view-seller">Sell</a></li>
+          <li><a href="#view-admin">Admin</a></li>
+          <li><a href="#stories">Stories</a></li>
+          <li><a href="#help">Help</a></li>
+        </ul>
+      </nav>
+      <div class="spacer" aria-hidden="true"></div>
+      <div class="utility" aria-label="Choose your workspace">
+        <div class="chip" role="radio" aria-checked="true" tabindex="0" data-role="persona" data-target="#view-customer"><span aria-hidden="true">🛒</span> Customer</div>
+        <div class="chip" role="radio" aria-checked="false" tabindex="0" data-role="persona" data-target="#view-seller"><span aria-hidden="true">🧵</span> Seller</div>
+        <div class="chip" role="radio" aria-checked="false" tabindex="0" data-role="persona" data-target="#view-admin"><span aria-hidden="true">🛡️</span> Admin</div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="container" tabindex="-1">
+    <!-- Shared hero + search -->
+    <section aria-label="Welcome">
+      <div class="hero">
+        <div>
+          <h1>Local goods. Zero hassle. One marketplace.</h1>
+          <p>300+ verified artisans and growers. Buy with confidence, sell with ease, and keep it local.</p>
+          <div class="cta">
+            <a href="#view-customer" class="btn primary">Start shopping</a>
+            <a href="#view-seller" class="btn ghost">Become a seller</a>
+          </div>
+        </div>
+        <form class="searchbar" role="search" aria-label="Search products" onsubmit="return false;">
+          <label class="visually-hidden" for="q">Search</label>
+          <input id="q" type="search" placeholder="Search handmade, vintage, produce…" list="suggest" aria-describedby="searchHint" />
+          <button id="searchBtn" class="btn primary" aria-label="Search products">Search</button>
+          <div id="searchHint" class="hint">Tip: try “ceramic mug”, “vintage jacket”, or “heirloom tomatoes”.</div>
+          <datalist id="suggest">
+            <option value="ceramic mug"></option>
+            <option value="macrame wall hanging"></option>
+            <option value="sourdough"></option>
+            <option value="vintage denim"></option>
+            <option value="heirloom tomatoes"></option>
+          </datalist>
+          <div class="filters" role="toolbar" aria-label="Quick filters">
+            <button class="filter" data-filter="handmade" aria-pressed="false">Handmade</button>
+            <button class="filter" data-filter="vintage" aria-pressed="false">Vintage</button>
+            <button class="filter" data-filter="produce" aria-pressed="false">Produce</button>
+            <button class="filter" data-filter="pickup" aria-pressed="false">Local pickup</button>
+            <button class="filter" data-filter="verified" aria-pressed="false">Verified sellers</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="trust" aria-label="Trust and assurance">
+        <div class="card">
+          <div class="icon" aria-hidden="true">✅</div>
+          <div>
+            <strong>Verified Sellers</strong>
+            <div class="hint">Identity checks and quality guidelines keep the bar high.</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="icon" aria-hidden="true">🛡️</div>
+          <div>
+            <strong>Buyer Protection</strong>
+            <div class="hint">Simple refunds & dispute mediation if something goes wrong.</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="icon" aria-hidden="true">♿</div>
+          <div>
+            <strong>Accessible by Design</strong>
+            <div class="hint">Keyboard-friendly, high contrast, and screen-reader tested.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CUSTOMER VIEW -->
+    <section id="view-customer" aria-label="Customer shopping" data-view>
+      <h2>Discover local favorites</h2>
+      <div class="grid" id="productGrid" role="list">
+        <!-- Sample products with trust & pickup tags -->
+        <article class="product" role="listitem" data-tags="handmade,verified,pickup">
+          <div class="media" aria-label="Product photo placeholder">Ceramic Mug</div>
+          <div class="body">
+            <strong>Ceramic Mug · Forest Glaze</strong>
+            <div class="meta"><span class="stars" aria-label="Rated 4.7 out of 5">★★★★★</span><span>by Willow Pottery</span></div>
+            <div class="meta"><span class="badge">Verified</span><span>₹1,200 · Pickup available</span></div>
+            <button class="btn primary addCart" data-id="p1">Add to cart</button>
+          </div>
+        </article>
+        <article class="product" role="listitem" data-tags="vintage,verified">
+          <div class="media">Vintage Denim Jacket</div>
+          <div class="body">
+            <strong>Vintage Denim Jacket · 1980s</strong>
+            <div class="meta"><span class="stars" aria-label="Rated 4.9 out of 5">★★★★★</span><span>by RetroThreads</span></div>
+            <div class="meta"><span class="badge">Verified</span><span>₹4,800</span></div>
+            <button class="btn primary addCart" data-id="p2">Add to cart</button>
+          </div>
+        </article>
+        <article class="product" role="listitem" data-tags="produce,pickup">
+          <div class="media">Heirloom Tomatoes</div>
+          <div class="body">
+            <strong>Heirloom Tomatoes · 1 kg</strong>
+            <div class="meta"><span class="stars" aria-label="Rated 4.6 out of 5">★★★★★</span><span>by Green Valley Farm</span></div>
+            <div class="meta"><span class="badge">Pickup</span><span>₹250</span></div>
+            <button class="btn primary addCart" data-id="p3">Add to cart</button>
+          </div>
+        </article>
+        <article class="product" role="listitem" data-tags="handmade">
+          <div class="media">Beeswax Candles</div>
+          <div class="body">
+            <strong>Beeswax Candle Set</strong>
+            <div class="meta"><span class="stars" aria-label="Rated 4.8 out of 5">★★★★★</span><span>by SunHive</span></div>
+            <div class="meta"><span class="badge" aria-hidden="true">Eco</span><span>₹750</span></div>
+            <button class="btn primary addCart" data-id="p4">Add to cart</button>
+          </div>
+        </article>
+      </div>
+
+      <div class="bottom-bar" aria-label="Quick cart actions (mobile only)">
+        <button class="btn ghost" id="viewCartBtn">View cart</button>
+        <button class="btn primary" id="checkoutBtn">Checkout</button>
+      </div>
+    </section>
+
+    <!-- SELLER VIEW -->
+    <section id="view-seller" aria-label="Seller workspace" hidden data-view>
+      <h2>Fast listing & inventory (built for busy artisans)</h2>
+      <div class="workspace">
+        <div class="panel" role="region" aria-labelledby="quickActionsH">
+          <header><h3 id="quickActionsH">Quick actions</h3></header>
+          <div class="content">
+            <div class="actions">
+              <button class="btn primary" id="addItemBtn">Add a product</button>
+              <button class="btn ghost" id="bulkOutBtn">Mark item out of stock</button>
+              <button class="btn ghost" id="discountBtn">Create a discount</button>
+            </div>
+            <details style="margin-top:1rem;">
+              <summary><strong>Listing checklist</strong> — helpful for first-timers</summary>
+              <ol>
+                <li>Use simple titles (e.g., “Ceramic Mug – Blue”).</li>
+                <li>Add 1–3 clear photos on a plain background.</li>
+                <li>Set quantity and pickup/delivery options.</li>
+                <li>Price fairly and describe materials & size.</li>
+              </ol>
+            </details>
+          </div>
+        </div>
+
+        <form class="panel" role="region" aria-labelledby="listFormH" id="listForm">
+          <header><h3 id="listFormH">Quick add product</h3></header>
+          <div class="content">
+            <div class="form-row">
+              <div>
+                <label for="title">Title</label>
+                <input id="title" name="title" type="text" placeholder="e.g., Ceramic Mug – Blue" required />
+                <div class="hint">Keep it short and clear.</div>
+              </div>
+              <div>
+                <label for="category">Category</label>
+                <select id="category" name="category" required>
+                  <option value="">Choose…</option>
+                  <option>Handmade</option>
+                  <option>Vintage</option>
+                  <option>Produce</option>
+                </select>
+              </div>
+              <div>
+                <label for="price">Price (₹)</label>
+                <input id="price" name="price" type="number" min="1" step="1" inputmode="numeric" required />
+              </div>
+              <div>
+                <label for="qty">Quantity</label>
+                <input id="qty" name="qty" type="number" min="0" step="1" inputmode="numeric" required />
+              </div>
+              <div class="full">
+                <label for="desc">Description</label>
+                <textarea id="desc" name="desc" placeholder="Materials, size, care…"></textarea>
+              </div>
+              <div class="full">
+                <label for="photos">Photos</label>
+                <input id="photos" name="photos" type="file" accept="image/*" multiple />
+                <div class="hint">You can take photos right from your phone.</div>
+              </div>
+            </div>
+            <div class="actions" style="margin-top:1rem;">
+              <button class="btn primary" id="publishBtn" type="submit">List it</button>
+              <button class="btn ghost" id="saveDraftBtn" type="button">Save draft</button>
+              <span id="autosave" class="hint" role="status" aria-live="polite"></span>
+            </div>
+            <hr style="margin:1rem 0;" />
+            <div>
+              <strong>Your items</strong>
+              <ul id="inventory" aria-live="polite" class="hint" style="padding-left:1rem;">
+                <li>No items yet. Add your first product!</li>
+              </ul>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ADMIN VIEW -->
+    <section id="view-admin" aria-label="Admin oversight" hidden data-view>
+      <h2>Admin overview (calm control, not chaos)</h2>
+      <div class="dashboard" role="region" aria-label="Key stats">
+        <div class="stat"><div class="hint">Active sellers</div><b id="statSellers">—</b></div>
+        <div class="stat"><div class="hint">Orders today</div><b id="statOrders">—</b></div>
+        <div class="stat"><div class="hint">Pending applications</div><b id="statApps">—</b></div>
+        <div class="stat"><div class="hint">Open disputes</div><b id="statDisp">—</b></div>
+      </div>
+
+      <div class="panel" style="margin-top:1rem;" role="region" aria-labelledby="queueH">
+        <header><h3 id="queueH">Triage queue</h3></header>
+        <div class="content">
+          <table aria-describedby="queueHelp">
+            <caption class="visually-hidden">Applications & quality alerts</caption>
+            <thead>
+              <tr><th scope="col">Type</th><th scope="col">From</th><th scope="col">Details</th><th scope="col">Action</th></tr>
+            </thead>
+            <tbody id="triageBody"></tbody>
+          </table>
+          <div id="queueHelp" class="hint" style="margin-top:.5rem;">Approve, request changes, or escalate. Every action is undoable for 30 seconds.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stories / Design Notes -->
+    <section id="stories" aria-label="Stories and design approach">
+      <h2>Community stories & our design approach</h2>
+      <div class="grid">
+        <article class="product" aria-label="Design notes">
+          <div class="body">
+            <strong>How this homepage unifies 3 audiences</strong>
+            <ul>
+              <li><b>Customers:</b> Top search + one-tap filters + trust badges. Mobile bottom bar keeps checkout close.</li>
+              <li><b>Sellers:</b> Quick actions and an ultra-simple listing form with autosave and guidance.</li>
+              <li><b>Admin:</b> Calm dashboard + triage table for applications, quality, and disputes with undo.</li>
+            </ul>
+            <p><b>Consistency:</b> A single card language, warm local palette, and shared components (buttons, chips, panels) make it feel like one product even while views tailor to each role.</p>
+            <p><b>Accessibility:</b> Skip link, ARIA landmarks, visible focus, high-contrast mode, keyboardable controls, and reduced-motion respect. Forms use clear labels, hints, and large tap targets.</p>
+            <p><b>Error recovery:</b> After key actions (add to cart, publish listing, admin decisions) a toast offers <em>Undo</em> to correct mistakes fast.</p>
+          </div>
+        </article>
+        <article class="product" aria-label="Authentic meets polished">
+          <div class="body">
+            <strong>Authentic meets polished</strong>
+            <p>We combine farmers-market warmth (craft paper tones, friendly copy) with Etsy-level clarity (structured cards, strong contrast, confident spacing). Buyers feel safe; sellers feel capable.</p>
+          </div>
+        </article>
+        <article class="product" aria-label="Mobile-first moments">
+          <div class="body">
+            <strong>Mobile-first moments</strong>
+            <p>On phones, sellers get big buttons and a sticky bottom bar for actions. Shoppers see simplified grids and checkout nearby. Admins keep a compact yet readable queue.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="help" aria-label="Help & policies">
+      <h2>Help & policies</h2>
+      <details>
+        <summary><strong>How do refunds and disputes work?</strong></summary>
+        <p>Contact the seller first. If unresolved, open a dispute within 14 days; our team mediates quickly. Buyer Protection keeps you safe.</p>
+      </details>
+      <details>
+        <summary><strong>Accessibility conformance</strong></summary>
+        <p>We target WCAG 2.2 AA. Need accommodations? Email <span aria-label="support at shoplocal dot example" role="text">support@shoplocal.example</span>.</p>
+      </details>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="container foot-grid">
+      <div>
+        <strong>ShopLocal</strong>
+        <p class="hint">Connecting artisans and neighbors across the region.</p>
+      </div>
+      <div>
+        <strong>Company</strong>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+      <div>
+        <strong>Legal</strong>
+        <ul>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Seller Guidelines</a></li>
+        </ul>
+      </div>
+      <div>
+        <strong>Contact</strong>
+        <ul>
+          <li><a href="#">Support</a></li>
+          <li><a href="#">Report a listing</a></li>
+          <li><a href="#">Accessibility</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" role="status" aria-live="polite" id="toast" hidden>
+    <span id="toastMsg">Action complete.</span>
+    <button id="undoBtn" aria-label="Undo last action">Undo</button>
+  </div>
+
+  <noscript>
+    <div class="container" style="padding:1rem; background:#fffbe6; border-top:2px solid #f0d000;">This site works best with JavaScript enabled. All core actions (search, list, triage) also provide server-side equivalents.</div>
+  </noscript>
+
+  <script>
+    (function() {
+      const $ = (sel, ctx=document) => ctx.querySelector(sel);
+      const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
+
+      // Preferences: persona, contrast, font size
+      const state = {
+        persona: localStorage.getItem('persona') || '#view-customer',
+        contrast: localStorage.getItem('contrast') || 'normal',
+        fontSize: parseFloat(localStorage.getItem('fontSize') || '16')
+      };
+
+      // Apply initial prefs
+      function applyPrefs() {
+        document.documentElement.dataset.contrast = state.contrast === 'high' ? 'high' : '';
+        document.body.style.fontSize = state.fontSize + 'px';
+        // Activate persona
+        switchView(state.persona);
+        // Update UI toggle states
+        $('#contrastToggle').setAttribute('aria-pressed', state.contrast === 'high');
+      }
+
+      // Persona switcher
+      function switchView(targetSel) {
+        $$('[data-view]').forEach(sec => sec.hidden = true);
+        const target = document.querySelector(targetSel);
+        if (target) target.hidden = false;
+        state.persona = targetSel; localStorage.setItem('persona', targetSel);
+        // Update radio-like chips
+        $$('[data-role="persona"]').forEach(chip => chip.setAttribute('aria-checked', chip.dataset.target === targetSel));
+      }
+
+      $$('.utility [data-role="persona"]').forEach(chip => {
+        chip.addEventListener('click', () => switchView(chip.dataset.target));
+        chip.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); switchView(chip.dataset.target); }
+        });
+      });
+
+      // Contrast & font size controls
+      $('#contrastToggle').addEventListener('click', () => {
+        state.contrast = state.contrast === 'high' ? 'normal' : 'high';
+        localStorage.setItem('contrast', state.contrast);
+        applyPrefs();
+      });
+      $('#sizeDown').addEventListener('click', () => { state.fontSize = Math.max(14, state.fontSize - 1); localStorage.setItem('fontSize', state.fontSize); applyPrefs(); });
+      $('#sizeReset').addEventListener('click', () => { state.fontSize = 16; localStorage.setItem('fontSize', state.fontSize); applyPrefs(); });
+      $('#sizeUp').addEventListener('click', () => { state.fontSize = Math.min(22, state.fontSize + 1); localStorage.setItem('fontSize', state.fontSize); applyPrefs(); });
+
+      // Search & filters (client-side demo)
+      function applyFilters() {
+        const q = ($('#q').value || '').toLowerCase();
+        const active = $$('.filter[aria-pressed="true"]').map(b => b.dataset.filter);
+        $$('#productGrid .product').forEach(card => {
+          const text = card.innerText.toLowerCase();
+          const tags = (card.dataset.tags || '').split(',');
+          const matchQ = !q || text.includes(q);
+          const matchF = !active.length || active.every(f => tags.includes(f));
+          card.style.display = (matchQ && matchF) ? '' : 'none';
+        });
+      }
+      $('#searchBtn').addEventListener('click', applyFilters);
+      $('#q').addEventListener('input', applyFilters);
+      $$('.filter').forEach(btn => btn.addEventListener('click', () => {
+        const pressed = btn.getAttribute('aria-pressed') === 'true';
+        btn.setAttribute('aria-pressed', String(!pressed));
+        applyFilters();
+      }));
+
+      // Toast / Undo pattern
+      const toast = $('#toast');
+      const toastMsg = $('#toastMsg');
+      const undoBtn = $('#undoBtn');
+      let undo = null; // function to call if user clicks undo
+      function showToast(msg, onUndo) {
+        toastMsg.textContent = msg;
+        undo = onUndo || null;
+        toast.dataset.show = 'true';
+        toast.removeAttribute('hidden');
+        clearTimeout(showToast._t);
+        showToast._t = setTimeout(hideToast, 5000);
+      }
+      function hideToast() { toast.dataset.show = 'false'; toast.setAttribute('hidden', ''); }
+      undoBtn.addEventListener('click', () => { if (undo) undo(); hideToast(); });
+
+      // Cart (demo)
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); }
+      $$('.addCart').forEach(btn => btn.addEventListener('click', () => {
+        const id = btn.dataset.id; cart.push(id); saveCart();
+        showToast('Added to cart.', () => { const i = cart.lastIndexOf(id); if (i > -1) { cart.splice(i,1); saveCart(); } });
+      }));
+      $('#viewCartBtn').addEventListener('click', () => alert('Cart items: ' + cart.join(', ')));
+      $('#checkoutBtn').addEventListener('click', () => alert('Demo checkout'));
+
+      // Seller form: autosave + publish
+      const form = $('#listForm');
+      const autosave = $('#autosave');
+      const inv = $('#inventory');
+      const draftKey = 'seller-draft';
+
+      function loadDraft() {
+        const draft = JSON.parse(localStorage.getItem(draftKey) || 'null');
+        if (draft) { Object.entries(draft).forEach(([k,v]) => { const el = form.elements[k]; if (el && el.type !== 'file') el.value = v; }); autosave.textContent = 'Draft restored'; }
+      }
+      function collectForm() {
+        const data = { title: form.title.value, category: form.category.value, price: form.price.value, qty: form.qty.value, desc: form.desc.value };
+        return data;
+      }
+      function setInvList(items) {
+        inv.innerHTML = '';
+        if (!items.length) { inv.innerHTML = '<li>No items yet. Add your first product!</li>'; return; }
+        items.forEach((it, idx) => {
+          const li = document.createElement('li');
+          li.textContent = `${it.title} · ₹${it.price} · ${it.qty} in stock`;
+          li.tabIndex = 0; li.setAttribute('role', 'button'); li.setAttribute('aria-pressed', 'false');
+          li.addEventListener('click', () => {
+            const removed = items.splice(idx,1)[0];
+            localStorage.setItem('inventory', JSON.stringify(items));
+            setInvList(items);
+            showToast('Item removed.', () => { items.splice(idx,0,removed); localStorage.setItem('inventory', JSON.stringify(items)); setInvList(items); });
+          });
+          inv.appendChild(li);
+        });
+      }
+
+      // Real-time autosave (except files)
+      form.addEventListener('input', () => {
+        const data = collectForm(); localStorage.setItem(draftKey, JSON.stringify(data)); autosave.textContent = 'Autosaved';
+      });
+      $('#saveDraftBtn').addEventListener('click', () => { localStorage.setItem(draftKey, JSON.stringify(collectForm())); autosave.textContent = 'Draft saved'; });
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const data = collectForm();
+        if (!data.title || !data.category || !data.price) { alert('Please fill Title, Category, and Price'); return; }
+        const items = JSON.parse(localStorage.getItem('inventory') || '[]');
+        items.unshift(data); localStorage.setItem('inventory', JSON.stringify(items)); setInvList(items);
+        localStorage.removeItem(draftKey); form.reset(); autosave.textContent = '';
+        showToast('Listing published.', () => {
+          // Undo publish
+          const cur = JSON.parse(localStorage.getItem('inventory') || '[]');
+          const removed = cur.shift(); localStorage.setItem('inventory', JSON.stringify(cur)); setInvList(cur);
+          localStorage.setItem(draftKey, JSON.stringify(removed)); loadDraft();
+        });
+      });
+
+      // Quick actions (demo)
+      $('#addItemBtn').addEventListener('click', () => { switchView('#view-seller'); form.title.focus(); });
+      $('#bulkOutBtn').addEventListener('click', () => showToast('Marked selected items out of stock.', null));
+      $('#discountBtn').addEventListener('click', () => showToast('10% discount scheduled for this weekend.', null));
+
+      // Admin dashboard demo data
+      function seedAdmin() {
+        const stats = { sellers: 312, orders: Math.floor(Math.random()*120)+30, apps: 7, disp: 2 };
+        $('#statSellers').textContent = stats.sellers;
+        $('#statOrders').textContent = stats.orders;
+        $('#statApps').textContent = stats.apps;
+        $('#statDisp').textContent = stats.disp;
+
+        const rows = [
+          { type: 'Application', from: 'Fern & Fiber', detail: 'New artisan application – textiles', id: 'a1' },
+          { type: 'Quality', from: 'RetroThreads', detail: 'Low-res images flagged', id: 'q1' },
+          { type: 'Dispute', from: 'Order #7842', detail: 'Late delivery – buyer requested refund', id: 'd1' },
+        ];
+        const body = $('#triageBody'); body.innerHTML = '';
+        rows.forEach(r => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td>${r.type}</td><td>${r.from}</td><td>${r.detail}</td><td>
+            <button class="btn ghost" data-act="more" data-id="${r.id}">Review</button>
+            <button class="btn primary" data-act="resolve" data-id="${r.id}">Resolve</button>
+          </td>`;
+          body.appendChild(tr);
+        });
+        body.addEventListener('click', (e) => {
+          const b = e.target.closest('button'); if (!b) return; const id = b.dataset.id; const act = b.dataset.act;
+          if (act === 'resolve') {
+            const row = b.closest('tr'); const idx = Array.from(body.children).indexOf(row);
+            body.removeChild(row);
+            showToast('Resolved. 30s to Undo.', () => {
+              // Reinsert row at same index
+              if (idx >= 0) {
+                const clone = document.createElement('tr');
+                clone.innerHTML = row.innerHTML; if (idx >= body.children.length) body.appendChild(clone); else body.insertBefore(clone, body.children[idx]);
+              }
+            });
+          } else if (act === 'more') {
+            alert('Open detailed drawer (demo) with history and actions.');
+          }
+        });
+      }
+
+      // Inventory init
+      function initInventory() { const items = JSON.parse(localStorage.getItem('inventory') || '[]'); setInvList(items); }
+
+      // Accessibility enhancements: focus main on hash nav
+      window.addEventListener('hashchange', () => { const m = document.getElementById('main'); m && m.focus(); });
+
+      // Initial run
+      loadDraft(); initInventory(); seedAdmin(); applyPrefs();
+
+      // Expose for debugging in console
+      window.ShopLocalDemo = { state, switchView };
+    })();
+  </script>
+
+  <style>
+    /* Utility class for screen-reader-only text */
+    .visually-hidden { position: absolute !important; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px); white-space: nowrap; }
+  </style>
+</body>
+</html>

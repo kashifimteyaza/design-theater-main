@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City of Riverside - Official Website</title>
+    <style>
+        /* CSS Variables for theming and accessibility */
+        :root {
+            --primary-blue: #0066cc;
+            --primary-dark: #004080;
+            --secondary-green: #2d7a3e;
+            --alert-red: #c41e3a;
+            --alert-yellow: #ffc107;
+            --text-primary: #212121;
+            --text-secondary: #666;
+            --bg-light: #f5f5f5;
+            --bg-white: #ffffff;
+            --border-gray: #ddd;
+            --focus-outline: #0066cc;
+            
+            --font-size-base: 16px;
+            --spacing-unit: 8px;
+        }
+
+        /* High contrast theme */
+        .high-contrast {
+            --primary-blue: #0000ff;
+            --primary-dark: #000080;
+            --text-primary: #000000;
+            --text-secondary: #000000;
+            --bg-light: #ffffff;
+            --bg-white: #ffffff;
+            --border-gray: #000000;
+        }
+
+        /* Font size adjustments */
+        .font-size-small {
+            --font-size-base: 14px;
+        }
+
+        .font-size-large {
+            --font-size-base: 18px;
+        }
+
+        .font-size-xlarge {
+            --font-size-base: 22px;
+        }
+
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-size: var(--font-size-base);
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--bg-light);
+        }
+
+        /* Skip to main content link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary-blue);
+            color: white;
+            padding: calc(var(--spacing-unit) * 1) calc(var(--spacing-unit) * 2);
+            text-decoration: none;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Emergency Alert Banner */
+        .emergency-alert {
+            background-color: var(--alert-red);
+            color: white;
+            padding: calc(var(--spacing-unit) * 2);
+            display: none;
+            position: relative;
+        }
+
+        .emergency-alert.active {
+            display: block;
+        }
+
+        .emergency-alert.warning {
+            background-color: var(--alert-yellow);
+            color: var(--text-primary);
+        }
+
+        .emergency-alert-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: calc(var(--spacing-unit) * 2);
+        }
+
+        .emergency-icon {
+            font-size: 2em;
+            flex-shrink: 0;
+        }
+
+        .emergency-text {
+            flex-grow: 1;
+        }
+
+        .emergency-text h2 {
+            font-size: 1.2em;
+            margin-bottom: calc(var(--spacing-unit) * 0.5);
+        }
+
+        .emergency-close {
+            background: none;
+            border: 2px solid white;
+            color: white;
+            padding: calc(var(--spacing-unit) * 1) calc(var(--spacing-unit) * 2);
+            cursor: pointer;
+            font-size: 0.9em;
+            border-radius: 4px;
+        }
+
+        .emergency-close:hover,
+        .emergency-close:focus {
+            background-color: rgba(255, 255, 255, 0.2);
+            outline: 2px solid white;
+            outline-offset: 2px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--bg-white);
+            border-bottom: 1px solid var(--border-gray);
+        }
+
+        .utility-bar {
+            background-color: var(--bg-light);
+            padding: calc(var(--spacing-unit) * 1) 0;
+            border-bottom: 1px solid var(--border-gray);
+        }
+
+        .utility-bar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 calc(var(--spacing-unit) * 2);
+            display: flex;
+            justify-content: flex-end;
+            gap: calc(var(--spacing-unit) * 2);
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .accessibility-controls {
+            display: flex;
+            gap: calc(var(--spacing-unit) * 1);
+            align-items: center;
+        }
+
+        .accessibility-controls label {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+        }
+
+        .icon-btn {
+            background: none;
+            border: 1px solid var(--border-gray);
+            padding: calc(var(--spacing-unit) * 0.5) calc(var(--spacing-unit) * 1);
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        .icon-btn:hover,
+        .icon-btn:focus {
+            background-color: var(--bg-light);
+            outline: 2px solid var(--focus-outline);
+            outline-offset: 2px;
+        }
+
+        .icon-btn.active {
+            background-color: var(--primary-blue);
+            color: white;
+            border-color: var(--primary-blue);
+        }
+
+        .lang-switcher {
+            display: flex;
+            gap: calc(var(--spacing-unit) * 0.5);
+        }
+
+        .lang-btn {
+            background: none;
+            border: none;
+            padding: calc(var(--spacing-unit) * 0.5) calc(var(--spacing-unit) * 1);
+            cursor: pointer;
+            color: var(--text-secondary);
+            text-decoration: underline;
+            font-size: 0.9em;
+        }
+
+        .lang-btn.active {
+            color: var(--primary-blue);
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .lang-btn:hover,
+        .lang-btn:focus {
+            color: var(--primary-dark);
+            outline: 2px solid var(--focus-outline);
+            outline-offset: 2px;
+        }
+
+        .main-header {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: calc(var(--spacing-unit) * 3) calc(var(--spacing-unit) * 2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: calc(var(--spacing-unit) * 2);
+            flex-wrap: wrap;
+        }
+
+        .site-branding {
+            display: flex;
+            align-items: center;
+            gap: calc(var(--spacing-unit) * 2);
+        }
+
+        .city-seal {
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.5em;
+        }
+
+        .site-title {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .site-title h1 {
+            font-size: 1.8em;
+            color: var(--primary-blue);
+            line-height: 1.2;
+        }
+
+        .site-tagline {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+        }
+
+        /* Search */
+        .header-search {
+            flex-grow: 1;
+            max-width: 500px;
+        }
+
+        .search-form {
+            display: flex;
+            gap: calc(var(--spacing-unit) * 1);
+        }
+
+        .search-input {
+            flex-grow: 1;
+            padding: calc(var(--spacing-unit) * 1.5);
+            border: 2px solid var(--border-gray);
+            border-radius: 4px;
+            font-size: 1em;
+        }
+
+        .search-input:focus {
+            outline: 2px solid var(--focus-outline);
+            outline-offset: 2px;
+            border-color: var(--primary-blue);
+        }
+
+        .search-btn {
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: calc(var(--spacing-unit) * 1.5) calc(var(--spacing-unit) * 3);
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 1em;
+        }
+
+        .search-btn:hover,
+        .search-btn:focus {
+            background-color: var(--primary-dark);
+            outline: 2px solid var(--focus-outline);
+            outline-offset: 2px;
+        }
+
+        /* Main content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: calc(var(--spacing-unit) * 4) calc(var(--spacing-unit) * 2);
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            background-color: var(--bg-white);
+            padding: calc(var(--spacing-unit) * 3);
+            border-radius: 8px;
+            margin-bottom: calc(var(--spacing-unit) * 4);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .quick-actions h2 {
+            color: var(--primary-blue);
+            margin-bottom: calc(var(--spacing-unit) * 2);
+            font-size: 1.5em;
+        }
+
+        .quick-actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: calc(var(--spacing-unit) * 2);
+        }
+
+        .quick-action-card {
+            display: flex;
+            align-items: center;
+            gap: calc(var(--spacing-unit) * 2);
+            padding: calc(var(--spacing-unit) * 2);
+            border: 2px solid var(--border-gray);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.2s;
+        }
+
+        .quick-action-card:hover,
+        .quick-action-card:focus {
+            border-color: var(--primary-blue);
+            background-color: var(--bg-light);
+            outline: 2px solid var(--focus-outline);
+            outline-offset: 2px;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .quick-action-icon {
+            width: 48px;
+            height: 48px;
+            background-color: var(--primary-blue);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5em;
+            flex-shrink: 0;
+        }
+
+        .quick-action-text {
+            flex-grow: 1;
+        }
+
+        .quick-action-text strong {
+            display: block;
+            font-size: 1.1em;
+            margin-bottom: calc(var(--spacing-unit) * 0.5);
+        }
+
+        .quick-action-text span {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+        }
+
+        /* Service Categories */
+        .service-categories {
+            margin-bottom: calc(var(--spacing-unit) * 4);
+        }
+
+        .section-header {
+            margin-bottom: calc(var(--spacing-unit) * 3);
+        }
+
+        .section-header h2 {
+            color: var(--primary-blue);
+            font-size: 1.8em;
+            margin-bottom: calc(var(--spacing-unit) * 1);
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1.1em;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: calc(var(--spacing-unit) * 3);
+        }
+
+        .category-card {
+            background-color: var(--bg-white);
+            padding: calc(var(--spacing-unit) * 3);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: calc(var(--spacing-unit) * 2);
+            margin-bottom: calc(var(--spacing-unit) * 2);
+        }
+
+        .category-icon {
+            width: 56px;
+            height: 56px;
+            background-color: var(--primary-blue);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8em;
+        }
+
+        .category-header h3 {
+            font-size: 1.3em;
+            color: var(--text-primary);
+        }
+
+        .category-links {
+            list-style: none;
+        }
+
+        .category-links li {
+            margin-bottom: calc(var(--spacing-unit) * 1.5);
+        }
+
+        .category-links a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+            gap: calc(var(--spacing-unit) * 1);
+        }
+
+        .category-links a:hover,
+        .category-links a:focus {
+            text-decoration: underline;
+            outline: 2px solid var(--focus-outline);
+            outline-offset: 2px;
+        }
+
+        .category-links a::before {
+            content: "→";
+            color: var(--primary-blue);
+        }
+
+        /* Resident Tools */
+        .resident-tools {
+            background-color: var(--secondary-green);
+            color: white;
+            padding: calc(var(--spacing-unit) * 4);
+            border-radius: 8px;
+            margin-bottom: calc(var(--spacing-unit) * 4);
+        }
+
+        .resident-tools h2 {
+            font-size: 1.8em;
+            margin-bottom: calc(var(--spacing-unit) * 1);
+        }
+
+        .resident-tools p {
+            font-size: 1.1em;
+            margin-bottom: calc(var(--spacing-unit) * 3);
+            opacity: 0.95;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: calc(var(--spacing-unit) * 2);
+        }
+
+        .tool-card {
+            background-color: white;
+            color: var(--text-primary);
+            padding: calc(var(--spacing-unit) * 2.5);
+            border-radius: 8px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .tool-card:hover,
+        .tool-card:focus {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            outline: 2px solid white;
+            outline-offset: 2px;
+        }
+
+        .tool-card-icon {
+            font-size: 2.5em;
+            margin-bottom: calc(var(--spacing-unit) * 1);
+        }
+
+        .tool-card strong {
+            display: block;
+            font-size: 1.2em;
+            margin-bottom: calc(var(--spacing-unit) * 0.5);
+            color: var(--secondary-green);
+        }
+
+        .tool-card span {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+        }
+
+        /* News and Updates */
+        .news-updates {
+            margin-bottom: calc(var(--spacing-unit) * 4);
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: calc(var(--spacing-unit) * 3);
+        }
+
+        .news-card {
+            background-color: var(--bg-white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+            color: var(--text-primary);
+            display: block;
+            transition: all 0.2s;
+        }
+
+        .news-card:hover,
+        .news-card:focus {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+            outline: 2px solid var(--focus-outline);
+            outline-offset: 2px;
+        }
+
+        .news-image {
+            width: 100%;
+            height: 200px;
+            background-color: var(--bg-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            color: var(--text-secondary);
+        }
+
+        .news-content {
+            padding: calc(var(--spacing-unit) * 2.5);
+        }
+
+        .news-date {
+            font-size: 0.85em;
+            color: var(--text-secondary);
+            margin-bottom: calc(var(--spacing-unit) * 0.5);
+        }
+
+        .news-content h3 {
+            font-size: 1.3em;
+            margin-bottom: calc(var(--spacing-unit) * 1);
+            color: var(--text-primary);
+        }
+
+        .news-content p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-dark);
+            color: white;
+            padding: calc(var(--spacing-unit) * 4) 0;
+            margin-top: calc(var(--spacing-unit) * 6);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 calc(var(--spacing-unit) * 2);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: calc(var(--spacing-unit) * 4);
+            margin-bottom: calc(var(--spacing-unit) * 4);
+        }
+
+        .footer-section h3 {
+            font-size: 1.2em;
+            margin-bottom: calc(var(--spacing-unit) * 2);
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: calc(var(--spacing-unit) * 1);
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            font-size: 0.95em;
+        }
+
+        .footer-links a:hover,
+        .footer-links a:focus {
+            color: white;
+            text-decoration: underline;
+            outline: 2px solid white;
+            outline-offset: 2px;
+        }
+
+        .footer-contact {
+            font-size: 0.95em;
+            line-height: 1.8;
+        }
+
+        .footer-contact a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: calc(var(--spacing-unit) * 2);
+            text-align: center;
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-search {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .quick-actions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .utility-bar-content {
+                justify-content: center;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .utility-bar,
+            .emergency-alert,
+            .skip-link {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to main content for keyboard users -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Emergency Alert Banner -->
+    <div class="emergency-alert active" role="alert" aria-live="assertive" id="emergencyAlert">
+        <div class="emergency-alert-content">
+            <span class="emergency-icon" aria-hidden="true">⚠️</span>
+            <div class="emergency-text">
+                <h2>Severe Weather Alert</h2>
+                <p>Flash flood warning in effect until 8 PM. Avoid low-lying areas. <a href="#" style="color: white; text-decoration: underline;">View emergency information</a></p>
+            </div>
+            <button class="emergency-close" onclick="closeEmergencyAlert()" aria-label="Close emergency alert">
+                Dismiss
+            </button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <!-- Utility Bar -->
+        <div class="utility-bar">
+            <div class="utility-bar-content">
+                <!-- Accessibility Controls -->
+                <div class="accessibility-controls">
+                    <label for="font-size-select">Text Size:</label>
+                    <button class="icon-btn" onclick="setFontSize('small')" aria-label="Small text size" title="Small">A</button>
+                    <button class="icon-btn active" onclick="setFontSize('normal')" aria-label="Normal text size" title="Normal">A</button>
+                    <button class="icon-btn" onclick="setFontSize('large')" aria-label="Large text size" title="Large">A</button>
+                    <button class="icon-btn" onclick="setFontSize('xlarge')" aria-label="Extra large text size" title="Extra Large">A</button>
+                </div>
+
+                <button class="icon-btn" onclick="toggleContrast()" id="contrastBtn" aria-label="Toggle high contrast mode" title="High Contrast">
+                    ◐ Contrast
+                </button>
+
+                <!-- Language Switcher -->
+                <div class="lang-switcher" role="group" aria-label="Language selection">
+                    <button class="lang-btn active" onclick="setLanguage('en')" lang="en" aria-pressed="true">English</button>
+                    <button class="lang-btn" onclick="setLanguage('es')" lang="es" aria-pressed="false">Español</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <div class="main-header">
+            <div class="site-branding">
+                <div class="city-seal" aria-hidden="true">R</div>
+                <div class="site-title">
+                    <h1>City of Riverside</h1>
+                    <p class="site-tagline">Serving 150,000 residents</p>
+                </div>
+            </div>
+
+            <div class="header-search">
+                <form class="search-form" role="search" onsubmit="handleSearch(event)">
+                    <label for="main-search" class="visually-hidden">Search city services and information</label>
+                    <input 
+                        type="search" 
+                        id="main-search" 
+                        class="search-input" 
+                        placeholder="Search services, forms, departments..." 
+                        aria-label="Search city services and information"
+                    >
+                    <button type="submit" class="search-btn">Search</button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Quick Actions -->
+        <section class="quick-actions" aria-labelledby="quick-actions-heading">
+            <h2 id="quick-actions-heading">Most Requested Services</h2>
+            <div class="quick-actions-grid">
+                <a href="#" class="quick-action-card">
+                    <div class="quick-action-icon" aria-hidden="true">💧</div>
+                    <div class="quick-action-text">
+                        <strong>Pay Water Bill</strong>
+                        <span>View and pay online</span>
+                    </div>
+                </a>
+
+                <a href="#" class="quick-action-card">
+                    <div class="quick-action-icon" aria-hidden="true">🚧</div>
+                    <div class="quick-action-text">
+                        <strong>Report Issue</strong>
+                        <span>Potholes, streetlights, more</span>
+                    </div>
+                </a>
+
+                <a href="#" class="quick-action-card">
+                    <div class="quick-action-icon" aria-hidden="true">🏗️</div>
+                    <div class="quick-action-text">
+                        <strong>Building Permits</strong>
+                        <span>Apply and track status</span>
+                    </div>
+                </a>
+
+                <a href="#" class="quick-action-card">
+                    <div class="quick-action-icon" aria-hidden="true">🗓️</div>
+                    <div class="quick-action-text">
+                        <strong>Event Calendar</strong>
+                        <span>Parks, recreation, meetings</span>
+                    </div>
+                </a>
+
+                <a href="#" class="quick-action-card">
+                    <div class="quick-action-icon" aria-hidden="true">🏛️</div>
+                    <div class="quick-action-text">
+                        <strong>City Council</strong>
+                        <span>Meetings & minutes</span>
+                    </div>
+                </a>
+
+                <a href="#" class="quick-action-card">
+                    <div class="quick-action-icon" aria-hidden="true">🗑️</div>
+                    <div class="quick-action-text">
+                        <strong>Trash & Recycling</strong>
+                        <span>Schedule and guidelines</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Service Categories -->
+        <section class="service-categories" aria-labelledby="services-heading">
+            <div class="section-header">
+                <h2 id="services-heading">Browse Services by What You Need</h2>
+                <p>Find everything organized by your goals, not by department</p>
+            </div>
+
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-header">
+                        <div class="category-icon" aria-hidden="true">🏡</div>
+                        <h3>Home & Property</h3>
+                    </div>
+                    <ul class="category-links">
+                        <li><a href="#">Pay property taxes</a></li>
+                        <li><a href="#">Apply for building permit</a></li>
+                        <li><a href="#">Request inspection</a></li>
+                        <li><a href="#">View zoning information</a></li>
+                        <li><a href="#">Report code violation</a></li>
+                    </ul>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-header">
+                        <div class="category-icon" aria-hidden="true">💼</div>
+                        <h3>Business & Development</h3>
+                    </div>
+                    <ul class="category-links">
+                        <li><a href="#">Start a business</a></li>
+                        <li><a href="#">Renew business license</a></li>
+                        <li><a href="#">Commercial permits</a></li>
+                        <li><a href="#">Bid on city contracts</a></li>
+                        <li><a href="#">Economic development resources</a></li>
+                    </ul>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-header">
+                        <div class="category-icon" aria-hidden="true">🌳</div>
+                        <h3>Parks & Recreation</h3>
+                    </div>
+                    <ul class="category-links">
+                        <li><a href="#">Find a park or facility</a></li>
+                        <li><a href="#">Register for programs</a></li>
+                        <li><a href="#">Reserve a facility</a></li>
+                        <li><a href="#">View recreation guide</a></li>
+                        <li><a href="#">Trail maps and conditions</a></li>
+                    </ul>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-header">
+                        <div class="category-icon" aria-hidden="true">💡</div>
+                        <h3>Utilities & Services</h3>
+                    </div>
+                    <ul class="category-links">
+                        <li><a href="#">Manage water account</a></li>
+                        <li><a href="#">Electric services</a></li>
+                        <li><a href="#">Trash and recycling schedule</a></li>
+                        <li><a href="#">Street maintenance requests</a></li>
+                        <li><a href="#">Report outage</a></li>
+                    </ul>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-header">
+                        <div class="category-icon" aria-hidden="true">👨‍👩‍👧‍👦</div>
+                        <h3>Community & Safety</h3>
+                    </div>
+                    <ul class="category-links">
+                        <li><a href="#">Police non-emergency</a></li>
+                        <li><a href="#">Fire safety information</a></li>
+                        <li><a href="#">Emergency preparedness</a></li>
+                        <li><a href="#">Neighborhood programs</a></li>
+                        <li><a href="#">Public health resources</a></li>
+                    </ul>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-header">
+                        <div class="category-icon" aria-hidden="true">🚗</div>
+                        <h3>Transportation</h3>
+                    </div>
+                    <ul class="category-links">
+                        <li><a href="#">Public transit schedules</a></li>
+                        <li><a href="#">Parking permits and meters</a></li>
+                        <li><a href="#">Street closures and detours</a></li>
+                        <li><a href="#">Bike routes and facilities</a></li>
+                        <li><a href="#">Report traffic issue</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resident Tools -->
+        <section class="resident-tools" aria-labelledby="tools-heading">
+            <h2 id="tools-heading">Your Resident Account</h2>
+            <p>Track requests, save forms, and manage your city services all in one place</p>
+            <div class="tools-grid">
+                <a href="#" class="tool-card">
+                    <div class="tool-card-icon" aria-hidden="true">📋</div>
+                    <strong>My Requests</strong>
+                    <span>Track service requests</span>
+                </a>
+
+                <a href="#" class="tool-card">
+                    <div class="tool-card-icon" aria-hidden="true">📄</div>
+                    <strong>Saved Forms</strong>
+                    <span>Quick access to documents</span>
+                </a>
+
+                <a href="#" class="tool-card">
+                    <div class="tool-card-icon" aria-hidden="true">💳</div>
+                    <strong>Payment History</strong>
+                    <span>View all transactions</span>
+                </a>
+
+                <a href="#" class="tool-card">
+                    <div class="tool-card-icon" aria-hidden="true">🔔</div>
+                    <strong>Notifications</strong>
+                    <span>Alerts and updates</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- News and Updates -->
+        <section class="news-updates" aria-labelledby="news-heading">
+            <div class="section-header">
+                <h2 id="news-heading">News & Updates</h2>
+                <p>Stay informed about what's happening in Riverside</p>
+            </div>
+
+            <div class="news-grid">
+                <a href="#" class="news-card">
+                    <div class="news-image" aria-hidden="true">🎉</div>
+                    <div class="news-content">
+                        <p class="news-date">April 15, 2026</p>
+                        <h3>Summer Recreation Programs Now Open</h3>
+                        <p>Registration is now open for youth sports, swimming lessons, and summer camps. Early bird discount available through May 1.</p>
+                    </div>
+                </a>
+
+                <a href="#" class="news-card">
+                    <div class="news-image" aria-hidden="true">🚧</div>
+                    <div class="news-content">
+                        <p class="news-date">April 12, 2026</p>
+                        <h3>Main Street Bridge Renovation Begins</h3>
+                        <p>Construction starts April 20. Expect delays and follow detour signs. Project completion estimated for August.</p>
+                    </div>
+                </a>
+
+                <a href="#" class="news-card">
+                    <div class="news-image" aria-hidden="true">💰</div>
+                    <div class="news-content">
+                        <p class="news-date">April 8, 2026</p>
+                        <h3>City Budget Town Hall April 25</h3>
+                        <p>Join us to discuss the proposed 2026-27 budget. Virtual and in-person options available. Your input matters.</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>Popular Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Employment Opportunities</a></li>
+                        <li><a href="#">Public Records Requests</a></li>
+                        <li><a href="#">Report Website Issue</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Departments</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">City Manager's Office</a></li>
+                        <li><a href="#">Public Works</a></li>
+                        <li><a href="#">Community Development</a></li>
+                        <li><a href="#">Police Department</a></li>
+                        <li><a href="#">Fire Department</a></li>
+                        <li><a href="#">Finance</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <div class="footer-contact">
+                        <p><strong>City Hall</strong><br>
+                        123 Main Street<br>
+                        Riverside, CA 92501</p>
+                        <p><strong>Phone:</strong> <a href="tel:951-555-0100">(951) 555-0100</a><br>
+                        <strong>Email:</strong> <a href="mailto:info@riverside.gov">info@riverside.gov</a></p>
+                        <p><strong>Hours:</strong><br>
+                        Monday - Friday: 8 AM - 5 PM</p>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Stay Connected</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Emergency Alerts</a></li>
+                        <li><a href="#">Newsletter Signup</a></li>
+                        <li><a href="#">Social Media</a></li>
+                        <li><a href="#">RSS Feeds</a></li>
+                        <li><a href="#">Mobile App</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 City of Riverside. All rights reserved. | <a href="#" style="color: inherit;">Accessibility Statement</a> | <a href="#" style="color: inherit;">Website Feedback</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Accessibility: Font Size Control
+        function setFontSize(size) {
+            const body = document.body;
+            body.classList.remove('font-size-small', 'font-size-large', 'font-size-xlarge');
+            
+            if (size !== 'normal') {
+                body.classList.add('font-size-' + size);
+            }
+
+            // Update active button
+            const buttons = document.querySelectorAll('.accessibility-controls .icon-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Store preference
+            localStorage.setItem('fontSize', size);
+        }
+
+        // Accessibility: High Contrast Toggle
+        function toggleContrast() {
+            document.body.classList.toggle('high-contrast');
+            const isActive = document.body.classList.contains('high-contrast');
+            document.getElementById('contrastBtn').classList.toggle('active', isActive);
+            
+            // Store preference
+            localStorage.setItem('highContrast', isActive);
+        }
+
+        // Language Switcher
+        function setLanguage(lang) {
+            // Update active button
+            const buttons = document.querySelectorAll('.lang-btn');
+            buttons.forEach(btn => {
+                const isActive = btn.getAttribute('onclick').includes(lang);
+                btn.classList.toggle('active', isActive);
+                btn.setAttribute('aria-pressed', isActive);
+            });
+
+            // Store preference
+            localStorage.setItem('language', lang);
+
+            // In production, this would reload content in selected language
+            console.log('Language changed to:', lang);
+        }
+
+        // Search Handler
+        function handleSearch(event) {
+            event.preventDefault();
+            const query = document.getElementById('main-search').value;
+            console.log('Searching for:', query);
+            // In production, this would redirect to search results
+            alert('Search functionality would redirect to results for: ' + query);
+        }
+
+        // Emergency Alert Close
+        function closeEmergencyAlert() {
+            const alert = document.getElementById('emergencyAlert');
+            alert.classList.remove('active');
+            
+            // Store that user dismissed this alert
+            localStorage.setItem('emergencyAlertDismissed', 'true');
+        }
+
+        // Restore user preferences on load
+        window.addEventListener('DOMContentLoaded', function() {
+            // Restore font size
+            const savedFontSize = localStorage.getItem('fontSize');
+            if (savedFontSize && savedFontSize !== 'normal') {
+                document.body.classList.add('font-size-' + savedFontSize);
+            }
+
+            // Restore contrast
+            const savedContrast = localStorage.getItem('highContrast');
+            if (savedContrast === 'true') {
+                document.body.classList.add('high-contrast');
+                document.getElementById('contrastBtn').classList.add('active');
+            }
+
+            // Restore language
+            const savedLanguage = localStorage.getItem('language');
+            if (savedLanguage) {
+                setLanguage(savedLanguage);
+            }
+
+            // Check if emergency alert was dismissed
+            const alertDismissed = localStorage.getItem('emergencyAlertDismissed');
+            if (alertDismissed === 'true') {
+                document.getElementById('emergencyAlert').classList.remove('active');
+            }
+        });
+
+        // Keyboard navigation enhancement
+        document.addEventListener('keydown', function(e) {
+            // ESC key closes emergency alert
+            if (e.key === 'Escape') {
+                const alert = document.getElementById('emergencyAlert');
+                if (alert.classList.contains('active')) {
+                    closeEmergencyAlert();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

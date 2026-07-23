@@ -1,0 +1,178 @@
+
+body {
+    font-family: sans-serif;
+    margin: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    background-image: url('data:image/svg+xml,%3Csvg width="6" height="6" viewBox="0 0 6 6" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%239C92AC" fill-opacity="0.1"%3E%3Cpath d="M5 0h1L0 6V5zM6 5v1H5z"/%3E%3C/g%3E%3C/svg%3E');
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #005a9c;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+}
+
+nav li {
+    margin-left: 2rem;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #005a9c;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.language-switcher {
+    margin-right: 1.5rem;
+}
+
+.language-switcher a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+.language-switcher .lang-active {
+    color: #005a9c;
+}
+
+.emergency-btn {
+    background-color: #d9534f;
+    color: #fff;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.emergency-btn:hover {
+    background-color: #c9302c;
+}
+
+main {
+    padding: 2rem;
+}
+
+section {
+    padding: 4rem 2rem;
+    margin-bottom: 2rem;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+#hero {
+    text-align: center;
+    background: linear-gradient(rgba(0, 90, 156, 0.7), rgba(0, 90, 156, 0.7)), url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
+    color: #fff;
+}
+
+#hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.btn {
+    background-color: #007bff;
+    color: #fff;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3);
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+#find-a-doctor form {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+#find-a-doctor input {
+    width: 50%;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+}
+
+#find-a-doctor button {
+    padding: 1rem 2rem;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+service-card {
+    display: block;
+    padding: 2rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+#emergency {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+
+.emergency-info {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+}
+
+footer {
+    text-align: center;
+    padding: 2rem;
+    background-color: #333;
+    color: #fff;
+}

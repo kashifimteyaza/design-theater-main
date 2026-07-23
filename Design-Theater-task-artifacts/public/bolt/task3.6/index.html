@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SkillBridge — Peer Learning & Mentorship</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fraunces:ital,wght@0,700;1,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/style.css" />
+    <meta property="og:image" content="https://bolt.new/static/og_default.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
+</head>
+  <body>
+
+    <!-- Skip to main content for screen readers -->
+    <a href="#main" class="skip-link">Skip to main content</a>
+
+    <!-- NAVIGATION -->
+    <header class="site-header" id="site-header" role="banner">
+      <nav class="nav-container" aria-label="Primary navigation">
+        <a href="/" class="logo-mark" aria-label="SkillBridge home">
+          <span class="logo-icon" aria-hidden="true">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="10" cy="10" r="7" fill="var(--color-primary-500)" opacity="0.9"/>
+              <circle cx="22" cy="22" r="7" fill="var(--color-accent-500)" opacity="0.9"/>
+              <path d="M14 13 L18 19" stroke="var(--color-neutral-800)" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="logo-text">SkillBridge</span>
+        </a>
+
+        <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </button>
+
+        <div class="nav-menu" id="nav-menu" role="navigation">
+          <ul class="nav-links" role="list">
+            <li><a href="#how-it-works" class="nav-link">How it works</a></li>
+            <li><a href="#explore" class="nav-link">Explore</a></li>
+            <li><a href="#community" class="nav-link">Community</a></li>
+            <li><a href="#for-teams" class="nav-link">For teams</a></li>
+          </ul>
+          <div class="nav-actions">
+            <a href="#signin" class="btn btn-ghost">Sign in</a>
+            <a href="#join" class="btn btn-primary">Join free</a>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main">
+
+      <!-- HERO -->
+      <section class="hero" aria-labelledby="hero-heading">
+        <div class="hero-bg" aria-hidden="true">
+          <div class="hero-orb hero-orb--1"></div>
+          <div class="hero-orb hero-orb--2"></div>
+          <div class="hero-grid"></div>
+        </div>
+        <div class="container hero-content">
+          <div class="hero-eyebrow">
+            <span class="pill pill--success">
+              <span class="pulse-dot" aria-hidden="true"></span>
+              847 members learning right now
+            </span>
+          </div>
+          <h1 id="hero-heading" class="hero-heading">
+            Everyone here is both<br>
+            <em class="heading-em">teacher</em> and <em class="heading-em heading-em--alt">learner</em>
+          </h1>
+          <p class="hero-subhead">
+            SkillBridge connects professionals for genuine peer learning. Share what you know.
+            Discover what you don't. Keep your professional image exactly how you want it.
+          </p>
+          <div class="hero-cta-group">
+            <a href="#join" class="btn btn-primary btn-lg">Start learning free</a>
+            <a href="#how-it-works" class="btn btn-outline btn-lg">See how it works</a>
+          </div>
+          <p class="hero-reassurance">No credit card. Cancel or adjust anytime. Your learning goals stay private by default.</p>
+        </div>
+
+        <!-- Floating profile cards -->
+        <div class="hero-cards" aria-hidden="true">
+          <div class="profile-card profile-card--1">
+            <img src="https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=64&h=64&dpr=2" alt="" class="profile-card__avatar" loading="lazy" />
+            <div class="profile-card__info">
+              <span class="profile-card__name">Priya S.</span>
+              <span class="profile-card__tag teaches">Teaches: System Design</span>
+              <span class="profile-card__tag learns">Learns: Public Speaking</span>
+            </div>
+          </div>
+          <div class="profile-card profile-card--2">
+            <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=64&h=64&dpr=2" alt="" class="profile-card__avatar" loading="lazy" />
+            <div class="profile-card__info">
+              <span class="profile-card__name">Marcus O.</span>
+              <span class="profile-card__tag teaches">Teaches: Financial Modeling</span>
+              <span class="profile-card__tag learns">Learns: Machine Learning</span>
+            </div>
+          </div>
+          <div class="profile-card profile-card--3">
+            <img src="https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=64&h=64&dpr=2" alt="" class="profile-card__avatar" loading="lazy" />
+            <div class="profile-card__info">
+              <span class="profile-card__name">Yuki T.</span>
+              <span class="profile-card__tag teaches">Teaches: UX Research</span>
+              <span class="profile-card__tag learns">Learns: Data Analysis</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TRUST BAR -->
+      <section class="trust-bar" aria-label="Platform statistics">
+        <div class="container trust-bar__inner">
+          <div class="trust-stat">
+            <span class="trust-stat__number" data-count="24000">0</span>
+            <span class="trust-stat__label">Members worldwide</span>
+          </div>
+          <div class="trust-divider" aria-hidden="true"></div>
+          <div class="trust-stat">
+            <span class="trust-stat__number" data-count="1200">0</span>
+            <span class="trust-stat__label">Skills being shared</span>
+          </div>
+          <div class="trust-divider" aria-hidden="true"></div>
+          <div class="trust-stat">
+            <span class="trust-stat__number" data-count="93">0</span>
+            <span class="trust-stat__label">% find a mentor within a week</span>
+          </div>
+          <div class="trust-divider" aria-hidden="true"></div>
+          <div class="trust-stat">
+            <span class="trust-stat__number" data-count="47">0</span>
+            <span class="trust-stat__label">Countries represented</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- DUAL IDENTITY EXPLAINER -->
+      <section class="section dual-identity" id="how-it-works" aria-labelledby="dual-heading">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-eyebrow">How SkillBridge works</span>
+            <h2 id="dual-heading" class="section-heading">One profile. Two roles. Full control.</h2>
+            <p class="section-subhead">Unlike platforms that lock you into being either a student or an instructor, SkillBridge reflects the reality: you're an expert at some things and a beginner at others — often at the same time.</p>
+          </div>
+
+          <!-- Interactive profile demo -->
+          <div class="profile-demo" role="region" aria-label="Profile role demonstration">
+            <div class="profile-demo__header">
+              <img src="https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&dpr=2" alt="Example member Priya Sharma" class="profile-demo__avatar" loading="lazy" />
+              <div>
+                <h3 class="profile-demo__name">Priya Sharma</h3>
+                <p class="profile-demo__title">Senior Engineer, 8 years exp. · Mumbai / Remote</p>
+              </div>
+              <div class="privacy-control" role="group" aria-label="Profile visibility settings">
+                <span class="privacy-label">Visible to:</span>
+                <div class="privacy-toggle-group">
+                  <button class="privacy-btn active" data-visibility="public" aria-pressed="true">Public</button>
+                  <button class="privacy-btn" data-visibility="members" aria-pressed="false">Members only</button>
+                  <button class="privacy-btn" data-visibility="private" aria-pressed="false">Private</button>
+                </div>
+              </div>
+            </div>
+            <div class="profile-demo__roles">
+              <div class="role-panel role-panel--teacher">
+                <div class="role-panel__badge">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 1L10.5 6H15L11 9.5L12.5 14.5L8 11.5L3.5 14.5L5 9.5L1 6H5.5L8 1Z" fill="currentColor"/></svg>
+                  Teaching
+                </div>
+                <h4 class="role-panel__heading">What Priya shares</h4>
+                <ul class="skill-tags" role="list">
+                  <li class="skill-tag skill-tag--teach">System Design</li>
+                  <li class="skill-tag skill-tag--teach">Distributed Systems</li>
+                  <li class="skill-tag skill-tag--teach">Technical Interviewing</li>
+                </ul>
+                <div class="role-panel__meta">
+                  <span>14 students mentored</span>
+                  <span>4.9 ★ avg. rating</span>
+                </div>
+                <button class="btn btn-sm btn-primary" aria-label="Request session with Priya">Request session</button>
+              </div>
+              <div class="role-divider" aria-hidden="true">
+                <span>and</span>
+              </div>
+              <div class="role-panel role-panel--learner">
+                <div class="role-panel__badge">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="2"/><path d="M8 5v4l2.5 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  Learning
+                </div>
+                <div class="role-panel__privacy-note">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M6 1C3.8 1 2 2.8 2 5v1H1v5h10V6H9V5C9 2.8 7.2 1 6 1Z" fill="currentColor" opacity="0.6"/></svg>
+                  <span>Visible to: members only</span>
+                </div>
+                <h4 class="role-panel__heading">What Priya's exploring</h4>
+                <ul class="skill-tags" role="list">
+                  <li class="skill-tag skill-tag--learn">Public Speaking</li>
+                  <li class="skill-tag skill-tag--learn">Leadership</li>
+                  <li class="skill-tag skill-tag--learn">Negotiation</li>
+                </ul>
+                <div class="role-panel__meta">
+                  <span>3 courses in progress</span>
+                  <span>Next session: Thu 4pm IST</span>
+                </div>
+                <button class="btn btn-sm btn-outline" aria-label="View Priya's learning path">View learning path</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Three pillars -->
+          <div class="pillars" role="list">
+            <article class="pillar" role="listitem">
+              <div class="pillar__icon" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="10" r="5" stroke="var(--color-primary-500)" stroke-width="2"/><path d="M4 24c0-5.5 4.5-9 10-9s10 3.5 10 9" stroke="var(--color-primary-500)" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <h3 class="pillar__heading">Your identity, your rules</h3>
+              <p class="pillar__body">Keep your learning goals separate from your professional profile. Colleagues can see you're an expert — your career pivots and skill gaps stay between you and your mentors.</p>
+            </article>
+            <article class="pillar" role="listitem">
+              <div class="pillar__icon" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M6 22V8l8-4 8 4v14" stroke="var(--color-accent-500)" stroke-width="2" stroke-linejoin="round"/><rect x="11" y="14" width="6" height="8" stroke="var(--color-accent-500)" stroke-width="2"/></svg>
+              </div>
+              <h3 class="pillar__heading">Structure when you need it</h3>
+              <p class="pillar__body">Follow curated learning paths with peer review and progress milestones. Every course has a clear syllabus, prerequisites, and outcomes — reviewed by the community, not a corporate committee.</p>
+            </article>
+            <article class="pillar" role="listitem">
+              <div class="pillar__icon" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="9" cy="14" r="4" stroke="var(--color-success-500)" stroke-width="2"/><circle cx="19" cy="14" r="4" stroke="var(--color-success-500)" stroke-width="2"/><path d="M13 14h2" stroke="var(--color-success-500)" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <h3 class="pillar__heading">Organic connections</h3>
+              <p class="pillar__body">Browse live office hours, drop into discussions, or stumble upon an expert while exploring a topic. Great mentors aren't always who you'd search for — serendipity is a feature, not a bug.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- EXPLORE SECTION -->
+      <section class="section explore-section" id="explore" aria-labelledby="explore-heading">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-eyebrow">Explore SkillBridge</span>
+            <h2 id="explore-heading" class="section-heading">Two ways to learn. One platform.</h2>
+          </div>
+
+          <div class="explore-tabs" role="tablist" aria-label="Learning mode selector">
+            <button class="tab-btn active" role="tab" id="tab-structured" aria-selected="true" aria-controls="panel-structured">
+              Structured paths
+            </button>
+            <button class="tab-btn" role="tab" id="tab-live" aria-selected="false" aria-controls="panel-live">
+              Live &amp; spontaneous
+            </button>
+          </div>
+
+          <!-- Structured panel -->
+          <div class="tab-panel active" id="panel-structured" role="tabpanel" aria-labelledby="tab-structured">
+            <div class="course-grid" role="list">
+
+              <article class="course-card" role="listitem">
+                <div class="course-card__image-wrap">
+                  <img src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=400&h=220&dpr=1" alt="Group of professionals collaborating at a whiteboard" class="course-card__image" loading="lazy" />
+                  <span class="course-card__level">Intermediate</span>
+                </div>
+                <div class="course-card__body">
+                  <div class="course-card__meta">
+                    <span class="course-card__category">Leadership</span>
+                    <span class="course-card__rating" aria-label="4.8 stars">★ 4.8</span>
+                  </div>
+                  <h3 class="course-card__title">Difficult Conversations at Work</h3>
+                  <p class="course-card__desc">Navigate performance feedback, conflict, and cross-cultural communication with confidence.</p>
+                  <div class="course-card__instructor">
+                    <img src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=32&h=32&dpr=2" alt="" class="course-card__instructor-avatar" loading="lazy" />
+                    <span>by <strong>Amara N.</strong></span>
+                    <span class="course-card__peer-badge">Peer-reviewed</span>
+                  </div>
+                  <div class="course-card__footer">
+                    <div class="course-card__stats">
+                      <span>6 weeks</span>
+                      <span>·</span>
+                      <span>214 enrolled</span>
+                    </div>
+                    <button class="btn btn-sm btn-primary" aria-label="Preview Difficult Conversations at Work">Preview</button>
+                  </div>
+                </div>
+              </article>
+
+              <article class="course-card" role="listitem">
+                <div class="course-card__image-wrap">
+                  <img src="https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg?auto=compress&cs=tinysrgb&w=400&h=220&dpr=1" alt="Data charts and graphs on a screen" class="course-card__image" loading="lazy" />
+                  <span class="course-card__level">Beginner</span>
+                </div>
+                <div class="course-card__body">
+                  <div class="course-card__meta">
+                    <span class="course-card__category">Data &amp; Analytics</span>
+                    <span class="course-card__rating" aria-label="4.9 stars">★ 4.9</span>
+                  </div>
+                  <h3 class="course-card__title">SQL for Non-Engineers</h3>
+                  <p class="course-card__desc">Write your first queries, understand databases, and stop asking your dev team to pull data for you.</p>
+                  <div class="course-card__instructor">
+                    <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=32&h=32&dpr=2" alt="" class="course-card__instructor-avatar" loading="lazy" />
+                    <span>by <strong>Marcus O.</strong></span>
+                    <span class="course-card__peer-badge">Peer-reviewed</span>
+                  </div>
+                  <div class="course-card__footer">
+                    <div class="course-card__stats">
+                      <span>4 weeks</span>
+                      <span>·</span>
+                      <span>891 enrolled</span>
+                    </div>
+                    <button class="btn btn-sm btn-primary" aria-label="Preview SQL for Non-Engineers">Preview</button>
+                  </div>
+                </div>
+              </article>
+
+              <article class="course-card" role="listitem">
+                <div class="course-card__image-wrap">
+                  <img src="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=400&h=220&dpr=1" alt="Designer sketching on paper" class="course-card__image" loading="lazy" />
+                  <span class="course-card__level">All levels</span>
+                </div>
+                <div class="course-card__body">
+                  <div class="course-card__meta">
+                    <span class="course-card__category">Design</span>
+                    <span class="course-card__rating" aria-label="4.7 stars">★ 4.7</span>
+                  </div>
+                  <h3 class="course-card__title">Design Thinking in Practice</h3>
+                  <p class="course-card__desc">Apply human-centered design to real product challenges. Workshop-style with peer critique built in.</p>
+                  <div class="course-card__instructor">
+                    <img src="https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=32&h=32&dpr=2" alt="" class="course-card__instructor-avatar" loading="lazy" />
+                    <span>by <strong>Yuki T.</strong></span>
+                    <span class="course-card__peer-badge">Peer-reviewed</span>
+                  </div>
+                  <div class="course-card__footer">
+                    <div class="course-card__stats">
+                      <span>5 weeks</span>
+                      <span>·</span>
+                      <span>432 enrolled</span>
+                    </div>
+                    <button class="btn btn-sm btn-primary" aria-label="Preview Design Thinking in Practice">Preview</button>
+                  </div>
+                </div>
+              </article>
+
+            </div>
+            <div class="explore-cta">
+              <a href="#browse" class="btn btn-outline">Browse all 340 courses</a>
+            </div>
+          </div>
+
+          <!-- Live panel -->
+          <div class="tab-panel" id="panel-live" role="tabpanel" aria-labelledby="tab-live" hidden>
+            <div class="live-grid" role="list">
+
+              <article class="live-card" role="listitem">
+                <div class="live-card__status">
+                  <span class="live-indicator" aria-hidden="true"></span>
+                  Live now
+                </div>
+                <h3 class="live-card__title">Ask Me Anything: Career transitions into Product Management</h3>
+                <div class="live-card__host">
+                  <img src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=32&h=32&dpr=2" alt="" class="live-card__host-avatar" loading="lazy" />
+                  <span>Amara N. · 34 attending</span>
+                </div>
+                <button class="btn btn-sm btn-primary" aria-label="Join live AMA on product management">Join now</button>
+              </article>
+
+              <article class="live-card" role="listitem">
+                <div class="live-card__status live-card__status--soon">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M6 3v3.5l2 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  Starts in 40 min
+                </div>
+                <h3 class="live-card__title">Office Hours: Negotiating your next salary raise</h3>
+                <div class="live-card__host">
+                  <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=32&h=32&dpr=2" alt="" class="live-card__host-avatar" loading="lazy" />
+                  <span>Marcus O. · 12 RSVP'd</span>
+                </div>
+                <button class="btn btn-sm btn-outline" aria-label="RSVP for salary negotiation office hours">RSVP</button>
+              </article>
+
+              <article class="live-card" role="listitem">
+                <div class="live-card__status live-card__status--soon">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M6 3v3.5l2 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  Tomorrow · 10am JST
+                </div>
+                <h3 class="live-card__title">Workshop: User interview techniques that actually work</h3>
+                <div class="live-card__host">
+                  <img src="https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=32&h=32&dpr=2" alt="" class="live-card__host-avatar" loading="lazy" />
+                  <span>Yuki T. · 8 RSVP'd</span>
+                </div>
+                <button class="btn btn-sm btn-outline" aria-label="RSVP for user interview workshop">RSVP</button>
+              </article>
+
+              <article class="live-card live-card--forum" role="listitem">
+                <div class="live-card__status live-card__status--forum">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 2h8v6H7l-3 2V8H2V2Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+                  Forum thread · active
+                </div>
+                <h3 class="live-card__title">"How do you deal with imposter syndrome as a senior dev?"</h3>
+                <div class="live-card__host">
+                  <span>Started by Priya S. · 47 replies · posted in #engineering</span>
+                </div>
+                <button class="btn btn-sm btn-outline" aria-label="Read imposter syndrome forum thread">Read thread</button>
+              </article>
+
+            </div>
+            <div class="explore-cta">
+              <a href="#live" class="btn btn-outline">See all upcoming sessions</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- COMMUNITY & QUALITY SECTION -->
+      <section class="section community-section" id="community" aria-labelledby="community-heading">
+        <div class="container">
+          <div class="community-layout">
+            <div class="community-text">
+              <span class="section-eyebrow">Quality without gatekeeping</span>
+              <h2 id="community-heading" class="section-heading">Great content rises naturally</h2>
+              <p class="community-body">We don't have a curriculum committee or a corporate approval process. Instead, the community itself surfaces the best content through transparent peer review, honest ratings, and a reputation system that rewards genuine helpfulness — not just seniority.</p>
+              <ul class="community-list" role="list">
+                <li class="community-list__item">
+                  <span class="check-icon" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="var(--color-success-100)"/><path d="M5 8l2 2 4-4" stroke="var(--color-success-600)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  Peer reviewers vet every course for accuracy and clarity before it goes live
+                </li>
+                <li class="community-list__item">
+                  <span class="check-icon" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="var(--color-success-100)"/><path d="M5 8l2 2 4-4" stroke="var(--color-success-600)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  Ratings are verified: only enrolled students can rate
+                </li>
+                <li class="community-list__item">
+                  <span class="check-icon" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="var(--color-success-100)"/><path d="M5 8l2 2 4-4" stroke="var(--color-success-600)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  Wrong course? Wrong forum post? Easy correction paths — no data lost
+                </li>
+                <li class="community-list__item">
+                  <span class="check-icon" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="var(--color-success-100)"/><path d="M5 8l2 2 4-4" stroke="var(--color-success-600)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  Accessibility-first: transcripts, extended time options, and multiple formats
+                </li>
+              </ul>
+              <a href="#learn-more" class="btn btn-outline">How peer review works</a>
+            </div>
+            <div class="community-visual" aria-hidden="true">
+              <div class="review-thread">
+                <div class="review-item review-item--approved">
+                  <span class="review-item__badge">Approved</span>
+                  <p class="review-item__text">"Examples are clear, prereqs are accurate. One small suggestion: add a glossary for non-native English speakers."</p>
+                  <span class="review-item__meta">— Peer reviewer #3 of 3</span>
+                </div>
+                <div class="review-item review-item--suggestion">
+                  <span class="review-item__badge">Suggestion</span>
+                  <p class="review-item__text">"The week 3 exercise is a bit ambiguous. Could you add an example output?"</p>
+                  <span class="review-item__meta">— Peer reviewer #1 of 3</span>
+                </div>
+                <div class="review-item review-item--response">
+                  <span class="review-item__badge">Author replied</span>
+                  <p class="review-item__text">"Great catch! Updated with two example outputs and a rubric. Thanks!"</p>
+                  <span class="review-item__meta">— Priya S., course author</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ACCESSIBILITY & INCLUSION SECTION -->
+      <section class="section access-section" aria-labelledby="access-heading">
+        <div class="container">
+          <div class="access-grid">
+            <div class="access-headline">
+              <span class="section-eyebrow">Built for everyone</span>
+              <h2 id="access-heading" class="section-heading">Learning that fits your life</h2>
+            </div>
+            <div class="access-cards" role="list">
+              <div class="access-card" role="listitem">
+                <div class="access-card__icon" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3Zm0 14.2A7.2 7.2 0 0 1 5 16c.03-2.33 4.67-3.6 7-3.6 2.32 0 6.97 1.27 7 3.6a7.2 7.2 0 0 1-7 3.2Z" fill="currentColor"/></svg>
+                </div>
+                <h3 class="access-card__title">Any time zone</h3>
+                <p class="access-card__desc">Session recordings with transcripts. Async discussions that respect your schedule. Find mentors in your timezone or work asynchronously.</p>
+              </div>
+              <div class="access-card" role="listitem">
+                <div class="access-card__icon" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5C21.27 7.61 17 4.5 12 4.5Zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5Zm0-8a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z" fill="currentColor"/></svg>
+                </div>
+                <h3 class="access-card__title">Multiple formats</h3>
+                <p class="access-card__desc">Video, text, audio, or diagrams — every lesson available in at least two formats. Extended time options built into all assessments.</p>
+              </div>
+              <div class="access-card" role="listitem">
+                <div class="access-card__icon" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2Z" fill="currentColor"/></svg>
+                </div>
+                <h3 class="access-card__title">Mobile-first</h3>
+                <p class="access-card__desc">Full functionality on any device. Quick check-ins between meetings. Notifications you actually control.</p>
+              </div>
+              <div class="access-card" role="listitem">
+                <div class="access-card__icon" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5L12 1Z" fill="currentColor"/></svg>
+                </div>
+                <h3 class="access-card__title">Privacy first</h3>
+                <p class="access-card__desc">Granular controls: colleagues see a different view than the public, and you can hide any learning goal from anyone with one click.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TESTIMONIALS -->
+      <section class="section testimonials-section" aria-labelledby="testimonials-heading">
+        <div class="container">
+          <h2 id="testimonials-heading" class="section-heading testimonials-heading">From the community</h2>
+          <div class="testimonials-grid" role="list">
+            <blockquote class="testimonial" role="listitem">
+              <p class="testimonial__quote">"I'm a 15-year veteran in finance and a complete beginner in machine learning. SkillBridge is the first platform that doesn't make me feel embarrassed about that."</p>
+              <footer class="testimonial__footer">
+                <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=48&h=48&dpr=2" alt="" class="testimonial__avatar" loading="lazy" />
+                <div>
+                  <cite class="testimonial__name">Marcus O.</cite>
+                  <span class="testimonial__role">Financial Analyst → ML learner</span>
+                </div>
+              </blockquote>
+            </blockquote>
+            <blockquote class="testimonial" role="listitem">
+              <p class="testimonial__quote">"I needed mentorship on leadership skills but didn't want my direct reports knowing I was working on it. The privacy controls here are exactly what I needed."</p>
+              <footer class="testimonial__footer">
+                <img src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=48&h=48&dpr=2" alt="" class="testimonial__avatar" loading="lazy" />
+                <div>
+                  <cite class="testimonial__name">Amara N.</cite>
+                  <span class="testimonial__role">VP Engineering, 200-person org</span>
+                </div>
+              </blockquote>
+            </blockquote>
+            <blockquote class="testimonial" role="listitem">
+              <p class="testimonial__quote">"I accidentally posted a question to the wrong forum. The undo option appeared instantly and I was able to move it without any awkward history. Small thing, huge relief."</p>
+              <footer class="testimonial__footer">
+                <img src="https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=48&h=48&dpr=2" alt="" class="testimonial__avatar" loading="lazy" />
+                <div>
+                  <cite class="testimonial__name">Yuki T.</cite>
+                  <span class="testimonial__role">UX Researcher</span>
+                </div>
+              </blockquote>
+            </blockquote>
+          </div>
+        </div>
+      </section>
+
+      <!-- CORRECTION PATHS CALLOUT (Error recovery UX demo) -->
+      <section class="section correction-section" aria-labelledby="correction-heading">
+        <div class="container correction-container">
+          <div class="correction-text">
+            <span class="section-eyebrow">Mistakes happen</span>
+            <h2 id="correction-heading" class="section-heading">Easy correction, every time</h2>
+            <p class="correction-body">Wrong course enrolled? Wrong forum? Sent a message to the wrong person? Every action on SkillBridge has a smooth undo or edit path. We never punish honest mistakes.</p>
+            <ul class="correction-list" role="list">
+              <li>Un-enroll from a course with one click — your notes are saved for if you return</li>
+              <li>Edit or move forum posts within 15 minutes, no questions asked</li>
+              <li>Cancel a session up to 2 hours before — automatically rescheduled for your mentor</li>
+              <li>Change your profile visibility settings at any time, instantly</li>
+            </ul>
+          </div>
+          <!-- Toast notification demo -->
+          <div class="toast-demo" aria-label="Example of undo notification" role="img">
+            <div class="toast toast--active">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="var(--color-success-500)"/><path d="M5 8l2 2 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <span>Enrolled in "SQL for Non-Engineers"</span>
+              <button class="toast-undo">Undo</button>
+            </div>
+            <div class="toast toast--warning" style="margin-top: 10px;">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="var(--color-warning-500)"/><path d="M8 5v4M8 11v.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <span>Post moved to #leadership</span>
+              <button class="toast-undo">Undo</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA SECTION -->
+      <section class="section final-cta-section" aria-labelledby="final-cta-heading">
+        <div class="container final-cta-container">
+          <div class="final-cta-bg" aria-hidden="true">
+            <div class="final-cta-orb"></div>
+          </div>
+          <h2 id="final-cta-heading" class="final-cta-heading">Ready to bridge the gap?</h2>
+          <p class="final-cta-sub">Join 24,000 professionals who are both teaching and learning right now.</p>
+          <div class="final-cta-actions">
+            <a href="#join" class="btn btn-primary btn-lg btn-white">Create your free profile</a>
+            <a href="#explore" class="btn btn-ghost-white btn-lg">Explore first</a>
+          </div>
+          <p class="final-cta-note">Free forever for learners. Instructor accounts from $0/month.</p>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer" role="contentinfo">
+      <div class="container footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="logo-mark" aria-label="SkillBridge home">
+            <span class="logo-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 32 32" fill="none"><circle cx="10" cy="10" r="7" fill="var(--color-primary-500)" opacity="0.9"/><circle cx="22" cy="22" r="7" fill="var(--color-accent-500)" opacity="0.9"/><path d="M14 13 L18 19" stroke="var(--color-neutral-100)" stroke-width="2.5" stroke-linecap="round"/></svg>
+            </span>
+            <span class="logo-text">SkillBridge</span>
+          </a>
+          <p class="footer-tagline">Peer learning for working professionals.</p>
+        </div>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <div class="footer-col">
+            <h4 class="footer-col__heading">Learn</h4>
+            <ul role="list">
+              <li><a href="#" class="footer-link">Browse courses</a></li>
+              <li><a href="#" class="footer-link">Learning paths</a></li>
+              <li><a href="#" class="footer-link">Live sessions</a></li>
+              <li><a href="#" class="footer-link">Discussion forums</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4 class="footer-col__heading">Teach</h4>
+            <ul role="list">
+              <li><a href="#" class="footer-link">Create a course</a></li>
+              <li><a href="#" class="footer-link">Host office hours</a></li>
+              <li><a href="#" class="footer-link">Peer review</a></li>
+              <li><a href="#" class="footer-link">Instructor handbook</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4 class="footer-col__heading">Company</h4>
+            <ul role="list">
+              <li><a href="#" class="footer-link">About</a></li>
+              <li><a href="#" class="footer-link">Blog</a></li>
+              <li><a href="#" class="footer-link">Careers</a></li>
+              <li><a href="#" class="footer-link">Press</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4 class="footer-col__heading">Support</h4>
+            <ul role="list">
+              <li><a href="#" class="footer-link">Help center</a></li>
+              <li><a href="#" class="footer-link">Accessibility</a></li>
+              <li><a href="#" class="footer-link">Privacy</a></li>
+              <li><a href="#" class="footer-link">Terms</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <div class="container footer-bottom__inner">
+          <p>© 2026 SkillBridge. Built by professionals, for professionals.</p>
+          <p class="footer-bottom__right">Made with care for people in 47 countries.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- TOAST NOTIFICATION (live region) -->
+    <div class="toast-region" id="toast-region" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

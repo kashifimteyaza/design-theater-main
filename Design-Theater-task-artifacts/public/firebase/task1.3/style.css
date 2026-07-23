@@ -1,0 +1,230 @@
+/* General Styles */
+body {
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    background-color: #F8F9FA;
+    color: #222222;
+}
+
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+    color: #0A2342;
+}
+
+a {
+    text-decoration: none;
+    color: #D4AF37;
+}
+
+/* Header & Navigation */
+header {
+    background-color: #0A2342;
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #FFFFFF;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    margin-left: 2rem;
+}
+
+nav ul li a {
+    color: #FFFFFF;
+    font-weight: 700;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #D4AF37;
+}
+
+/* Hero Section */
+.hero {
+    background-image: url('https://plus.unsplash.com/premium_photo-1661603513328-03433e37a7a6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-size: cover;
+    background-position: center;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 8rem 2rem;
+    position: relative;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(10, 35, 66, 0.7);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    color: #FFFFFF;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.cta-button {
+    background-color: #D4AF37;
+    color: #0A2342;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    font-weight: 700;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border: 2px solid #D4AF37;
+}
+
+.cta-button:hover {
+    background-color: #0A2342;
+    color: #D4AF37;
+}
+
+/* Practice Areas Section */
+.practice-areas {
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.practice-areas h2 {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+.practice-areas-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+practice-area-card {
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    padding: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+practice-area-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+}
+
+/* Why Us Section */
+.why-us {
+    background-color: #BFCAD9;
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.why-us h2 {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+.reasons-container {
+    display: flex;
+    justify-content: space-around;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 2rem;
+}
+
+.reason {
+    flex: 1;
+}
+
+.reason h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Other Sections */
+.attorneys, .case-results, .client-resources, .contact {
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.attorneys h2, .case-results h2, .client-resources h2, .contact h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.attorneys p, .case-results p, .client-resources p {
+    max-width: 600px;
+    margin: 0 auto 2rem;
+}
+
+/* Contact Form */
+.contact form {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.contact input, .contact textarea {
+    padding: 1rem;
+    border: 1px solid #BFCAD9;
+    border-radius: 5px;
+    font-family: 'Lato', sans-serif;
+}
+
+/* Footer */
+footer {
+    background-color: #0A2342;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 1.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    nav ul {
+        display: none; /* Simple solution for now */
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .reasons-container {
+        flex-direction: column;
+    }
+}

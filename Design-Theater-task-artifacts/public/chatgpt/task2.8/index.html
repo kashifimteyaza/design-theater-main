@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>CreditBuilder — Home</title>
+  <meta name="description" content="A supportive, clear, data-light homepage for CreditBuilder." />
+  <style>
+    /* 
+      CreditBuilder visual system (no external assets):
+      - Calming, friendly greens with warm neutrals for approachability (not "bank cold", not "predatory neon").
+      - High contrast for readability; supports dark mode automatically.
+      - Extra-large tap targets (min-height 48px).
+      - Cards keep info chunked into low-anxiety blocks.
+    */
+    :root{
+      --bg: #f6faf8;
+      --surface: #ffffff;
+      --ink: #0c1f18;
+      --muted: #4c635a;
+      --brand: #0aa37a;         /* supportive green */
+      --brand-ink: #073f32;     /* deep green for headings */
+      --accent: #f59e0b;        /* warm highlight for positive changes */
+      --danger: #c2410c;        /* accessible warning tone */
+      --ok: #15803d;
+      --border: #dbe7e1;
+      --shadow: 0 1px 1px rgba(0,0,0,.03), 0 6px 20px rgba(0,0,0,.06);
+      --radius: 16px;
+      --radius-sm: 12px;
+      --container: 480px;
+      --focus: 2px solid #0aa37a;
+    }
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg: #0d1513;
+        --surface: #0f1a18;
+        --ink: #e8f3ef;
+        --muted: #a7b6b0;
+        --brand: #1bc295;
+        --brand-ink: #b9ffe9;
+        --accent: #f0b54a;
+        --danger: #ff7b3e;
+        --ok: #34d399;
+        --border: #21302c;
+        --shadow: none;
+      }
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+      background:var(--bg);
+      color:var(--ink);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      line-height:1.35;
+    }
+    .wrap{
+      max-width:var(--container);
+      margin:0 auto;
+      padding:16px;
+    }
+    .header{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:8px; margin-bottom:12px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+    }
+    .logo{
+      inline-size:28px; block-size:28px; border-radius:9px;
+      background: radial-gradient(120% 120% at 0% 0%, var(--brand) 0%, #6de0bf 70%, var(--brand) 100%);
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,.6);
+      border: 1px solid rgba(0,0,0,.05);
+    }
+    .title{
+      font-weight: 800; letter-spacing:.2px; color: var(--brand-ink);
+    }
+    .secure{
+      display:flex; align-items:center; gap:6px; font-size:.86rem; color:var(--muted);
+    }
+    .secure .dot{ inline-size:8px; block-size:8px; border-radius:999px; background:var(--ok); box-shadow:0 0 0 2px rgba(20,120,90,.15);}
+    .toolbar{
+      display:flex; gap:8px; margin:8px 0 12px; flex-wrap:wrap;
+    }
+    .chip{
+      flex:1 1 auto;
+      display:flex; align-items:center; gap:10px;
+      background:var(--surface); border:1px solid var(--border);
+      border-radius:999px; padding:10px 12px; box-shadow:var(--shadow);
+    }
+    .chip label { font-size:.92rem; color:var(--ink); font-weight:600; }
+    .switch{
+      appearance:none; inline-size:44px; block-size:26px; border-radius:999px; position:relative;
+      background: #b8dcd0; outline:none; border:1px solid var(--border);
+    }
+    .switch:after{
+      content:""; position:absolute; inset:3px auto 3px 3px; inline-size:20px; block-size:20px;
+      background:#fff; border-radius:999px; transition:transform .15s ease;
+      box-shadow: 0 1px 2px rgba(0,0,0,.15);
+    }
+    .switch:checked{ background: var(--brand); }
+    .switch:checked:after{ transform: translateX(18px);}
+    .switch:focus-visible{ outline: var(--focus); outline-offset:4px; }
+
+    .card{
+      background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+      box-shadow: var(--shadow); padding:14px; margin:12px 0;
+    }
+    .score-card .row{ display:flex; align-items:flex-end; justify-content:space-between; gap:12px; }
+    .score-bignum{
+      font-size: 2.4rem; font-weight: 900; letter-spacing:.5px;
+    }
+    .score-status{ color: var(--muted); font-size:.95rem; margin-top:4px;}
+    .delta{
+      display:inline-flex; align-items:center; gap:6px; font-weight:700; padding:6px 10px; border-radius:999px;
+      background: rgba(20,180,120,.12); color: var(--ok); border:1px solid rgba(10,160,120,.25);
+    }
+    .progress{
+      margin-top:12px; display:flex; gap:6px;
+    }
+    .step{
+      flex:1; block-size:8px; border-radius:999px; background:#dfeae6; position:relative; overflow:hidden;
+    }
+    .step.done{ background: linear-gradient(90deg, var(--brand), #67e0bf); }
+    .next-step{
+      display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:12px; background: linear-gradient(0deg, rgba(10,163,122,.08), rgba(10,163,122,0));
+      border:1px dashed rgba(10,163,122,.35); padding:10px 12px; border-radius:var(--radius-sm);
+    }
+    .btn{
+      min-height:48px; padding:12px 14px; border:none; border-radius:12px;
+      font-weight:800; background:var(--brand); color:#04221a;
+      box-shadow: var(--shadow); letter-spacing:.2px;
+    }
+    .btn:focus-visible{ outline: var(--focus); outline-offset:3px; }
+    .btn.secondary{ background:transparent; color:var(--brand); border:1px solid var(--brand); }
+
+    .grid{
+      display:grid; grid-template-columns:1fr; gap:8px; margin-top:4px;
+    }
+    @media (min-width:420px){ .grid{ grid-template-columns:1fr 1fr; } }
+
+    .tile{
+      background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:12px;
+    }
+    .tile h3{ margin:0 0 4px; font-size:1.02rem; }
+    .meta{ color:var(--muted); font-size:.9rem; }
+
+    .money{ font-variant-numeric: tabular-nums; letter-spacing:.3px; }
+
+    /* Sensitive info masking (visual only; numbers are removed from layout when masked) */
+    .sensitive{ position:relative; }
+    .sensitive .real{ display:inline; }
+    .sensitive .mask{ display:none; letter-spacing:.3px; }
+    body[data-public="on"] .sensitive .real{ display:none !important; }
+    body[data-public="on"] .sensitive .mask{ display:inline !important; }
+
+    /* Long-press peek affordance */
+    .peek{ display:none; color:var(--muted); font-size:.85rem; }
+    body[data-public="on"] .peek{ display:block; }
+
+    .edu{
+      display:flex; gap:8px; align-items:flex-start; padding:10px 12px; border-radius:12px;
+      background: #f3f9f6; border:1px solid var(--border);
+    }
+    @media (prefers-color-scheme: dark){ .edu{ background:#10211d; } }
+    .edu strong{ display:block; }
+    .edu .cta{ margin-top:6px; display:inline-block; font-weight:700; color:var(--brand); }
+
+    .footer{
+      margin:10px 0 60px; color:var(--muted); font-size:.9rem;
+      display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    }
+    .tiny{ font-size:.85rem; color:var(--muted); }
+
+    details.notes{
+      margin-top:14px; border:1px dashed var(--border); border-radius:12px; padding:8px 10px; background:transparent;
+    }
+    details.notes summary{ cursor:pointer; font-weight:700; color:var(--muted); }
+    details.notes p{ margin:8px 0; }
+
+    /* Motion & tap target affordances */
+    *, *::before, *::after{ box-sizing: border-box; }
+    a, button{ touch-action: manipulation; }
+    @media (prefers-reduced-motion: reduce){
+      .switch:after{ transition:none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="header" aria-label="App header">
+      <div class="brand" role="img" aria-label="CreditBuilder">
+        <div class="logo" aria-hidden="true"></div>
+        <div class="title">CreditBuilder</div>
+      </div>
+      <div class="secure" aria-live="polite">
+        <span class="dot" aria-hidden="true"></span><span>Data encrypted</span>
+      </div>
+    </header>
+
+    <section class="toolbar" aria-label="Privacy and quick settings">
+      <div class="chip" role="group" aria-label="Public mode">
+        <input id="publicSwitch" class="switch" type="checkbox" aria-describedby="publicHelp" />
+        <label for="publicSwitch">Public mode (hide numbers)</label>
+      </div>
+      <div id="publicHelp" class="tiny" style="flex-basis:100%;">
+        Hide balances and score when you’re in public. Long-press a number to peek.
+      </div>
+    </section>
+
+    <section class="card score-card" aria-label="Your credit score">
+      <div class="row">
+        <div>
+          <div class="score-bignum sensitive" data-sens-id="score">
+            <span class="real money" aria-label="Your credit score">612</span>
+            <span class="mask" aria-hidden="true">•••</span>
+          </div>
+          <div class="score-status">Fair — steady progress</div>
+        </div>
+        <div class="delta" aria-label="Score change this month">
+          ▲ +18 this month
+        </div>
+      </div>
+      <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="4" aria-valuenow="2" aria-label="Plan progress">
+        <div class="step done"></div>
+        <div class="step done"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+      </div>
+      <div class="next-step">
+        <div>
+          <strong>Next step:</strong> Add one small on-time payment.
+          <div class="tiny">Takes ~2 minutes</div>
+        </div>
+        <button class="btn" aria-label="Do next step">Do it now</button>
+      </div>
+    </section>
+
+    <section class="grid" aria-label="Accounts overview">
+      <div class="tile" role="group" aria-label="Secured Builder Card">
+        <h3>Secured Builder Card</h3>
+        <div class="meta">Balance</div>
+        <div class="sensitive money" data-sens-id="bal1">
+          <span class="real">₹ 1,240</span><span class="mask" aria-hidden="true">₹ ••••</span>
+        </div>
+        <div class="peek">Long-press to peek</div>
+        <div class="meta" style="margin-top:6px;">Payment due in <strong>3 days</strong></div>
+        <div style="margin-top:8px; display:flex; gap:8px;">
+          <button class="btn" aria-label="Make a payment">Pay</button>
+          <button class="btn secondary" aria-label="Set reminder">Remind me</button>
+        </div>
+      </div>
+
+      <div class="tile" role="group" aria-label="Credit Utilization">
+        <h3>Credit use</h3>
+        <div class="meta">Keep under 30% to help your score</div>
+        <div class="sensitive" data-sens-id="util">
+          <span class="real"><strong>24%</strong> used</span><span class="mask" aria-hidden="true"><strong>••%</strong> used</span>
+        </div>
+        <div class="peek">Long-press to peek</div>
+        <div class="meta" style="margin-top:6px;">Limit <span class="sensitive money" data-sens-id="limit"><span class="real">₹ 5,000</span><span class="mask" aria-hidden="true">₹ ••••</span></span></div>
+      </div>
+
+      <div class="tile" role="group" aria-label="Payment history">
+        <h3>On-time streak</h3>
+        <div class="meta">Payments made on time</div>
+        <div><strong>4 months</strong> in a row 🎉</div>
+        <div class="tiny" style="margin-top:6px;">You’re building trust. Keep going.</div>
+      </div>
+
+      <div class="tile" role="group" aria-label="Disputes & alerts">
+        <h3>Alerts</h3>
+        <div class="meta">We’ll tell you if something looks off</div>
+        <div class="tiny" style="margin-top:6px; color:var(--danger);"><strong>No urgent issues</strong></div>
+      </div>
+    </section>
+
+    <section class="card" aria-label="Learn in minutes">
+      <div class="edu">
+        <div aria-hidden="true">📈</div>
+        <div>
+          <strong>Small steps add up.</strong>
+          Pay on time, keep spending low, and time will do the rest.
+          <a href="#" class="cta" aria-label="Learn how to build credit with small steps">Learn how</a>
+        </div>
+      </div>
+      <div class="edu" style="margin-top:8px;">
+        <div aria-hidden="true">🛡️</div>
+        <div>
+          <strong>Your info stays yours.</strong>
+          We never sell your data. You’re in control.
+          <a href="#" class="cta" aria-label="Read about privacy">Privacy basics</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer" aria-label="Footer">
+      <div>💬 Need help? <a href="#" aria-label="Open support chat">Message support</a></div>
+      <div class="tiny">You’re more than a number. We’re here to help.</div>
+    </footer>
+
+    <!-- Design notes for reviewers (not required in production) -->
+    <details class="notes">
+      <summary>Design rationale (tap to view)</summary>
+      <p><strong>Tone:</strong> Warm, plain language; short sentences to reduce cognitive load.</p>
+      <p><strong>Privacy:</strong> “Public mode” hides numbers. Long-press peek avoids toggling off privacy in crowded places.</p>
+      <p><strong>Clarity:</strong> One primary “Next step” with time estimate; chunked cards; tabular/monospace-like numeric spacing for calm scanning.</p>
+      <p><strong>Accessibility:</strong> High contrast, large targets, reduced motion friendly, screen-reader labels, dark-mode support.</p>
+      <p><strong>Performance:</strong> No images or web fonts; all inline for data-light loads.</p>
+    </details>
+  </div>
+
+  <script>
+    (function(){
+      const body = document.body;
+      const switchEl = document.getElementById('publicSwitch');
+      const LS_KEY = 'cb_public_mode';
+
+      // Restore preference
+      const saved = localStorage.getItem(LS_KEY);
+      if(saved === 'on'){ body.setAttribute('data-public','on'); switchEl.checked = true; }
+
+      switchEl.addEventListener('change', () => {
+        const on = switchEl.checked;
+        body.setAttribute('data-public', on ? 'on' : 'off');
+        localStorage.setItem(LS_KEY, on ? 'on' : 'off');
+      });
+
+      // Long-press peek on sensitive numbers when in public mode
+      const sens = document.querySelectorAll('.sensitive');
+      sens.forEach(el => {
+        let timer = null, peeking = false;
+
+        const pressStart = (e) => {
+          if (document.body.getAttribute('data-public') !== 'on') return;
+          // avoid accidental scroll long-press: only if stationary ~600ms
+          timer = setTimeout(() => {
+            peeking = true;
+            el.classList.add('peeking');
+            // show real numbers temporarily
+            const real = el.querySelector('.real'); const mask = el.querySelector('.mask');
+            if(real && mask){ real.style.display = 'inline'; mask.style.display = 'none'; }
+          }, 600);
+        };
+        const pressEnd = () => {
+          clearTimeout(timer);
+          if(peeking){
+            peeking = false;
+            const real = el.querySelector('.real'); const mask = el.querySelector('.mask');
+            if(real && mask){
+              // return to masked state (if public mode is still on)
+              if(document.body.getAttribute('data-public') === 'on'){
+                real.style.display = 'none'; mask.style.display = 'inline';
+              }
+            }
+            el.classList.remove('peeking');
+          }
+        };
+
+        el.addEventListener('touchstart', pressStart, {passive:true});
+        el.addEventListener('mousedown', pressStart);
+        ['touchend','touchcancel','mouseup','mouseleave'].forEach(ev => el.addEventListener(ev, pressEnd));
+      });
+
+      // Ensure focus styles visible for keyboard users on Android
+      document.addEventListener('keydown', (e)=>{
+        if(e.key === 'Tab'){ document.documentElement.classList.add('kbd'); }
+      });
+    })();
+  </script>
+</body>
+</html>

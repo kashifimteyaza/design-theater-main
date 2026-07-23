@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ProjectMaster Enterprise — Homepage</title>
+  <style>
+    /* ----------------------
+       Design Tokens
+    ---------------------- */
+    :root {
+      --bg: #f7f8fb;
+      --panel: #ffffff;
+      --text: #0f172a; /* slate-900 */
+      --muted: #475569; /* slate-600 */
+      --border: #e2e8f0; /* slate-200 */
+      --accent: #2563eb; /* blue-600 */
+      --accent-600: #1d4ed8;
+      --accent-50: #eff6ff;
+      --ok: #16a34a; /* green-600 */
+      --warn: #f59e0b; /* amber-500 */
+      --danger: #dc2626; /* red-600 */
+      --shadow: 0 10px 20px rgba(2, 6, 23, 0.06), 0 2px 6px rgba(2, 6, 23, 0.06);
+      --radius: 16px;
+    }
+    html[data-theme="dark"] {
+      --bg: #0b1220;
+      --panel: #0f1a2c;
+      --text: #e5e7eb;
+      --muted: #9aa4b2;
+      --border: #1f2a44;
+      --accent: #60a5fa;
+      --accent-600: #3b82f6;
+      --accent-50: #0b1220;
+      --shadow: 0 10px 20px rgba(0, 0, 0, 0.45), 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    /* ----------------------
+       Base Styles
+    ---------------------- */
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.45;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:focus, button:focus, [tabindex]:focus { outline: 3px solid var(--accent); outline-offset: 2px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+
+    /* Layout */
+    .app-shell {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      grid-template-rows: 64px 1fr;
+      grid-template-areas:
+        "sidebar header"
+        "sidebar main";
+      height: 100vh;
+    }
+    header {
+      grid-area: header;
+      display: flex; align-items: center; gap: 16px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+      padding: 0 16px;
+      position: sticky; top: 0; z-index: 5;
+    }
+    aside {
+      grid-area: sidebar;
+      background: var(--panel);
+      border-right: 1px solid var(--border);
+      padding: 16px;
+      overflow: auto;
+    }
+    main {
+      grid-area: main;
+      padding: 16px 16px 96px;
+      overflow: auto;
+    }
+
+    /* Header */
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .brand .logo { width: 28px; height: 28px; }
+    .brand .wordmark { font-weight: 700; letter-spacing: .3px; }
+    .search { flex: 1; display: flex; align-items: center; gap: 8px; }
+    .search input {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      border-radius: 999px;
+      padding: 10px 14px 10px 36px;
+      font-size: 14px;
+    }
+    .search .icon { position: absolute; margin-left: 10px; pointer-events: none; }
+    .header-actions { display: flex; align-items: center; gap: 10px; }
+    .btn {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform .04s ease, background .2s ease, border-color .2s ease;
+    }
+    .btn:hover { background: var(--bg); }
+    .btn:active { transform: translateY(1px); }
+    .btn.primary {
+      background: var(--accent);
+      color: white; border-color: var(--accent);
+    }
+    .btn.primary:hover { background: var(--accent-600); }
+
+    /* Sidebar */
+    .nav-section { margin-bottom: 18px; }
+    .nav-section h4 { margin: 12px 8px; font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--muted); }
+    .nav { list-style: none; padding: 0; margin: 0; }
+    .nav li { margin: 2px 0; }
+    .nav button { width: 100%; text-align: left; padding: 10px 12px; border-radius: 10px; border: 1px solid transparent; background: transparent; color: var(--text); cursor: pointer; }
+    .nav button:hover { background: var(--bg); border-color: var(--border); }
+    .nav button.active { background: var(--accent-50); border-color: var(--accent); }
+    .sidebar-footer {
+      position: sticky; bottom: 0; left: 0; right: 0;
+      margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border);
+      background: var(--panel);
+    }
+
+    /* Content Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: 2fr 1.5fr 1fr;
+      gap: 16px;
+    }
+    .col-span-2 { grid-column: span 2; }
+    .col-span-3 { grid-column: span 3; }
+
+    /* Cards */
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px;
+    }
+    .card h3 { margin: 0 0 10px; font-size: 14px; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); }
+
+    /* KPI Cards */
+    .kpi-row {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 16px;
+    }
+    .kpi { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 12px; border: 1px solid var(--border); background: var(--panel); box-shadow: var(--shadow); }
+    .kpi .metric { font-size: 22px; font-weight: 800; }
+    .kpi .meta { font-size: 12px; color: var(--muted); }
+
+    /* Charts */
+    .chart { width: 100%; height: 260px; }
+    .legend { display: flex; gap: 16px; font-size: 12px; color: var(--muted); margin-top: 6px; }
+    .legend .dot { width: 10px; height: 10px; border-radius: 2px; display: inline-block; margin-right: 6px; border: 1px solid var(--border); }
+
+    /* Progress Ring */
+    .ring { position: relative; width: 58px; height: 58px; }
+    .ring svg { transform: rotate(-90deg); }
+    .ring .center { position: absolute; inset: 0; display: grid; place-items: center; font-size: 12px; font-weight: 700; }
+
+    /* Risk Heatmap */
+    .heatmap { display: grid; grid-template-columns: repeat(5, 1fr); grid-auto-rows: 48px; gap: 6px; }
+    .cell { border-radius: 8px; border: 1px solid var(--border); display: grid; place-items: center; font-size: 11px; }
+
+    /* Gantt */
+    .gantt { --cols: 12; display: grid; grid-template-columns: repeat(var(--cols), 1fr); gap: 6px; position: relative; padding-top: 8px; }
+    .gantt .track { grid-column: 1 / -1; display: contents; }
+    .bar { height: 18px; border-radius: 10px; background: linear-gradient(90deg, var(--accent), var(--accent-600)); box-shadow: var(--shadow); }
+    .bar.warn { background: linear-gradient(90deg, var(--warn), #f59e0b); }
+    .bar.danger { background: linear-gradient(90deg, var(--danger), #ef4444); }
+
+    /* Tables */
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td { padding: 10px 8px; border-bottom: 1px solid var(--border); }
+    th { text-align: left; color: var(--muted); font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: .5px; }
+    tr:hover td { background: rgba(2, 6, 23, 0.02); }
+    html[data-theme="dark"] tr:hover td { background: rgba(255,255,255,0.02); }
+
+    /* Right rail */
+    .rail { display: grid; gap: 16px; }
+    .pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 8px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); font-size: 12px; }
+
+    /* Badges */
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; }
+    .badge.ok { background: rgba(22,163,74,.12); color: var(--ok); }
+    .badge.warn { background: rgba(245,158,11,.16); color: var(--warn); }
+    .badge.danger { background: rgba(220,38,38,.16); color: var(--danger); }
+
+    /* Modals */
+    .modal { position: fixed; inset: 0; background: rgba(2,6,23,.5); display: none; align-items: center; justify-content: center; z-index: 50; }
+    .modal.open { display: flex; }
+    .modal .panel { width: min(800px, 92vw); background: var(--panel); border: 1px solid var(--border); border-radius: 20px; box-shadow: var(--shadow); padding: 16px; }
+
+    /* Toolbar */
+    .toolbar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 16px; }
+    .select, .input { border: 1px solid var(--border); background: var(--panel); border-radius: 10px; padding: 8px 10px; }
+
+    /* Responsive */
+    @media (max-width: 1100px) {
+      .grid { grid-template-columns: 1fr; }
+      .col-span-2, .col-span-3 { grid-column: auto; }
+      .kpi-row { grid-template-columns: repeat(2, 1fr); }
+      .app-shell { grid-template-columns: 1fr; grid-template-areas: "header" "main"; }
+      aside { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+  </style>
+</head>
+<body>
+  <a class="sr-only" href="#main">Skip to content</a>
+  <div class="app-shell">
+    <!-- Sidebar -->
+    <aside aria-label="Primary">
+      <div class="brand" style="margin-bottom:16px">
+        <svg class="logo" viewBox="0 0 24 24" aria-hidden="true">
+          <defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="var(--accent)"/><stop offset="1" stop-color="var(--accent-600)"/></linearGradient></defs>
+          <path fill="url(#g)" d="M4 4h6l2 3h8v13H4z"/>
+        </svg>
+        <div>
+          <div class="wordmark">ProjectMaster</div>
+          <div style="font-size:12px; color:var(--muted)">Enterprise</div>
+        </div>
+      </div>
+
+      <div class="nav-section">
+        <h4>Workspace</h4>
+        <ul class="nav" role="menu">
+          <li><button class="active" data-nav="home">🏠 Home</button></li>
+          <li><button data-nav="portfolio">📊 Portfolio</button></li>
+          <li><button data-nav="projects">🗂️ Projects</button></li>
+          <li><button data-nav="resources">👥 Resources</button></li>
+          <li><button data-nav="budgets">💰 Budgets</button></li>
+          <li><button data-nav="risks">⚠️ Risks</button></li>
+          <li><button data-nav="vendors">🤝 Vendors</button></li>
+          <li><button data-nav="compliance">🛡️ Compliance</button></li>
+          <li><button data-nav="reports">📈 Reports</button></li>
+          <li><button data-nav="admin">⚙️ Admin</button></li>
+        </ul>
+      </div>
+
+      <div class="nav-section">
+        <h4>Saved Views</h4>
+        <ul class="nav">
+          <li><button>Q3 Strategic Initiatives</button></li>
+          <li><button>M&A Pipeline</button></li>
+          <li><button>New Product Launches</button></li>
+          <li><button>Critical Facilities</button></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-footer">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
+          <div style="font-size:12px; color:var(--muted)">Status: <span class="badge ok">Operational</span></div>
+          <button id="themeToggle" class="btn" aria-label="Toggle theme">🌓</button>
+        </div>
+        <div style="margin-top:10px; font-size:12px; color:var(--muted)">
+          v1.0 — <a href="#" onclick="alert('Release Notes (demo)');return false;">Release Notes</a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Header -->
+    <header>
+      <div class="brand" aria-label="Brand">
+        <svg class="logo" viewBox="0 0 24 24" aria-hidden="true">
+          <defs><linearGradient id="g2" x1="0" x2="1"><stop stop-color="var(--accent)"/><stop offset="1" stop-color="var(--accent-600)"/></linearGradient></defs>
+          <path fill="url(#g2)" d="M4 4h6l2 3h8v13H4z"/>
+        </svg>
+        <div class="wordmark">ProjectMaster</div>
+      </div>
+
+      <div class="search" role="search">
+        <svg class="icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 5 1.5-1.5-5-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        <input id="globalSearch" aria-label="Search projects, people, vendors" placeholder="Search projects, people, vendors…  (Ctrl/Cmd+K)" />
+      </div>
+
+      <div class="header-actions">
+        <select id="roleSelect" class="select" aria-label="Switch role">
+          <option value="executive">Executive</option>
+          <option value="portfolio">Portfolio Manager</option>
+          <option value="pm">Project Manager</option>
+          <option value="team">Team Member</option>
+          <option value="finance">Finance</option>
+          <option value="vendor">Vendor</option>
+          <option value="compliance">Compliance</option>
+        </select>
+        <select id="portfolioSelect" class="select" aria-label="Select portfolio">
+          <option>Global Portfolio</option>
+          <option>M&A 2025</option>
+          <option>Launches 2025</option>
+          <option>Facilities Expansion</option>
+        </select>
+        <select id="rangeSelect" class="select" aria-label="Select date range">
+          <option>Q3 2025</option>
+          <option>Q4 2025</option>
+          <option>FY 2025</option>
+          <option>Last 90 days</option>
+        </select>
+        <button id="newProject" class="btn primary">＋ New Project</button>
+        <button id="openCmd" class="btn" title="Command Palette (Ctrl/Cmd+K)">⌘K</button>
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='%23bbb'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M12 14c-5 0-8 2.5-8 5v1h16v-1c0-2.5-3-5-8-5z'/%3E%3C/svg%3E" alt="User" style="border-radius:999px; border:1px solid var(--border); background:var(--panel);"/>
+      </div>
+    </header>
+
+    <!-- Main -->
+    <main id="main" tabindex="-1">
+      <div class="toolbar" aria-label="Context">
+        <span class="pill" id="contextPill">Role: Executive</span>
+        <span class="pill">Portfolio: <span id="contextPortfolio">Global Portfolio</span></span>
+        <span class="pill">Range: <span id="contextRange">Q3 2025</span></span>
+        <button id="exportCsv" class="btn">Export KPIs CSV</button>
+        <button id="printDash" class="btn">Print / Save PDF</button>
+      </div>
+
+      <!-- KPI Row -->
+      <div class="kpi-row" aria-label="Portfolio KPIs">
+        <div class="kpi card" data-widget="portfolioHealth" data-role="executive portfolio pm">
+          <div class="ring" aria-hidden="true">
+            <svg width="58" height="58" viewBox="0 0 58 58">
+              <circle cx="29" cy="29" r="26" stroke="var(--border)" stroke-width="6" fill="none"/>
+              <circle id="ring-health" cx="29" cy="29" r="26" stroke="url(#g2)" stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="0 999"/>
+            </svg>
+            <div class="center" id="ring-label">0%</div>
+          </div>
+          <div>
+            <div class="metric" id="kpiOnTime">—</div>
+            <div class="meta">Projects On‑Time</div>
+          </div>
+        </div>
+        <div class="kpi card" data-role="executive portfolio pm finance">
+          <div>
+            <div class="metric" id="kpiBudget">—</div>
+            <div class="meta">Budget Adherence</div>
+          </div>
+        </div>
+        <div class="kpi card" data-role="executive portfolio pm compliance">
+          <div>
+            <div class="metric" id="kpiCompliance">—</div>
+            <div class="meta">Compliance Status</div>
+          </div>
+        </div>
+        <div class="kpi card" data-role="executive portfolio pm">
+          <div>
+            <div class="metric" id="kpiRisks">—</div>
+            <div class="meta">Open High Risks</div>
+          </div>
+        </div>
+        <div class="kpi card" data-role="executive portfolio pm finance">
+          <div>
+            <div class="metric" id="kpiApprovals">—</div>
+            <div class="meta">Pending Approvals</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid">
+        <!-- Budget vs Actual -->
+        <section class="card col-span-2" data-role="executive portfolio pm finance">
+          <h3>Budget vs Actual (Top Programs)</h3>
+          <svg id="budgetChart" class="chart" role="img" aria-label="Bar chart: budget vs actual by program"></svg>
+          <div class="legend"><span><span class="dot" style="background:#cbd5e1"></span> Planned</span><span><span class="dot" style="background:var(--accent)"></span> Actual</span></div>
+        </section>
+
+        <!-- Resource Utilization -->
+        <section class="card" data-role="executive portfolio pm resources team">
+          <h3>Resource Utilization</h3>
+          <svg id="utilDonut" class="chart" role="img" aria-label="Donut chart: resource utilization"></svg>
+          <div class="legend" id="utilLegend"></div>
+        </section>
+
+        <!-- Risk Heatmap -->
+        <section class="card" data-role="executive portfolio pm compliance">
+          <h3>Risk Heatmap</h3>
+          <div class="heatmap" id="riskHeatmap" role="grid" aria-label="Risk heatmap by likelihood and impact"></div>
+        </section>
+
+        <!-- Timeline / Gantt Snapshot -->
+        <section class="card col-span-2" data-role="executive portfolio pm">
+          <h3>Quarter Timeline (Snapshot)</h3>
+          <div class="gantt" id="gantt" style="--cols:12"></div>
+        </section>
+
+        <!-- Approvals Queue -->
+        <section class="card" data-role="executive portfolio pm finance">
+          <h3>Approvals Queue</h3>
+          <table id="approvalsTable" aria-describedby="approvalsHelp">
+            <thead><tr><th>Item</th><th>Owner</th><th>Amount</th><th>Type</th><th>Due</th><th></th></tr></thead>
+            <tbody></tbody>
+          </table>
+          <div id="approvalsHelp" class="meta" style="margin-top:8px">Approve or route for rework. All actions are auditable.</div>
+        </section>
+
+        <!-- Right Rail: Signals -->
+        <section class="rail">
+          <div class="card" data-role="executive portfolio pm team">
+            <h3>Signals & Alerts</h3>
+            <ul id="alerts" style="list-style:none; padding:0; margin:0; display:grid; gap:8px"></ul>
+          </div>
+          <div class="card" data-role="executive portfolio pm compliance">
+            <h3>Compliance</h3>
+            <div>SOX <span class="badge ok">On Track</span></div>
+            <div>GDPR <span class="badge warn">Due Soon</span></div>
+            <div>HIPAA <span class="badge ok">On Track</span></div>
+            <div>ISO 27001 <span class="badge danger">Action Required</span></div>
+          </div>
+          <div class="card" data-role="executive portfolio pm vendor">
+            <h3>Vendor Coordination</h3>
+            <div style="display:grid; gap:8px">
+              <div class="pill">Acme Build Co — <strong>RFP</strong> due in 5d</div>
+              <div class="pill">Globex Cloud — <strong>SLA</strong> review pending</div>
+              <div class="pill">Initech — <strong>PO</strong> awaiting countersign</div>
+            </div>
+          </div>
+          <div class="card" data-role="executive portfolio pm">
+            <h3>Audit Trail (Recent)</h3>
+            <ul id="audit" style="list-style:none; padding:0; margin:0; display:grid; gap:8px"></ul>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- Command Palette Modal -->
+  <div id="cmdModal" class="modal" aria-hidden="true" aria-labelledby="cmdTitle" role="dialog">
+    <div class="panel">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px">
+        <h2 id="cmdTitle" style="margin:0; font-size:18px">Command Palette</h2>
+        <div class="pill">Type to search • Enter to open • Esc to close</div>
+      </div>
+      <input id="cmdInput" class="input" style="width:100%" placeholder="Jump to project, view, or action…" aria-label="Command input" />
+      <ul id="cmdResults" style="list-style:none; padding:8px 0 0; margin:0; max-height:50vh; overflow:auto; display:grid; gap:6px"></ul>
+    </div>
+  </div>
+
+  <script>
+    // ----------------------
+    // Demo Data (static)
+    // ----------------------
+    const state = {
+      role: 'executive',
+      portfolio: 'Global Portfolio',
+      range: 'Q3 2025',
+      kpis: {
+        onTimePct: 78,
+        budgetAdherence: 92,
+        compliance: '92% OK',
+        highRisks: 14,
+        approvals: 7,
+      },
+      programs: [
+        { name: 'M&A: Contoso Acquisition', planned: 120, actual: 132 },
+        { name: 'Launch: Orion Platform', planned: 85, actual: 76 },
+        { name: 'Facility: EU DC Build', planned: 210, actual: 228 },
+        { name: 'ERP: SAP Migration', planned: 98, actual: 104 },
+      ],
+      utilization: [
+        { name: 'Engineering', value: 72 },
+        { name: 'Design', value: 66 },
+        { name: 'PMO', value: 81 },
+        { name: 'Finance', value: 58 },
+        { name: 'Legal', value: 63 },
+      ],
+      risks: Array.from({ length: 25 }, (_, i) => ({
+        likelihood: (i % 5) + 1,
+        impact: Math.floor(i / 5) + 1,
+        count: Math.floor(Math.random() * (i % 4 === 0 ? 6 : 3))
+      })),
+      timeline: [
+        { name: 'Orion GA', start: 2, end: 5, level: 1 },
+        { name: 'SAP UAT', start: 4, end: 9, level: 2, warn: true },
+        { name: 'DC Fit-Out', start: 6, end: 12, level: 3 },
+        { name: 'Contoso Close', start: 8, end: 10, level: 1, danger: true },
+      ],
+      approvals: [
+        { id: 'AP-1029', item: 'CapEx: EU DC Fiber Trenching', owner: 'Dana Ruiz', amount: 580000, type: 'CapEx', due: 'Sep 25' },
+        { id: 'AP-1030', item: 'PO: Orion Marketing Spend', owner: 'Alex Chen', amount: 180000, type: 'Opex', due: 'Sep 22' },
+        { id: 'AP-1031', item: 'Contract: Globex Cloud Renewal', owner: 'Sam Patel', amount: 950000, type: 'Contract', due: 'Oct 01' },
+        { id: 'AP-1032', item: 'Budget Change: SAP UAT', owner: 'Riley Park', amount: 120000, type: 'Budget', due: 'Sep 30' },
+      ],
+      alerts: [
+        { level: 'danger', text: 'EU DC steel delivery 2 weeks late. Re-plan required.' },
+        { level: 'warn', text: 'SAP UAT defect rate trending high. Add QA capacity.' },
+        { level: 'ok', text: 'Orion Platform on track for GA in 5 weeks.' },
+      ],
+      audit: [
+        '09:10 — Budget change request AP-1032 submitted by R. Park',
+        '08:42 — Risk R-221 escalated to High by L. Gomez',
+        '08:15 — Contract AP-1031 countersigned by Globex legal',
+        'Yesterday — Project ORN-21 moved from Yellow to Green',
+      ],
+      commands: [
+        'Open: Portfolio / Global Dashboard',
+        'Open: Project / Orion Platform',
+        'Open: Project / SAP Migration',
+        'Open: Vendors / Contracts',
+        'Action: Create New Project',
+        'Action: Create Risk',
+        'Action: Create Change Request',
+        'Report: Executive Summary (PDF)',
+        'Report: Resource Utilization',
+        'Report: Budget vs Actual',
+      ],
+    };
+
+    // ----------------------
+    // Utilities
+    // ----------------------
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+    const fmt = new Intl.NumberFormat('en-US');
+
+    function setText(id, value){ const el = document.getElementById(id); if(el) el.textContent = value; }
+
+    function setRing(percent){
+      const c = 2 * Math.PI * 26; // circumference
+      const p = Math.max(0, Math.min(100, percent));
+      const dash = (p/100) * c;
+      const el = document.getElementById('ring-health');
+      el.setAttribute('stroke-dasharray', `${dash} ${c-dash}`);
+      setText('ring-label', p + '%');
+    }
+
+    // Render KPIs
+    function renderKpis(){
+      setText('kpiOnTime', state.kpis.onTimePct + '%');
+      setText('kpiBudget', state.kpis.budgetAdherence + '%');
+      setText('kpiCompliance', state.kpis.compliance);
+      setText('kpiRisks', state.kpis.highRisks);
+      setText('kpiApprovals', state.kpis.approvals);
+      setRing(state.kpis.onTimePct);
+    }
+
+    // Budget vs Actual Bar Chart (SVG)
+    function renderBudgetChart(){
+      const svg = document.getElementById('budgetChart');
+      const width = svg.clientWidth || 600; const height = svg.clientHeight || 260;
+      const margin = { t: 20, r: 16, b: 40, l: 140 };
+      const w = width - margin.l - margin.r; const h = height - margin.t - margin.b;
+      svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+      svg.innerHTML = '';
+
+      const maxVal = Math.max(...state.programs.flatMap(p => [p.planned, p.actual])) * 1.2;
+      const yStep = h / state.programs.length;
+
+      // Axes
+      const axis = document.createElementNS('http://www.w3.org/2000/svg','path');
+      axis.setAttribute('d', `M ${margin.l} ${margin.t} v ${h}`);
+      axis.setAttribute('stroke', getComputedStyle(document.documentElement).getPropertyValue('--border'));
+      axis.setAttribute('stroke-width','1');
+      svg.appendChild(axis);
+
+      state.programs.forEach((p, i) => {
+        const y = margin.t + i * yStep + yStep/2;
+        // labels
+        const label = document.createElementNS('http://www.w3.org/2000/svg','text');
+        label.setAttribute('x', margin.l - 8);
+        label.setAttribute('y', y + 4);
+        label.setAttribute('text-anchor', 'end');
+        label.setAttribute('font-size','12');
+        label.setAttribute('fill', getComputedStyle(document.documentElement).getPropertyValue('--muted'));
+        label.textContent = p.name;
+        svg.appendChild(label);
+
+        // planned (background)
+        const plannedW = (p.planned / maxVal) * w;
+        const planned = document.createElementNS('http://www.w3.org/2000/svg','rect');
+        planned.setAttribute('x', margin.l);
+        planned.setAttribute('y', y - 12);
+        planned.setAttribute('width', plannedW);
+        planned.setAttribute('height', 10);
+        planned.setAttribute('rx', 6);
+        planned.setAttribute('fill', '#cbd5e1');
+        svg.appendChild(planned);
+
+        // actual (overlay)
+        const actualW = (p.actual / maxVal) * w;
+        const actual = document.createElementNS('http://www.w3.org/2000/svg','rect');
+        actual.setAttribute('x', margin.l);
+        actual.setAttribute('y', y + 2);
+        actual.setAttribute('width', actualW);
+        actual.setAttribute('height', 10);
+        actual.setAttribute('rx', 6);
+        actual.setAttribute('fill', getComputedStyle(document.documentElement).getPropertyValue('--accent'));
+        svg.appendChild(actual);
+
+        // value labels
+        const val = document.createElementNS('http://www.w3.org/2000/svg','text');
+        val.setAttribute('x', margin.l + Math.max(plannedW, actualW) + 6);
+        val.setAttribute('y', y + 5);
+        val.setAttribute('font-size','11');
+        val.textContent = `$${fmt.format(p.actual)}m / $${fmt.format(p.planned)}m`;
+        svg.appendChild(val);
+      });
+
+      // X ticks
+      const ticks = 4;
+      for (let i=1;i<=ticks;i++){
+        const x = margin.l + (i/ticks) * w;
+        const t = document.createElementNS('http://www.w3.org/2000/svg','text');
+        t.setAttribute('x', x); t.setAttribute('y', height - 12); t.setAttribute('text-anchor','middle'); t.setAttribute('font-size','11');
+        t.textContent = `$${fmt.format(Math.round((i/ticks)*maxVal))}m`;
+        svg.appendChild(t);
+      }
+    }
+
+    // Donut Chart (SVG)
+    function renderUtilization(){
+      const svg = document.getElementById('utilDonut');
+      const legend = document.getElementById('utilLegend');
+      const size = Math.min(svg.clientWidth || 280, svg.clientHeight || 260);
+      const cx = (svg.clientWidth || 280) / 2; const cy = (svg.clientHeight || 260) / 2; const r = (size/2) - 16; const stroke = 22;
+      svg.setAttribute('viewBox', `0 0 ${svg.clientWidth || 360} ${svg.clientHeight || 260}`);
+      svg.innerHTML = '';
+      legend.innerHTML = '';
+
+      const total = state.utilization.reduce((a,b)=>a+b.value, 0);
+      let start = 0;
+      const colors = ['#60a5fa','#34d399','#fbbf24','#f87171','#a78bfa'];
+
+      state.utilization.forEach((d, i) => {
+        const frac = d.value / total; const end = start + frac;
+        const large = (end-start) > 0.5 ? 1 : 0;
+        const a0 = 2*Math.PI*start - Math.PI/2; const a1 = 2*Math.PI*end - Math.PI/2;
+        const x0 = cx + r*Math.cos(a0), y0 = cy + r*Math.sin(a0);
+        const x1 = cx + r*Math.cos(a1), y1 = cy + r*Math.sin(a1);
+        const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+        const dStr = `M ${x0} ${y0} A ${r} ${r} 0 ${large} 1 ${x1} ${y1}`;
+        path.setAttribute('d', dStr);
+        path.setAttribute('stroke', colors[i%colors.length]);
+        path.setAttribute('stroke-width', stroke);
+        path.setAttribute('fill', 'none');
+        path.setAttribute('stroke-linecap','butt');
+        svg.appendChild(path);
+
+        const li = document.createElement('span');
+        li.innerHTML = `<span class="dot" style="background:${colors[i%colors.length]}"></span>${d.name} — ${d.value}%`;
+        legend.appendChild(li);
+        start = end;
+      });
+
+      // center label
+      const center = document.createElementNS('http://www.w3.org/2000/svg','text');
+      center.setAttribute('x', cx); center.setAttribute('y', cy+5); center.setAttribute('text-anchor','middle'); center.setAttribute('font-size','14'); center.setAttribute('font-weight','700');
+      const avg = Math.round(state.utilization.reduce((a,b)=>a+b.value,0)/state.utilization.length);
+      center.textContent = `Avg ${avg}%`;
+      svg.appendChild(center);
+    }
+
+    // Risk heatmap (5x5)
+    function renderHeatmap(){
+      const el = document.getElementById('riskHeatmap');
+      el.innerHTML = '';
+      const max = Math.max(...state.risks.map(r=>r.count));
+      state.risks.forEach(r => {
+        const c = document.createElement('div'); c.className = 'cell';
+        const intensity = max ? r.count / max : 0;
+        const color = intensity === 0 ? 'transparent' : `rgba(220,38,38, ${0.12 + intensity*0.5})`;
+        c.style.background = color;
+        c.textContent = r.count || '';
+        c.title = `Likelihood ${r.likelihood} × Impact ${r.impact}: ${r.count} risks`;
+        el.appendChild(c);
+      })
+    }
+
+    // Gantt snapshot
+    function renderGantt(){
+      const el = document.getElementById('gantt');
+      el.innerHTML = '';
+      state.timeline.forEach(t => {
+        const row = document.createElement('div'); row.className = 'track';
+        const bar = document.createElement('div'); bar.className = 'bar';
+        if (t.warn) bar.classList.add('warn');
+        if (t.danger) bar.classList.add('danger');
+        bar.style.gridColumn = `${t.start} / ${t.end}`;
+        bar.title = `${t.name}: M${t.start}–M${t.end}`;
+        bar.style.marginTop = (t.level*6) + 'px';
+        row.appendChild(bar);
+        el.appendChild(row);
+      });
+      // month headers
+      for(let i=1;i<=12;i++){
+        const label = document.createElement('div');
+        label.style.gridColumn = `${i} / ${i+1}`;
+        label.style.fontSize = '11px';
+        label.style.color = getComputedStyle(document.documentElement).getPropertyValue('--muted');
+        label.textContent = 'M' + i;
+        el.appendChild(label);
+      }
+    }
+
+    // Approvals table
+    function renderApprovals(){
+      const body = document.querySelector('#approvalsTable tbody');
+      body.innerHTML = '';
+      state.approvals.forEach(a => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${a.item}</td><td>${a.owner}</td><td>$${fmt.format(a.amount)}</td><td>${a.type}</td><td>${a.due}</td>`;
+        const td = document.createElement('td');
+        const approve = document.createElement('button'); approve.className = 'btn'; approve.textContent = 'Approve';
+        const rework = document.createElement('button'); rework.className = 'btn'; rework.style.marginLeft = '6px'; rework.textContent = 'Send Back';
+        approve.addEventListener('click', ()=> takeAction('approved', a));
+        rework.addEventListener('click', ()=> takeAction('rework', a));
+        td.appendChild(approve); td.appendChild(rework);
+        tr.appendChild(td);
+        body.appendChild(tr);
+      })
+    }
+
+    function takeAction(action, a){
+      // Remove from queue + add to audit
+      state.approvals = state.approvals.filter(x => x.id !== a.id);
+      renderApprovals();
+      state.audit.unshift(`${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})} — ${a.id} ${action} by You`);
+      renderAudit();
+      state.kpis.approvals = Math.max(0, state.kpis.approvals - 1);
+      renderKpis();
+      alert(`Action recorded: ${a.id} ${action}`);
+    }
+
+    // Alerts & audit
+    function renderAlerts(){
+      const ul = document.getElementById('alerts'); ul.innerHTML = '';
+      state.alerts.forEach(a => {
+        const li = document.createElement('li');
+        li.innerHTML = `<span class="badge ${a.level}">${a.level.toUpperCase()}</span> ${a.text}`;
+        ul.appendChild(li);
+      })
+    }
+    function renderAudit(){
+      const ul = document.getElementById('audit'); ul.innerHTML = '';
+      state.audit.slice(0,8).forEach(e => { const li = document.createElement('li'); li.textContent = e; ul.appendChild(li); })
+    }
+
+    // Role-based personalization
+    function applyRole(){
+      const { role } = state;
+      $$('#contextPill').forEach(()=>{}); // noop; there's one
+      document.getElementById('contextPill').textContent = 'Role: ' + roleLabel(role);
+      // Toggle widgets
+      const roleTokens = new Set(role.split(' '));
+      document.querySelectorAll('[data-role]').forEach(el => {
+        const roles = el.getAttribute('data-role').split(/\s+/);
+        const show = roles.some(r => roleTokens.has(r));
+        el.style.display = show ? '' : 'none';
+      });
+    }
+    function roleLabel(val){
+      switch(val){
+        case 'executive': return 'Executive';
+        case 'portfolio': return 'Portfolio Manager';
+        case 'pm': return 'Project Manager';
+        case 'team': return 'Team Member';
+        case 'finance': return 'Finance';
+        case 'vendor': return 'Vendor';
+        case 'compliance': return 'Compliance';
+        default: return val;
+      }
+    }
+
+    // Command palette
+    const cmdModal = document.getElementById('cmdModal');
+    function openCmd(){ cmdModal.classList.add('open'); cmdModal.setAttribute('aria-hidden','false'); document.getElementById('cmdInput').focus(); }
+    function closeCmd(){ cmdModal.classList.remove('open'); cmdModal.setAttribute('aria-hidden','true'); }
+    function filterCommands(q=''){
+      const list = document.getElementById('cmdResults'); list.innerHTML='';
+      const res = state.commands.filter(c => c.toLowerCase().includes(q.toLowerCase()));
+      res.forEach(r => { const li = document.createElement('li'); li.className='card'; li.style.padding='10px'; li.textContent = r; list.appendChild(li); });
+      if(res.length===0){ const li=document.createElement('li'); li.className='card'; li.style.padding='10px'; li.textContent='No matches'; list.appendChild(li); }
+    }
+
+    // Export CSV (KPIs)
+    function exportCsv(){
+      const rows = [
+        ['OnTimePct','BudgetAdherence','Compliance','HighRisks','PendingApprovals'],
+        [state.kpis.onTimePct, state.kpis.budgetAdherence, `'${state.kpis.compliance}` , state.kpis.highRisks, state.kpis.approvals]
+      ];
+      const csv = rows.map(r => r.join(',')).join('\n');
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'projectmaster-kpis.csv'; a.click();
+      URL.revokeObjectURL(a.href);
+    }
+
+    // Print
+    function printDash(){ window.print(); }
+
+    // Theme toggle
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      document.documentElement.setAttribute('data-theme', dark ? 'light' : 'dark');
+    });
+
+    // Header controls
+    document.getElementById('roleSelect').addEventListener('change', e => { state.role = e.target.value; applyRole(); });
+    document.getElementById('portfolioSelect').addEventListener('change', e => { state.portfolio = e.target.value; document.getElementById('contextPortfolio').textContent = state.portfolio; });
+    document.getElementById('rangeSelect').addEventListener('change', e => { state.range = e.target.value; document.getElementById('contextRange').textContent = state.range; });
+    document.getElementById('openCmd').addEventListener('click', openCmd);
+    document.getElementById('exportCsv').addEventListener('click', exportCsv);
+    document.getElementById('printDash').addEventListener('click', printDash);
+
+    // Search shortcut
+    document.addEventListener('keydown', (e) => {
+      const isMac = navigator.platform.toUpperCase().indexOf('MAC')>=0;
+      if ((isMac && e.metaKey && e.key.toLowerCase()==='k') || (!isMac && e.ctrlKey && e.key.toLowerCase()==='k')){
+        e.preventDefault(); openCmd();
+      }
+      if (e.key === 'Escape') closeCmd();
+    });
+    document.getElementById('cmdInput').addEventListener('input', e => filterCommands(e.target.value));
+    cmdModal.addEventListener('click', e => { if(e.target===cmdModal) closeCmd(); });
+
+    // Alerts for search
+    document.getElementById('globalSearch').addEventListener('keydown', (e)=>{
+      if(e.key==='Enter'){ alert('Global search for: ' + e.target.value + ' (demo)'); }
+    })
+
+    // Initial render
+    function renderAll(){
+      renderKpis();
+      renderBudgetChart();
+      renderUtilization();
+      renderHeatmap();
+      renderGantt();
+      renderApprovals();
+      renderAlerts();
+      renderAudit();
+      applyRole();
+      filterCommands('');
+    }
+    window.addEventListener('resize', () => { renderBudgetChart(); renderUtilization(); });
+
+    renderAll();
+  </script>
+</body>
+</html>

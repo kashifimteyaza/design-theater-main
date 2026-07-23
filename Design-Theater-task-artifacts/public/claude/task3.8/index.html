@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventSpace - Virtual Conferences That Feel Human</title>
+    <style>
+        :root {
+            --color-navy: #1a3a52;
+            --color-teal: #2d6a7a;
+            --color-coral: #e17f5f;
+            --color-peach: #f4a990;
+            --color-cream: #faf8f5;
+            --color-warm-white: #fffcf8;
+            --color-charcoal: #2c2c2c;
+            --color-sage: #a8b8a5;
+            
+            --font-display: 'Georgia', 'Baskerville', serif;
+            --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-accent: 'Courier New', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--color-cream);
+            color: var(--color-charcoal);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Grain texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            z-index: 9999;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(250, 248, 245, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(42, 58, 82, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--color-navy);
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--color-navy);
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-coral);
+        }
+
+        .cta-button {
+            background: var(--color-coral);
+            color: white;
+            padding: 0.75rem 1.75rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid var(--color-coral);
+        }
+
+        .cta-button:hover {
+            background: transparent;
+            color: var(--color-coral);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 90px;
+            padding: 6rem 2rem 8rem;
+            background: linear-gradient(135deg, var(--color-warm-white) 0%, var(--color-cream) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(225, 127, 95, 0.08) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-30px, 30px) rotate(5deg); }
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            line-height: 1.1;
+            color: var(--color-navy);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.35rem;
+            color: var(--color-teal);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .hero-content .description {
+            font-size: 1.05rem;
+            color: var(--color-charcoal);
+            margin-bottom: 2.5rem;
+            opacity: 0.85;
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--color-coral);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+            border: 2px solid var(--color-coral);
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background: var(--color-navy);
+            border-color: var(--color-navy);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(26, 58, 82, 0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--color-navy);
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            border: 2px solid var(--color-navy);
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-navy);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .stat-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border-left: 4px solid var(--color-coral);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:nth-child(2) {
+            border-left-color: var(--color-teal);
+            transform: translateY(2rem);
+        }
+
+        .stat-card:nth-child(3) {
+            border-left-color: var(--color-sage);
+        }
+
+        .stat-card:nth-child(4) {
+            border-left-color: var(--color-peach);
+            transform: translateY(2rem);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .stat-card:nth-child(2):hover,
+        .stat-card:nth-child(4):hover {
+            transform: translateY(1.5rem);
+        }
+
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            color: var(--color-navy);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            color: var(--color-teal);
+            font-weight: 500;
+        }
+
+        /* Problem Section */
+        .problem-section {
+            padding: 6rem 2rem;
+            background: white;
+        }
+
+        .problem-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-tag {
+            font-family: var(--font-accent);
+            font-size: 0.85rem;
+            color: var(--color-coral);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            color: var(--color-navy);
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-description {
+            font-size: 1.2rem;
+            color: var(--color-teal);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .pain-points {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .pain-point {
+            background: var(--color-cream);
+            padding: 2.5rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pain-point::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-coral), var(--color-peach));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .pain-point:hover::before {
+            transform: scaleX(1);
+        }
+
+        .pain-point:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .pain-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .pain-title {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            color: var(--color-navy);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .pain-description {
+            color: var(--color-charcoal);
+            opacity: 0.8;
+            line-height: 1.7;
+        }
+
+        /* Approach Section */
+        .approach-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, white 0%, var(--color-warm-white) 100%);
+        }
+
+        .approach-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .approach-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            margin-top: 4rem;
+        }
+
+        .approach-item {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .approach-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--color-coral), var(--color-peach));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(225, 127, 95, 0.25);
+        }
+
+        .approach-item:nth-child(2) .approach-icon {
+            background: linear-gradient(135deg, var(--color-teal), var(--color-sage));
+            box-shadow: 0 4px 15px rgba(45, 106, 122, 0.25);
+        }
+
+        .approach-item:nth-child(3) .approach-icon {
+            background: linear-gradient(135deg, var(--color-navy), var(--color-teal));
+            box-shadow: 0 4px 15px rgba(26, 58, 82, 0.25);
+        }
+
+        .approach-item:nth-child(4) .approach-icon {
+            background: linear-gradient(135deg, var(--color-peach), var(--color-coral));
+            box-shadow: 0 4px 15px rgba(244, 169, 144, 0.25);
+        }
+
+        .approach-content h3 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            color: var(--color-navy);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .approach-content p {
+            color: var(--color-charcoal);
+            opacity: 0.85;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .approach-features {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .approach-features li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.75rem;
+            color: var(--color-teal);
+            font-weight: 500;
+        }
+
+        .approach-features li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--color-coral);
+        }
+
+        /* Solutions Section */
+        .solutions-section {
+            padding: 6rem 2rem;
+            background: var(--color-navy);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .solutions-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: radial-gradient(circle at top right, rgba(225, 127, 95, 0.1) 0%, transparent 60%);
+        }
+
+        .solutions-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .solutions-section .section-tag {
+            color: var(--color-peach);
+        }
+
+        .solutions-section .section-title {
+            color: white;
+        }
+
+        .solutions-section .section-description {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .solution-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2.5rem;
+            border-radius: 12px;
+            transition: all 0.4s ease;
+        }
+
+        .solution-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--color-coral);
+            transform: translateY(-5px);
+        }
+
+        .solution-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: var(--color-peach);
+        }
+
+        .solution-card p {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .solution-highlight {
+            background: rgba(225, 127, 95, 0.15);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--color-coral);
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-style: italic;
+        }
+
+        /* Users Section */
+        .users-section {
+            padding: 6rem 2rem;
+            background: var(--color-cream);
+        }
+
+        .users-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .users-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .user-persona {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .persona-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            background: white;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-persona:nth-child(1) .persona-avatar {
+            background: linear-gradient(135deg, var(--color-coral), var(--color-peach));
+        }
+
+        .user-persona:nth-child(2) .persona-avatar {
+            background: linear-gradient(135deg, var(--color-teal), var(--color-sage));
+        }
+
+        .user-persona:nth-child(3) .persona-avatar {
+            background: linear-gradient(135deg, var(--color-navy), var(--color-teal));
+        }
+
+        .persona-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--color-navy);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .persona-description {
+            color: var(--color-charcoal);
+            opacity: 0.8;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .persona-needs {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: left;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .persona-needs strong {
+            color: var(--color-coral);
+            display: block;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .persona-needs ul {
+            list-style: none;
+        }
+
+        .persona-needs li {
+            padding-left: 1.25rem;
+            position: relative;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            color: var(--color-charcoal);
+        }
+
+        .persona-needs li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--color-teal);
+            font-weight: bold;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--color-teal), var(--color-navy));
+            color: white;
+            text-align: center;
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-section h2 {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .cta-section p {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+
+        .cta-section .btn-primary {
+            background: white;
+            color: var(--color-navy);
+            border-color: white;
+            font-size: 1.1rem;
+            padding: 1.25rem 3rem;
+        }
+
+        .cta-section .btn-primary:hover {
+            background: var(--color-coral);
+            color: white;
+            border-color: var(--color-coral);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--color-navy);
+            color: white;
+            padding: 3rem 2rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--color-peach);
+        }
+
+        .footer-tagline {
+            opacity: 0.7;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .footer-section h4 {
+            font-family: var(--font-display);
+            margin-bottom: 1rem;
+            color: var(--color-peach);
+            font-size: 1.1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--color-coral);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .approach-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .pain-points,
+            .solutions-grid,
+            .users-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-card:nth-child(2),
+            .stat-card:nth-child(4) {
+                transform: translateY(0);
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-content,
+        .hero-visual {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-visual {
+            animation-delay: 0.2s;
+        }
+
+        /* Accessibility */
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            padding: 0;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--color-coral);
+            outline-offset: 3px;
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav aria-label="Main navigation">
+        <div class="nav-container">
+            <div class="logo">EventSpace</div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#solutions">Solutions</a></li>
+                <li><a href="#users">Who We Serve</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#" class="cta-button">Start Free Trial</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Virtual conferences that feel human</h1>
+                <p class="subtitle">From 50-person workshops to 5,000-attendee summits, EventSpace adapts to your needs without the complexity.</p>
+                <p class="description">We believe virtual events should work for everyone—tech-savvy organizers and first-time hosts, engaged attendees and introverted networkers. One platform that feels effortless, no matter the scale.</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn-primary">Start Your Event Free</a>
+                    <a href="#" class="btn-secondary">See How It Works</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="stat-cards">
+                    <div class="stat-card">
+                        <div class="stat-number">50-5K</div>
+                        <div class="stat-label">Event scale range</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">99.9%</div>
+                        <div class="stat-label">Uptime guarantee</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">WCAG AA</div>
+                        <div class="stat-label">Accessibility certified</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Live support</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem-section" id="features">
+        <div class="problem-container">
+            <div class="section-header">
+                <div class="section-tag">The Challenge</div>
+                <h2 class="section-title">Virtual events are hard. We make them human.</h2>
+                <p class="section-description">Every platform promises engagement. We've talked to hundreds of organizers and attendees to understand what actually breaks.</p>
+            </div>
+            <div class="pain-points">
+                <div class="pain-point">
+                    <div class="pain-icon">🕐</div>
+                    <h3 class="pain-title">Time Zone Chaos</h3>
+                    <p class="pain-description">Attendees miss sessions because "2pm PST" means nothing in Tokyo. Our intelligent scheduling converts times automatically and sends smart reminders in each attendee's local timezone.</p>
+                </div>
+                <div class="pain-point">
+                    <div class="pain-icon">🚪</div>
+                    <h3 class="pain-title">Wrong Room, Every Time</h3>
+                    <p class="pain-description">Getting lost between breakouts kills momentum. We provide persistent navigation, session breadcrumbs, and gentle redirects when someone wanders into the wrong virtual room.</p>
+                </div>
+                <div class="pain-point">
+                    <div class="pain-icon">😶</div>
+                    <h3 class="pain-title">Awkward Networking</h3>
+                    <p class="pain-description">Forced video interactions feel unnatural. Our optional text-first networking, interest matching, and "low-pressure zones" let introverts connect comfortably while giving extroverts room to shine.</p>
+                </div>
+                <div class="pain-point">
+                    <div class="pain-icon">📉</div>
+                    <h3 class="pain-title">Speaker Anxiety</h3>
+                    <p class="pain-description">Technical failures mid-presentation destroy confidence. We provide pre-session tech checks, automatic backup streams, and instant recovery from disconnects so speakers can focus on content.</p>
+                </div>
+                <div class="pain-point">
+                    <div class="pain-icon">🎯</div>
+                    <h3 class="pain-title">Complexity Overload</h3>
+                    <p class="pain-description">Organizers drown in settings they don't understand. Our smart defaults work out of the box, with progressive disclosure—advanced features appear only when you're ready for them.</p>
+                </div>
+                <div class="pain-point">
+                    <div class="pain-icon">♿</div>
+                    <h3 class="pain-title">Accessibility Afterthought</h3>
+                    <p class="pain-description">Screen readers, captions, and keyboard navigation shouldn't be add-ons. We build WCAG AA compliance into every feature from day one, not as a checkbox.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Approach Section -->
+    <section class="approach-section">
+        <div class="approach-container">
+            <div class="section-header">
+                <div class="section-tag">Our Approach</div>
+                <h2 class="section-title">Three principles. Every feature.</h2>
+                <p class="section-description">We designed EventSpace around how people actually behave at events—not how we wish they would.</p>
+            </div>
+            <div class="approach-grid">
+                <div class="approach-item">
+                    <div class="approach-icon">🎯</div>
+                    <div class="approach-content">
+                        <h3>Smart Defaults, Total Control</h3>
+                        <p>Launch a professional event in minutes with templates that work. When you're ready for customization, every setting is exactly where you expect it.</p>
+                        <ul class="approach-features">
+                            <li>One-click event templates for common formats</li>
+                            <li>Progressive settings reveal as you need them</li>
+                            <li>Import branding with a single logo upload</li>
+                            <li>Undo any change with full version history</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="approach-item">
+                    <div class="approach-icon">🤝</div>
+                    <div class="approach-content">
+                        <h3>Humans First, Technology Second</h3>
+                        <p>Connection happens naturally when people feel comfortable. We remove pressure and create multiple paths to engagement.</p>
+                        <ul class="approach-features">
+                            <li>Chat-first networking with optional video</li>
+                            <li>AI-powered interest matching (opt-in)</li>
+                            <li>"Quiet zones" for text-only interaction</li>
+                            <li>No forced ice-breakers or spotlight modes</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="approach-item">
+                    <div class="approach-icon">🛡️</div>
+                    <div class="approach-content">
+                        <h3>Bulletproof Reliability</h3>
+                        <p>Your reputation rides on your event. We engineer for the worst so you can plan for the best.</p>
+                        <ul class="approach-features">
+                            <li>Automatic failover to backup streams</li>
+                            <li>Pre-session tech checks for all speakers</li>
+                            <li>One-click rejoin after accidental disconnects</li>
+                            <li>Real-time health monitoring and alerts</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="approach-item">
+                    <div class="approach-icon">♿</div>
+                    <div class="approach-content">
+                        <h3>Accessible by Design</h3>
+                        <p>Accessibility features help everyone—not just those who require them. Better UX for all starts with universal design.</p>
+                        <ul class="approach-features">
+                            <li>Live AI captions with speaker attribution</li>
+                            <li>Full keyboard navigation (no mouse required)</li>
+                            <li>Screen reader tested on every release</li>
+                            <li>Adjustable text size and high-contrast modes</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section class="solutions-section" id="solutions">
+        <div class="solutions-container">
+            <div class="section-header">
+                <div class="section-tag">How We Solve It</div>
+                <h2 class="section-title">The details that make it work</h2>
+                <p class="section-description">Every frustration we heard became a feature. Here's what makes EventSpace different.</p>
+            </div>
+            <div class="solutions-grid">
+                <div class="solution-card">
+                    <h3>Intelligent Session Recovery</h3>
+                    <p>Accidentally left a session? One-click rejoin takes you back to exactly where you were. Browser crashed? Auto-reconnect restores your session state, chat history, and Q&A position.</p>
+                    <div class="solution-highlight">
+                        "I closed my laptop mid-session to move rooms. When I opened it, EventSpace had saved my spot and I didn't miss a thing." – Conference attendee
+                    </div>
+                </div>
+                <div class="solution-card">
+                    <h3>Multi-Speed Streaming</h3>
+                    <p>Attendees on slow connections get lower-quality video automatically—but see the same content in real-time. Presentation slides load separately from video so content is always readable.</p>
+                    <div class="solution-highlight">
+                        Our adaptive streaming works on 3G connections without compromising the experience for those on fiber.
+                    </div>
+                </div>
+                <div class="solution-card">
+                    <h3>Context-Aware Navigation</h3>
+                    <p>The platform knows where you should be based on your agenda. Gentle prompts when sessions are starting, breadcrumb trails to prevent getting lost, and a "lost?" button that surfaces relevant sessions.</p>
+                    <div class="solution-highlight">
+                        Navigation remembers your journey—back buttons actually work the way you expect.
+                    </div>
+                </div>
+                <div class="solution-card">
+                    <h3>Progressive Networking</h3>
+                    <p>Start with text chat, add video when comfortable, or stay text-only. See who shares your interests without awkward small talk. "Do Not Disturb" mode lets you watch without networking pressure.</p>
+                    <div class="solution-highlight">
+                        Introverts appreciate the control. Extroverts appreciate the targeting. Everyone connects more meaningfully.
+                    </div>
+                </div>
+                <div class="solution-card">
+                    <h3>Smart Recording Permissions</h3>
+                    <p>Attendees control what's captured. Join with video off for networking but get prompted before Q&A if you'll be recorded. Post-event, download only the segments you participated in.</p>
+                    <div class="solution-highlight">
+                        Privacy controls that respect consent without creating confusion.
+                    </div>
+                </div>
+                <div class="solution-card">
+                    <h3>Organizer Copilot</h3>
+                    <p>Live dashboard shows exactly what's happening: session health, attendee flow, engagement metrics. AI suggests interventions ("Session B has low attendance—send a reminder?") but never acts without permission.</p>
+                    <div class="solution-highlight">
+                        Like having an experienced event producer watching your back 24/7.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Users Section -->
+    <section class="users-section" id="users">
+        <div class="users-container">
+            <div class="section-header">
+                <div class="section-tag">Who We Serve</div>
+                <h2 class="section-title">Built for the people who make events happen</h2>
+                <p class="section-description">Different roles, different needs. One platform that serves them all.</p>
+            </div>
+            <div class="users-grid">
+                <div class="user-persona">
+                    <div class="persona-avatar">👥</div>
+                    <h3 class="persona-title">Event Organizers</h3>
+                    <p class="persona-description">From seasoned conference pros to first-time nonprofit coordinators, you need results without the learning curve.</p>
+                    <div class="persona-needs">
+                        <strong>What you get:</strong>
+                        <ul>
+                            <li>Templates that match your event type</li>
+                            <li>Branding without design skills</li>
+                            <li>Real-time health monitoring</li>
+                            <li>Post-event analytics that matter</li>
+                            <li>White-glove onboarding for large events</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="user-persona">
+                    <div class="persona-avatar">🎤</div>
+                    <h3 class="persona-title">Speakers & Presenters</h3>
+                    <p class="persona-description">Your content matters. Technology should disappear so your message can shine.</p>
+                    <div class="persona-needs">
+                        <strong>What you get:</strong>
+                        <ul>
+                            <li>Pre-session tech rehearsals</li>
+                            <li>Backup streams you'll never see</li>
+                            <li>Presenter view with notes + Q&A</li>
+                            <li>Recording control and download rights</li>
+                            <li>Audience engagement metrics</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="user-persona">
+                    <div class="persona-avatar">🎧</div>
+                    <h3 class="persona-title">Attendees</h3>
+                    <p class="persona-description">Whether you're networking or learning, tech-savvy or just trying to join a session, it should just work.</p>
+                    <div class="persona-needs">
+                        <strong>What you get:</strong>
+                        <ul>
+                            <li>One-click join from calendar</li>
+                            <li>Local time conversion everywhere</li>
+                            <li>Networking at your comfort level</li>
+                            <li>Accessibility without extra steps</li>
+                            <li>Session recordings you actually want</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2>Ready to run virtual events that feel human?</h2>
+            <p>Start with a free event for up to 100 attendees. No credit card required. Upgrade only when you're ready to scale.</p>
+            <a href="#" class="btn-primary">Create Your First Event</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div>
+                <div class="footer-brand">EventSpace</div>
+                <p class="footer-tagline">Making virtual conferences feel as human as the real thing. Built by event people, for event people.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Product</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Features</a></li>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">Integrations</a></li>
+                    <li><a href="#">Security</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Event Templates</a></li>
+                    <li><a href="#">Community</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul class="footer-links">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Privacy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2024 EventSpace. All rights reserved. • Built with care for the event community.
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && href !== '') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        const offset = 80; // Account for fixed nav
+                        const targetPosition = target.offsetTop - offset;
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Add scroll-based animation triggers
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for fade-in animations
+        document.querySelectorAll('.pain-point, .solution-card, .approach-item, .user-persona').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Keyboard navigation enhancement
+        document.addEventListener('keydown', (e) => {
+            // Improve tab navigation visibility
+            if (e.key === 'Tab') {
+                document.body.classList.add('keyboard-navigation');
+            }
+        });
+
+        document.addEventListener('mousedown', () => {
+            document.body.classList.remove('keyboard-navigation');
+        });
+
+        // Announce dynamic content changes for screen readers
+        function announceToScreenReader(message) {
+            const announcement = document.createElement('div');
+            announcement.setAttribute('role', 'status');
+            announcement.setAttribute('aria-live', 'polite');
+            announcement.className = 'visually-hidden';
+            announcement.textContent = message;
+            document.body.appendChild(announcement);
+            setTimeout(() => announcement.remove(), 1000);
+        }
+
+        // Example: Announce when sections come into view
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const sectionTitle = entry.target.querySelector('.section-title');
+                    if (sectionTitle) {
+                        announceToScreenReader(`Now viewing: ${sectionTitle.textContent}`);
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('section').forEach(section => {
+            sectionObserver.observe(section);
+        });
+    </script>
+</body>
+</html>

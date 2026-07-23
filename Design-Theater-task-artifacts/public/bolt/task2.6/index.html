@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MedTech Solutions — AI-Powered Diagnostic Intelligence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/style.css" />
+    <meta property="og:image" content="https://bolt.new/static/og_default.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
+</head>
+  <body>
+    <!-- Navigation -->
+    <header class="nav" id="nav">
+      <div class="nav__inner">
+        <div class="nav__brand">
+          <div class="nav__logo">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+              <circle cx="16" cy="16" r="14" stroke="#00b8c4" stroke-width="1.5" fill="none" opacity="0.3"/>
+              <circle cx="16" cy="16" r="9" stroke="#00b8c4" stroke-width="1.5" fill="none" opacity="0.6"/>
+              <circle cx="16" cy="16" r="4" fill="#00b8c4"/>
+              <line x1="16" y1="2" x2="16" y2="8" stroke="#00b8c4" stroke-width="1.5"/>
+              <line x1="16" y1="24" x2="16" y2="30" stroke="#00b8c4" stroke-width="1.5"/>
+              <line x1="2" y1="16" x2="8" y2="16" stroke="#00b8c4" stroke-width="1.5"/>
+              <line x1="24" y1="16" x2="30" y2="16" stroke="#00b8c4" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <span class="nav__wordmark">MedTech<span class="nav__wordmark-accent"> Solutions</span></span>
+        </div>
+        <nav class="nav__links" aria-label="Primary navigation">
+          <a href="#platform" class="nav__link">Platform</a>
+          <a href="#evidence" class="nav__link">Clinical Evidence</a>
+          <a href="#workflow" class="nav__link">Workflow</a>
+          <a href="#trust" class="nav__link">Trust &amp; Safety</a>
+        </nav>
+        <div class="nav__actions">
+          <a href="#demo" class="btn btn--ghost">Request Demo</a>
+          <a href="#contact" class="btn btn--primary">Contact Sales</a>
+        </div>
+        <button class="nav__mobile-toggle" aria-label="Toggle menu" aria-expanded="false" id="mobileToggle">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <div class="nav__mobile-menu" id="mobileMenu" aria-hidden="true">
+        <a href="#platform" class="nav__mobile-link">Platform</a>
+        <a href="#evidence" class="nav__mobile-link">Clinical Evidence</a>
+        <a href="#workflow" class="nav__mobile-link">Workflow</a>
+        <a href="#trust" class="nav__mobile-link">Trust &amp; Safety</a>
+        <a href="#demo" class="btn btn--ghost btn--full">Request Demo</a>
+        <a href="#contact" class="btn btn--primary btn--full">Contact Sales</a>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero -->
+      <section class="hero" id="hero">
+        <div class="hero__bg" aria-hidden="true">
+          <canvas id="scanCanvas"></canvas>
+          <div class="hero__grid"></div>
+        </div>
+        <div class="hero__inner">
+          <div class="hero__badge">
+            <span class="badge badge--fda">FDA 510(k) Cleared</span>
+            <span class="badge badge--ce">CE Marked</span>
+            <span class="badge badge--hipaa">HIPAA Compliant</span>
+          </div>
+          <h1 class="hero__heading">
+            Earlier Detection.<br/>
+            <span class="hero__heading-accent">Proven Outcomes.</span>
+          </h1>
+          <p class="hero__subhead">
+            AI-assisted radiology that augments clinical judgment — not replaces it.
+            Trusted by over 200 hospital systems, validated in peer-reviewed studies.
+          </p>
+          <div class="hero__cta">
+            <a href="#demo" class="btn btn--primary btn--lg">Schedule Clinical Demo</a>
+            <a href="#evidence" class="btn btn--outline btn--lg">View Clinical Evidence</a>
+          </div>
+          <div class="hero__stats">
+            <div class="stat-card">
+              <span class="stat-card__value" data-count="94.7">0</span><span class="stat-card__unit">%</span>
+              <span class="stat-card__label">Sensitivity Rate</span>
+              <span class="stat-card__context">vs. 87.2% unaided</span>
+            </div>
+            <div class="stat-card stat-card--divider"></div>
+            <div class="stat-card">
+              <span class="stat-card__value" data-count="200">0</span><span class="stat-card__unit">+</span>
+              <span class="stat-card__label">Hospital Systems</span>
+              <span class="stat-card__context">across 28 countries</span>
+            </div>
+            <div class="stat-card stat-card--divider"></div>
+            <div class="stat-card">
+              <span class="stat-card__value" data-count="4.2">0</span><span class="stat-card__unit">M+</span>
+              <span class="stat-card__label">Scans Analyzed</span>
+              <span class="stat-card__context">since 2021 deployment</span>
+            </div>
+            <div class="stat-card stat-card--divider"></div>
+            <div class="stat-card">
+              <span class="stat-card__value" data-count="31">0</span><span class="stat-card__unit">%</span>
+              <span class="stat-card__label">Earlier Detection</span>
+              <span class="stat-card__context">median stage improvement</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- AI Confidence Display Demo -->
+      <section class="confidence-demo" id="platform">
+        <div class="section-inner">
+          <div class="section-label">PLATFORM INTELLIGENCE</div>
+          <h2 class="section-heading">Transparent AI, Designed for Clinicians</h2>
+          <p class="section-subhead">
+            Our interface presents AI findings in the language of radiology — not data science.
+            Confidence scores, anatomical markers, and differential rankings are always visible
+            and always explainable.
+          </p>
+
+          <div class="viewer-demo" role="img" aria-label="AI diagnostic viewer interface demonstration">
+            <div class="viewer-demo__sidebar">
+              <div class="viewer-demo__section-title">AI FINDINGS</div>
+              <div class="finding-item finding-item--critical">
+                <div class="finding-item__header">
+                  <span class="finding-item__name">Nodule — RUL</span>
+                  <span class="finding-item__flag flag--critical">CRITICAL</span>
+                </div>
+                <div class="finding-item__confidence">
+                  <div class="confidence-gauge" data-value="94">
+                    <svg class="confidence-gauge__svg" viewBox="0 0 80 80" width="80" height="80" aria-hidden="true">
+                      <circle cx="40" cy="40" r="30" fill="none" stroke="#1a2740" stroke-width="6"/>
+                      <circle cx="40" cy="40" r="30" fill="none" stroke="#ef4444" stroke-width="6"
+                        stroke-dasharray="188.5" stroke-dashoffset="188.5"
+                        stroke-linecap="round"
+                        transform="rotate(-90 40 40)"
+                        class="confidence-gauge__arc confidence-gauge__arc--critical"/>
+                    </svg>
+                    <span class="confidence-gauge__value">94%</span>
+                  </div>
+                  <div class="confidence-gauge__meta">
+                    <span class="confidence-gauge__label">Confidence</span>
+                    <span class="confidence-gauge__sublabel">Malignancy probability</span>
+                  </div>
+                </div>
+                <div class="finding-item__detail">
+                  <span class="detail-chip">8.3mm</span>
+                  <span class="detail-chip">Spiculated</span>
+                  <span class="detail-chip">Solid</span>
+                </div>
+                <div class="finding-item__action">
+                  <button class="action-btn action-btn--accept">Accept Finding</button>
+                  <button class="action-btn action-btn--review">Add Note</button>
+                </div>
+              </div>
+
+              <div class="finding-item finding-item--warning">
+                <div class="finding-item__header">
+                  <span class="finding-item__name">Nodule — LLL</span>
+                  <span class="finding-item__flag flag--review">REVIEW</span>
+                </div>
+                <div class="finding-item__confidence">
+                  <div class="confidence-gauge" data-value="67">
+                    <svg class="confidence-gauge__svg" viewBox="0 0 80 80" width="80" height="80" aria-hidden="true">
+                      <circle cx="40" cy="40" r="30" fill="none" stroke="#1a2740" stroke-width="6"/>
+                      <circle cx="40" cy="40" r="30" fill="none" stroke="#f59e0b" stroke-width="6"
+                        stroke-dasharray="188.5" stroke-dashoffset="188.5"
+                        stroke-linecap="round"
+                        transform="rotate(-90 40 40)"
+                        class="confidence-gauge__arc confidence-gauge__arc--warning"/>
+                    </svg>
+                    <span class="confidence-gauge__value">67%</span>
+                  </div>
+                  <div class="confidence-gauge__meta">
+                    <span class="confidence-gauge__label">Confidence</span>
+                    <span class="confidence-gauge__sublabel">Indeterminate</span>
+                  </div>
+                </div>
+                <div class="finding-item__detail">
+                  <span class="detail-chip">4.1mm</span>
+                  <span class="detail-chip">Ground-glass</span>
+                </div>
+                <div class="finding-item__action">
+                  <button class="action-btn action-btn--accept">Accept Finding</button>
+                  <button class="action-btn action-btn--review">Add Note</button>
+                </div>
+              </div>
+
+              <div class="finding-item finding-item--clear">
+                <div class="finding-item__header">
+                  <span class="finding-item__name">Lymph Nodes</span>
+                  <span class="finding-item__flag flag--clear">CLEAR</span>
+                </div>
+                <div class="finding-item__confidence">
+                  <div class="confidence-gauge" data-value="97">
+                    <svg class="confidence-gauge__svg" viewBox="0 0 80 80" width="80" height="80" aria-hidden="true">
+                      <circle cx="40" cy="40" r="30" fill="none" stroke="#1a2740" stroke-width="6"/>
+                      <circle cx="40" cy="40" r="30" fill="none" stroke="#10b981" stroke-width="6"
+                        stroke-dasharray="188.5" stroke-dashoffset="188.5"
+                        stroke-linecap="round"
+                        transform="rotate(-90 40 40)"
+                        class="confidence-gauge__arc confidence-gauge__arc--clear"/>
+                    </svg>
+                    <span class="confidence-gauge__value">97%</span>
+                  </div>
+                  <div class="confidence-gauge__meta">
+                    <span class="confidence-gauge__label">Confidence</span>
+                    <span class="confidence-gauge__sublabel">No pathology detected</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="viewer-demo__summary">
+                <div class="summary-row">
+                  <span class="summary-label">Model Version</span>
+                  <span class="summary-value mono">PulmoNet v4.2.1</span>
+                </div>
+                <div class="summary-row">
+                  <span class="summary-label">Processing Time</span>
+                  <span class="summary-value mono">1.4s</span>
+                </div>
+                <div class="summary-row">
+                  <span class="summary-label">Training Dataset</span>
+                  <span class="summary-value mono">2.1M scans</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="viewer-demo__main">
+              <div class="viewer-demo__toolbar">
+                <span class="toolbar-label mono">CT CHEST — AXIAL</span>
+                <div class="toolbar-controls">
+                  <button class="toolbar-btn active">WW/WL</button>
+                  <button class="toolbar-btn">Zoom</button>
+                  <button class="toolbar-btn">Measure</button>
+                  <button class="toolbar-btn">AI Overlay</button>
+                </div>
+                <span class="toolbar-status">
+                  <span class="status-dot status-dot--active"></span>
+                  AI Active
+                </span>
+              </div>
+              <div class="viewer-demo__canvas-wrap">
+                <canvas id="ctCanvas" width="520" height="400" aria-label="Simulated CT scan with AI annotations"></canvas>
+                <div class="viewer-demo__overlay-info">
+                  <div class="overlay-chip"><span class="mono">PATIENT</span> ANONYMOUS</div>
+                  <div class="overlay-chip"><span class="mono">SERIES</span> 3/8</div>
+                  <div class="overlay-chip"><span class="mono">SLICE</span> 42/180</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Clinical Evidence -->
+      <section class="evidence" id="evidence">
+        <div class="section-inner">
+          <div class="section-label">CLINICAL EVIDENCE</div>
+          <h2 class="section-heading">Peer-Reviewed. Independently Validated.</h2>
+          <p class="section-subhead">
+            Our outcomes aren't projections. They are drawn from multi-center randomized trials,
+            published in high-impact journals, reviewed by independent biostatisticians.
+          </p>
+
+          <div class="evidence-grid">
+            <div class="evidence-card evidence-card--featured">
+              <div class="evidence-card__journal">
+                <span class="journal-badge">NEJM</span>
+                <span class="evidence-card__year">2024</span>
+              </div>
+              <h3 class="evidence-card__title">
+                AI-Assisted Lung Cancer Screening Reduces Stage at Diagnosis in Multi-Center RCT
+              </h3>
+              <p class="evidence-card__abstract">
+                N=12,400 patients across 18 sites. AI arm demonstrated 31% improvement in early-stage
+                detection (Stage I/II), with radiologist time-to-report reduced by 42%.
+              </p>
+              <div class="evidence-card__metrics">
+                <div class="evidence-metric">
+                  <span class="evidence-metric__val">31%</span>
+                  <span class="evidence-metric__lbl">Earlier Detection</span>
+                </div>
+                <div class="evidence-metric">
+                  <span class="evidence-metric__val">42%</span>
+                  <span class="evidence-metric__lbl">Faster Reporting</span>
+                </div>
+                <div class="evidence-metric">
+                  <span class="evidence-metric__val">12,400</span>
+                  <span class="evidence-metric__lbl">Patient Sample</span>
+                </div>
+              </div>
+              <a href="#" class="evidence-card__link">Read Full Study &rarr;</a>
+            </div>
+
+            <div class="evidence-card">
+              <div class="evidence-card__journal">
+                <span class="journal-badge journal-badge--secondary">Radiology</span>
+                <span class="evidence-card__year">2024</span>
+              </div>
+              <h3 class="evidence-card__title">False Negative Reduction in Mammography Screening</h3>
+              <p class="evidence-card__abstract">
+                6.8% absolute reduction in false negatives vs. double-reading standard.
+                No increase in false positive rate.
+              </p>
+              <a href="#" class="evidence-card__link">Read Study &rarr;</a>
+            </div>
+
+            <div class="evidence-card">
+              <div class="evidence-card__journal">
+                <span class="journal-badge journal-badge--secondary">JAMA Oncology</span>
+                <span class="evidence-card__year">2023</span>
+              </div>
+              <h3 class="evidence-card__title">Radiologist Cognitive Load Reduction in High-Volume Centers</h3>
+              <p class="evidence-card__abstract">
+                29% reduction in interpretation time. Physician satisfaction scores
+                improved across all age demographics, including senior attendings.
+              </p>
+              <a href="#" class="evidence-card__link">Read Study &rarr;</a>
+            </div>
+          </div>
+
+          <div class="regulatory-strip">
+            <div class="regulatory-item">
+              <div class="regulatory-item__icon" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                  <rect x="3" y="3" width="22" height="22" rx="4" stroke="#00b8c4" stroke-width="1.5" fill="none"/>
+                  <path d="M9 14l3.5 3.5L19 10" stroke="#00b8c4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div>
+                <div class="regulatory-item__title">FDA 510(k) Cleared</div>
+                <div class="regulatory-item__sub">K230142</div>
+              </div>
+            </div>
+            <div class="regulatory-item">
+              <div class="regulatory-item__icon" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                  <circle cx="14" cy="14" r="11" stroke="#00b8c4" stroke-width="1.5" fill="none"/>
+                  <path d="M9 14l3.5 3.5L19 10" stroke="#00b8c4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div>
+                <div class="regulatory-item__title">CE Mark Class IIb</div>
+                <div class="regulatory-item__sub">Medical Device Regulation</div>
+              </div>
+            </div>
+            <div class="regulatory-item">
+              <div class="regulatory-item__icon" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                  <path d="M14 3L4 8v8c0 5 4.5 9 10 10 5.5-1 10-5 10-10V8L14 3z" stroke="#00b8c4" stroke-width="1.5" fill="none"/>
+                  <path d="M10 14l2.5 2.5L18 11" stroke="#00b8c4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div>
+                <div class="regulatory-item__title">HIPAA &amp; SOC 2 Type II</div>
+                <div class="regulatory-item__sub">Independently audited</div>
+              </div>
+            </div>
+            <div class="regulatory-item">
+              <div class="regulatory-item__icon" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                  <rect x="5" y="8" width="18" height="14" rx="2" stroke="#00b8c4" stroke-width="1.5" fill="none"/>
+                  <path d="M10 8V6a4 4 0 018 0v2" stroke="#00b8c4" stroke-width="1.5" stroke-linecap="round"/>
+                  <circle cx="14" cy="15" r="2" fill="#00b8c4" opacity="0.6"/>
+                </svg>
+              </div>
+              <div>
+                <div class="regulatory-item__title">ISO 13485 Certified</div>
+                <div class="regulatory-item__sub">Quality Management System</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Workflow -->
+      <section class="workflow" id="workflow">
+        <div class="section-inner">
+          <div class="section-label">CLINICAL WORKFLOW</div>
+          <h2 class="section-heading">Built Around How Radiologists Actually Work</h2>
+          <p class="section-subhead">
+            No workflow disruption. No new logins. Seamlessly integrated into your PACS
+            and RIS — findings surface inside the tools your team already uses.
+          </p>
+
+          <div class="workflow-steps">
+            <div class="workflow-step">
+              <div class="workflow-step__num">01</div>
+              <div class="workflow-step__content">
+                <h3 class="workflow-step__title">PACS Integration</h3>
+                <p class="workflow-step__desc">
+                  Zero-disruption deployment via HL7 FHIR and DICOM SR.
+                  Compatible with GE, Philips, Siemens, and all major PACS platforms.
+                </p>
+                <div class="workflow-step__tags">
+                  <span class="tag">DICOM SR</span>
+                  <span class="tag">HL7 FHIR</span>
+                  <span class="tag">Epic</span>
+                  <span class="tag">Cerner</span>
+                </div>
+              </div>
+            </div>
+            <div class="workflow-connector" aria-hidden="true"></div>
+            <div class="workflow-step">
+              <div class="workflow-step__num">02</div>
+              <div class="workflow-step__content">
+                <h3 class="workflow-step__title">Real-Time Analysis</h3>
+                <p class="workflow-step__desc">
+                  Sub-2-second inference on standard hospital infrastructure.
+                  No cloud dependency required — fully on-premises deployment available.
+                </p>
+                <div class="workflow-step__tags">
+                  <span class="tag">&lt;2s Latency</span>
+                  <span class="tag">On-Premises</span>
+                  <span class="tag">Air-Gapped</span>
+                </div>
+              </div>
+            </div>
+            <div class="workflow-connector" aria-hidden="true"></div>
+            <div class="workflow-step">
+              <div class="workflow-step__num">03</div>
+              <div class="workflow-step__content">
+                <h3 class="workflow-step__title">Physician Review</h3>
+                <p class="workflow-step__desc">
+                  AI findings presented as structured, annotated suggestions.
+                  Every decision remains with the attending physician — always.
+                </p>
+                <div class="workflow-step__tags">
+                  <span class="tag">Physician-First</span>
+                  <span class="tag">Full Audit Trail</span>
+                </div>
+              </div>
+            </div>
+            <div class="workflow-connector" aria-hidden="true"></div>
+            <div class="workflow-step">
+              <div class="workflow-step__num">04</div>
+              <div class="workflow-step__content">
+                <h3 class="workflow-step__title">Structured Reporting</h3>
+                <p class="workflow-step__desc">
+                  Pre-populated structured reports with AI-generated differential,
+                  measurement data, and Lung-RADS / BI-RADS classification.
+                </p>
+                <div class="workflow-step__tags">
+                  <span class="tag">Lung-RADS</span>
+                  <span class="tag">BI-RADS</span>
+                  <span class="tag">ACR</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Trust / Physician Voices -->
+      <section class="trust" id="trust">
+        <div class="section-inner">
+          <div class="section-label">PHYSICIAN PERSPECTIVES</div>
+          <h2 class="section-heading">Trusted Across Experience Levels</h2>
+          <p class="section-subhead">
+            From senior attendings who have practiced for 30 years to residents in their first year —
+            our platform is designed to enhance, not threaten, clinical expertise.
+          </p>
+
+          <div class="testimonials">
+            <div class="testimonial">
+              <div class="testimonial__quote">
+                "I was skeptical. After 28 years, I don't need a computer second-guessing my reads.
+                But this is different — it shows its work. The confidence breakdowns let me understand
+                exactly why it flagged something. Now I use it on every chest CT."
+              </div>
+              <div class="testimonial__author">
+                <div class="testimonial__avatar" style="background-color: #1a3a5c;" aria-hidden="true">
+                  <span>DR</span>
+                </div>
+                <div>
+                  <div class="testimonial__name">Dr. Robert Eismann, MD</div>
+                  <div class="testimonial__role">Chief of Radiology, 28 years experience</div>
+                  <div class="testimonial__org">Mass General Hospital</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial">
+              <div class="testimonial__quote">
+                "As a second-year resident, I'm reading 80 cases a day. The AI catches what
+                I might miss at hour eleven of a shift. The flag system is intuitive — it doesn't
+                slow me down, it makes me more accurate."
+              </div>
+              <div class="testimonial__author">
+                <div class="testimonial__avatar" style="background-color: #0c4a4a;" aria-hidden="true">
+                  <span>SP</span>
+                </div>
+                <div>
+                  <div class="testimonial__name">Dr. Simone Park, MD</div>
+                  <div class="testimonial__role">Radiology Resident, PGY-2</div>
+                  <div class="testimonial__org">Johns Hopkins Hospital</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial">
+              <div class="testimonial__quote">
+                "The regulatory team needed FDA clearance documentation, the CMO needed outcome data,
+                and I needed to know it wouldn't break Epic. MedTech delivered on all three
+                before we signed. That's rare."
+              </div>
+              <div class="testimonial__author">
+                <div class="testimonial__avatar" style="background-color: #1a2d1a;" aria-hidden="true">
+                  <span>KW</span>
+                </div>
+                <div>
+                  <div class="testimonial__name">Karen Walsh, MBA</div>
+                  <div class="testimonial__role">VP Clinical Technology</div>
+                  <div class="testimonial__org">Cleveland Clinic</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hospital-logos">
+            <div class="hospital-logos__label">DEPLOYED AT LEADING INSTITUTIONS</div>
+            <div class="hospital-logos__row">
+              <div class="hospital-logo-placeholder">Mass General</div>
+              <div class="hospital-logo-placeholder">Johns Hopkins</div>
+              <div class="hospital-logo-placeholder">Cleveland Clinic</div>
+              <div class="hospital-logo-placeholder">Mayo Clinic</div>
+              <div class="hospital-logo-placeholder">UCSF Health</div>
+              <div class="hospital-logo-placeholder">Stanford Medicine</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="cta-section" id="demo">
+        <div class="cta-section__inner">
+          <div class="cta-section__content">
+            <div class="section-label section-label--light">GET STARTED</div>
+            <h2 class="cta-section__heading">See It in Your Environment</h2>
+            <p class="cta-section__sub">
+              We'll configure a demonstration using your actual PACS connection and de-identified
+              patient data from your institution. No generic demos — real clinical workflow.
+            </p>
+            <div class="cta-section__features">
+              <div class="cta-feature">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M3 8l3 3 7-7" stroke="#00b8c4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Live PACS integration with your systems
+              </div>
+              <div class="cta-feature">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M3 8l3 3 7-7" stroke="#00b8c4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                IRB-compliant pilot study support
+              </div>
+              <div class="cta-feature">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M3 8l3 3 7-7" stroke="#00b8c4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Clinical champion onboarding included
+              </div>
+              <div class="cta-feature">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M3 8l3 3 7-7" stroke="#00b8c4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Full regulatory documentation package
+              </div>
+            </div>
+          </div>
+          <div class="cta-section__form" id="contact">
+            <form class="demo-form" id="demoForm" novalidate>
+              <h3 class="demo-form__title">Request Clinical Demo</h3>
+              <div class="form-group">
+                <label for="name" class="form-label">Full Name</label>
+                <input type="text" id="name" name="name" class="form-input" placeholder="Dr. Jane Smith" required autocomplete="name"/>
+              </div>
+              <div class="form-group">
+                <label for="role" class="form-label">Role</label>
+                <select id="role" name="role" class="form-input" required>
+                  <option value="">Select your role</option>
+                  <option>Chief of Radiology</option>
+                  <option>Attending Radiologist</option>
+                  <option>Radiology Resident</option>
+                  <option>Clinical IT / PACS Admin</option>
+                  <option>Hospital Administrator</option>
+                  <option>VP / C-Suite</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="institution" class="form-label">Institution</label>
+                <input type="text" id="institution" name="institution" class="form-input" placeholder="Hospital or Health System" required autocomplete="organization"/>
+              </div>
+              <div class="form-group">
+                <label for="email" class="form-label">Work Email</label>
+                <input type="email" id="email" name="email" class="form-input" placeholder="you@hospital.org" required autocomplete="email"/>
+              </div>
+              <div class="form-group">
+                <label for="pacs" class="form-label">Current PACS System</label>
+                <select id="pacs" name="pacs" class="form-input">
+                  <option value="">Select PACS (optional)</option>
+                  <option>GE Healthcare Centricity</option>
+                  <option>Philips IntelliSpace</option>
+                  <option>Siemens Syngo</option>
+                  <option>Agfa IMPAX</option>
+                  <option>Sectra IDS7</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn--primary btn--full btn--lg" id="submitBtn">
+                Schedule Demo
+              </button>
+              <p class="demo-form__privacy">
+                By submitting, you agree to our Privacy Policy. We never sell data or contact
+                you without permission.
+              </p>
+              <div class="demo-form__success" id="formSuccess" aria-live="polite" hidden>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10" stroke="#10b981" stroke-width="1.5"/>
+                  <path d="M8 12l3 3 5-5" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Request received. A clinical specialist will contact you within one business day.</span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <div class="nav__brand">
+            <div class="nav__logo">
+              <svg width="28" height="28" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                <circle cx="16" cy="16" r="14" stroke="#00b8c4" stroke-width="1.5" fill="none" opacity="0.3"/>
+                <circle cx="16" cy="16" r="9" stroke="#00b8c4" stroke-width="1.5" fill="none" opacity="0.6"/>
+                <circle cx="16" cy="16" r="4" fill="#00b8c4"/>
+                <line x1="16" y1="2" x2="16" y2="8" stroke="#00b8c4" stroke-width="1.5"/>
+                <line x1="16" y1="24" x2="16" y2="30" stroke="#00b8c4" stroke-width="1.5"/>
+                <line x1="2" y1="16" x2="8" y2="16" stroke="#00b8c4" stroke-width="1.5"/>
+                <line x1="24" y1="16" x2="30" y2="16" stroke="#00b8c4" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <span class="nav__wordmark">MedTech<span class="nav__wordmark-accent"> Solutions</span></span>
+          </div>
+          <p class="footer__tagline">Augmenting clinical excellence with proven AI.</p>
+        </div>
+        <div class="footer__links">
+          <div class="footer__col">
+            <div class="footer__col-title">Platform</div>
+            <a href="#" class="footer__link">Lung AI</a>
+            <a href="#" class="footer__link">Mammography AI</a>
+            <a href="#" class="footer__link">Neuro AI</a>
+            <a href="#" class="footer__link">Integrations</a>
+          </div>
+          <div class="footer__col">
+            <div class="footer__col-title">Evidence</div>
+            <a href="#" class="footer__link">Publications</a>
+            <a href="#" class="footer__link">Case Studies</a>
+            <a href="#" class="footer__link">Regulatory Docs</a>
+          </div>
+          <div class="footer__col">
+            <div class="footer__col-title">Company</div>
+            <a href="#" class="footer__link">About</a>
+            <a href="#" class="footer__link">Careers</a>
+            <a href="#" class="footer__link">Press</a>
+            <a href="#" class="footer__link">Contact</a>
+          </div>
+          <div class="footer__col">
+            <div class="footer__col-title">Legal</div>
+            <a href="#" class="footer__link">Privacy Policy</a>
+            <a href="#" class="footer__link">Terms of Service</a>
+            <a href="#" class="footer__link">HIPAA Notice</a>
+            <a href="#" class="footer__link">FDA Clearance</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>&copy; 2026 MedTech Solutions, Inc. All rights reserved.</span>
+        <span class="footer__disclaimer">
+          For professional use only. AI findings must be reviewed and confirmed by a licensed physician.
+          Not intended as a substitute for clinical judgment.
+        </span>
+      </div>
+    </footer>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

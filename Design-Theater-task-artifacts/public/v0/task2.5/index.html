@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Global Ventures Inc. - A strategic holding company managing five successful subsidiary brands">
+    <title>Global Ventures Inc. | Strategic Holding Company</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #1a1f36;
+            --primary-light: #f8f9fa;
+            --accent-gold: #d4a574;
+            --accent-gold-light: #e8c9a0;
+            --text-dark: #2d3436;
+            --text-light: #636e72;
+            --border-color: #e0e0e0;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+            --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: #ffffff;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--primary-dark);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-accent {
+            color: var(--accent-gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .audience-nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .audience-btn {
+            padding: 0.5rem 1rem;
+            background-color: transparent;
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .audience-btn:hover {
+            background-color: var(--accent-gold);
+            color: var(--primary-dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #2d3651 100%);
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        .hero-accent {
+            color: var(--accent-gold);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: #e0e0e0;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .cta-primary {
+            padding: 1rem 2rem;
+            background-color: var(--accent-gold);
+            color: var(--primary-dark);
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-primary:hover {
+            background-color: var(--accent-gold-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .cta-secondary {
+            padding: 1rem 2rem;
+            background-color: transparent;
+            color: white;
+            border: 2px solid var(--accent-gold);
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-secondary:hover {
+            background-color: var(--accent-gold);
+            color: var(--primary-dark);
+        }
+
+        /* Value Props */
+        .value-props {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .value-prop {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-gold);
+        }
+
+        .value-prop h3 {
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+            color: var(--accent-gold);
+        }
+
+        .value-prop p {
+            font-size: 0.95rem;
+            color: #d0d0d0;
+        }
+
+        /* About Section */
+        .about {
+            padding: 4rem 2rem;
+            background-color: var(--primary-light);
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            color: var(--primary-dark);
+        }
+
+        .title-accent {
+            color: var(--accent-gold);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .about-text h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat {
+            padding: 1.5rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+            border-top: 3px solid var(--accent-gold);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .about-visual {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #2d3651 100%);
+            border-radius: 12px;
+            padding: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+            color: white;
+            text-align: center;
+        }
+
+        .about-visual p {
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        /* Brands Section */
+        .brands-section {
+            padding: 4rem 2rem;
+            background-color: #ffffff;
+        }
+
+        .brands-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .brands-intro {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .brands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .brand-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            border-top: 5px solid;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Brand-specific colors */
+        .brand-card.techflow {
+            border-top-color: #2563eb;
+        }
+
+        .brand-card.brightstart {
+            border-top-color: #f97316;
+        }
+
+        .brand-card.urbaneats {
+            border-top-color: #dc2626;
+        }
+
+        .brand-card.greenbuild {
+            border-top-color: #16a34a;
+        }
+
+        .brand-card.wellnessworks {
+            border-top-color: #7c3aed;
+        }
+
+        .brand-header {
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .brand-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .brand-card.techflow .brand-icon {
+            background-color: #2563eb;
+        }
+
+        .brand-card.brightstart .brand-icon {
+            background-color: #f97316;
+        }
+
+        .brand-card.urbaneats .brand-icon {
+            background-color: #dc2626;
+        }
+
+        .brand-card.greenbuild .brand-icon {
+            background-color: #16a34a;
+        }
+
+        .brand-card.wellnessworks .brand-icon {
+            background-color: #7c3aed;
+        }
+
+        .brand-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
+            color: var(--primary-dark);
+        }
+
+        .brand-category {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .brand-content {
+            padding: 0 2rem 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-description {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            flex-grow: 1;
+        }
+
+        .brand-strengths {
+            margin-bottom: 2rem;
+        }
+
+        .brand-strengths h4 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--primary-dark);
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .brand-tag {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid var(--border-color);
+            color: var(--text-light);
+            transition: all 0.3s ease;
+        }
+
+        .brand-card.techflow .brand-tag {
+            border-color: #2563eb;
+            color: #2563eb;
+        }
+
+        .brand-card.brightstart .brand-tag {
+            border-color: #f97316;
+            color: #f97316;
+        }
+
+        .brand-card.urbaneats .brand-tag {
+            border-color: #dc2626;
+            color: #dc2626;
+        }
+
+        .brand-card.greenbuild .brand-tag {
+            border-color: #16a34a;
+            color: #16a34a;
+        }
+
+        .brand-card.wellnessworks .brand-tag {
+            border-color: #7c3aed;
+            color: #7c3aed;
+        }
+
+        .brand-cta {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid;
+            background-color: transparent;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            align-self: flex-start;
+            font-size: 0.95rem;
+        }
+
+        .brand-card.techflow .brand-cta {
+            border-color: #2563eb;
+            color: #2563eb;
+        }
+
+        .brand-card.techflow .brand-cta:hover {
+            background-color: #2563eb;
+            color: white;
+        }
+
+        .brand-card.brightstart .brand-cta {
+            border-color: #f97316;
+            color: #f97316;
+        }
+
+        .brand-card.brightstart .brand-cta:hover {
+            background-color: #f97316;
+            color: white;
+        }
+
+        .brand-card.urbaneats .brand-cta {
+            border-color: #dc2626;
+            color: #dc2626;
+        }
+
+        .brand-card.urbaneats .brand-cta:hover {
+            background-color: #dc2626;
+            color: white;
+        }
+
+        .brand-card.greenbuild .brand-cta {
+            border-color: #16a34a;
+            color: #16a34a;
+        }
+
+        .brand-card.greenbuild .brand-cta:hover {
+            background-color: #16a34a;
+            color: white;
+        }
+
+        .brand-card.wellnessworks .brand-cta {
+            border-color: #7c3aed;
+            color: #7c3aed;
+        }
+
+        .brand-card.wellnessworks .brand-cta:hover {
+            background-color: #7c3aed;
+            color: white;
+        }
+
+        /* Audience Section */
+        .audience-section {
+            padding: 4rem 2rem;
+            background-color: var(--primary-light);
+        }
+
+        .audience-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .audience-card {
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            text-align: center;
+            border-bottom: 4px solid var(--accent-gold);
+        }
+
+        .audience-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .audience-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .audience-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+
+        .audience-card p {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .audience-card a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .audience-card a:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-dark);
+            color: white;
+            padding: 3rem 2rem 1.5rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: var(--accent-gold);
+            font-size: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 0.7rem;
+        }
+
+        .footer-section a {
+            color: #b0b0b0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-gold);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            font-size: 0.9rem;
+            color: #b0b0b0;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: var(--shadow-lg);
+            animation: slideIn 0.3s ease;
+        }
+
+        .close {
+            color: var(--text-light);
+            float: right;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: var(--primary-dark);
+        }
+
+        .modal h2 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            margin-top: 1rem;
+        }
+
+        .modal p {
+            color: var(--text-light);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .hero-ctas {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .cta-primary, .cta-secondary {
+                width: 100%;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .audience-nav {
+                flex-wrap: wrap;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .brands-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">Global<span class="logo-accent">Ventures</span></div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#brands">Brands</a></li>
+            <li><a href="#careers">Careers</a></li>
+        </ul>
+        <div class="audience-nav">
+            <button class="audience-btn" onclick="openModal('investor-modal')">For Investors</button>
+            <button class="audience-btn" onclick="openModal('acquisition-modal')">For Acquisition</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Strategic Excellence Through <span class="hero-accent">Diversified Growth</span></h1>
+            <p>Global Ventures Inc. is a forward-thinking holding company that cultivates, scales, and optimizes market-leading subsidiary brands.</p>
+            
+            <div class="hero-ctas">
+                <button class="cta-primary" onclick="scrollToSection('brands')">Explore Our Brands</button>
+                <button class="cta-secondary" onclick="openModal('investor-modal')">Investor Relations</button>
+            </div>
+
+            <div class="value-props">
+                <div class="value-prop">
+                    <h3>Proven Portfolio</h3>
+                    <p>5 established brands across diverse industries generating $500M+ in annual revenue</p>
+                </div>
+                <div class="value-prop">
+                    <h3>Strategic Vision</h3>
+                    <p>Expert operational oversight with autonomous brand leadership and market focus</p>
+                </div>
+                <div class="value-prop">
+                    <h3>Growth Engine</h3>
+                    <p>Consistent expansion through innovation, acquisition, and strategic partnerships</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-container">
+            <h2 class="section-title">Who We <span class="title-accent">Are</span></h2>
+            <p class="section-subtitle">A holding company dedicated to building industry leaders that create lasting value</p>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Focused Diversification</h2>
+                    <p>Global Ventures Inc. operates as a strategic umbrella for five distinct brands, each commanding significant market share in their respective industries. We don't manage businesses—we cultivate leaders.</p>
+                    <p>Our approach combines hands-on operational excellence with autonomous brand management. Each subsidiary maintains its distinct identity, competitive advantages, and customer relationships while benefiting from shared resources and strategic guidance from our parent organization.</p>
+                    <p>We seek continued growth through acquisitions of promising brands that fit our portfolio strategy and operational philosophy.</p>
+                </div>
+                <div class="about-visual">
+                    <p>🌍 Managing Market Leaders Across 5 Dynamic Industries</p>
+                </div>
+            </div>
+
+            <div class="about-stats">
+                <div class="stat">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Subsidiary Brands</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">$500M+</div>
+                    <div class="stat-label">Combined Annual Revenue</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">2,500+</div>
+                    <div class="stat-label">Employees Across Portfolio</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Years Combined Experience</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brands Section -->
+    <section class="brands-section" id="brands">
+        <div class="brands-container">
+            <div class="brands-intro">
+                <h2 class="section-title">Our <span class="title-accent">Brands</span></h2>
+                <p class="section-subtitle">Five distinct market leaders, unified by operational excellence and strategic vision</p>
+            </div>
+
+            <div class="brands-grid">
+                <!-- TechFlow -->
+                <div class="brand-card techflow">
+                    <div class="brand-header">
+                        <div class="brand-icon">💻</div>
+                        <div class="brand-info">
+                            <h3>TechFlow</h3>
+                            <p class="brand-category">B2B Software</p>
+                        </div>
+                    </div>
+                    <div class="brand-content">
+                        <p class="brand-description">Enterprise workflow automation platform serving 500+ companies. TechFlow specializes in AI-powered process optimization and integration solutions.</p>
+                        <div class="brand-strengths">
+                            <h4>Strengths</h4>
+                            <span class="brand-tag">Advanced AI</span>
+                            <span class="brand-tag">Enterprise Focus</span>
+                            <span class="brand-tag">Security-First</span>
+                        </div>
+                        <a href="#" class="brand-cta">Learn More →</a>
+                    </div>
+                </div>
+
+                <!-- BrightStart -->
+                <div class="brand-card brightstart">
+                    <div class="brand-header">
+                        <div class="brand-icon">🌟</div>
+                        <div class="brand-info">
+                            <h3>BrightStart</h3>
+                            <p class="brand-category">Children's Education</p>
+                        </div>
+                    </div>
+                    <div class="brand-content">
+                        <p class="brand-description">Award-winning early childhood development platform with 100K+ active learners. BrightStart makes learning joyful with interactive, science-backed curriculum.</p>
+                        <div class="brand-strengths">
+                            <h4>Strengths</h4>
+                            <span class="brand-tag">Playful Design</span>
+                            <span class="brand-tag">Research-Backed</span>
+                            <span class="brand-tag">Parental Tools</span>
+                        </div>
+                        <a href="#" class="brand-cta">Learn More →</a>
+                    </div>
+                </div>
+
+                <!-- UrbanEats -->
+                <div class="brand-card urbaneats">
+                    <div class="brand-header">
+                        <div class="brand-icon">🍔</div>
+                        <div class="brand-info">
+                            <h3>UrbanEats</h3>
+                            <p class="brand-category">Food Delivery</p>
+                        </div>
+                    </div>
+                    <div class="brand-content">
+                        <p class="brand-description">Hyper-local food delivery platform connecting 2M+ users with 15K+ restaurant partners. UrbanEats leads with speed, quality, and neighborhood community.</p>
+                        <div class="brand-strengths">
+                            <h4>Strengths</h4>
+                            <span class="brand-tag">Ultra-Fast</span>
+                            <span class="brand-tag">Local Vendors</span>
+                            <span class="brand-tag">Quality Control</span>
+                        </div>
+                        <a href="#" class="brand-cta">Learn More →</a>
+                    </div>
+                </div>
+
+                <!-- GreenBuild -->
+                <div class="brand-card greenbuild">
+                    <div class="brand-header">
+                        <div class="brand-icon">🌱</div>
+                        <div class="brand-info">
+                            <h3>GreenBuild</h3>
+                            <p class="brand-category">Sustainable Construction</p>
+                        </div>
+                    </div>
+                    <div class="brand-content">
+                        <p class="brand-description">Leading sustainable construction firm completing 50+ eco-certified projects. GreenBuild integrates renewable materials and carbon-neutral practices into modern architecture.</p>
+                        <div class="brand-strengths">
+                            <h4>Strengths</h4>
+                            <span class="brand-tag">Carbon Neutral</span>
+                            <span class="brand-tag">Certified Green</span>
+                            <span class="brand-tag">Innovation</span>
+                        </div>
+                        <a href="#" class="brand-cta">Learn More →</a>
+                    </div>
+                </div>
+
+                <!-- WellnessWorks -->
+                <div class="brand-card wellnessworks">
+                    <div class="brand-header">
+                        <div class="brand-icon">🧘</div>
+                        <div class="brand-info">
+                            <h3>WellnessWorks</h3>
+                            <p class="brand-category">Corporate Health</p>
+                        </div>
+                    </div>
+                    <div class="brand-content">
+                        <p class="brand-description">Comprehensive corporate wellness platform trusted by 200+ enterprise clients. WellnessWorks combines fitness, mental health, and preventive care for healthier teams.</p>
+                        <div class="brand-strengths">
+                            <h4>Strengths</h4>
+                            <span class="brand-tag">Holistic Health</span>
+                            <span class="brand-tag">Mental Wellness</span>
+                            <span class="brand-tag">ROI Proven</span>
+                        </div>
+                        <a href="#" class="brand-cta">Learn More →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Audience Section -->
+    <section class="audience-section">
+        <div class="audience-container">
+            <h2 class="section-title">We're <span class="title-accent">Hiring</span> & <span class="title-accent">Growing</span></h2>
+            <p class="section-subtitle">Join one of our market-leading brands and grow your career within a supportive ecosystem</p>
+
+            <div class="audience-grid">
+                <div class="audience-card">
+                    <div class="audience-icon">💼</div>
+                    <h3>For Investors</h3>
+                    <p>Discover investment opportunities in our growing portfolio. Access detailed financials, growth projections, and strategic roadmaps.</p>
+                    <a href="#" onclick="openModal('investor-modal'); return false;">View Investor Package →</a>
+                </div>
+
+                <div class="audience-card">
+                    <div class="audience-icon">🤝</div>
+                    <h3>Acquisition Targets</h3>
+                    <p>Are you building a promising brand? Learn how Global Ventures helps acquired companies scale while maintaining autonomy.</p>
+                    <a href="#" onclick="openModal('acquisition-modal'); return false;">Explore Acquisition →</a>
+                </div>
+
+                <div class="audience-card">
+                    <div class="audience-icon">👨‍💼</div>
+                    <h3>Talented Professionals</h3>
+                    <p>Explore career opportunities across our brands. From engineering to marketing, find your perfect role in a growing company.</p>
+                    <a href="#careers" onclick="scrollToSection('careers'); return false;">View Job Openings →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Careers Section -->
+    <section class="about" id="careers">
+        <div class="about-container">
+            <h2 class="section-title">Join Our <span class="title-accent">Team</span></h2>
+            <p class="section-subtitle">Build your career with one of our five market-leading brands</p>
+            
+            <div class="about-content">
+                <div class="about-visual">
+                    <p>🎯 Unlimited Growth Opportunities</p>
+                </div>
+                <div class="about-text">
+                    <h2>Grow Your Career Here</h2>
+                    <p>Whether you're passionate about software, education, food delivery, sustainability, or corporate wellness, there's a place for you in our ecosystem.</p>
+                    <p>Our brands share a common commitment to excellence, innovation, and employee development. You'll have access to cross-brand mentorship, professional development resources, and clear pathways for advancement.</p>
+                    <p>Visit any of our brand websites to view current openings, or contact our talent team at careers@globalventures.com.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>Global Ventures</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#brands">Our Brands</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Investor Relations</h4>
+                    <ul>
+                        <li><a href="#" onclick="openModal('investor-modal'); return false;">Investor Package</a></li>
+                        <li><a href="#">Financial Reports</a></li>
+                        <li><a href="#">Press Releases</a></li>
+                        <li><a href="#">Events</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>For Startups</h4>
+                    <ul>
+                        <li><a href="#" onclick="openModal('acquisition-modal'); return false;">Acquisition Program</a></li>
+                        <li><a href="#">Case Studies</a></li>
+                        <li><a href="#">Success Stories</a></li>
+                        <li><a href="#">Apply Now</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Careers</h4>
+                    <ul>
+                        <li><a href="#careers">Job Openings</a></li>
+                        <li><a href="#">Culture</a></li>
+                        <li><a href="#">Benefits</a></li>
+                        <li><a href="mailto:careers@globalventures.com">Contact HR</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Global Ventures Inc. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" title="LinkedIn">LinkedIn</a>
+                    <a href="#" title="Twitter">Twitter</a>
+                    <a href="#" title="Facebook">Facebook</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div id="investor-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('investor-modal')">&times;</span>
+            <h2>Investor Relations</h2>
+            <p>Global Ventures Inc. offers compelling investment opportunities for institutional and individual investors seeking exposure to a diversified portfolio of market-leading brands.</p>
+            
+            <h3>Investment Highlights</h3>
+            <p><strong>Portfolio Diversity:</strong> 5 brands across different industries reduce concentration risk and provide multiple revenue streams.</p>
+            <p><strong>Market Leadership:</strong> Each brand commands significant market share with demonstrated competitive advantages and customer loyalty.</p>
+            <p><strong>Financial Performance:</strong> Combined annual revenue of $500M+ with consistent year-over-year growth and strong margins.</p>
+            <p><strong>Growth Strategy:</strong> Strategic acquisitions and organic expansion initiatives targeting 30% CAGR over next 5 years.</p>
+            
+            <p style="margin-top: 2rem;">To request our full investor package including financial statements, market analysis, and investment prospectus, please contact:</p>
+            <p><strong>Email:</strong> investors@globalventures.com</p>
+            <p><strong>Phone:</strong> (555) 123-4567</p>
+        </div>
+    </div>
+
+    <div id="acquisition-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('acquisition-modal')">&times;</span>
+            <h2>Acquisition Program</h2>
+            <p>Global Ventures Inc. is actively seeking promising brands to add to our portfolio. If you're building something innovative, we'd like to talk.</p>
+            
+            <h3>What We Look For</h3>
+            <p><strong>Market Traction:</strong> Proven product-market fit with demonstrable customer demand.</p>
+            <p><strong>Experienced Team:</strong> Founders and leaders with track records of building successful businesses.</p>
+            <p><strong>Growth Potential:</strong> Scalable business models with clear pathways to market expansion.</p>
+            <p><strong>Cultural Fit:</strong> Values alignment around customer success, innovation, and operational excellence.</p>
+            
+            <h3>Our Acquisition Philosophy</h3>
+            <p>We don't acquire to absorb—we acquire to amplify. Acquired brands maintain operational autonomy while gaining access to capital, strategic guidance, and cross-brand opportunities. Our 15-year track record shows acquired companies grow 2-3x faster post-acquisition.</p>
+            
+            <p style="margin-top: 2rem;">Ready to explore? Start the conversation:</p>
+            <p><strong>Email:</strong> acquisitions@globalventures.com</p>
+            <p><strong>Phone:</strong> (555) 987-6543</p>
+        </div>
+    </div>
+
+    <script>
+        // Modal Functions
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Smooth scroll function
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Close modal with escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                document.querySelectorAll('.modal').forEach(modal => {
+                    modal.style.display = 'none';
+                });
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Essence Jewelry - Timeless, ethically sourced jewelry pieces for the modern woman."
+    />
+    <title>Essence Jewelry | Timeless Investment Pieces</title>
+    <style>
+        
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --off-white: #f9f7f4;
+        --charcoal: #2c2c2c;
+        --gold: #c9a876;
+        --taupe: #e8e3dd;
+        --text: #2c2c2c;
+        --light-text: #5a5a5a;
+      }
+
+      @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap");
+
+      body {
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        background-color: var(--off-white);
+        color: var(--text);
+        line-height: 1.6;
+        letter-spacing: 0.3px;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Playfair Display", serif;
+        font-weight: 500;
+        letter-spacing: 1px;
+      }
+
+      h1 {
+        font-size: 56px;
+        line-height: 1.2;
+        margin-bottom: 24px;
+        font-weight: 400;
+      }
+
+      h2 {
+        font-size: 42px;
+        line-height: 1.3;
+        margin-bottom: 20px;
+        font-weight: 400;
+      }
+
+      h3 {
+        font-size: 20px;
+        font-weight: 500;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 12px;
+      }
+
+      p {
+        font-size: 16px;
+        color: var(--light-text);
+        margin-bottom: 16px;
+        font-weight: 300;
+        line-height: 1.7;
+      }
+
+      /* Navigation */
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 32px 60px;
+        background-color: var(--off-white);
+        border-bottom: 1px solid var(--taupe);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 100;
+      }
+
+      .logo {
+        font-family: "Playfair Display", serif;
+        font-size: 24px;
+        font-weight: 500;
+        letter-spacing: 2px;
+        color: var(--charcoal);
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+        gap: 48px;
+        align-items: center;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: var(--text);
+        font-size: 14px;
+        font-weight: 400;
+        letter-spacing: 0.5px;
+        transition: color 0.3s ease;
+        position: relative;
+      }
+
+      nav a:hover {
+        color: var(--gold);
+      }
+
+      nav a::after {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background-color: var(--gold);
+        transition: width 0.3s ease;
+      }
+
+      nav a:hover::after {
+        width: 100%;
+      }
+
+      .nav-cta {
+        background-color: var(--charcoal);
+        color: white;
+        padding: 12px 28px;
+        border-radius: 2px;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        border: none;
+      }
+
+      .nav-cta:hover {
+        background-color: var(--gold);
+      }
+
+      /* Hero Section */
+      .hero {
+        margin-top: 90px;
+        padding: 80px 60px;
+        text-align: center;
+        background: linear-gradient(
+          135deg,
+          var(--off-white) 0%,
+          rgba(201, 168, 118, 0.02) 100%
+        );
+        min-height: 700px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .hero h1 {
+        max-width: 800px;
+        color: var(--charcoal);
+      }
+
+      .hero p {
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 18px;
+        margin-bottom: 40px;
+      }
+
+      .cta-primary {
+        display: inline-block;
+        background-color: var(--gold);
+        color: white;
+        padding: 16px 48px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+        border-radius: 2px;
+        cursor: pointer;
+        border: 2px solid var(--gold);
+      }
+
+      .cta-primary:hover {
+        background-color: transparent;
+        color: var(--gold);
+      }
+
+      /* Featured Collections */
+      .collections {
+        padding: 100px 60px;
+        background-color: white;
+      }
+
+      .section-header {
+        text-align: center;
+        margin-bottom: 80px;
+      }
+
+      .section-header h3 {
+        margin-bottom: 16px;
+      }
+
+      .collections-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+        margin-bottom: 60px;
+      }
+
+      .collection-card {
+        background-color: var(--off-white);
+        padding: 48px 32px;
+        text-align: center;
+        transition:
+          transform 0.4s ease,
+          box-shadow 0.4s ease;
+        cursor: pointer;
+        border-radius: 2px;
+      }
+
+      .collection-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+      }
+
+      .collection-image {
+        width: 100%;
+        height: 300px;
+        background: linear-gradient(
+          135deg,
+          var(--taupe) 0%,
+          var(--off-white) 100%
+        );
+        border-radius: 2px;
+        margin-bottom: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        color: var(--gold);
+        font-family: "Playfair Display", serif;
+        font-weight: 300;
+      }
+
+      .collection-card h3 {
+        font-size: 18px;
+        text-transform: none;
+        color: var(--charcoal);
+        letter-spacing: 0.5px;
+        margin-bottom: 12px;
+      }
+
+      .collection-card p {
+        font-size: 14px;
+        color: var(--light-text);
+        margin-bottom: 24px;
+      }
+
+      .collection-link {
+        display: inline-block;
+        color: var(--gold);
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        transition: letter-spacing 0.3s ease;
+      }
+
+      .collection-link:hover {
+        letter-spacing: 2px;
+      }
+
+      /* Brand Story Section */
+      .story {
+        padding: 100px 60px;
+        background: linear-gradient(to right, var(--off-white) 50%, white 50%);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: center;
+      }
+
+      .story-image {
+        height: 500px;
+        background: linear-gradient(135deg, #d4c5b9 0%, var(--taupe) 100%);
+        border-radius: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        color: rgba(255, 255, 255, 0.3);
+        font-family: "Playfair Display", serif;
+      }
+
+      .story-content h2 {
+        color: var(--charcoal);
+        margin-bottom: 24px;
+      }
+
+      .story-content p {
+        margin-bottom: 20px;
+      }
+
+      .story-values {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+        margin-top: 40px;
+      }
+
+      .value {
+        background-color: white;
+        padding: 28px 24px;
+        border-left: 3px solid var(--gold);
+        border-radius: 2px;
+      }
+
+      .value h4 {
+        font-family: "Playfair Display", serif;
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 12px;
+        color: var(--charcoal);
+      }
+
+      .value p {
+        font-size: 13px;
+        color: var(--light-text);
+        margin-bottom: 0;
+      }
+
+      /* Featured Piece */
+      .featured-piece {
+        padding: 100px 60px;
+        background-color: var(--off-white);
+        text-align: center;
+      }
+
+      .featured-piece h2 {
+        margin-bottom: 60px;
+        color: var(--charcoal);
+      }
+
+      .piece-showcase {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .piece-image {
+        height: 600px;
+        background: linear-gradient(
+          135deg,
+          #d4a574 0%,
+          #c9a876 50%,
+          #b89968 100%
+        );
+        border-radius: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(255, 255, 255, 0.2);
+        font-family: "Playfair Display", serif;
+        font-size: 24px;
+      }
+
+      .piece-details {
+        text-align: left;
+      }
+
+      .piece-details h3 {
+        font-size: 16px;
+        color: var(--gold);
+        margin-bottom: 16px;
+      }
+
+      .piece-details h2 {
+        font-size: 48px;
+        color: var(--charcoal);
+        margin-bottom: 24px;
+        text-align: left;
+      }
+
+      .piece-specs {
+        background-color: white;
+        padding: 32px;
+        border-radius: 2px;
+        margin-bottom: 32px;
+      }
+
+      .spec-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 16px 0;
+        border-bottom: 1px solid var(--taupe);
+      }
+
+      .spec-item:last-child {
+        border-bottom: none;
+      }
+
+      .spec-label {
+        font-weight: 500;
+        color: var(--charcoal);
+        font-size: 14px;
+      }
+
+      .spec-value {
+        color: var(--light-text);
+        font-size: 14px;
+      }
+
+      /* Newsletter */
+      .newsletter {
+        padding: 80px 60px;
+        background: linear-gradient(135deg, var(--charcoal) 0%, #3a3a3a 100%);
+        text-align: center;
+        color: white;
+      }
+
+      .newsletter h2 {
+        color: white;
+        margin-bottom: 16px;
+      }
+
+      .newsletter p {
+        color: rgba(255, 255, 255, 0.8);
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 40px;
+      }
+
+      .newsletter-form {
+        display: flex;
+        gap: 12px;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      .newsletter-form input {
+        flex: 1;
+        padding: 14px 20px;
+        border: none;
+        background-color: rgba(255, 255, 255, 0.95);
+        font-family: "Inter", sans-serif;
+        font-size: 14px;
+        border-radius: 2px;
+      }
+
+      .newsletter-form input::placeholder {
+        color: var(--light-text);
+      }
+
+      .newsletter-form button {
+        padding: 14px 36px;
+        background-color: var(--gold);
+        border: none;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        border-radius: 2px;
+        transition: background-color 0.3s ease;
+        font-size: 14px;
+        letter-spacing: 0.5px;
+      }
+
+      .newsletter-form button:hover {
+        background-color: #b89968;
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--charcoal);
+        color: rgba(255, 255, 255, 0.8);
+        padding: 60px;
+        text-align: center;
+        font-size: 13px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      footer a {
+        color: var(--gold);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      footer a:hover {
+        color: white;
+      }
+
+      footer .footer-links {
+        margin-bottom: 20px;
+      }
+
+      footer .footer-links a {
+        margin: 0 16px;
+      }
+
+      /* Responsive */
+      @media (max-width: 1024px) {
+        nav {
+          padding: 24px 40px;
+        }
+
+        .hero {
+          padding: 60px 40px;
+          margin-top: 80px;
+        }
+
+        h1 {
+          font-size: 42px;
+        }
+
+        .collections,
+        .story,
+        .featured-piece,
+        .newsletter {
+          padding: 60px 40px;
+        }
+
+        .collections-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 30px;
+        }
+
+        .story {
+          grid-template-columns: 1fr;
+          background: white;
+          gap: 40px;
+        }
+
+        .piece-showcase {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+
+        .story-image {
+          height: 400px;
+        }
+
+        .piece-image {
+          height: 400px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        nav {
+          padding: 16px 24px;
+        }
+
+        nav ul {
+          gap: 24px;
+          font-size: 13px;
+        }
+
+        .logo {
+          font-size: 18px;
+        }
+
+        h1 {
+          font-size: 32px;
+        }
+
+        h2 {
+          font-size: 28px;
+        }
+
+        .hero {
+          padding: 40px 24px;
+          margin-top: 70px;
+        }
+
+        .collections,
+        .featured-piece {
+          padding: 40px 24px;
+        }
+
+        .collections-grid {
+          grid-template-columns: 1fr;
+          gap: 24px;
+        }
+
+        .story-values {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+
+        .newsletter-form {
+          flex-direction: column;
+        }
+
+        nav ul {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div className="logo">ESSENCE</div>
+      <ul>
+        <li><a href="#collections">Collections</a></li>
+        <li><a href="#story">Our Story</a></li>
+        <li><a href="#about">Journal</a></li>
+        <li><button className="nav-cta">Shop Now</button></li>
+      </ul>
+    </nav>
+
+    <section className="hero">
+      <h1>Timeless pieces for the modern woman</h1>
+      <p>
+        Ethically sourced jewelry designed to be cherished for a lifetime.
+        Invest in craftsmanship, not trends.
+      </p>
+      <button className="cta-primary">Explore Collections</button>
+    </section>
+
+    <section className="collections" id="collections">
+      <div className="section-header">
+        <h3>Featured Collections</h3>
+        <h2>Curated with intention</h2>
+      </div>
+      <div className="collections-grid">
+        <div className="collection-card">
+          <div className="collection-image">Rings</div>
+          <h3>Signature Rings</h3>
+          <p>
+            Minimalist designs crafted from recycled gold and lab-grown diamonds
+          </p>
+          <a href="#" className="collection-link">Discover →</a>
+        </div>
+        <div className="collection-card">
+          <div className="collection-image">Necklaces</div>
+          <h3>Delicate Chains</h3>
+          <p>
+            Versatile necklaces that complement any wardrobe with subtle
+            elegance
+          </p>
+          <a href="#" className="collection-link">Discover →</a>
+        </div>
+        <div className="collection-card">
+          <div className="collection-image">Earrings</div>
+          <h3>Heirloom Earrings</h3>
+          <p>Timeless designs in sustainable materials that last generations</p>
+          <a href="#" className="collection-link">Discover →</a>
+        </div>
+      </div>
+    </section>
+
+    <section className="story" id="story">
+      <div className="story-image">Craftsmanship Detail</div>
+      <div className="story-content">
+        <h2>Why we create</h2>
+        <p>
+          Every piece of Essence jewelry tells a story of intentional design and
+          ethical sourcing. We believe luxury should never come at the cost of
+          conscience.
+        </p>
+        <p>
+          Our founder, after years in fast fashion, realized that true elegance
+          is about quality, permanence, and responsibility. That conviction
+          shapes everything we do.
+        </p>
+
+        <div className="story-values">
+          <div className="value">
+            <h4>Ethically Sourced</h4>
+            <p>100% recycled precious metals and lab-grown diamonds</p>
+          </div>
+          <div className="value">
+            <h4>Artisan Crafted</h4>
+            <p>Hand-finished by skilled jewelers in our atelier</p>
+          </div>
+          <div className="value">
+            <h4>Designed to Last</h4>
+            <p>Investment pieces meant to be worn and cherished forever</p>
+          </div>
+          <div className="value">
+            <h4>Full Transparency</h4>
+            <p>Complete sourcing information with every purchase</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section className="featured-piece">
+      <h2>Featured Piece</h2>
+      <div className="piece-showcase">
+        <div className="piece-image">Gold Minimalist Ring</div>
+        <div className="piece-details">
+          <h3>New Arrival</h3>
+          <h2>Horizon Ring</h2>
+          <p>
+            A modern interpretation of the eternal circle. Hand-crafted from
+            recycled 18k gold with a subtle architectural edge, this ring
+            symbolizes transformation and timelessness.
+          </p>
+
+          <div className="piece-specs">
+            <div className="spec-item">
+              <span className="spec-label">Material</span>
+              <span className="spec-value">Recycled 18K Gold</span>
+            </div>
+            <div className="spec-item">
+              <span className="spec-label">Dimensions</span>
+              <span className="spec-value">5mm width, 2mm height</span>
+            </div>
+            <div className="spec-item">
+              <span className="spec-label">Craftsmanship</span>
+              <span className="spec-value"
+                >Hand-finished, individually stamped</span
+              >
+            </div>
+            <div className="spec-item">
+              <span className="spec-label">Available Sizes</span>
+              <span className="spec-value">5-12 US (custom available)</span>
+            </div>
+          </div>
+
+          <button className="cta-primary">Add to Cart — $485</button>
+        </div>
+      </div>
+    </section>
+
+    <section className="newsletter">
+      <h2>Join the Essence Collective</h2>
+      <p>
+        Receive early access to new collections, artisan stories, and ethical
+        sourcing insights delivered to your inbox.
+      </p>
+      <form className="newsletter-form" onSubmit="{(e)" ="">
+        { e.preventDefault(); alert('Thank you for subscribing!'); }}>
+        <input type="email" placeholder="Enter your email" required />
+        <button type="submit">Subscribe</button>
+      </form>
+    </section>
+
+    <footer>
+      <div className="footer-links">
+        <a href="#">Shop</a>
+        <a href="#">About</a>
+        <a href="#">Care & Warranty</a>
+        <a href="#">Contact</a>
+        <a href="#">Privacy</a>
+      </div>
+      <p>&copy; 2024 Essence Jewelry. Timeless elegance, ethical sourcing.</p>
+    </footer>
+
+    <script>
+      // Smooth scroll for navigation links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        });
+      });
+
+      // Simple animation on scroll
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll(".collection-card, .value").forEach((el) => {
+        el.style.opacity = "0";
+        el.style.transform = "translateY(20px)";
+        el.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+        observer.observe(el);
+      });
+    </script>
+  </body>
+</html>

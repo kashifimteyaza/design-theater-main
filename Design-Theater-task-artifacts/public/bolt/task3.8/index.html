@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EventSpace — Virtual Events That Actually Work</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fraunces:ital,wght@0,700;1,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/style.css" />
+    <meta property="og:image" content="https://bolt.new/static/og_default.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
+</head>
+  <body>
+
+    <!-- NAVIGATION -->
+    <header class="nav-header" role="banner">
+      <nav class="nav-inner container" aria-label="Main navigation">
+        <a href="#" class="nav-logo" aria-label="EventSpace home">
+          <span class="logo-mark" aria-hidden="true">ES</span>
+          <span class="logo-text">EventSpace</span>
+        </a>
+        <ul class="nav-links" role="list">
+          <li><a href="#organizers">Organizers</a></li>
+          <li><a href="#speakers">Speakers</a></li>
+          <li><a href="#attendees">Attendees</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a href="#" class="btn btn-ghost">Sign in</a>
+          <a href="#get-started" class="btn btn-primary">Get started free</a>
+        </div>
+        <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+      <div id="mobile-menu" class="mobile-menu" aria-hidden="true" role="dialog" aria-label="Mobile navigation">
+        <ul role="list">
+          <li><a href="#organizers">Organizers</a></li>
+          <li><a href="#speakers">Speakers</a></li>
+          <li><a href="#attendees">Attendees</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#" class="btn btn-ghost">Sign in</a></li>
+          <li><a href="#get-started" class="btn btn-primary">Get started free</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <main id="main-content">
+
+      <!-- HERO -->
+      <section class="hero" aria-labelledby="hero-heading">
+        <div class="hero-bg" aria-hidden="true">
+          <div class="hero-blob hero-blob-1"></div>
+          <div class="hero-blob hero-blob-2"></div>
+          <div class="hero-grid"></div>
+        </div>
+        <div class="container hero-layout">
+          <div class="hero-text">
+            <div class="hero-badge animate-fade-up">
+              <span class="badge-dot" aria-hidden="true"></span>
+              Now hosting 50-person workshops to 5,000-attendee summits
+            </div>
+            <h1 id="hero-heading" class="hero-headline animate-fade-up animate-delay-1">
+              Virtual events that feel like
+              <em class="headline-accent">being there.</em>
+            </h1>
+            <p class="hero-subhead animate-fade-up animate-delay-2">
+              EventSpace brings organizers, speakers, and attendees together with tools designed for real people — not just tech teams. From your first virtual fundraiser to your thousandth conference.
+            </p>
+            <div class="hero-actions animate-fade-up animate-delay-3">
+              <a href="#get-started" class="btn btn-primary btn-large">Plan your event free</a>
+              <a href="#features" class="btn btn-outline btn-large">
+                <span class="play-icon" aria-hidden="true">▶</span>
+                See how it works
+              </a>
+            </div>
+            <div class="hero-social-proof animate-fade-up animate-delay-4" aria-label="Customer statistics">
+              <div class="proof-item">
+                <strong>12,000+</strong>
+                <span>events hosted</span>
+              </div>
+              <div class="proof-divider" aria-hidden="true"></div>
+              <div class="proof-item">
+                <strong>2.4M</strong>
+                <span>attendees served</span>
+              </div>
+              <div class="proof-divider" aria-hidden="true"></div>
+              <div class="proof-item">
+                <strong>98%</strong>
+                <span>session uptime</span>
+              </div>
+            </div>
+          </div>
+          <div class="hero-visual animate-fade-up animate-delay-3" aria-hidden="true">
+            <div class="event-preview">
+              <div class="preview-topbar">
+                <div class="preview-dots">
+                  <span></span><span></span><span></span>
+                </div>
+                <div class="preview-title">TechConf 2026 — Live Now</div>
+                <div class="preview-live"><span class="live-dot"></span> LIVE</div>
+              </div>
+              <div class="preview-stage">
+                <div class="stage-speaker">
+                  <img src="https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Speaker presenting at virtual conference" width="600" height="400" loading="eager" />
+                  <div class="speaker-overlay">
+                    <div class="speaker-name">Dr. Maya Osei</div>
+                    <div class="speaker-title">Keynote: The Future of Remote Work</div>
+                  </div>
+                </div>
+                <div class="preview-sidebar">
+                  <div class="sidebar-head">Live Chat <span class="sidebar-count">1,247 watching</span></div>
+                  <div class="chat-messages" aria-label="Sample chat messages">
+                    <div class="chat-msg"><span class="chat-avatar" style="background:#0ea5e9">TK</span><span>This is incredible, exactly what I needed!</span></div>
+                    <div class="chat-msg"><span class="chat-avatar" style="background:#f59e0b">SR</span><span>Can you share the slides after?</span></div>
+                    <div class="chat-msg"><span class="chat-avatar" style="background:#10b981">AL</span><span>Question for Q&amp;A: hybrid teams?</span></div>
+                    <div class="chat-msg new"><span class="chat-avatar" style="background:#ef4444">PW</span><span>Joining from Singapore!</span></div>
+                  </div>
+                  <div class="sidebar-actions">
+                    <button class="action-btn active" aria-label="React with applause">👏 <span>843</span></button>
+                    <button class="action-btn" aria-label="Raise hand for Q&A">✋ <span>12</span></button>
+                    <button class="action-btn" aria-label="Add to favourites">⭐ <span>291</span></button>
+                  </div>
+                </div>
+              </div>
+              <div class="preview-sessions">
+                <div class="session-pill active">Main Stage</div>
+                <div class="session-pill">Workshop A</div>
+                <div class="session-pill">Networking</div>
+                <div class="session-pill">Exhibit Hall</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAIN POINTS -->
+      <section class="pain-strip" aria-labelledby="pain-heading">
+        <div class="container">
+          <p id="pain-heading" class="pain-intro">We've seen every virtual event problem. Here's how we solved them.</p>
+          <div class="pain-grid">
+            <div class="pain-card animate-fade-up">
+              <div class="pain-icon" aria-hidden="true">🌍</div>
+              <h3>Time zone confusion</h3>
+              <p>Every attendee sees times in their own zone, with smart reminders 24 hours and 15 minutes before each session.</p>
+            </div>
+            <div class="pain-card animate-fade-up animate-delay-1">
+              <div class="pain-icon" aria-hidden="true">🚪</div>
+              <h3>Accidental session exits</h3>
+              <p>One-click rejoin from anywhere. Leave a session? Your spot is saved and we'll show you exactly where you left off.</p>
+            </div>
+            <div class="pain-card animate-fade-up animate-delay-2">
+              <div class="pain-icon" aria-hidden="true">😶</div>
+              <h3>Awkward networking</h3>
+              <p>Opt-in, interest-based connections. No forced video speed-dating — network at your own pace, your own way.</p>
+            </div>
+            <div class="pain-card animate-fade-up animate-delay-3">
+              <div class="pain-icon" aria-hidden="true">📡</div>
+              <h3>Mid-talk tech failures</h3>
+              <p>Automatic failover streaming, local recording backup, and a speaker tech check 48 hours before every session.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ORGANIZERS -->
+      <section id="organizers" class="pillar pillar-organizers" aria-labelledby="org-heading">
+        <div class="container pillar-inner">
+          <div class="pillar-content">
+            <div class="pillar-tag">For Organizers</div>
+            <h2 id="org-heading">Professional results.<br />Without the complexity.</h2>
+            <p class="pillar-desc">Whether you're a seasoned conference producer or running your nonprofit's first virtual fundraiser, EventSpace gives you the control you need without drowning you in options.</p>
+            <ul class="pillar-list" aria-label="Organizer features">
+              <li>
+                <span class="list-icon" aria-hidden="true">✓</span>
+                <div>
+                  <strong>Guided setup wizard</strong>
+                  <span>Go from blank canvas to published event page in under 30 minutes.</span>
+                </div>
+              </li>
+              <li>
+                <span class="list-icon" aria-hidden="true">✓</span>
+                <div>
+                  <strong>Tiered control panels</strong>
+                  <span>Simple mode for first-timers, advanced mode for power users — switch anytime.</span>
+                </div>
+              </li>
+              <li>
+                <span class="list-icon" aria-hidden="true">✓</span>
+                <div>
+                  <strong>Real-time analytics</strong>
+                  <span>See attendance, engagement, and drop-off live. Know what's working instantly.</span>
+                </div>
+              </li>
+              <li>
+                <span class="list-icon" aria-hidden="true">✓</span>
+                <div>
+                  <strong>Automated communications</strong>
+                  <span>Registration confirmations, reminders, and follow-ups handle themselves.</span>
+                </div>
+              </li>
+            </ul>
+            <a href="#get-started" class="btn btn-primary">Start planning your event</a>
+          </div>
+          <div class="pillar-visual" aria-hidden="true">
+            <div class="dashboard-preview">
+              <div class="dash-header">
+                <span class="dash-title">Event Dashboard</span>
+                <span class="dash-status live">Live now</span>
+              </div>
+              <div class="dash-stats">
+                <div class="dash-stat">
+                  <span class="stat-num">1,847</span>
+                  <span class="stat-label">Registered</span>
+                </div>
+                <div class="dash-stat">
+                  <span class="stat-num">1,204</span>
+                  <span class="stat-label">Attending now</span>
+                </div>
+                <div class="dash-stat highlight">
+                  <span class="stat-num">94%</span>
+                  <span class="stat-label">Satisfaction</span>
+                </div>
+              </div>
+              <div class="dash-chart" aria-label="Attendance chart">
+                <div class="chart-bars">
+                  <div class="bar" style="height:40%"><span>9am</span></div>
+                  <div class="bar" style="height:65%"><span>10am</span></div>
+                  <div class="bar" style="height:85%"><span>11am</span></div>
+                  <div class="bar active" style="height:100%"><span>12pm</span></div>
+                  <div class="bar" style="height:72%"><span>1pm</span></div>
+                  <div class="bar" style="height:55%"><span>2pm</span></div>
+                </div>
+              </div>
+              <div class="dash-sessions">
+                <div class="session-row">
+                  <div class="session-dot green"></div>
+                  <span>Main Stage Keynote</span>
+                  <span class="session-viewers">1,204 watching</span>
+                </div>
+                <div class="session-row">
+                  <div class="session-dot blue"></div>
+                  <span>Workshop: Deep Dives</span>
+                  <span class="session-viewers">341 watching</span>
+                </div>
+                <div class="session-row">
+                  <div class="session-dot amber"></div>
+                  <span>Networking Lounge</span>
+                  <span class="session-viewers">89 active</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SPEAKERS -->
+      <section id="speakers" class="pillar pillar-speakers" aria-labelledby="spk-heading">
+        <div class="container pillar-inner pillar-inner-reverse">
+          <div class="pillar-visual" aria-hidden="true">
+            <div class="speaker-preview">
+              <div class="speaker-preview-header">
+                <span>Your Tech Check</span>
+                <span class="check-status pass">All systems ready</span>
+              </div>
+              <div class="checklist">
+                <div class="check-item pass"><span class="check-mark">✓</span><span>Video: HD quality detected</span></div>
+                <div class="check-item pass"><span class="check-mark">✓</span><span>Audio: Clear, no echo</span></div>
+                <div class="check-item pass"><span class="check-mark">✓</span><span>Internet: 45 Mbps upload</span></div>
+                <div class="check-item pass"><span class="check-mark">✓</span><span>Backup stream: Connected</span></div>
+                <div class="check-item pass"><span class="check-mark">✓</span><span>Local recording: Active</span></div>
+                <div class="check-item pass"><span class="check-mark">✓</span><span>Slides: 42 slides loaded</span></div>
+              </div>
+              <div class="backstage-panel">
+                <div class="backstage-header">Backstage View <span class="private-badge">Private</span></div>
+                <div class="backstage-msg">Organizer: You go on in 3 mins! Amazing turnout today.</div>
+                <div class="backstage-msg">Next slide: "Key Statistics" — Q&amp;A follows</div>
+                <div class="next-session-timer">
+                  <span>Session starts in</span>
+                  <span class="timer">02:47</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pillar-content">
+            <div class="pillar-tag">For Speakers</div>
+            <h2 id="spk-heading">Present with confidence.<br />Not crossed fingers.</h2>
+            <p class="pillar-desc">Your reputation is on the line every time you speak. EventSpace gives you the backstage tools to prepare thoroughly and the safety net to recover gracefully if anything goes wrong.</p>
+            <ul class="pillar-list" aria-label="Speaker features">
+              <li>
+                <span class="list-icon" aria-hidden="true">✓</span>
+                <div>
+                  <strong>48-hour tech check</strong>
+                  <span>Automated pre-event audio, video, and connection verification with a human backup.</span>
+                </div>
+              </li>
+              <li>
+                <span class="list-icon" aria-hidden="true">✓</span>
+                <div>
+                  <strong>Private backstage channel</strong>
+                  <span>Chat with organizers in real time without the audience seeing a thing.</span>
+                </div>
+              </li>
+              <li>
+                <span class="list-icon" aria-hidden="true">✓</span>
+                <div>
+                  <strong>Automatic failover</strong>
+                  <span>If your stream drops, a backup takes over in under 2 seconds — no dead air.</span>
+                </div>
+              </li>
+              <li>
+                <span class="list-icon" aria-hidden="true">✓</span>
+                <div>
+                  <strong>Speaker teleprompter</strong>
+                  <span>Your notes, timed slide view, and Q&A queue all in one private panel.</span>
+                </div>
+              </li>
+            </ul>
+            <a href="#get-started" class="btn btn-primary">Speaker resources</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ATTENDEES -->
+      <section id="attendees" class="pillar pillar-attendees" aria-labelledby="att-heading">
+        <div class="container pillar-inner">
+          <div class="pillar-content">
+            <div class="pillar-tag">For Attendees</div>
+            <h2 id="att-heading">Connect on your<br />own terms.</h2>
+            <p class="pillar-desc">Attending a virtual event shouldn't feel like homework. EventSpace meets you where you are — whether you're a digital native or just prefer in-person but couldn't make it.</p>
+            <ul class="pillar-list" aria-label="Attendee features">
+              <li>
+                <span class="list-icon" aria-hidden="true">✓</span>
+                <div>
+                  <strong>Personalized agenda</strong>
+                  <span>Sessions recommended for you based on your interests, in your time zone, always.</span>
+                </div>
+              </li>
+              <li>
+                <span class="list-icon" aria-hidden="true">✓</span>
+                <div>
+                  <strong>Networking without awkwardness</strong>
+                  <span>Text-first introductions, interest tags, and opt-in video — no forced interactions.</span>
+                </div>
+              </li>
+              <li>
+                <span class="list-icon" aria-hidden="true">✓</span>
+                <div>
+                  <strong>Full accessibility</strong>
+                  <span>Live captions, screen reader support, keyboard navigation, and high-contrast mode.</span>
+                </div>
+              </li>
+              <li>
+                <span class="list-icon" aria-hidden="true">✓</span>
+                <div>
+                  <strong>On-demand catch-up</strong>
+                  <span>Missed a session? Recordings available within 30 minutes. No FOMO, ever.</span>
+                </div>
+              </li>
+            </ul>
+            <a href="#get-started" class="btn btn-primary">Browse upcoming events</a>
+          </div>
+          <div class="pillar-visual" aria-hidden="true">
+            <div class="attendee-preview">
+              <div class="my-schedule">
+                <div class="schedule-header">Your Schedule — Today</div>
+                <div class="schedule-tz">All times in Pacific (PDT)</div>
+                <div class="schedule-item current">
+                  <div class="sched-time">11:00 AM</div>
+                  <div class="sched-session">
+                    <strong>Keynote: Future of Remote Work</strong>
+                    <span>Main Stage · 1,204 watching</span>
+                  </div>
+                  <button class="join-btn">Join →</button>
+                </div>
+                <div class="schedule-item">
+                  <div class="sched-time">12:30 PM</div>
+                  <div class="sched-session">
+                    <strong>Workshop: Deep Work Strategies</strong>
+                    <span>Workshop Room B · 45 seats left</span>
+                  </div>
+                  <span class="remind-badge">Reminder set</span>
+                </div>
+                <div class="schedule-item">
+                  <div class="sched-time">2:00 PM</div>
+                  <div class="sched-session">
+                    <strong>Networking: Product Builders</strong>
+                    <span>Lounge · Interest match: 87%</span>
+                  </div>
+                  <button class="rsvp-btn">RSVP</button>
+                </div>
+              </div>
+              <div class="access-bar">
+                <button class="access-chip active" aria-pressed="true">CC</button>
+                <button class="access-chip" aria-pressed="false">High Contrast</button>
+                <button class="access-chip" aria-pressed="false">Screen Reader</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FEATURES GRID -->
+      <section id="features" class="features-section" aria-labelledby="feat-heading">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-tag">Everything you need</div>
+            <h2 id="feat-heading">One platform.<br />Every event format.</h2>
+            <p>From intimate 50-person workshops to 5,000-attendee summits — EventSpace scales without you changing a thing.</p>
+          </div>
+          <div class="features-grid">
+            <div class="feature-card animate-fade-up">
+              <div class="feature-icon" aria-hidden="true">📋</div>
+              <h3>Smart Registration</h3>
+              <p>Custom forms, waitlists, ticket tiers, discount codes, and instant confirmation emails. Works with your existing CRM.</p>
+            </div>
+            <div class="feature-card animate-fade-up animate-delay-1">
+              <div class="feature-icon" aria-hidden="true">📺</div>
+              <h3>Live Streaming</h3>
+              <p>Adaptive bitrate streaming that adjusts to each viewer's connection. Sharp on any device, anywhere in the world.</p>
+            </div>
+            <div class="feature-card animate-fade-up animate-delay-2">
+              <div class="feature-icon" aria-hidden="true">🚪</div>
+              <h3>Breakout Rooms</h3>
+              <p>Auto-assign or let attendees choose. Built-in icebreakers, shared whiteboards, and automatic session capture.</p>
+            </div>
+            <div class="feature-card animate-fade-up animate-delay-3">
+              <div class="feature-icon" aria-hidden="true">🤝</div>
+              <h3>Networking Lounge</h3>
+              <p>Interest-based matching, async text intros before video, and a digital business card exchange that actually works.</p>
+            </div>
+            <div class="feature-card animate-fade-up">
+              <div class="feature-icon" aria-hidden="true">🏪</div>
+              <h3>Exhibit Hall</h3>
+              <p>Sponsor booths with video demos, document libraries, live chat, and qualified lead capture for exhibitors.</p>
+            </div>
+            <div class="feature-card animate-fade-up animate-delay-1">
+              <div class="feature-icon" aria-hidden="true">♿</div>
+              <h3>Accessibility First</h3>
+              <p>Live captions powered by AI, full keyboard navigation, screen reader compatibility, and WCAG 2.1 AA compliance.</p>
+            </div>
+            <div class="feature-card animate-fade-up animate-delay-2">
+              <div class="feature-icon" aria-hidden="true">📊</div>
+              <h3>Deep Analytics</h3>
+              <p>Per-session engagement scores, attendee journey maps, speaker performance metrics, and exportable reports.</p>
+            </div>
+            <div class="feature-card animate-fade-up animate-delay-3">
+              <div class="feature-icon" aria-hidden="true">🔒</div>
+              <h3>Enterprise Security</h3>
+              <p>SSO, SAML, two-factor auth, GDPR-compliant data handling, and dedicated DDoS protection for high-profile events.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCALE -->
+      <section class="scale-section" aria-labelledby="scale-heading">
+        <div class="container">
+          <h2 id="scale-heading" class="scale-heading">Scales from small to massive</h2>
+          <div class="scale-tiers">
+            <div class="scale-tier">
+              <div class="tier-icon" aria-hidden="true">🏫</div>
+              <h3>Workshop</h3>
+              <p>50–200 people</p>
+              <ul>
+                <li>Intimate breakouts</li>
+                <li>Shared whiteboards</li>
+                <li>Group exercises</li>
+              </ul>
+            </div>
+            <div class="scale-tier active">
+              <div class="tier-icon" aria-hidden="true">🏛️</div>
+              <h3>Conference</h3>
+              <p>200–1,000 people</p>
+              <ul>
+                <li>Multi-track sessions</li>
+                <li>Networking rooms</li>
+                <li>Exhibit hall</li>
+              </ul>
+            </div>
+            <div class="scale-tier">
+              <div class="tier-icon" aria-hidden="true">🏟️</div>
+              <h3>Summit</h3>
+              <p>1,000–5,000 people</p>
+              <ul>
+                <li>Broadcast-quality stage</li>
+                <li>Sponsor management</li>
+                <li>Global CDN delivery</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TESTIMONIALS -->
+      <section class="testimonials" aria-labelledby="test-heading">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-tag">Real results</div>
+            <h2 id="test-heading">Trusted by organizers<br />at every level</h2>
+          </div>
+          <div class="testimonial-grid">
+            <article class="testimonial-card animate-fade-up">
+              <div class="stars" aria-label="5 stars">★★★★★</div>
+              <blockquote>
+                <p>"Our nonprofit had never done a virtual event. EventSpace's simple mode walked us through everything. We raised $47,000 — more than our in-person gala last year."</p>
+              </blockquote>
+              <footer>
+                <img src="https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&fit=crop" alt="Keisha Thompson" width="40" height="40" loading="lazy" />
+                <div>
+                  <cite>Keisha Thompson</cite>
+                  <span>Executive Director, Rise Together Foundation</span>
+                </div>
+              </footer>
+            </article>
+            <article class="testimonial-card animate-fade-up animate-delay-1">
+              <div class="stars" aria-label="5 stars">★★★★★</div>
+              <blockquote>
+                <p>"The backstage channel and tech check saved my keynote. My internet dropped 5 minutes before — the backup stream kicked in automatically. Audience never knew."</p>
+              </blockquote>
+              <footer>
+                <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&fit=crop" alt="Marcus Chen" width="40" height="40" loading="lazy" />
+                <div>
+                  <cite>Marcus Chen</cite>
+                  <span>Principal Engineer, DevWorld Conference</span>
+                </div>
+              </footer>
+            </article>
+            <article class="testimonial-card animate-fade-up animate-delay-2">
+              <div class="stars" aria-label="5 stars">★★★★★</div>
+              <blockquote>
+                <p>"4,800 attendees across 62 countries. Zero critical incidents. The real-time analytics let our team spot a dropped session and re-route everyone within seconds."</p>
+              </blockquote>
+              <footer>
+                <img src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&fit=crop" alt="Priya Sharma" width="40" height="40" loading="lazy" />
+                <div>
+                  <cite>Priya Sharma</cite>
+                  <span>Head of Events, Global Tech Summit</span>
+                </div>
+              </footer>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- PRICING -->
+      <section id="pricing" class="pricing-section" aria-labelledby="price-heading">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-tag">Pricing</div>
+            <h2 id="price-heading">Simple pricing.<br />No surprises.</h2>
+            <p>Pay per event or subscribe for ongoing use. No per-attendee fees that blow up your budget.</p>
+          </div>
+          <div class="pricing-grid">
+            <div class="pricing-card">
+              <div class="price-tier">Starter</div>
+              <div class="price-amount"><span class="price-currency">$</span>0<span class="price-period">/event</span></div>
+              <p class="price-desc">For first-timers and small nonprofits testing the waters.</p>
+              <ul class="price-features">
+                <li>Up to 100 attendees</li>
+                <li>2 concurrent sessions</li>
+                <li>Basic registration</li>
+                <li>Live streaming (720p)</li>
+                <li>7-day recording storage</li>
+              </ul>
+              <a href="#get-started" class="btn btn-outline btn-full">Get started free</a>
+            </div>
+            <div class="pricing-card featured">
+              <div class="popular-badge">Most popular</div>
+              <div class="price-tier">Professional</div>
+              <div class="price-amount"><span class="price-currency">$</span>299<span class="price-period">/event</span></div>
+              <p class="price-desc">For teams running regular professional events.</p>
+              <ul class="price-features">
+                <li>Up to 1,000 attendees</li>
+                <li>Unlimited sessions</li>
+                <li>Custom branding</li>
+                <li>Live streaming (1080p)</li>
+                <li>Networking &amp; exhibit hall</li>
+                <li>Advanced analytics</li>
+                <li>90-day recording storage</li>
+              </ul>
+              <a href="#get-started" class="btn btn-primary btn-full">Start planning</a>
+            </div>
+            <div class="pricing-card">
+              <div class="price-tier">Enterprise</div>
+              <div class="price-amount">Custom</div>
+              <p class="price-desc">For organizations running large-scale or recurring events.</p>
+              <ul class="price-features">
+                <li>Up to 5,000 attendees</li>
+                <li>Dedicated infrastructure</li>
+                <li>SSO &amp; SAML</li>
+                <li>White-label option</li>
+                <li>Priority support &amp; SLA</li>
+                <li>Custom integrations</li>
+                <li>Unlimited storage</li>
+              </ul>
+              <a href="#get-started" class="btn btn-outline btn-full">Talk to sales</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section id="get-started" class="cta-section" aria-labelledby="cta-heading">
+        <div class="container cta-inner">
+          <div class="cta-content">
+            <h2 id="cta-heading">Your next event starts here.</h2>
+            <p>Join 12,000+ events already hosted on EventSpace. Setup takes 30 minutes — your first event is free.</p>
+            <form class="cta-form" aria-label="Start planning your event" id="ctaForm">
+              <label for="cta-email" class="sr-only">Your email address</label>
+              <input type="email" id="cta-email" name="email" placeholder="Enter your work email" autocomplete="email" required />
+              <button type="submit" class="btn btn-primary">Start for free</button>
+            </form>
+            <p class="cta-note">No credit card required. Free plan includes 100 attendees.</p>
+          </div>
+          <div class="cta-image" aria-hidden="true">
+            <img src="https://images.pexels.com/photos/4226140/pexels-photo-4226140.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Team celebrating a successful virtual event" width="600" height="400" loading="lazy" />
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer" role="contentinfo">
+      <div class="container footer-inner">
+        <div class="footer-brand">
+          <a href="#" class="nav-logo" aria-label="EventSpace home">
+            <span class="logo-mark" aria-hidden="true">ES</span>
+            <span class="logo-text">EventSpace</span>
+          </a>
+          <p>Making virtual events feel human since 2020.</p>
+        </div>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <div class="footer-col">
+            <h4>Product</h4>
+            <ul>
+              <li><a href="#features">Features</a></li>
+              <li><a href="#pricing">Pricing</a></li>
+              <li><a href="#">Integrations</a></li>
+              <li><a href="#">Security</a></li>
+              <li><a href="#">Accessibility</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Use Cases</h4>
+            <ul>
+              <li><a href="#">Conferences</a></li>
+              <li><a href="#">Workshops</a></li>
+              <li><a href="#">Fundraisers</a></li>
+              <li><a href="#">Trade shows</a></li>
+              <li><a href="#">Town halls</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Resources</h4>
+            <ul>
+              <li><a href="#">Help center</a></li>
+              <li><a href="#">Event templates</a></li>
+              <li><a href="#">Speaker guide</a></li>
+              <li><a href="#">Blog</a></li>
+              <li><a href="#">Status page</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Company</h4>
+            <ul>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Careers</a></li>
+              <li><a href="#">Press</a></li>
+              <li><a href="#">Privacy</a></li>
+              <li><a href="#">Terms</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <div class="container">
+          <p>&copy; 2026 EventSpace. All rights reserved.</p>
+          <div class="footer-badges">
+            <span class="badge-item">WCAG 2.1 AA</span>
+            <span class="badge-item">SOC 2 Type II</span>
+            <span class="badge-item">GDPR Compliant</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/main.js" type="module"></script>
+  </body>
+</html>

@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxe Verde — Luxury Redefined</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-cream: #F5F3EE;
+            --color-charcoal: #2C2C2C;
+            --color-warm-gray: #8B8680;
+            --color-sage: #A8B0A0;
+            --color-ocean: #4A5D68;
+            --color-sand: #D4C5B0;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: var(--color-cream);
+            color: var(--color-charcoal);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3 {
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            line-height: 1.1;
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            line-height: 1.2;
+        }
+
+        p {
+            font-size: 1rem;
+            color: var(--color-warm-gray);
+            max-width: 600px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to bottom, rgba(245, 243, 238, 0.95), rgba(245, 243, 238, 0));
+            transition: background 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(245, 243, 238, 0.98);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            color: var(--color-charcoal);
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 3rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--color-warm-gray);
+            font-size: 0.9rem;
+            letter-spacing: 0.08em;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--color-charcoal);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--color-charcoal);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            animation: fadeIn 1.5s ease forwards 0.3s;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            padding: 0 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 1s ease forwards 0.8s;
+        }
+
+        .hero h1 {
+            margin-bottom: 1.5rem;
+            color: var(--color-charcoal);
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: var(--color-warm-gray);
+            letter-spacing: 0.05em;
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        /* Section Layouts */
+        section {
+            padding: 8rem 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Philosophy Section */
+        .philosophy {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .philosophy-text h2 {
+            margin-bottom: 2rem;
+        }
+
+        .philosophy-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .philosophy-image-container {
+            position: relative;
+            height: 600px;
+            overflow: hidden;
+        }
+
+        .philosophy-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .philosophy-image-container:hover .philosophy-image {
+            transform: scale(1.05);
+        }
+
+        /* Material Story */
+        .material-story {
+            background: linear-gradient(135deg, var(--color-ocean) 0%, var(--color-sage) 100%);
+            color: white;
+            padding: 8rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .material-story::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .material-content {
+            position: relative;
+            z-index: 10;
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .material-content h2 {
+            margin-bottom: 2rem;
+            color: white;
+        }
+
+        .material-content p {
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0 auto 3rem;
+            font-size: 1.1rem;
+        }
+
+        .material-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4rem;
+            margin-top: 4rem;
+        }
+
+        .stat {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .stat:nth-child(1) { animation-delay: 0.2s; }
+        .stat:nth-child(2) { animation-delay: 0.4s; }
+        .stat:nth-child(3) { animation-delay: 0.6s; }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 200;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            letter-spacing: 0.08em;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Collection Preview */
+        .collection {
+            padding: 8rem 0;
+        }
+
+        .collection-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 0 4rem;
+        }
+
+        .collection-header h2 {
+            margin-bottom: 1rem;
+        }
+
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            background: var(--color-cream);
+        }
+
+        .collection-item {
+            position: relative;
+            aspect-ratio: 3/4;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .collection-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease, opacity 0.3s ease;
+        }
+
+        .collection-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .collection-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .collection-item:hover .collection-overlay {
+            transform: translateY(0);
+        }
+
+        .item-name {
+            font-size: 1.1rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-price {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Craftsmanship Section */
+        .craftsmanship {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 0;
+            align-items: center;
+            padding: 0;
+        }
+
+        .craft-image {
+            width: 100%;
+            height: 700px;
+            object-fit: cover;
+        }
+
+        .craft-text {
+            padding: 4rem;
+            background: var(--color-sand);
+        }
+
+        .craft-text h2 {
+            margin-bottom: 2rem;
+        }
+
+        .craft-text p {
+            margin-bottom: 1.5rem;
+            color: var(--color-charcoal);
+        }
+
+        .craft-details {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(44, 44, 44, 0.2);
+        }
+
+        .detail-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-label {
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-warm-gray);
+            margin-bottom: 0.3rem;
+        }
+
+        .detail-value {
+            font-size: 1rem;
+            color: var(--color-charcoal);
+        }
+
+        /* CTA Section */
+        .cta {
+            text-align: center;
+            padding: 10rem 4rem;
+            background: var(--color-charcoal);
+            color: white;
+        }
+
+        .cta h2 {
+            margin-bottom: 2rem;
+            color: white;
+        }
+
+        .cta p {
+            color: rgba(255, 255, 255, 0.7);
+            margin: 0 auto 3rem;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 1rem 3rem;
+            border: 1px solid white;
+            color: white;
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: white;
+            transition: left 0.3s ease;
+            z-index: 0;
+        }
+
+        .button:hover::before {
+            left: 0;
+        }
+
+        .button span {
+            position: relative;
+            z-index: 1;
+            transition: color 0.3s ease;
+        }
+
+        .button:hover span {
+            color: var(--color-charcoal);
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem;
+            background: var(--color-charcoal);
+            color: white;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .footer-section h3 {
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            header {
+                padding: 1.5rem 2rem;
+            }
+
+            nav ul {
+                gap: 1.5rem;
+            }
+
+            section {
+                padding: 5rem 2rem;
+            }
+
+            .philosophy,
+            .craftsmanship {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .material-stats,
+            .collection-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .hero-content {
+                padding: 0 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <a href="#" class="logo">LUXE VERDE</a>
+        <nav>
+            <ul>
+                <li><a href="#collection">COLLECTION</a></li>
+                <li><a href="#philosophy">PHILOSOPHY</a></li>
+                <li><a href="#craft">CRAFT</a></li>
+                <li><a href="#about">ABOUT</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <svg class="hero-image" width="100%" height="100%" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+                <!-- Minimalist fashion photography aesthetic -->
+                <defs>
+                    <linearGradient id="heroGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#E8E4DD;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#A8B0A0;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <rect width="1920" height="1080" fill="url(#heroGrad)"/>
+                <!-- Subtle abstract forms suggesting flowing fabric -->
+                <path d="M 800 200 Q 900 400 1000 300 Q 1100 200 1200 400" 
+                      stroke="#8B8680" stroke-width="1" fill="none" opacity="0.3"/>
+                <path d="M 700 500 Q 850 600 1000 550 Q 1150 500 1300 600" 
+                      stroke="#6B7470" stroke-width="1" fill="none" opacity="0.2"/>
+                <ellipse cx="500" cy="600" rx="150" ry="200" fill="#4A5D68" opacity="0.15"/>
+                <ellipse cx="1400" cy="400" rx="200" ry="250" fill="#D4C5B0" opacity="0.2"/>
+            </svg>
+            <div class="hero-content">
+                <h1>Where Ocean Becomes<br>Heirloom</h1>
+                <p class="hero-subtitle">Timeless pieces crafted from reclaimed marine materials</p>
+            </div>
+        </section>
+
+        <!-- Philosophy Section -->
+        <section class="philosophy reveal" id="philosophy">
+            <div class="philosophy-text">
+                <h2>Luxury Without Compromise</h2>
+                <p>Each Luxe Verde piece begins its journey in the ocean—not as fashion, but as waste. Through meticulous engineering and artisan craftsmanship, we transform discarded marine plastics into textiles that rival the world's finest fabrics.</p>
+                <p>Our process is neither simple nor scalable by design. We reject fast fashion's economics in favor of something rarer: garments meant to last decades, created by hands that understand both tradition and innovation.</p>
+                <p>This is luxury redefined—not despite our materials, but because of them.</p>
+            </div>
+            <div class="philosophy-image-container">
+                <svg class="philosophy-image" width="100%" height="100%" viewBox="0 0 600 800" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="philGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#4A5D68;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#8B8680;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#D4C5B0;stop-opacity:1" />
+                        </linearGradient>
+                        <clipPath id="fabricClip">
+                            <rect x="100" y="150" width="400" height="500" rx="2"/>
+                        </clipPath>
+                    </defs>
+                    <rect width="600" height="800" fill="#F5F3EE"/>
+                    <!-- Fabric texture representation -->
+                    <g clip-path="url(#fabricClip)">
+                        <rect x="100" y="150" width="400" height="500" fill="url(#philGrad)"/>
+                        <path d="M 100 200 L 500 200 M 100 250 L 500 250 M 100 300 L 500 300 M 100 350 L 500 350 M 100 400 L 500 400 M 100 450 L 500 450 M 100 500 L 500 500 M 100 550 L 500 550 M 100 600 L 500 600" 
+                              stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+                    </g>
+                    <!-- Shadow and depth -->
+                    <rect x="110" y="160" width="380" height="480" fill="none" stroke="#2C2C2C" stroke-width="0.5" opacity="0.3"/>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Material Story -->
+        <section class="material-story">
+            <div class="material-content">
+                <h2>From Waste to Wonder</h2>
+                <p>Every kilogram of ocean plastic becomes 3.2 meters of our signature textile—<br>a transformation that takes 47 hours and the expertise of master craftspeople.</p>
+                
+                <div class="material-stats">
+                    <div class="stat">
+                        <div class="stat-number">2.4kg</div>
+                        <div class="stat-label">Ocean plastic per garment</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">127</div>
+                        <div class="stat-label">Hours of craftsmanship</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">∞</div>
+                        <div class="stat-label">Years of durability</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Collection Preview -->
+        <section class="collection reveal" id="collection">
+            <div class="collection-header">
+                <h2>Current Collection</h2>
+                <p>Pieces designed to transcend seasons</p>
+            </div>
+            <div class="collection-grid">
+                <div class="collection-item">
+                    <svg width="100%" height="100%" viewBox="0 0 400 533" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="item1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#2C2C2C;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#4A5D68;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <rect width="400" height="533" fill="url(#item1)"/>
+                        <path d="M 150 150 Q 200 180 250 150 L 250 400 Q 200 420 150 400 Z" 
+                              fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+                    </svg>
+                    <div class="collection-overlay">
+                        <div class="item-name">Meridian Coat</div>
+                        <div class="item-price">$785</div>
+                    </div>
+                </div>
+                <div class="collection-item">
+                    <svg width="100%" height="100%" viewBox="0 0 400 533" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="item2" x1="0%" y1="100%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#D4C5B0;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#F5F3EE;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <rect width="400" height="533" fill="url(#item2)"/>
+                        <ellipse cx="200" cy="200" rx="80" ry="120" fill="rgba(139,134,128,0.2)"/>
+                        <rect x="160" y="320" width="80" height="150" fill="rgba(139,134,128,0.15)"/>
+                    </svg>
+                    <div class="collection-overlay">
+                        <div class="item-name">Tidal Dress</div>
+                        <div class="item-price">$650</div>
+                    </div>
+                </div>
+                <div class="collection-item">
+                    <svg width="100%" height="100%" viewBox="0 0 400 533" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="item3" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#A8B0A0;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#8B8680;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <rect width="400" height="533" fill="url(#item3)"/>
+                        <path d="M 100 180 L 180 180 L 180 380 L 100 380 Z" fill="rgba(255,255,255,0.1)"/>
+                        <path d="M 220 180 L 300 180 L 300 380 L 220 380 Z" fill="rgba(255,255,255,0.1)"/>
+                    </svg>
+                    <div class="collection-overlay">
+                        <div class="item-name">Current Trousers</div>
+                        <div class="item-price">$495</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Craftsmanship -->
+        <section class="craftsmanship reveal" id="craft">
+            <svg class="craft-image" width="100%" height="100%" viewBox="0 0 800 700" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <radialGradient id="craftGrad">
+                        <stop offset="0%" style="stop-color:#F5F3EE;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#8B8680;stop-opacity:1" />
+                    </radialGradient>
+                </defs>
+                <rect width="800" height="700" fill="url(#craftGrad)"/>
+                <!-- Abstract representation of craftsmanship -->
+                <circle cx="400" cy="350" r="150" fill="none" stroke="#4A5D68" stroke-width="2" opacity="0.4"/>
+                <circle cx="400" cy="350" r="100" fill="none" stroke="#4A5D68" stroke-width="1" opacity="0.3"/>
+                <line x1="400" y1="200" x2="400" y2="500" stroke="#2C2C2C" stroke-width="1" opacity="0.2"/>
+                <line x1="250" y1="350" x2="550" y2="350" stroke="#2C2C2C" stroke-width="1" opacity="0.2"/>
+                <path d="M 350 300 Q 400 280 450 300 Q 430 350 400 370 Q 370 350 350 300" 
+                      fill="#D4C5B0" opacity="0.5"/>
+            </svg>
+            <div class="craft-text">
+                <h2>The Art of Transformation</h2>
+                <p>Our atelier in Northern Italy houses fourteen master artisans, each with decades of experience in luxury textile production. They've adapted centuries-old techniques to work with materials that didn't exist five years ago.</p>
+                <p>The result is a fabric with the drape of silk, the resilience of technical sportswear, and a unique depth of color that only reclaimed materials can provide.</p>
+                
+                <div class="craft-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Production</div>
+                        <div class="detail-value">Limited to 200 pieces quarterly</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Origin</div>
+                        <div class="detail-value">Sourced from Mediterranean recovery programs</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Atelier</div>
+                        <div class="detail-value">Como, Italy — Est. 1947</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta">
+            <h2>Experience Luxe Verde</h2>
+            <p>Schedule a private viewing at our atelier or explore the collection online</p>
+            <a href="#" class="button"><span>BOOK APPOINTMENT</span></a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="logo">LUXE VERDE</div>
+                <p>Redefining luxury through<br>environmental innovation</p>
+            </div>
+            <div class="footer-section">
+                <h3>EXPLORE</h3>
+                <ul>
+                    <li><a href="#">Collection</a></li>
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Craftsmanship</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>VISIT</h3>
+                <ul>
+                    <li><a href="#">Flagship Store</a></li>
+                    <li><a href="#">Atelier Tours</a></li>
+                    <li><a href="#">Private Appointments</a></li>
+                    <li><a href="#">Stockists</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>CONNECT</h3>
+                <ul>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Concierge</a></li>
+                    <li><a href="#">Press</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>© 2026 Luxe Verde. All rights reserved.</div>
+            <div>Privacy Policy · Terms of Service</div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll reveal animation
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Material stats counter animation
+        const stats = document.querySelectorAll('.stat-number');
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const stat = entry.target;
+                    const value = stat.textContent;
+                    
+                    // Only animate numeric values
+                    if (!isNaN(parseFloat(value))) {
+                        const target = parseFloat(value);
+                        const duration = 2000;
+                        const start = performance.now();
+                        
+                        const animate = (currentTime) => {
+                            const elapsed = currentTime - start;
+                            const progress = Math.min(elapsed / duration, 1);
+                            
+                            // Easing function
+                            const easeOut = 1 - Math.pow(1 - progress, 3);
+                            const current = target * easeOut;
+                            
+                            stat.textContent = current.toFixed(1);
+                            
+                            if (progress < 1) {
+                                requestAnimationFrame(animate);
+                            } else {
+                                stat.textContent = value; // Restore original
+                            }
+                        };
+                        
+                        requestAnimationFrame(animate);
+                    }
+                    
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        stats.forEach(stat => statsObserver.observe(stat));
+
+        // Parallax effect on hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero-image');
+            if (hero && scrolled < window.innerHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+    </script>
+</body>
+</html>

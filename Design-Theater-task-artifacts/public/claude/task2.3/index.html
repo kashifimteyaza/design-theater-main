@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RebelRoots - Plant-Based. Unapologetic.</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --neon-pink: #FF006E;
+            --electric-lime: #D4FF00;
+            --deep-black: #0A0A0A;
+            --blood-red: #E63946;
+            --concrete-grey: #2D2D2D;
+            --off-white: #F8F8F8;
+            --purple-punch: #7209B7;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: var(--deep-black);
+            color: var(--off-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Custom Cursor */
+        body {
+            cursor: crosshair;
+        }
+
+        a, button {
+            cursor: pointer;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: linear-gradient(180deg, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0) 100%);
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+            color: var(--neon-pink);
+            text-transform: uppercase;
+            position: relative;
+            animation: glitch 3s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { text-shadow: 2px 2px var(--electric-lime), -2px -2px var(--purple-punch); }
+            25% { text-shadow: -2px 2px var(--electric-lime), 2px -2px var(--blood-red); }
+            50% { text-shadow: 2px -2px var(--purple-punch), -2px 2px var(--neon-pink); }
+            75% { text-shadow: -2px -2px var(--electric-lime), 2px 2px var(--blood-red); }
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--off-white);
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--electric-lime);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--neon-pink);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 0 3rem;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 150%;
+            background: radial-gradient(circle, var(--neon-pink) 0%, transparent 70%);
+            opacity: 0.15;
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.15; }
+            50% { transform: scale(1.2); opacity: 0.25; }
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 900;
+            line-height: 0.9;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: -4px;
+        }
+
+        .hero h1 .line1 {
+            color: var(--electric-lime);
+            display: block;
+            transform: rotate(-2deg);
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .hero h1 .line2 {
+            color: var(--neon-pink);
+            display: block;
+            transform: rotate(1deg);
+            margin-left: 4rem;
+            animation: slideInRight 1s ease-out 0.2s backwards;
+        }
+
+        .hero h1 .line3 {
+            color: var(--off-white);
+            display: block;
+            transform: rotate(-1deg);
+            animation: slideInLeft 1s ease-out 0.4s backwards;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100%) rotate(-2deg);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0) rotate(-2deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%) rotate(1deg);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0) rotate(1deg);
+                opacity: 1;
+            }
+        }
+
+        .tagline {
+            font-size: clamp(1.2rem, 2vw, 1.8rem);
+            color: var(--electric-lime);
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 3rem;
+            letter-spacing: 2px;
+            animation: fadeIn 1s ease-out 0.6s backwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .cta-container {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            animation: fadeIn 1s ease-out 0.8s backwards;
+        }
+
+        .btn {
+            padding: 1.2rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s;
+            letter-spacing: 1px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .btn:hover {
+            transform: scale(1.05) rotate(-1deg);
+        }
+
+        .btn-primary {
+            background: var(--neon-pink);
+            color: var(--deep-black);
+            box-shadow: 0 0 30px rgba(255, 0, 110, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--electric-lime);
+            border: 3px solid var(--electric-lime);
+            box-shadow: 0 0 30px rgba(212, 255, 0, 0.3);
+        }
+
+        /* Spray Paint Accent */
+        .spray-accent {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.2;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .spray-accent-1 {
+            background: var(--electric-lime);
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .spray-accent-2 {
+            background: var(--purple-punch);
+            bottom: 15%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -20px) scale(1.1); }
+            66% { transform: translate(-20px, 30px) scale(0.9); }
+        }
+
+        /* Manifesto Section */
+        .manifesto {
+            padding: 8rem 3rem;
+            background: var(--concrete-grey);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .manifesto::before {
+            content: 'REBEL';
+            position: absolute;
+            font-size: 20rem;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.03);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-15deg);
+            z-index: 0;
+            letter-spacing: -10px;
+        }
+
+        .manifesto-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 900;
+            color: var(--neon-pink);
+            text-transform: uppercase;
+            margin-bottom: 3rem;
+            letter-spacing: -2px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60%;
+            height: 6px;
+            background: var(--electric-lime);
+            transform: skewX(-20deg);
+        }
+
+        .manifesto-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 5rem;
+        }
+
+        .manifesto-card {
+            background: var(--deep-black);
+            padding: 2.5rem;
+            border: 3px solid var(--neon-pink);
+            position: relative;
+            transform: rotate(-1deg);
+            transition: all 0.3s;
+        }
+
+        .manifesto-card:nth-child(even) {
+            transform: rotate(1deg);
+            border-color: var(--electric-lime);
+        }
+
+        .manifesto-card:hover {
+            transform: rotate(0deg) scale(1.05);
+            box-shadow: 0 10px 40px rgba(255, 0, 110, 0.3);
+        }
+
+        .manifesto-card h3 {
+            font-size: 1.8rem;
+            color: var(--electric-lime);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .manifesto-card p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--off-white);
+        }
+
+        /* Products Section */
+        .products {
+            padding: 8rem 3rem;
+            background: var(--deep-black);
+        }
+
+        .products-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 5rem;
+        }
+
+        .product-card {
+            background: var(--concrete-grey);
+            overflow: hidden;
+            position: relative;
+            transform: rotate(0deg);
+            transition: all 0.5s;
+            border: 4px solid transparent;
+        }
+
+        .product-card:hover {
+            transform: rotate(-2deg) scale(1.03);
+            border-color: var(--neon-pink);
+        }
+
+        .product-image {
+            height: 300px;
+            background: linear-gradient(135deg, var(--purple-punch), var(--neon-pink));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 255, 255, 0.03) 10px,
+                rgba(255, 255, 255, 0.03) 20px
+            );
+        }
+
+        .product-emoji {
+            font-size: 8rem;
+            filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .product-info {
+            padding: 2rem;
+        }
+
+        .product-info h3 {
+            font-size: 2rem;
+            color: var(--electric-lime);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .product-tagline {
+            font-size: 1rem;
+            color: var(--neon-pink);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .product-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--off-white);
+        }
+
+        /* Trust Section */
+        .trust {
+            padding: 8rem 3rem;
+            background: var(--concrete-grey);
+            position: relative;
+        }
+
+        .trust::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--neon-pink), var(--electric-lime), var(--purple-punch));
+        }
+
+        .trust-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .retailers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .retailer-box {
+            background: var(--deep-black);
+            padding: 2rem;
+            text-align: center;
+            border: 2px solid var(--electric-lime);
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--off-white);
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+
+        .retailer-box:hover {
+            background: var(--neon-pink);
+            color: var(--deep-black);
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            padding: 5rem 3rem 3rem;
+            background: var(--deep-black);
+            border-top: 4px solid var(--neon-pink);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-section h4 {
+            color: var(--electric-lime);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: var(--off-white);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--neon-pink);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--neon-pink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--deep-black);
+            transition: all 0.3s;
+        }
+
+        .social-icon:hover {
+            background: var(--electric-lime);
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--concrete-grey);
+            color: var(--off-white);
+        }
+
+        /* Noise Texture Overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+                font-size: 0.8rem;
+            }
+
+            .hero {
+                padding: 0 1.5rem;
+            }
+
+            .hero h1 .line2 {
+                margin-left: 1rem;
+            }
+
+            .manifesto, .products, .trust {
+                padding: 4rem 1.5rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-container {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">RebelRoots</div>
+        <ul>
+            <li><a href="#products">Products</a></li>
+            <li><a href="#manifesto">Our Vibe</a></li>
+            <li><a href="#retailers">Retailers</a></li>
+            <li><a href="#contact">Join Us</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="spray-accent spray-accent-1"></div>
+        <div class="spray-accent spray-accent-2"></div>
+        <div class="hero-content">
+            <h1>
+                <span class="line1">Plant-Based.</span>
+                <span class="line2">Zero F*cks.</span>
+                <span class="line3">All Flavor.</span>
+            </h1>
+            <div class="tagline">Disrupting boring vegan food since 2024</div>
+            <div class="cta-container">
+                <button class="btn btn-primary">Shop Now</button>
+                <button class="btn btn-secondary">Find Us</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Manifesto Section -->
+    <section class="manifesto" id="manifesto">
+        <div class="manifesto-content">
+            <h2 class="section-title reveal">Why We Rebel</h2>
+            <div class="manifesto-grid">
+                <div class="manifesto-card reveal">
+                    <h3>No Virtue Signaling</h3>
+                    <p>We're not here to make you feel good about saving the planet. We're here because plant-based food should taste f*cking amazing. The Earth-saving is just a bonus.</p>
+                </div>
+                <div class="manifesto-card reveal">
+                    <h3>Food Lovers First</h3>
+                    <p>Forget the bland, health-obsessed vegan stereotypes. We make indulgent, crave-worthy meals for people who refuse to compromise on flavor—vegan or not.</p>
+                </div>
+                <div class="manifesto-card reveal">
+                    <h3>Punk Rock Ethos</h3>
+                    <p>While competitors play it safe with corporate blandness, we're spray-painting our truth on the walls of the meat substitute industry. Bold. Loud. Unapologetic.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="products">
+        <div class="products-container">
+            <h2 class="section-title reveal">Our Arsenal</h2>
+            <div class="products-grid">
+                <div class="product-card reveal">
+                    <div class="product-image">
+                        <div class="product-emoji">🔥</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Anarchy Burger</h3>
+                        <div class="product-tagline">Smash the patty-riarchy</div>
+                        <p class="product-description">Juicy, flame-grilled rebellion in every bite. So good, carnivores will question everything they know.</p>
+                    </div>
+                </div>
+                <div class="product-card reveal">
+                    <div class="product-image">
+                        <div class="product-emoji">⚡</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Riot Sausage</h3>
+                        <div class="product-tagline">Breakfast of champions</div>
+                        <p class="product-description">Spicy, savory, and loud as hell. Wake up and cause delicious chaos on your taste buds.</p>
+                    </div>
+                </div>
+                <div class="product-card reveal">
+                    <div class="product-image">
+                        <div class="product-emoji">💥</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Chaos Nuggets</h3>
+                        <div class="product-tagline">Crispy disorder</div>
+                        <p class="product-description">Crunchy on the outside, tender rebellion on the inside. Perfect for dipping into your favorite sauce.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust/Retailers Section -->
+    <section class="trust" id="retailers">
+        <div class="trust-container">
+            <h2 class="section-title reveal">Stocked At</h2>
+            <p class="reveal" style="font-size: 1.3rem; max-width: 800px; margin: 2rem 0; color: var(--off-white);">
+                Yeah, we're rebels. But we're also on shelves at your favorite stores. 
+                Because what's the point of disruption if nobody can taste it?
+            </p>
+            <div class="retailers">
+                <div class="retailer-box reveal">Whole Foods</div>
+                <div class="retailer-box reveal">Target</div>
+                <div class="retailer-box reveal">Sprouts</div>
+                <div class="retailer-box reveal">Trader Joe's</div>
+                <div class="retailer-box reveal">Kroger</div>
+                <div class="retailer-box reveal">Albertsons</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>RebelRoots</h4>
+                <p>Plant-based food for people who actually like food.</p>
+                <div class="social-links">
+                    <a href="#" class="social-icon">IG</a>
+                    <a href="#" class="social-icon">TT</a>
+                    <a href="#" class="social-icon">X</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Shop</h4>
+                <ul>
+                    <li><a href="#">Burgers</a></li>
+                    <li><a href="#">Sausages</a></li>
+                    <li><a href="#">Nuggets</a></li>
+                    <li><a href="#">Merch</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Join the Rebellion</h4>
+                <p>Get exclusive drops, recipes, and general chaos delivered to your inbox.</p>
+                <input type="email" placeholder="your@email.com" style="width: 100%; padding: 0.8rem; margin-top: 1rem; background: var(--deep-black); border: 2px solid var(--neon-pink); color: var(--off-white); font-family: 'Courier New', monospace;">
+                <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Subscribe</button>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 RebelRoots. All rights reserved. Stay rebellious. 🌱</p>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll Reveal Animation
+        function reveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            
+            reveals.forEach(element => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', reveal);
+        reveal(); // Initial check
+
+        // Smooth Scroll for Navigation
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId.startsWith('#')) {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Random Product Card Rotation on Load
+        const productCards = document.querySelectorAll('.product-card');
+        productCards.forEach(card => {
+            const randomRotation = (Math.random() - 0.5) * 4;
+            card.style.transform = `rotate(${randomRotation}deg)`;
+        });
+
+        // Interactive Button Effects
+        const buttons = document.querySelectorAll('.btn');
+        buttons.forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                const randomRotation = (Math.random() - 0.5) * 6;
+                this.style.transform = `scale(1.05) rotate(${randomRotation}deg)`;
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1) rotate(0deg)';
+            });
+        });
+
+        // Glitch Effect on Logo Hover
+        const logo = document.querySelector('.logo');
+        let glitchInterval;
+        
+        logo.addEventListener('mouseenter', function() {
+            let count = 0;
+            glitchInterval = setInterval(() => {
+                const chars = 'REBELROOTS';
+                let glitched = '';
+                for (let i = 0; i < this.textContent.length; i++) {
+                    if (Math.random() > 0.7) {
+                        glitched += chars[Math.floor(Math.random() * chars.length)];
+                    } else {
+                        glitched += this.textContent[i];
+                    }
+                }
+                this.textContent = glitched;
+                count++;
+                if (count > 5) {
+                    this.textContent = 'RebelRoots';
+                    clearInterval(glitchInterval);
+                }
+            }, 50);
+        });
+    </script>
+</body>
+</html>

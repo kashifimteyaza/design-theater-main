@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Luxe Verde — Edition 07</title>
+<meta name="description" content="Luxe Verde: limited editions crafted from recycled ocean plastic and organic materials. Luxury tailoring with an environmental conscience." />
+<style>
+  :root{
+    --ink:#111111;
+    --stone:#6B6B6B;
+    --line:#E9E7E3;
+    --alabaster:#F7F5F2;
+    --verde:#0F3D2E;
+    --gold:#C6A15B;
+    --bg:var(--alabaster);
+    --radius:18px;
+    --elev:0 10px 30px rgba(0,0,0,.08);
+    --serif:"Didot","Bodoni MT","Garamond","Times New Roman",serif;
+    --sans:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:var(--sans);letter-spacing:0.01em;
+    -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  }
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;height:auto;display:block}
+  .container{max-width:1240px;margin:0 auto;padding:0 24px}
+
+  /* Header */
+  .site-header{
+    position:sticky;top:0;z-index:1000;
+    background:rgba(247,245,242,.7);
+    backdrop-filter:saturate(180%) blur(10px);
+    border-bottom:1px solid var(--line);
+    transition:all .3s ease;
+  }
+  .site-header.scrolled{background:rgba(247,245,242,.95)}
+  .topbar{
+    font-size:.8rem;color:var(--stone);text-transform:uppercase;letter-spacing:.12em;
+    padding:8px 0;border-bottom:1px solid var(--line)
+  }
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 0;
+  }
+  .brand{font-family:var(--serif);font-size:1.4rem;letter-spacing:.06em}
+  .nav-links{
+    display:flex;gap:28px;text-transform:uppercase;font-size:.9rem;letter-spacing:.14em
+  }
+  .nav-links a{position:relative}
+  .nav-links a:after{
+    content:"";position:absolute;left:0;bottom:-8px;height:1px;width:0;background:var(--ink);
+    transition:width .25s ease;
+  }
+  .nav-links a:hover:after{width:100%}
+  .cart{font-variant-numeric:tabular-nums}
+
+  /* Hero */
+  .hero{
+    position:relative;isolation:isolate;overflow:hidden;
+    border-bottom:1px solid var(--line);
+  }
+  .hero::before{
+    content:"";position:absolute;inset:-10% -10% 0 40%;
+    background:radial-gradient(60% 60% at 60% 40%, rgba(15,61,46,.18), transparent 60%),
+               linear-gradient(135deg, rgba(198,161,91,.12), transparent 60%);
+    z-index:-1;filter:blur(12px);
+  }
+  .hero-grid{
+    display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:end;
+    padding:80px 0 64px;
+  }
+  .kicker{
+    text-transform:uppercase;letter-spacing:.18em;font-size:.8rem;color:var(--stone);
+    margin-bottom:14px
+  }
+  .headline{
+    font-family:var(--serif);
+    font-size:clamp(2.4rem, 3.2vw + 1rem, 4.4rem);
+    line-height:1.06;letter-spacing:.02em;margin:0 0 14px 0;
+  }
+  .sub{
+    color:#2d2d2d;max-width:52ch;line-height:1.5;margin-bottom:28px
+  }
+  .cta{display:flex;gap:14px;flex-wrap:wrap}
+  .btn{
+    padding:14px 20px;border-radius:999px;border:1px solid var(--ink);
+    text-transform:uppercase;letter-spacing:.16em;font-size:.8rem;
+    transition:transform .15s ease, background .25s ease, color .25s ease;
+  }
+  .btn:hover{transform:translateY(-1px)}
+  .btn-primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .btn-outline{background:transparent}
+  .hero-art{
+    border-radius:var(--radius);height:520px;background:
+      conic-gradient(from 180deg at 60% 40%, rgba(15,61,46,.6), rgba(15,61,46,.15) 35%, transparent 60%),
+      linear-gradient(180deg, #ffffff, #f1eee9);
+    position:relative;box-shadow:var(--elev);border:1px solid var(--line);
+  }
+  .hero-badge{
+    position:absolute;left:24px;top:24px;background:rgba(255,255,255,.8);
+    border:1px solid var(--line);backdrop-filter:blur(6px);
+    padding:10px 14px;border-radius:999px;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase
+  }
+  .hero-caption{
+    position:absolute;right:24px;bottom:24px;background:rgba(15,61,46,.85);color:#fff;
+    padding:12px 14px;border-radius:12px;font-size:.86rem;line-height:1.4;max-width:40ch
+  }
+
+  /* Trust bar */
+  .trustbar{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:18px 0;border-bottom:1px solid var(--line)
+  }
+  .trust-item{
+    display:flex;gap:10px;align-items:center;justify-content:center;color:var(--stone);font-size:.88rem
+  }
+  .trust-item svg{flex:0 0 18px}
+
+  /* Why section */
+  .why{padding:84px 0;border-bottom:1px solid var(--line)}
+  .section-h{
+    display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:36px;
+  }
+  .section-h h2{
+    font-family:var(--serif);font-size:2rem;margin:0;letter-spacing:.02em
+  }
+  .pill{border:1px solid var(--line);padding:8px 12px;border-radius:999px;color:var(--stone);font-size:.84rem}
+  .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+  .why-card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px 22px;min-height:220px;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .why-card:hover{transform:translateY(-3px);box-shadow:var(--elev)}
+  .why-title{display:flex;align-items:center;gap:10px;font-weight:600;margin-bottom:10px}
+  .why-title svg{flex:0 0 22px}
+  .why-body{color:#2f2f2f;line-height:1.6}
+
+  /* Edition (products) */
+  .edition{padding:84px 0;border-bottom:1px solid var(--line)}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;position:relative
+  }
+  .tile{
+    height:360px;background:
+      linear-gradient(160deg, #dfe5df, #f6f5f2);
+    position:relative;border-bottom:1px solid var(--line)
+  }
+  .swatch{
+    position:absolute;left:16px;top:16px;display:flex;gap:8px
+  }
+  .dot{width:18px;height:18px;border-radius:999px;border:1px solid rgba(0,0,0,.12)}
+  .dot.d1{background:#0f3d2e}
+  .dot.d2{background:#c2b8a7}
+  .dot.d3{background:#dcdcdc}
+  .limited{
+    position:absolute;right:16px;top:16px;background:rgba(17,17,17,.85);color:#fff;font-size:.78rem;
+    padding:8px 10px;border-radius:999px;letter-spacing:.12em;text-transform:uppercase
+  }
+  .meta{padding:16px 16px 18px}
+  .meta h3{margin:0 0 6px;font-size:1.05rem;letter-spacing:.02em}
+  .meta p{margin:0;color:var(--stone)}
+  .price{margin-top:10px;font-weight:600}
+  .hover-panel{
+    position:absolute;inset:auto 12px 12px 12px;background:rgba(255,255,255,.96);
+    border:1px solid var(--line);border-radius:14px;padding:12px 12px 12px 14px;display:flex;gap:10px;align-items:center;
+    opacity:0;transform:translateY(8px);transition:all .2s ease;
+  }
+  .card:hover .hover-panel{opacity:1;transform:translateY(0)}
+  .add{margin-left:auto;border:1px solid var(--ink);border-radius:999px;padding:8px 12px;text-transform:uppercase;font-size:.75rem;letter-spacing:.14em}
+  .add:hover{background:var(--ink);color:#fff}
+
+  /* Impact */
+  .impact{padding:84px 0;border-bottom:1px solid var(--line);background:linear-gradient(#faf9f6,#f5f3ee)}
+  .impact-wrap{
+    display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center
+  }
+  .impact-card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px;box-shadow:var(--elev)
+  }
+  .impact-kicker{color:var(--stone);text-transform:uppercase;letter-spacing:.18em;font-size:.8rem;margin-bottom:10px}
+  .impact-number{font-family:var(--serif);font-size:clamp(2.2rem, 1.6rem + 2.5vw, 3.6rem)}
+  .impact-foot{color:var(--stone);margin-top:6px}
+  .badge{
+    display:inline-flex;gap:8px;align-items:center;border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:.85rem
+  }
+  .timeline{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px
+  }
+  .step{display:grid;grid-template-columns:22px 1fr;gap:12px;align-items:start;margin-bottom:14px}
+  .dotline{width:22px;height:22px;border-radius:999px;background:var(--verde);position:relative}
+  .dotline:after{content:"";position:absolute;left:10px;top:22px;bottom:-14px;width:2px;background:linear-gradient(transparent 0, #d8d4cc 20%, #d8d4cc 80%, transparent 100%)}
+  .step:last-child .dotline:after{display:none}
+  .step small{color:var(--stone)}
+
+  /* Journal */
+  .journal{padding:84px 0;border-bottom:1px solid var(--line)}
+  .journal-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:24px}
+  .story{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px;display:flex;gap:18px;align-items:center
+  }
+  .story .thumb{
+    flex:0 0 140px;height:120px;border-radius:14px;border:1px solid var(--line);
+    background:linear-gradient(150deg,#e6ede6,#faf9f6)
+  }
+  .story h4{margin:0 0 8px 0;font-size:1.1rem}
+  .story p{margin:0;color:#2f2f2f}
+  .link{margin-top:10px;display:inline-flex;gap:8px;align-items:center}
+  .link svg{transition:transform .15s ease}
+  .link:hover svg{transform:translateX(4px)}
+
+  /* Footer */
+  footer{padding:56px 0}
+  .foot-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px}
+  .foot-col h5{margin:0 0 10px 0;text-transform:uppercase;letter-spacing:.14em;font-size:.86rem;color:var(--stone)}
+  .foot-col a{display:block;padding:6px 0}
+  .copyright{border-top:1px solid var(--line);margin-top:24px;padding-top:14px;color:var(--stone);font-size:.9rem}
+
+  /* Modal */
+  .modal{
+    position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.4);
+    z-index:2000;padding:24px;
+  }
+  .modal.active{display:flex}
+  .modal-card{
+    max-width:860px;width:100%;background:#fff;border-radius:20px;border:1px solid var(--line);
+    overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.15)
+  }
+  .modal-head{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--line)}
+  .modal-head h3{margin:0;font-family:var(--serif);letter-spacing:.02em}
+  .modal-body{padding:22px}
+  .close{border:1px solid var(--line);border-radius:999px;padding:8px 12px;background:#fff}
+  .provenance-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
+  .provenance-hero{
+    height:320px;border:1px solid var(--line);border-radius:14px;background:
+     radial-gradient(50% 60% at 60% 40%, rgba(15,61,46,.35), rgba(15,61,46,.05) 70%),
+     linear-gradient(180deg, #ffffff, #f3f1ec);
+  }
+
+  /* Toast */
+  .toast{
+    position:fixed;left:50%;transform:translateX(-50%);bottom:24px;background:#111;color:#fff;
+    padding:10px 14px;border-radius:999px;font-size:.88rem;display:none;z-index:3000
+  }
+  .toast.show{display:block;animation:fade .2s ease}
+  @keyframes fade {from{opacity:0;transform:translateX(-50%) translateY(4px)} to{opacity:1;transform:translateX(-50%) translateY(0)}}
+
+  /* Reveal on scroll */
+  .reveal{opacity:0;transform:translateY(12px);transition:opacity .5s ease, transform .5s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  /* Responsive */
+  @media (max-width: 980px){
+    .hero-grid,.impact-wrap,.journal-grid,.provenance-grid{grid-template-columns:1fr}
+    .grid{grid-template-columns:1fr 1fr}
+    .trustbar{grid-template-columns:1fr}
+  }
+  @media (max-width:680px){
+    .grid{grid-template-columns:1fr}
+    .nav-links{display:none}
+  }
+
+  /* Accessibility */
+  :focus-visible{outline:2px solid var(--verde);outline-offset:2px}
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none !important;animation:none !important}
+  }
+</style>
+</head>
+<body>
+<header class="site-header" id="hdr" role="banner" aria-label="Primary">
+  <div class="topbar">
+    <div class="container" style="display:flex;justify-content:space-between;">
+      <div>Carbon-neutral shipping • Repair for life</div>
+      <div>Edition 07 available now</div>
+    </div>
+  </div>
+  <div class="container nav" role="navigation" aria-label="Main">
+    <div class="brand">Luxe&nbsp;Verde</div>
+    <nav class="nav-links" aria-label="Site links">
+      <a href="#edition">Collections</a>
+      <a href="#why">Story</a>
+      <a href="#impact">Impact</a>
+      <a href="#journal">Journal</a>
+      <a href="#footer" class="cart">Cart (0)</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="kicker">Edition 07 / Tailoring</div>
+        <h1 class="headline">Luxury, considered.</h1>
+        <p class="sub">Limited garments crafted from reclaimed ocean plastics blended with organic fibers. Quiet silhouettes, meticulous construction, traceable from shore to atelier.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="#edition">Shop the edition</a>
+          <button class="btn btn-outline" data-open-provenance>See provenance</button>
+        </div>
+      </div>
+      <div class="hero-art" role="img" aria-label="Editorial abstract of deep verde and pearl tones suggesting ocean-sourced fibers.">
+        <div class="hero-badge">Verde Standard • Certified</div>
+        <div class="hero-caption">Every piece carries a unique Provenance ID, linking its fibers to recovery sites, mills, and our European ateliers.</div>
+      </div>
+    </div>
+    <div class="container trustbar" aria-label="Service promises">
+      <div class="trust-item">
+        <!-- Leaf icon -->
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20 4c-8 0-14 6-14 14-1.5-1.5-2-3.5-2-5 0-6 5-11 11-11 1.5 0 3.5.5 5 2Z"/></svg>
+        Carbon-neutral shipping
+      </div>
+      <div class="trust-item">
+        <!-- Shield icon -->
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2l8 4v6c0 5-3.5 8.5-8 10C7.5 20.5 4 17 4 12V6l8-4z"/></svg>
+        Repair for life
+      </div>
+      <div class="trust-item">
+        <!-- Loop icon -->
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17 1l4 4-4 4V6H9a4 4 0 1 0 0 8h2v2H9a6 6 0 1 1 0-12h8V1z"/></svg>
+        Free returns, 30 days
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section class="why container" id="why">
+    <div class="section-h">
+      <h2>Why Verde</h2>
+      <span class="pill">Luxury tailoring • Verified impact</span>
+    </div>
+    <div class="why-grid">
+      <article class="why-card reveal">
+        <div class="why-title">
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 20l8-16 8 16H4zm8-4a2 2 0 100-4 2 2 0 000 4z"/></svg>
+          Atelier Construction
+        </div>
+        <div class="why-body">Hand-finished seams, canvassed jackets, fabrics milled for drape and longevity. Pieces designed to be passed down—not cycled out.</div>
+      </article>
+      <article class="why-card reveal">
+        <div class="why-title">
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C7 2 3 6 3 11s4 9 9 9 9-4 9-9S17 2 12 2zm0 14l-4-4h8l-4 4z"/></svg>
+          Material Intelligence
+        </div>
+        <div class="why-body">Reclaimed ocean plastic spun with organic silk and cotton for a couture-grade hand. We design for tactility, not just tensile strength.</div>
+      </article>
+      <article class="why-card reveal">
+        <div class="why-title">
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3l9 4v4c0 5-4 9-9 10C7 20 3 16 3 11V7l9-4z"/></svg>
+          Traceable by Design
+        </div>
+        <div class="why-body">Every piece carries a Provenance ID linking recovery sites, mills, and ateliers. Facts and locations—not slogans.</div>
+      </article>
+    </div>
+  </section>
+
+  <!-- EDITION -->
+  <section class="edition container" id="edition" aria-label="Edition 07 products">
+    <div class="section-h">
+      <h2>Edition 07</h2>
+      <span class="pill">Limited to 300 pieces per style</span>
+    </div>
+    <div class="grid">
+      <!-- Product #1 -->
+      <article class="card reveal" data-product="Verde Blazer" data-materials="62% ocean plastic / 38% organic silk" data-price="$780">
+        <div class="tile" role="img" aria-label="Tailored blazer in deep sea tone with soft sheen.">
+          <div class="swatch"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span></div>
+          <div class="limited">300 pieces</div>
+        </div>
+        <div class="meta">
+          <h3>Verde Blazer — Deep Sea</h3>
+          <p>62% ocean plastic / 38% organic silk</p>
+          <div class="price">$780</div>
+        </div>
+        <div class="hover-panel">
+          <div>Soft canvassing, horn-free buttons</div>
+          <button class="add" data-add>Add to bag</button>
+        </div>
+      </article>
+      <!-- Product #2 -->
+      <article class="card reveal" data-product="Column Dress" data-materials="58% ocean plastic / 42% organic silk" data-price="$680">
+        <div class="tile" role="img" aria-label="Column dress with liquid drape.">
+          <div class="swatch"><span class="dot d2"></span><span class="dot d3"></span><span class="dot d1"></span></div>
+          <div class="limited">300 pieces</div>
+        </div>
+        <div class="meta">
+          <h3>Column Dress — Pearl</h3>
+          <p>58% ocean plastic / 42% organic silk</p>
+          <div class="price">$680</div>
+        </div>
+        <div class="hover-panel">
+          <div>Bias cut for movement</div>
+          <button class="add" data-add>Add to bag</button>
+        </div>
+      </article>
+      <!-- Product #3 -->
+      <article class="card reveal" data-product="Sculpt Trouser" data-materials="60% ocean plastic / 40% organic cotton" data-price="$520">
+        <div class="tile" role="img" aria-label="High-waist sculpt trouser with crisp line.">
+          <div class="swatch"><span class="dot d3"></span><span class="dot d1"></span><span class="dot d2"></span></div>
+          <div class="limited">300 pieces</div>
+        </div>
+        <div class="meta">
+          <h3>Sculpt Trouser — Stone</h3>
+          <p>60% ocean plastic / 40% organic cotton</p>
+          <div class="price">$520</div>
+        </div>
+        <div class="hover-panel">
+          <div>Tailored rise, heirloom seams</div>
+          <button class="add" data-add>Add to bag</button>
+        </div>
+      </article>
+      <!-- Product #4 -->
+      <article class="card reveal" data-product="Silk-Cotton Tee" data-materials="55% ocean plastic / 45% organic cotton" data-price="$320">
+        <div class="tile" role="img" aria-label="Silk-cotton tee with elevated finish.">
+          <div class="swatch"><span class="dot d3"></span><span class="dot d2"></span><span class="dot d1"></span></div>
+          <div class="limited">300 pieces</div>
+        </div>
+        <div class="meta">
+          <h3>Silk-Cotton Tee — Cloud</h3>
+          <p>55% ocean plastic / 45% organic cotton</p>
+          <div class="price">$320</div>
+        </div>
+        <div class="hover-panel">
+          <div>Mercerized hand, minimal neck</div>
+          <button class="add" data-add>Add to bag</button>
+        </div>
+      </article>
+      <!-- Product #5 -->
+      <article class="card reveal" data-product="A-line Skirt" data-materials="61% ocean plastic / 39% organic silk" data-price="$540">
+        <div class="tile" role="img" aria-label="A-line skirt with architectural volume.">
+          <div class="swatch"><span class="dot d1"></span><span class="dot d3"></span><span class="dot d2"></span></div>
+          <div class="limited">300 pieces</div>
+        </div>
+        <div class="meta">
+          <h3>A-line Skirt — Deep Sea</h3>
+          <p>61% ocean plastic / 39% organic silk</p>
+          <div class="price">$540</div>
+        </div>
+        <div class="hover-panel">
+          <div>French seams, weightless drape</div>
+          <button class="add" data-add>Add to bag</button>
+        </div>
+      </article>
+      <!-- Product #6 -->
+      <article class="card reveal" data-product="Overcoat" data-materials="63% ocean plastic / 37% organic cotton" data-price="$820">
+        <div class="tile" role="img" aria-label="Long overcoat with sculpted shoulders.">
+          <div class="swatch"><span class="dot d2"></span><span class="dot d1"></span><span class="dot d3"></span></div>
+          <div class="limited">300 pieces</div>
+        </div>
+        <div class="meta">
+          <h3>Overcoat — Sand / Deep Sea</h3>
+          <p>63% ocean plastic / 37% organic cotton</p>
+          <div class="price">$820</div>
+        </div>
+        <div class="hover-panel">
+          <div>Double-faced, unlined elegance</div>
+          <button class="add" data-add>Add to bag</button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- IMPACT -->
+  <section class="impact" id="impact" aria-label="Impact highlights">
+    <div class="container impact-wrap">
+      <div class="impact-card reveal">
+        <div class="impact-kicker">This year</div>
+        <div class="impact-number"><span id="bottles">0</span> bottles recovered</div>
+        <div class="impact-foot">Tracked via independent partners across three recovery zones.</div>
+        <div style="margin-top:16px" class="badge">
+          <!-- Check badge -->
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2l9 4v6c0 5-4 9-9 10-5-1-9-5-9-10V6l9-4zm-1 14l7-7-1.4-1.4L11 12.2 8.4 9.6 7 11l4 5z"/></svg>
+          Verde Standard — independent verification
+        </div>
+      </div>
+      <div class="timeline reveal" aria-label="Provenance summary">
+        <div class="step">
+          <div class="dotline" aria-hidden="true"></div>
+          <div>
+            <strong>Recovered</strong><br/>
+            <small>Shoreline & near-shore retrieval • Zone A-3</small>
+          </div>
+        </div>
+        <div class="step">
+          <div class="dotline" aria-hidden="true"></div>
+          <div>
+            <strong>Spun</strong><br/>
+            <small>Advanced extrusion & filament spinning</small>
+          </div>
+        </div>
+        <div class="step">
+          <div class="dotline" aria-hidden="true"></div>
+          <div>
+            <strong>Woven</strong><br/>
+            <small>Low-impact mills with closed-loop water</small>
+          </div>
+        </div>
+        <div class="step">
+          <div class="dotline" aria-hidden="true"></div>
+          <div>
+            <strong>Tailored</strong><br/>
+            <small>European ateliers • Hand finishing</small>
+          </div>
+        </div>
+        <div style="margin-top:12px">
+          <button class="btn btn-outline" data-open-provenance>Open full provenance</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOURNAL -->
+  <section class="journal container" id="journal" aria-label="Journal">
+    <div class="section-h">
+      <h2>The Verde Paper</h2>
+      <span class="pill">Essays on craft & circularity</span>
+    </div>
+    <div class="journal-grid">
+      <article class="story reveal">
+        <div class="thumb" role="img" aria-label="Abstract fabric macro in deep green and pearl tones."></div>
+        <div>
+          <h4>From Shoreline to Selvedge</h4>
+          <p>How we convert near-shore recovered plastics into couture-grade yarns—without compromising drape or hand.</p>
+          <a href="#!" class="link">Read more
+            <svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M13 5l7 7-7 7-1.4-1.4 4.6-4.6H4v-2h12.2L11.6 6.4z"/></svg>
+          </a>
+        </div>
+      </article>
+      <div class="story reveal">
+        <div class="thumb" role="img" aria-label="Studio table with paper patterns and shears."></div>
+        <div>
+          <h4>The Case for Fewer, Better</h4>
+          <p>Why limited editions, reparability, and timeless cuts matter more than seasonal churn.</p>
+          <a href="#!" class="link">Read more
+            <svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M13 5l7 7-7 7-1.4-1.4 4.6-4.6H4v-2h12.2L11.6 6.4z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="footer" class="container" role="contentinfo">
+  <div class="foot-grid">
+    <div class="foot-col">
+      <h5>About</h5>
+      <a href="#why">Our Story</a>
+      <a href="#impact">Verde Standard</a>
+      <a href="#journal">Journal</a>
+    </div>
+    <div class="foot-col">
+      <h5>Customer Care</h5>
+      <a href="#!">Shipping & Returns</a>
+      <a href="#!">Repair for Life</a>
+      <a href="#!">Size & Fit</a>
+    </div>
+    <div class="foot-col">
+      <h5>Contact</h5>
+      <a href="mailto:care@luxe-verde.example">care@luxe-verde.example</a>
+      <a href="#!" data-open-provenance>Provenance</a>
+    </div>
+  </div>
+  <div class="copyright">© Luxe Verde. Designed for longevity.</div>
+</footer>
+
+<!-- PROVENANCE MODAL -->
+<div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="provTitle">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3 id="provTitle">Provenance — Edition 07</h3>
+      <button class="close" data-close>Close</button>
+    </div>
+    <div class="modal-body">
+      <div class="provenance-grid">
+        <div>
+          <div class="provenance-hero" role="img" aria-label="Abstract provenance visual in verde and pearl tones."></div>
+          <p style="margin-top:12px;color:#2f2f2f">Scan any piece’s Provenance ID to view recovery coordinates, mill certificates, dyehouse water reports, and atelier sign-off. Data is verified by independent partners.</p>
+          <div class="badge" style="margin-top:10px">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2l9 4v6c0 5-4 9-9 10-5-1-9-5-9-10V6l9-4zm-1 14l7-7-1.4-1.4L11 12.2 8.4 9.6 7 11l4 5z"/></svg>
+            Independently verified data
+          </div>
+        </div>
+        <div>
+          <div class="step"><div class="dotline"></div><div><strong>Recovery</strong><br/><small>Zone A-3, coastal partners • Batch LV-A3-207</small></div></div>
+          <div class="step"><div class="dotline"></div><div><strong>Extrusion & Spinning</strong><br/><small>Filament grade; low-temp process</small></div></div>
+          <div class="step"><div class="dotline"></div><div><strong>Milling</strong><br/><small>Closed-loop water; renewable power</small></div></div>
+          <div class="step"><div class="dotline"></div><div><strong>Dye & Finish</strong><br/><small>Restricted Substances List (RSL) compliant</small></div></div>
+          <div class="step"><div class="dotline"></div><div><strong>Tailoring</strong><br/><small>European atelier; hand finishing</small></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast" role="status" aria-live="polite">Added to bag</div>
+
+<script>
+  // Header blur on scroll
+  const hdr = document.getElementById('hdr');
+  const onScroll=()=> hdr.classList.toggle('scrolled', window.scrollY>4);
+  document.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  // Reveal on view
+  const reveals=[...document.querySelectorAll('.reveal')];
+  const io=new IntersectionObserver((entries)=>{
+    for(const e of entries){
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    }
+  },{threshold:.1});
+  reveals.forEach(el=>io.observe(el));
+
+  // Impact counter
+  const target=128450; // example current year figure
+  const bottles=document.getElementById('bottles');
+  let counted=false;
+  const counterIO=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting && !counted){
+        counted=true;
+        const dur=1400, start=performance.now(), from=0;
+        const step=(t)=>{
+          const p=Math.min(1,(t-start)/dur);
+          const val=Math.floor(from + (target-from)*p);
+          bottles.textContent=val.toLocaleString();
+          if(p<1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      }
+    })
+  },{threshold:.4});
+  counterIO.observe(document.querySelector('.impact-card'));
+
+  // Add to bag (toast)
+  const toast=document.getElementById('toast');
+  document.querySelectorAll('[data-add]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      toast.classList.add('show');
+      setTimeout(()=>toast.classList.remove('show'), 1400);
+    });
+  });
+
+  // Provenance modal
+  const modal=document.getElementById('modal');
+  const main=document.getElementById('main');
+  const openers=[...document.querySelectorAll('[data-open-provenance]')];
+  const closer=modal.querySelector('[data-close]');
+  let lastFocus=null;
+
+  function openModal(){
+    lastFocus=document.activeElement;
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+    closer.focus();
+  }
+  function closeModal(){
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+    if(lastFocus) lastFocus.focus();
+  }
+  openers.forEach(b=>b.addEventListener('click', openModal));
+  closer.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e)=>{ if(e.target===modal) closeModal(); });
+  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && modal.classList.contains('active')) closeModal(); });
+
+  // Product -> provenance (prefill heading)
+  document.querySelectorAll('.card').forEach(card=>{
+    card.addEventListener('click', (e)=>{
+      if(e.target.matches('[data-add]')) return; // ignore add button
+      const name=card.dataset.product, mats=card.dataset.materials, price=card.dataset.price;
+      modal.querySelector('#provTitle').textContent = `Provenance — ${name}`;
+      // (You could also inject product-specific steps here)
+    });
+  });
+</script>
+</body>
+</html>

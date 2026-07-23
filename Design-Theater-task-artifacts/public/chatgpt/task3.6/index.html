@@ -1,0 +1,846 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SkillBridge — Structured Learning × Organic Peer Mentorship</title>
+  <meta name="description" content="SkillBridge connects professionals for peer learning and mentorship. Structured courses meet organic knowledge sharing with privacy, accessibility, and international support." />
+  <style>
+    /* ====== Design tokens ====== */
+    :root{
+      --bg: #0b0e11;
+      --panel: #11161c;
+      --text: #eef3f7;
+      --muted: #a9b4bf;
+      --brand: #66e0a3;
+      --accent: #4db3ff;
+      --warn: #ffb020;
+      --danger: #ff6b6b;
+      --ok: #5ae08e;
+      --ring: #2a3440;
+      --chip: #1a222b;
+      --border: #25303b;
+      --shadow: 0 8px 30px rgba(0,0,0,.25);
+      --radius: 16px;
+      --radius-sm: 12px;
+      --radius-xs: 10px;
+      --maxw: 1200px;
+      --fs-1: clamp(28px, 5vw, 44px);
+      --fs-2: clamp(18px, 2.4vw, 22px);
+      --fs-3: 15.5px;
+      --fs-4: 13.5px;
+      --line: 1.55;
+      --pad: 18px;
+      --gap: 14px;
+      --trans: 200ms ease;
+    }
+    [data-theme="high-contrast"]{
+      --bg: #000;
+      --panel: #090909;
+      --text: #fff;
+      --muted: #d5d5d5;
+      --brand: #00ff9d;
+      --accent: #12b0ff;
+      --ring: #2a2a2a;
+      --chip: #121212;
+      --border: #2a2a2a;
+      --shadow: none;
+    }
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:linear-gradient(180deg, var(--bg), #0e141a 40%);
+      color:var(--text);
+      font: 500 var(--fs-3)/var(--line) system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", "Segoe UI Symbol";
+      letter-spacing:.2px;
+    }
+    *{box-sizing:border-box}
+    a{color:var(--accent); text-decoration:none}
+    a:focus{outline: 2px solid var(--accent); outline-offset: 3px}
+
+    /* ====== Layout ====== */
+    .wrap{max-width:var(--maxw); margin-inline:auto; padding: 0 18px}
+    header{
+      position: sticky; top:0; z-index:50;
+      background: rgba(11,14,17,.75);
+      backdrop-filter: blur(8px);
+      border-bottom:1px solid var(--border);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 12px 0;
+    }
+    .brand{display:flex; gap:10px; align-items:center}
+    .logo{
+      width:34px; height:34px; border-radius:9px;
+      display:inline-grid; place-items:center; background:linear-gradient(135deg,var(--brand),var(--accent));
+      color:#081515; font-weight:800;
+      box-shadow: var(--shadow);
+    }
+    nav ul{display:flex; list-style:none; gap:14px; padding:0; margin:0; flex-wrap:wrap}
+    nav a{padding:8px 10px; border-radius:10px; color:var(--muted)}
+    nav a:hover, nav a[aria-current="page"]{color:var(--text); background:var(--chip)}
+
+    .hdr-actions{display:flex; gap:8px; align-items:center}
+    .btn, button, .chip{
+      appearance:none; border:1px solid var(--border); background:var(--chip);
+      color:var(--text); padding:10px 14px; border-radius:12px; cursor:pointer;
+      transition: transform var(--trans), background var(--trans), border-color var(--trans), opacity var(--trans);
+    }
+    .btn:hover{transform: translateY(-1px)}
+    .btn.primary{background: linear-gradient(135deg, var(--brand), #2dd4bf); color:#0b0e11; border-color:transparent; font-weight:700}
+    .btn.ghost{background:transparent}
+    .chip{font-size: var(--fs-4)}
+    .toggle{
+      display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; background:var(--chip); border:1px solid var(--border);
+    }
+    .toggle input{accent-color: var(--brand)}
+
+    /* ====== Hero ====== */
+    .hero{padding: 48px 0 26px; position:relative}
+    .headline{font-size: var(--fs-1); letter-spacing:.3px; margin:0 0 10px}
+    .sub{color:var(--muted); font-size: var(--fs-2); max-width:900px}
+    .hero-grid{
+      margin-top:24px; display:grid; gap:18px; grid-template-columns: 1.2fr .8fr;
+    }
+    .card{
+      background: radial-gradient(150% 150% at 100% 0, rgba(102,224,163,.08) 0, transparent 40%), var(--panel);
+      border:1px solid var(--border); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow)
+    }
+    .stack{display:grid; gap:12px}
+    .row{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+    .sep{height:1px; background:var(--border); margin:10px 0}
+
+    /* ====== Sections ====== */
+    section{padding: 28px 0}
+    h2{font-size: clamp(22px, 3vw, 28px); margin: 0 0 12px}
+    h3{font-size: 18px; margin:0 0 8px}
+    p{margin:0 0 10px}
+    .grid-3{display:grid; gap:18px; grid-template-columns: repeat(3, 1fr)}
+    .grid-2{display:grid; gap:18px; grid-template-columns: repeat(2, 1fr)}
+    .feature{padding:14px; border-radius: var(--radius-sm); border:1px solid var(--border); background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00))}
+    .kpi{font-weight:800; font-size: 22px}
+    .badge{display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border-radius:999px; background: #0d1a13; border:1px solid #1f3c2f; color:#a5f3c6; font-size: var(--fs-4)}
+
+    /* ====== Chips & filters ====== */
+    .chips{display:flex; gap:8px; flex-wrap:wrap}
+    .chips .chip[aria-pressed="true"]{outline:2px solid var(--brand); background: #0d1a13}
+    .hint{color:var(--muted); font-size: var(--fs-4)}
+    .muted{color:var(--muted)}
+    .mono{font-variant-numeric: tabular-nums}
+
+    /* ====== Lists ====== */
+    .list{display:grid; gap:10px}
+    .item{
+      display:flex; align-items:flex-start; gap:10px; padding:10px; border:1px solid var(--border); border-radius:12px; background: #0e141a;
+    }
+    .avatar{
+      min-width:36px; height:36px; border-radius:10px; display:grid; place-items:center; font-weight:800;
+      background:linear-gradient(135deg, var(--accent), var(--brand)); color:#06231b;
+    }
+    .meta{font-size: var(--fs-4); color: var(--muted)}
+    .flag{font-size: 12px; padding: 3px 6px; background: #0f1520; border:1px solid var(--border); border-radius: 999px; margin-left:auto}
+
+    /* ====== Progress ====== */
+    .bar{height:10px; background:#0d1420; border:1px solid var(--border); border-radius:999px; overflow:hidden}
+    .fill{height:100%; background: linear-gradient(90deg, var(--accent), var(--brand))}
+    .tag{display:inline-block; padding:4px 8px; border-radius: 999px; background:#0f1b25; border:1px solid var(--border); font-size: var(--fs-4); color: var(--muted)}
+
+    /* ====== Privacy preview ====== */
+    .audience{display:flex; gap:8px; flex-wrap:wrap}
+    .audience .chip[aria-pressed="true"]{outline:2px solid var(--accent)}
+    .profile{
+      display:grid; grid-template-columns: 80px 1fr; gap:12px; align-items:center;
+      padding:12px; border:1px dashed var(--border); border-radius:12px; background:#0f151a;
+    }
+    .skeleton{height:10px; background:#0e1a23; border-radius:8px}
+
+    /* ====== CTA ====== */
+    .cta{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;
+      padding:16px; border-radius: var(--radius); border:1px solid var(--border); background: linear-gradient(135deg, rgba(77,179,255,.09), rgba(102,224,163,.09))
+    }
+
+    /* ====== Footer ====== */
+    footer{padding: 28px 0; color:var(--muted); border-top:1px solid var(--border)}
+
+    /* ====== Responsive ====== */
+    @media (max-width: 920px){
+      .hero-grid{grid-template-columns: 1fr}
+      .grid-3{grid-template-columns: 1fr}
+      .grid-2{grid-template-columns: 1fr}
+      nav ul{display:none}
+    }
+
+    /* ====== Motion preferences ====== */
+    @media (prefers-reduced-motion: reduce){
+      *{transition:none !important; animation:none !important}
+    }
+  </style>
+</head>
+<body>
+  <!-- ====== Header ====== -->
+  <header>
+    <div class="wrap nav" role="navigation" aria-label="Primary">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">SB</div>
+        <strong>SkillBridge</strong>
+        <span class="badge" title="Members can be both learners and mentors">
+          <!-- Inline check icon -->
+          <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12-1.4-1.4z"/></svg>
+          Dual-role community
+        </span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#approach" aria-current="page">Approach</a></li>
+          <li><a href="#discovery">Discovery</a></li>
+          <li><a href="#quality">Quality</a></li>
+          <li><a href="#privacy">Privacy</a></li>
+          <li><a href="#access">Accessibility & Intl</a></li>
+          <li><a href="#ops">Features</a></li>
+        </ul>
+      </nav>
+      <div class="hdr-actions">
+        <label class="toggle" title="High contrast">
+          <input type="checkbox" id="contrastToggle" aria-label="High contrast theme" />
+          High contrast
+        </label>
+        <button class="btn ghost" id="fontPlus" aria-label="Increase font size">A+</button>
+        <button class="btn ghost" id="fontMinus" aria-label="Decrease font size">A−</button>
+        <button class="btn primary">Get Started</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ====== Hero ====== -->
+  <div class="wrap hero">
+    <h1 class="headline" data-i18n="headline">Structured learning meets authentic peer wisdom</h1>
+    <p class="sub" data-i18n="sub">
+      We connect recent grads to seasoned leaders—so members can teach from their strengths and learn where they’re growing.
+      Quality-assured courses, organic forums, flexible privacy, and global scheduling—built for focused desktops and quick mobile moments.
+    </p>
+    <div class="hero-grid">
+      <div class="card stack" role="region" aria-labelledby="demo-toggle-title">
+        <div class="row">
+          <h3 id="demo-toggle-title">Your current mode</h3>
+          <div class="chips" role="tablist" aria-label="Choose your role">
+            <button class="chip" role="tab" aria-selected="true" id="roleLearner">I’m learning</button>
+            <button class="chip" role="tab" aria-selected="false" id="roleMentor">I’m mentoring</button>
+            <button class="chip" role="tab" aria-selected="false" id="roleBoth">Both</button>
+          </div>
+        </div>
+        <div class="feature">
+          <h3>What you’ll see</h3>
+          <ul class="list" id="roleFeed" aria-live="polite">
+            <!-- populated by JS -->
+          </ul>
+        </div>
+        <div class="cta">
+          <div>
+            <strong>Structured × Organic:</strong>
+            <span class="muted">Switching modes never locks you in—mentor one topic, learn another.</span>
+          </div>
+          <div class="row">
+            <button class="btn" id="startCourse">Start a course</button>
+            <button class="btn ghost" id="startForum">Ask the community</button>
+          </div>
+        </div>
+      </div>
+      <div class="card stack" role="region" aria-labelledby="kpis">
+        <h3 id="kpis">Why this works</h3>
+        <div class="grid-2">
+          <div class="feature">
+            <div class="kpi">Fast mentor matches</div>
+            <p class="muted">Filters for skill, timezone, language, and goals. Serendipity shuffle for unexpected connections.</p>
+          </div>
+          <div class="feature">
+            <div class="kpi">Quality without “corporate”</div>
+            <p class="muted">Peer review + verified badges on top of human-sounding discussion.</p>
+          </div>
+        </div>
+        <p class="hint">Tip: All demos below are interactive prototypes—no sign-in required.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== Our Functional Approach ====== -->
+  <section id="approach" class="wrap">
+    <h2>Our functional approach</h2>
+    <div class="grid-2">
+      <div class="feature">
+        <h3>Structured learning layer</h3>
+        <ul class="list">
+          <li class="item">
+            <div class="avatar" aria-hidden="true">C</div>
+            <div>
+              <strong>Course creation & pathways</strong>
+              <p class="meta">Create modular courses with units, projects, and assessments. Mix video, text, and live sessions.</p>
+            </div>
+          </li>
+          <li class="item">
+            <div class="avatar" aria-hidden="true">P</div>
+            <div>
+              <strong>Progress tracking</strong>
+              <div class="bar" aria-label="Progress 62%" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="62"><div class="fill" style="width:62%"></div></div>
+              <p class="meta">Unit streaks, peer-review checkpoints, and mentor feedback gates.</p>
+            </div>
+          </li>
+          <li class="item">
+            <div class="avatar" aria-hidden="true">R</div>
+            <div>
+              <strong>Peer reviews</strong>
+              <p class="meta">Rubric-guided reviews produce trust signals for mentors and learners alike.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="feature">
+        <h3>Organic community layer</h3>
+        <ul class="list">
+          <li class="item">
+            <div class="avatar" aria-hidden="true">F</div>
+            <div>
+              <strong>Forums & threads</strong>
+              <p class="meta">Topic rooms with “Move post” and “Suggest better room” to correct mistakes gracefully.</p>
+            </div>
+          </li>
+          <li class="item">
+            <div class="avatar" aria-hidden="true">M</div>
+            <div>
+              <strong>Mentor office hours</strong>
+              <p class="meta">Timezone-aware signups; auto-offers alternates if you’re sleeping.</p>
+            </div>
+          </li>
+          <li class="item">
+            <div class="avatar" aria-hidden="true">S</div>
+            <div>
+              <strong>Serendipity browse</strong>
+              <p class="meta">Shuffle people, threads, and workshops with light-touch quality signals.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Discovery: Structured search × Serendipity ====== -->
+  <section id="discovery" class="wrap">
+    <h2>Find mentors fast—or explore serendipitously</h2>
+    <div class="grid-2">
+      <div class="feature">
+        <h3>Structured discovery</h3>
+        <div class="chips" id="filterChips" role="group" aria-label="Filter by topic">
+          <!-- chips populated by JS -->
+        </div>
+        <p class="hint">Select filters. Results update live.</p>
+        <div class="list" id="mentorResults" aria-live="polite"></div>
+      </div>
+      <div class="feature">
+        <h3>Serendipity shuffle</h3>
+        <p class="muted">Meet someone surprising but relevant. We still show trust markers: peer score, languages, and overlap with your goals.</p>
+        <div class="row">
+          <button class="btn" id="shuffle">Shuffle mentors</button>
+          <span class="tag" id="shuffleCount">0 shuffles</span>
+        </div>
+        <div class="sep"></div>
+        <div id="shuffleCard" class="item" aria-live="polite">
+          <div class="avatar" id="sAvatar">?</div>
+          <div>
+            <strong id="sName">Click “Shuffle mentors”</strong>
+            <div class="meta" id="sMeta">You’ll see language, timezone, tags, and peer score here.</div>
+          </div>
+          <span class="flag" id="sScore"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Quality Assurance without corporate stiffness ====== -->
+  <section id="quality" class="wrap">
+    <h2>Quality without the corporate feel</h2>
+    <div class="grid-3">
+      <div class="feature">
+        <h3>1) Submit</h3>
+        <p class="muted">Mentors draft courses or propose workshops. A checklist nudges clarity: learning outcomes, time commitment, accessibility notes.</p>
+      </div>
+      <div class="feature">
+        <h3>2) Peer review</h3>
+        <p class="muted">Calibrated rubrics + exemplars. Reviewers earn credibility that fuels mentor discovery rankings.</p>
+      </div>
+      <div class="feature">
+        <h3>3) Verify</h3>
+        <p class="muted">Lightweight verification for experience claims (portfolio evidence > job titles). Badges look human, not corporate.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Privacy & Image Control ====== -->
+  <section id="privacy" class="wrap">
+    <h2>Privacy—control your professional image</h2>
+    <div class="grid-2">
+      <div class="feature">
+        <h3>Audience presets</h3>
+        <div class="audience" role="tablist" aria-label="Audience presets">
+          <button class="chip" role="tab" aria-selected="true" data-audience="self">Only me</button>
+          <button class="chip" role="tab" aria-selected="false" data-audience="colleagues">Colleagues</button>
+          <button class="chip" role="tab" aria-selected="false" data-audience="network">My network</button>
+          <button class="chip" role="tab" aria-selected="false" data-audience="public">Public</button>
+        </div>
+        <div class="row" style="margin-top:10px">
+          <label class="toggle" title="Hide learning goals from colleagues">
+            <input type="checkbox" id="hideGoals" />
+            Hide learning goals from colleagues
+          </label>
+          <label class="toggle" title="Blur past struggles in public profile">
+            <input type="checkbox" id="blurStruggles" />
+            Blur past struggles publicly
+          </label>
+        </div>
+        <p class="hint">Preview updates live below.</p>
+      </div>
+      <div class="feature">
+        <h3>Profile preview</h3>
+        <div class="profile" id="profilePreview" aria-live="polite">
+          <div class="avatar" aria-hidden="true">A</div>
+          <div>
+            <strong>Alex Kim <span class="tag">she/her</span></strong>
+            <div class="meta">Staff Engineer • Mentor: APIs • Learner: AI safety</div>
+            <div class="sep"></div>
+            <div id="previewGoals">
+              <strong>Learning goals</strong>
+              <ul class="list">
+                <li class="item" style="padding:8px">
+                  <div class="skeleton" style="width:50%"></div>
+                </li>
+              </ul>
+            </div>
+            <div id="previewStruggles" class="muted">Past challenges: time management during sprints</div>
+          </div>
+        </div>
+        <p class="hint">Granular controls: set visibility per field (goals, history, certificates, forums).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Accessibility, Intl & Timezones ====== -->
+  <section id="access" class="wrap">
+    <h2>Accessible by default, global by design</h2>
+    <div class="grid-3">
+      <div class="feature">
+        <h3>Learning access</h3>
+        <div class="row">
+          <label class="toggle"><input type="checkbox" id="reducedMotion"> Reduce motion</label>
+          <label class="toggle"><input type="checkbox" id="captionPref" checked> Prefer captions</label>
+          <label class="toggle"><input type="checkbox" id="extraTime"> Extra time on quizzes</label>
+        </div>
+        <p class="hint">We support transcripts, alternative formats, and extended timers.</p>
+      </div>
+      <div class="feature">
+        <h3>Languages</h3>
+        <div class="row">
+          <select id="langSelect" class="btn" aria-label="Choose language">
+            <option value="en">English</option>
+            <option value="hi">हिन्दी (Hindi)</option>
+            <option value="es">Español (Spanish)</option>
+          </select>
+          <span class="tag" id="langTag">Auto: browser</span>
+        </div>
+        <p class="muted" data-i18n="i18nNote">Key interface text is localized; members can co-create course translations.</p>
+      </div>
+      <div class="feature">
+        <h3>Timezone-aware meetups</h3>
+        <p class="muted">We show times in your zone and suggest alternates for mentors & learners across regions.</p>
+        <div class="list">
+          <div class="item">
+            <div class="avatar" aria-hidden="true">🕑</div>
+            <div>
+              <strong>Next Python Office Hours</strong>
+              <div class="meta">Local: <span id="meetLocal" class="mono"></span> • Mentor TZ: <span id="meetMentor" class="mono"></span></div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="avatar" aria-hidden="true">🌐</div>
+            <div>
+              <strong>Alternate Slot Suggestion</strong>
+              <div class="meta">Local: <span id="meetAltLocal" class="mono"></span> • Mentor TZ: <span id="meetAltMentor" class="mono"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Ops: Error recovery & Quick actions ====== -->
+  <section id="ops" class="wrap">
+    <h2>Operational polish: smooth corrections & mobile quick actions</h2>
+    <div class="grid-2">
+      <div class="feature">
+        <h3>Mistakes happen—fix them fast</h3>
+        <div class="list">
+          <div class="item">
+            <div class="avatar" aria-hidden="true">E</div>
+            <div>
+              <strong>Enrolled in the wrong course</strong>
+              <p class="meta">No stress—instant “Undo” with refund logic and re-enroll hints.</p>
+              <div class="row">
+                <button class="btn" id="enrollBtn">Enroll</button>
+                <button class="btn ghost" id="undoBtn" disabled>Undo</button>
+                <span class="tag" id="enrollState">Idle</span>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="avatar" aria-hidden="true">P</div>
+            <div>
+              <strong>Posted to the wrong forum</strong>
+              <p class="meta">Move your thread without losing replies. Suggestions based on tags.</p>
+              <div class="row">
+                <button class="btn" id="moveThread">Move to “Career Switchers”</button>
+                <span class="tag" id="moveState">Not moved</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="feature">
+        <h3>Desktop focus × Mobile moments</h3>
+        <div class="grid-2">
+          <div class="feature">
+            <strong>Focused sessions (desktop)</strong>
+            <ul class="list">
+              <li class="item"><div class="avatar" aria-hidden="true">📚</div><div>Guided units with progress gates & peer checkpoints</div></li>
+              <li class="item"><div class="avatar" aria-hidden="true">✍️</div><div>Project-based assessments with rubric previews</div></li>
+              <li class="item"><div class="avatar" aria-hidden="true">🧪</div><div>Practice labs & sandboxes</div></li>
+            </ul>
+          </div>
+          <div class="feature">
+            <strong>Quick interactions (mobile)</strong>
+            <div class="row">
+              <button class="btn">Bookmark insight</button>
+              <button class="btn">Voice note</button>
+              <button class="btn">1-min poll</button>
+            </div>
+            <p class="muted">Everything designed thumb-first: large targets, offline tolerant drafts, async-first replies.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Footer CTA ====== -->
+  <div class="wrap">
+    <div class="cta">
+      <div>
+        <strong>Ready to cross the bridge?</strong>
+        <p class="muted">Be a mentor in one skill and a learner in another—on your terms.</p>
+      </div>
+      <div class="row">
+        <button class="btn primary">Create account</button>
+        <button class="btn ghost">Browse courses</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="wrap">
+    <div class="row">
+      <span>© <span id="year"></span> SkillBridge</span>
+      <span class="muted">Privacy-first • Accessible • Global</span>
+    </div>
+  </footer>
+
+  <script>
+    // ====== Tiny data sets for the interactive demos ======
+    const topics = ["Python", "AI/ML", "Public Speaking", "Product Mgmt", "Cloud", "Design Systems", "Career Switch", "Data Viz"];
+    const mentors = [
+      {name:"Nina S", score: 4.8, tz:"America/New_York", lang:["en","es"], tags:["Python","Data Viz"], color:"#98fb", initial:"N"},
+      {name:"Arjun R", score: 4.9, tz:"Asia/Kolkata", lang:["en","hi"], tags:["AI/ML","Python"], color:"#b8f7", initial:"A"},
+      {name:"Diego M", score: 4.6, tz:"Europe/Madrid", lang:["es","en"], tags:["Public Speaking","Career Switch"], color:"#8ff5", initial:"D"},
+      {name:"Maya L", score: 4.7, tz:"Asia/Singapore", lang:["en","zh"], tags:["Cloud","Design Systems"], color:"#9ef6", initial:"M"},
+      {name:"Samir K", score: 4.5, tz:"Africa/Nairobi", lang:["en","sw"], tags:["Product Mgmt","Career Switch"], color:"#aff7", initial:"S"},
+      {name:"Yuki T", score: 4.9, tz:"Asia/Tokyo", lang:["ja","en"], tags:["AI/ML","Cloud"], color:"#9bf4", initial:"Y"},
+    ];
+
+    // ====== i18n (minimal demo) ======
+    const i18n = {
+      en: {
+        headline: "Structured learning meets authentic peer wisdom",
+        sub: "We connect recent grads to seasoned leaders—so members can teach from their strengths and learn where they’re growing. Quality-assured courses, organic forums, flexible privacy, and global scheduling—built for focused desktops and quick mobile moments.",
+        i18nNote: "Key interface text is localized; members can co-create course translations."
+      },
+      hi: {
+        headline: "संरचित सीख और वास्तविक साथियों की समझ का संगम",
+        sub: "हम नए स्नातकों और अनुभवी नेताओं को जोड़ते हैं—ताकि सदस्य अपनी विशेषज्ञता सिखाएँ और जहाँ ज़रूरत हो वहाँ सीखें। गुणवत्ता-सत्यापित पाठ्यक्रम, स्वाभाविक समुदाय, लचीली गोपनीयता और वैश्विक समय-निर्धारण—डेस्कटॉप फोकस और मोबाइल क्षणों के लिए।",
+        i18nNote: "मुख्य इंटरफ़ेस पाठ स्थानीयकृत है; सदस्य पाठ्यक्रम अनुवाद सह-निर्माण कर सकते हैं।"
+      },
+      es: {
+        headline: "Aprendizaje estructurado con sabiduría auténtica entre pares",
+        sub: "Conectamos recién graduados con líderes experimentados: enseñar desde la fortaleza y aprender donde se crece. Cursos con calidad, foros orgánicos, privacidad flexible y horarios globales para escritorio enfocado y momentos móviles.",
+        i18nNote: "La UI clave está localizada; la comunidad puede co-traducir cursos."
+      }
+    };
+
+    // ====== Utilities ======
+    const $ = (sel, ctx=document)=>ctx.querySelector(sel);
+    const $$ = (sel, ctx=document)=>Array.from(ctx.querySelectorAll(sel));
+    const save = (k,v)=>localStorage.setItem(k, JSON.stringify(v));
+    const load = (k, fallback)=>{ try { return JSON.parse(localStorage.getItem(k)) ?? fallback } catch { return fallback } };
+
+    // ====== Theme & accessibility ======
+    const applyFontScale = (delta)=>{
+      const cur = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--fs-3')) || 15.5;
+      const next = Math.min(19, Math.max(13, cur + delta));
+      document.documentElement.style.setProperty('--fs-3', next + 'px');
+      document.documentElement.style.setProperty('--fs-4', (next - 2) + 'px');
+      save('fontScale', next);
+    };
+
+    const setContrast = (on)=>{
+      document.documentElement.setAttribute('data-theme', on? 'high-contrast' : 'light');
+      save('contrast', on);
+      $('#contrastToggle').checked = on;
+    };
+
+    const setReducedMotion = (on)=>{
+      document.body.style.scrollBehavior = on ? 'auto' : 'smooth';
+      save('reducedMotion', on);
+      $('#reducedMotion').checked = on;
+    };
+
+    // ====== Role feed ======
+    const roleData = {
+      learner: [
+        {i:"📚", t:"Continue “Python Pathway”", s:"Unit 3 • Functions & Testing"},
+        {i:"🤝", t:"Match with mentors in your timezone", s:"3 mentors online today"},
+        {i:"🧪", t:"Lab: Refactor a CLI tool", s:"Peer review opens after submission"},
+      ],
+      mentor: [
+        {i:"🗓️", t:"Today’s office hours", s:"2 mentees booked • 1 waitlist"},
+        {i:"✅", t:"Review pending projects", s:"3 submissions in “Intro to APIs”"},
+        {i:"💬", t:"Answer community questions", s:"Public Speaking room • 2 new"},
+      ],
+      both: [
+        {i:"🔁", t:"Switch context fluidly", s:"Mentor in APIs • Learn AI/ML"},
+        {i:"📌", t:"Pinned: Mentor guide for feedback", s:"15-min read"},
+        {i:"🧭", t:"Explore workshops nearby", s:"Serendipity picks for Friday"},
+      ]
+    };
+    const renderRoleFeed = (role='learner')=>{
+      const list = $('#roleFeed'); list.innerHTML='';
+      roleData[role].forEach(x=>{
+        const li = document.createElement('li'); li.className='item';
+        li.innerHTML = `<div class="avatar" aria-hidden="true">${x.i}</div><div><strong>${x.t}</strong><div class="meta">${x.s}</div></div>`;
+        list.appendChild(li);
+      });
+      save('role', role);
+    };
+
+    // ====== Discovery filters ======
+    const selected = new Set();
+    const renderChips = ()=>{
+      const box = $('#filterChips'); box.innerHTML='';
+      topics.forEach(t=>{
+        const b = document.createElement('button');
+        b.className='chip'; b.textContent=t; b.setAttribute('aria-pressed', 'false');
+        b.addEventListener('click', ()=>{
+          const on = b.getAttribute('aria-pressed')==='true';
+          b.setAttribute('aria-pressed', String(!on));
+          if(on){ selected.delete(t) } else { selected.add(t) }
+          renderMentors();
+        });
+        box.appendChild(b);
+      });
+    };
+    const renderMentors = ()=>{
+      const list = $('#mentorResults'); list.innerHTML='';
+      const want = [...selected];
+      const m = want.length ? mentors.filter(m=> want.some(w=>m.tags.includes(w))) : mentors;
+      if(!m.length){ list.innerHTML = `<div class="muted">No matches yet—try fewer filters.</div>`; return }
+      m.slice(0,4).forEach(mn=>{
+        const li = document.createElement('div'); li.className='item';
+        li.innerHTML = `
+          <div class="avatar" style="background:linear-gradient(135deg, var(--brand), var(--accent));">${mn.initial}</div>
+          <div>
+            <strong>${mn.name} <span class="tag">${mn.tags.join(" • ")}</span></strong>
+            <div class="meta">TZ: ${mn.tz} • Lang: ${mn.lang.join(', ')}</div>
+          </div>
+          <span class="flag">Peer ${mn.score.toFixed(1)}</span>
+        `;
+        list.appendChild(li);
+      });
+    };
+
+    // ====== Shuffle card ======
+    let shuffles = 0;
+    const shuffleMentor = ()=>{
+      const m = mentors[Math.floor(Math.random()*mentors.length)];
+      $('#sAvatar').textContent = m.initial;
+      $('#sName').textContent = m.name + ' — ' + m.tags.join(' • ');
+      $('#sMeta').textContent = `TZ ${m.tz} • Lang ${m.lang.join(', ')}`;
+      $('#sScore').textContent = `Peer ${m.score.toFixed(1)}`;
+      $('#shuffleCount').textContent = (++shuffles) + ' shuffles';
+    };
+
+    // ====== Privacy preview ======
+    function applyPrivacy(){
+      const current = document.querySelector('.audience .chip[aria-selected="true"]')?.dataset.audience || 'self';
+      const hideGoals = $('#hideGoals').checked;
+      const blurStruggles = $('#blurStruggles').checked;
+
+      const goals = $('#previewGoals');
+      const struggles = $('#previewStruggles');
+
+      // Base: “Only me” shows everything; stricter audiences hide more.
+      let showGoals = current === 'self' || current === 'network' || current === 'public';
+      let showStruggles = current !== 'public';
+
+      if(current === 'colleagues' && hideGoals) showGoals = false;
+      if(current === 'public' && blurStruggles) {
+        struggles.style.filter = 'blur(4px)';
+      } else {
+        struggles.style.filter = 'none';
+      }
+
+      goals.style.display = showGoals ? 'block' : 'none';
+      struggles.style.display = showStruggles ? 'block' : 'none';
+
+      save('audience', {current, hideGoals, blurStruggles});
+    }
+
+    // Initialize audience tabs
+    $$('.audience .chip').forEach((chip, idx)=>{
+      chip.setAttribute('aria-selected', idx===0 ? 'true' : 'false');
+      chip.addEventListener('click', ()=>{
+        $$('.audience .chip').forEach(c=>c.setAttribute('aria-selected','false'));
+        chip.setAttribute('aria-selected','true');
+        applyPrivacy();
+      });
+    });
+    $('#hideGoals').addEventListener('change', applyPrivacy);
+    $('#blurStruggles').addEventListener('change', applyPrivacy);
+
+    // ====== Timezone demo ======
+    function fmt(dt, zoneLabel){
+      // Display as YYYY-MM-DD HH:mm
+      const y = dt.getFullYear();
+      const mm = String(dt.getMonth()+1).padStart(2,'0');
+      const dd = String(dt.getDate()).padStart(2,'0');
+      const hh = String(dt.getHours()).padStart(2,'0');
+      const mi = String(dt.getMinutes()).padStart(2,'0');
+      return `${y}-${mm}-${dd} ${hh}:${mi} ${zoneLabel? '('+zoneLabel+')':''}`;
+    }
+    function toTZ(date, tz){
+      // Convert a JS Date to a different IANA time zone by reconstructing with locale parts
+      const opt = { timeZone: tz, year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', hour12:false };
+      const parts = new Intl.DateTimeFormat('en-CA', opt).formatToParts(date).reduce((acc,p)=>{ acc[p.type]=p.value; return acc },{});
+      return new Date(`${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}:00`);
+    }
+    function updateMeetups(){
+      // Base event in UTC for Friday 17:00 UTC
+      const baseUTC = new Date(); baseUTC.setUTCDate(baseUTC.getUTCDate() + ((5 - baseUTC.getUTCDay() + 7) % 7)); baseUTC.setUTCHours(17,0,0,0);
+      const mentorTZ = 'America/New_York';
+
+      const local = toTZ(baseUTC, Intl.DateTimeFormat().resolvedOptions().timeZone);
+      const mentor = toTZ(baseUTC, mentorTZ);
+
+      $('#meetLocal').textContent = fmt(local, 'you');
+      $('#meetMentor').textContent = fmt(mentor, 'mentor');
+
+      // Alternate +12h for APAC/EU friendliness
+      const altUTC = new Date(baseUTC.getTime() + 12*3600*1000);
+      $('#meetAltLocal').textContent = fmt(toTZ(altUTC, Intl.DateTimeFormat().resolvedOptions().timeZone), 'you');
+      $('#meetAltMentor').textContent = fmt(toTZ(altUTC, mentorTZ), 'mentor');
+    }
+
+    // ====== Ops demos ======
+    $('#enrollBtn').addEventListener('click', ()=>{
+      $('#enrollState').textContent='Enrolled';
+      $('#enrollState').style.background='#0d1a13'; $('#enrollState').style.color='#a5f3c6';
+      $('#undoBtn').disabled=false;
+    });
+    $('#undoBtn').addEventListener('click', ()=>{
+      $('#enrollState').textContent='Undone';
+      $('#undoBtn').disabled=true;
+    });
+    $('#moveThread').addEventListener('click', ()=>{
+      $('#moveState').textContent='Moved to Career Switchers';
+      $('#moveState').style.background='#0d1a13'; $('#moveState').style.color='#a5f3c6';
+    });
+
+    // ====== Language selection ======
+    function applyLang(lang){
+      const pack = i18n[lang] ?? i18n.en;
+      $$('[data-i18n]').forEach(el=>{
+        const key = el.getAttribute('data-i18n');
+        if(pack[key]) el.textContent = pack[key];
+      });
+      $('#langTag').textContent = (lang === navigator.language.slice(0,2)) ? 'Auto: browser' : 'Manual: '+lang;
+      save('lang', lang);
+    }
+
+    // ====== Header controls ======
+    $('#fontPlus').addEventListener('click', ()=>applyFontScale(1));
+    $('#fontMinus').addEventListener('click', ()=>applyFontScale(-1));
+    $('#contrastToggle').addEventListener('change', (e)=>setContrast(e.target.checked));
+    $('#reducedMotion').addEventListener('change', (e)=>setReducedMotion(e.target.checked));
+    $('#shuffle').addEventListener('click', shuffleMentor);
+
+    // Role tabs
+    const roleTabs = { roleLearner:'learner', roleMentor:'mentor', roleBoth:'both' };
+    Object.entries(roleTabs).forEach(([id, role])=>{
+      $('#'+id).addEventListener('click', ()=>{
+        Object.keys(roleTabs).forEach(k=>$('#'+k).setAttribute('aria-selected','false'));
+        $('#'+id).setAttribute('aria-selected','true');
+        renderRoleFeed(role);
+      });
+    });
+
+    // CTA demo buttons
+    $('#startCourse').addEventListener('click', ()=>alert('Course builder opens with outcomes, units, and accessibility checklist.'));
+    $('#startForum').addEventListener('click', ()=>alert('Compose a thread with smart room suggestions and “Move post” safety net.'));
+
+    // Language selector
+    $('#langSelect').addEventListener('change', (e)=>applyLang(e.target.value));
+
+    // ====== First paint setup ======
+    (function init(){
+      // Year
+      $('#year').textContent = new Date().getFullYear();
+
+      // Saved prefs
+      const savedScale = load('fontScale', null); if(savedScale){ document.documentElement.style.setProperty('--fs-3', savedScale + 'px'); document.documentElement.style.setProperty('--fs-4', (savedScale-2)+'px') }
+      setContrast(load('contrast', false));
+      setReducedMotion(load('reducedMotion', false));
+
+      // Role
+      const savedRole = load('role','learner');
+      Object.entries(roleTabs).forEach(([id, r])=>$('#'+id).setAttribute('aria-selected', r===savedRole? 'true':'false'));
+      renderRoleFeed(savedRole);
+
+      // Discovery
+      renderChips(); renderMentors();
+
+      // Privacy
+      const savedAud = load('audience', null);
+      if(savedAud){
+        $$('.audience .chip').forEach(c=>c.setAttribute('aria-selected', c.dataset.audience===savedAud.current?'true':'false'));
+        $('#hideGoals').checked = !!savedAud.hideGoals;
+        $('#blurStruggles').checked = !!savedAud.blurStruggles;
+      }
+      applyPrivacy();
+
+      // Lang
+      const browserLang = (navigator.language||'en').slice(0,2);
+      const savedLang = load('lang', null) || (i18n[browserLang]? browserLang : 'en');
+      $('#langSelect').value = savedLang; applyLang(savedLang);
+
+      // Meetup times
+      updateMeetups();
+
+      // Focus styles if keyboard user
+      function handleFirstTab(e){ if(e.key==='Tab'){ document.body.classList.add('show-focus'); window.removeEventListener('keydown', handleFirstTab) } }
+      window.addEventListener('keydown', handleFirstTab);
+    })();
+  </script>
+</body>
+</html>

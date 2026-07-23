@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillBridge - Peer Learning & Mentorship Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --accent: #0891b2;
+            --success: #16a34a;
+            --neutral-50: #f9fafb;
+            --neutral-100: #f3f4f6;
+            --neutral-200: #e5e7eb;
+            --neutral-700: #374151;
+            --neutral-900: #111827;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            line-height: 1.6;
+            color: var(--neutral-700);
+            background-color: var(--white);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--white);
+            border-bottom: 1px solid var(--neutral-200);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            height: 4rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo::before {
+            content: '🌉';
+            font-size: 1.8rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--neutral-700);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.5rem 1.25rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--neutral-100);
+            color: var(--neutral-900);
+            border: 1px solid var(--neutral-200);
+        }
+
+        .btn-secondary:hover {
+            background: var(--neutral-200);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 4rem;
+            background: linear-gradient(135deg, var(--neutral-50) 0%, var(--white) 100%);
+            padding: 4rem 1.5rem;
+            min-height: calc(100vh - 4rem);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3rem;
+            color: var(--neutral-900);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-text p {
+            font-size: 1.125rem;
+            color: var(--neutral-700);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .hero-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .feature-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 500;
+            color: var(--neutral-700);
+        }
+
+        .feature-badge::before {
+            content: '✓';
+            color: var(--success);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .hero-visual {
+            background: var(--neutral-100);
+            border-radius: 1rem;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            min-height: 400px;
+            align-content: center;
+        }
+
+        .visual-card {
+            background: var(--white);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            border: 1px solid var(--neutral-200);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .visual-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+            border-color: var(--accent);
+        }
+
+        .visual-card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .visual-card h3 {
+            font-size: 0.95rem;
+            color: var(--neutral-900);
+            margin-bottom: 0.5rem;
+        }
+
+        .visual-card p {
+            font-size: 0.85rem;
+            color: var(--neutral-700);
+        }
+
+        /* Core Features Section */
+        .features {
+            padding: 4rem 1.5rem;
+            background: var(--white);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.25rem;
+            color: var(--neutral-900);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--neutral-700);
+            line-height: 1.8;
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            background: var(--neutral-50);
+            border-radius: 1rem;
+            border: 1px solid var(--neutral-200);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary);
+            background: var(--white);
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            color: var(--neutral-900);
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-card p {
+            color: var(--neutral-700);
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        /* Privacy & Control Section */
+        .privacy-section {
+            padding: 4rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: var(--white);
+        }
+
+        .privacy-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .privacy-section h2 {
+            font-size: 2.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .privacy-section p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            opacity: 0.95;
+        }
+
+        .privacy-controls {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 1rem;
+            padding: 2rem;
+        }
+
+        .control-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .control-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .control-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            margin-top: 0.25rem;
+        }
+
+        .control-text h4 {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            font-size: 1rem;
+        }
+
+        .control-text p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            margin-bottom: 0;
+        }
+
+        /* Dual Learning Section */
+        .dual-learning {
+            padding: 4rem 1.5rem;
+            background: var(--white);
+        }
+
+        .dual-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .learning-path {
+            border-radius: 1rem;
+            padding: 2.5rem;
+            border: 2px solid var(--neutral-200);
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .learning-path:hover {
+            border-color: var(--primary);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .path-label {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--neutral-100);
+            border-radius: 2rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .learning-path h3 {
+            font-size: 1.5rem;
+            color: var(--neutral-900);
+            margin-bottom: 1rem;
+        }
+
+        .path-steps {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .step {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2rem;
+            height: 2rem;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            font-weight: 600;
+            color: var(--neutral-900);
+            margin-bottom: 0.25rem;
+        }
+
+        .step-content p {
+            font-size: 0.95rem;
+            color: var(--neutral-700);
+        }
+
+        /* Error Recovery Section */
+        .error-recovery {
+            padding: 4rem 1.5rem;
+            background: var(--neutral-50);
+        }
+
+        .recovery-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .recovery-examples {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .example-box {
+            background: var(--white);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border-left: 4px solid var(--accent);
+        }
+
+        .example-box h4 {
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .example-box p {
+            font-size: 0.95rem;
+            color: var(--neutral-700);
+            margin-bottom: 0.75rem;
+        }
+
+        .recovery-action {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--neutral-100);
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Accessibility Section */
+        .accessibility {
+            padding: 4rem 1.5rem;
+            background: var(--white);
+        }
+
+        .a11y-features {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .a11y-card {
+            padding: 1.75rem;
+            background: var(--neutral-50);
+            border-radius: 1rem;
+            border: 1px solid var(--neutral-200);
+        }
+
+        .a11y-card h4 {
+            font-size: 1.1rem;
+            color: var(--neutral-900);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .a11y-card p {
+            color: var(--neutral-700);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 4rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cta-section h2 {
+            font-size: 2.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--neutral-900);
+            color: var(--neutral-200);
+            padding: 3rem 1.5rem;
+            border-top: 1px solid var(--neutral-800);
+        }
+
+        footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: var(--white);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .footer-section a {
+            color: var(--neutral-400);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--white);
+        }
+
+        .footer-about p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            color: var(--neutral-400);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--neutral-800);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--neutral-500);
+        }
+
+        /* Modal / Privacy Demo */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 1rem;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--neutral-500);
+        }
+
+        .modal-close:hover {
+            color: var(--neutral-900);
+        }
+
+        .modal h3 {
+            color: var(--neutral-900);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .privacy-example {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .privacy-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background: var(--neutral-50);
+            border-radius: 0.5rem;
+            border: 1px solid var(--neutral-200);
+        }
+
+        .toggle-label {
+            font-weight: 500;
+            color: var(--neutral-900);
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 3rem;
+            height: 1.5rem;
+            background: var(--neutral-300);
+            border-radius: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .toggle-switch.active {
+            background: var(--success);
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 0.25rem;
+            left: 0.25rem;
+            width: 1rem;
+            height: 1rem;
+            background: var(--white);
+            border-radius: 50%;
+            transition: left 0.3s;
+        }
+
+        .toggle-switch.active .toggle-slider {
+            left: 1.75rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 0 1rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+                font-size: 0.95rem;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+
+            .hero-visual {
+                min-height: 300px;
+            }
+
+            .dual-grid,
+            .privacy-content {
+                grid-template-columns: 1fr;
+            }
+
+            .recovery-examples {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-features {
+                grid-template-columns: 1fr;
+            }
+
+            footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .section-header h2 {
+                font-size: 1.75rem;
+            }
+
+            .privacy-section h2 {
+                font-size: 1.75rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo">SkillBridge</a>
+        <ul>
+            <li><a href="#features">How It Works</a></li>
+            <li><a href="#privacy">Privacy</a></li>
+            <li><a href="#accessibility">Accessible</a></li>
+        </ul>
+        <div class="nav-buttons">
+            <button class="btn btn-secondary">Sign In</button>
+            <button class="btn btn-primary">Join Now</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Learn From Peers, Teach Your Expertise</h1>
+                <p>A professional platform where you're both mentor and learner. Structured courses meet organic community. Your reputation, your control.</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary">Start Learning Today</button>
+                    <button class="btn btn-secondary">Explore as Guest</button>
+                </div>
+                <div class="hero-features">
+                    <div class="feature-badge">Self-paced learning</div>
+                    <div class="feature-badge">Private mentoring</div>
+                    <div class="feature-badge">Community forums</div>
+                    <div class="feature-badge">Live meetups</div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="visual-card">
+                    <div class="visual-card-icon">👨‍🏫</div>
+                    <h3>Structured Courses</h3>
+                    <p>Quality-assured learning paths with peer feedback</p>
+                </div>
+                <div class="visual-card">
+                    <div class="visual-card-icon">🤝</div>
+                    <h3>Peer Mentorship</h3>
+                    <p>Direct guidance from experienced professionals</p>
+                </div>
+                <div class="visual-card">
+                    <div class="visual-card-icon">💬</div>
+                    <h3>Discussion Forums</h3>
+                    <p>Organic knowledge sharing with your community</p>
+                </div>
+                <div class="visual-card">
+                    <div class="visual-card-icon">🎯</div>
+                    <h3>Track Progress</h3>
+                    <p>See growth with built-in milestones and badges</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Features Section -->
+    <section class="features" id="features">
+        <div class="section-header">
+            <h2>Balanced Learning Architecture</h2>
+            <p>We've engineered the platform to deliver both the structure professionals need and the authentic peer connections they crave.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚙️</div>
+                <h3>Smart Matching Engine</h3>
+                <p>Find mentors by expertise, experience level, and learning goals. Browse serendipitous connections across industries and disciplines.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">✅</div>
+                <h3>Quality Assurance</h3>
+                <p>Peer review system for all course content. Expert moderators ensure authentic guidance. Community ratings build accountability.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>Device-Aware Design</h3>
+                <p>Desktop: Deep learning sessions. Mobile: Quick check-ins between meetings. Offline access for busy professionals.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔄</div>
+                <h3>Effortless Corrections</h3>
+                <p>Accidentally enrolled in the wrong course? Posted to the wrong forum? One-click recovery paths keep learning smooth.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌍</div>
+                <h3>Global, Local</h3>
+                <p>Content works across time zones. Auto-translated discussions. Timezone-aware scheduling for meetups.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">♿</div>
+                <h3>Accessibility First</h3>
+                <p>Extra time for assessments. Dyslexia-friendly fonts. Captions and transcripts for all video content.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dual Learning Paths -->
+    <section class="dual-learning">
+        <div class="section-header">
+            <h2>Two Learning Paths, One Platform</h2>
+            <p>Whether you prefer structured progression or organic discovery, SkillBridge adapts to how you learn best.</p>
+        </div>
+        <div class="dual-grid">
+            <div class="learning-path">
+                <span class="path-label">STRUCTURED</span>
+                <h3>Guided Learning Path</h3>
+                <div class="path-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Set Clear Goal</h4>
+                            <p>Define what you want to learn. System recommends courses.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Follow Curriculum</h4>
+                            <p>Complete modules at your own pace with checkpoints.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Get Peer Feedback</h4>
+                            <p>Submit projects for review by experienced peers.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>Earn Recognition</h4>
+                            <p>Complete certification visible to your professional network.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="learning-path">
+                <span class="path-label">ORGANIC</span>
+                <h3>Community Discovery</h3>
+                <div class="path-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Browse & Explore</h4>
+                            <p>Discover discussions and mentors across fields you're curious about.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Connect with Peers</h4>
+                            <p>Reach out to mentors or join informal study groups.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Participate Actively</h4>
+                            <p>Share insights, ask questions, help others solve problems.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>Build Reputation</h4>
+                            <p>Community marks your helpfulness. Become recognized expert.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Privacy & Control Section -->
+    <section class="privacy-section" id="privacy">
+        <div class="privacy-content">
+            <div>
+                <h2>Your Image, Your Rules</h2>
+                <p>Learning should be private. We believe your colleagues shouldn't know you're struggling with Python basics or exploring a career pivot—unless you tell them.</p>
+                <p><strong>Granular privacy controls mean:</strong></p>
+                <button class="btn btn-primary" onclick="openPrivacyDemo()">See Privacy Controls</button>
+            </div>
+            <div class="privacy-controls">
+                <div class="control-item">
+                    <div class="control-icon">🔐</div>
+                    <div class="control-text">
+                        <h4>Course Enrollment</h4>
+                        <p>Choose: visible, hidden, or "mentor only" so peers know you're learning but not what subject.</p>
+                    </div>
+                </div>
+                <div class="control-item">
+                    <div class="control-icon">🤐</div>
+                    <div class="control-text">
+                        <h4>Discussion Anonymity</h4>
+                        <p>Post anonymously in forums. Your reputation stays intact while you ask vulnerable questions.</p>
+                    </div>
+                </div>
+                <div class="control-item">
+                    <div class="control-icon">🎓</div>
+                    <div class="control-text">
+                        <h4>Selective Sharing</h4>
+                        <p>Earned certificates are shareable on LinkedIn—or completely private. Your choice.</p>
+                    </div>
+                </div>
+                <div class="control-item">
+                    <div class="control-icon">👁️</div>
+                    <div class="control-text">
+                        <h4>Mentor Visibility</h4>
+                        <p>Control who sees you're seeking mentorship. Restrict to specific colleagues or keep it open.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Error Recovery Section -->
+    <section class="error-recovery">
+        <div class="section-header">
+            <h2>Smooth Recovery from Mistakes</h2>
+            <p>We know you're busy. If you post to the wrong forum or enroll in the wrong course, a single click undoes it.</p>
+        </div>
+        <div class="recovery-content">
+            <div class="recovery-examples">
+                <div class="example-box">
+                    <h4>❌ Wrong Forum Posted</h4>
+                    <p>You ask a React question in the Python forum. Within 3 minutes, move it with comment history intact.</p>
+                    <span class="recovery-action">→ Move Post & Notify</span>
+                </div>
+                <div class="example-box">
+                    <h4>❌ Wrong Course Enrolled</h4>
+                    <p>You click the wrong button. Remove yourself from the course within 7 days, zero penalty.</p>
+                    <span class="recovery-action">→ Unenroll & Recover</span>
+                </div>
+                <div class="example-box">
+                    <h4>❌ Private Turned Public</h4>
+                    <p>A course enrollment accidentally went visible. Toggle privacy in seconds.</p>
+                    <span class="recovery-action">→ Re-hide Course</span>
+                </div>
+                <div class="example-box">
+                    <h4>❌ Sent to Wrong Mentor</h4>
+                    <p>You message a potential mentor but realize they're not a good fit. Unsend within 1 hour, they're never notified.</p>
+                    <span class="recovery-action">→ Unsend & Correct</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Accessibility Section -->
+    <section class="accessibility" id="accessibility">
+        <div class="section-header">
+            <h2>Built for Everyone</h2>
+            <p>Learning disabilities shouldn't be a barrier. We've engineered accessibility into every feature.</p>
+        </div>
+        <div class="a11y-features">
+            <div class="a11y-card">
+                <h4>⏱️ Extended Time for Assessments</h4>
+                <p>Dyslexic learners get 1.5x time. Anxious test-takers can preview questions. Custom time limits for individual needs.</p>
+            </div>
+            <div class="a11y-card">
+                <h4>🔤 Reading-Friendly Fonts</h4>
+                <p>Dyslexia-friendly font available. Customizable font size, spacing, and background color to reduce cognitive load.</p>
+            </div>
+            <div class="a11y-card">
+                <h4>📹 Captions & Transcripts</h4>
+                <p>Every video has captions and searchable transcripts. Synchronize with your screen reader of choice.</p>
+            </div>
+            <div class="a11y-card">
+                <h4>🎯 Alternative Assessment Formats</h4>
+                <p>Can't take timed multiple-choice? Complete projects, write essays, or present orally instead.</p>
+            </div>
+            <div class="a11y-card">
+                <h4>♿ Full WCAG 2.1 Compliance</h4>
+                <p>Screen reader optimized. Keyboard navigation throughout. Color contrast ratios exceed standards.</p>
+            </div>
+            <div class="a11y-card">
+                <h4>🌗 Dark Mode</h4>
+                <p>System dark mode support for users with light sensitivity. Reduces eye strain for marathon study sessions.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>Ready to Learn Your Way?</h2>
+            <p>Whether you're a recent graduate seeking mentorship or a senior executive learning new tech, SkillBridge is where peers become teachers and learners become community leaders.</p>
+            <button class="btn btn-primary" onclick="alert('Welcome! In a real implementation, this would start the onboarding flow.')">Start Your SkillBridge Journey</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <footer-content>
+            <div class="footer-section footer-about">
+                <h4>About SkillBridge</h4>
+                <p>We're reimagining professional development. Not corporate training. Not lonely online courses. Real peer learning, genuinely private, designed for how professionals actually learn.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="#">Features</a></li>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">Security</a></li>
+                    <li><a href="#">Enterprise</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Community</h4>
+                <ul>
+                    <li><a href="#">Explore Courses</a></li>
+                    <li><a href="#">Find a Mentor</a></li>
+                    <li><a href="#">Forums</a></li>
+                    <li><a href="#">Virtual Events</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal & Support</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Accessibility</a></li>
+                    <li><a href="#">Contact Support</a></li>
+                </ul>
+            </div>
+        </footer-content>
+        <div class="footer-bottom">
+            <p>&copy; 2025 SkillBridge. All rights reserved.</p>
+            <p>Built with ♡ for peer learning</p>
+        </div>
+    </footer>
+
+    <!-- Privacy Demo Modal -->
+    <div class="modal" id="privacyModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closePrivacyDemo()">✕</button>
+            <h3>Your Privacy Controls</h3>
+            <p style="color: var(--neutral-700); margin-bottom: 1.5rem;">See how SkillBridge puts you in control of your professional image.</p>
+            
+            <div class="privacy-example">
+                <div class="privacy-toggle">
+                    <span class="toggle-label">🎓 Course Enrollment Visibility</span>
+                    <div class="toggle-switch" onclick="togglePrivacy(this)">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+                <p style="font-size: 0.9rem; color: var(--neutral-600); margin: 0.75rem 0 0 0;">When ON: Peers see you're learning (not the course topic)</p>
+            </div>
+
+            <div class="privacy-example">
+                <div class="privacy-toggle">
+                    <span class="toggle-label">🔍 Forum Post Anonymity</span>
+                    <div class="toggle-switch active" onclick="togglePrivacy(this)">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+                <p style="font-size: 0.9rem; color: var(--neutral-600); margin: 0.75rem 0 0 0;">When ON: Your name is hidden in forum discussions</p>
+            </div>
+
+            <div class="privacy-example">
+                <div class="privacy-toggle">
+                    <span class="toggle-label">📜 Certificate Sharing</span>
+                    <div class="toggle-switch" onclick="togglePrivacy(this)">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+                <p style="font-size: 0.9rem; color: var(--neutral-600); margin: 0.75rem 0 0 0;">When ON: Certificates appear on your public profile</p>
+            </div>
+
+            <div class="privacy-example">
+                <div class="privacy-toggle">
+                    <span class="toggle-label">👥 Mentor Request Visibility</span>
+                    <div class="toggle-switch" onclick="togglePrivacy(this)">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+                <p style="font-size: 0.9rem; color: var(--neutral-600); margin: 0.75rem 0 0 0;">When ON: Specific colleagues can see you want mentoring</p>
+            </div>
+
+            <p style="color: var(--neutral-600); font-size: 0.9rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--neutral-200);">Each setting updates instantly. Your privacy preferences are never shared with course creators or mentors unless you choose.</p>
+        </div>
+    </div>
+
+    <script>
+        // Privacy Modal Functions
+        function openPrivacyDemo() {
+            document.getElementById('privacyModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePrivacyDemo() {
+            document.getElementById('privacyModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function togglePrivacy(element) {
+            element.classList.toggle('active');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('privacyModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePrivacyDemo();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closePrivacyDemo();
+            }
+        });
+
+        // Smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+
+        // Add animation to feature cards on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .learning-path, .a11y-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

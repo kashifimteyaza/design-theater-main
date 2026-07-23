@@ -1,0 +1,838 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Metro Health System</title>
+  <meta name="description" content="Metro Health System: find doctors, book appointments, get emergency help, explore services, insurance & billing, education, and careers." />
+  <style>
+    /* ===================
+       Base & Theme
+       =================== */
+    :root{
+      --brand-700:#0047a3; /* primary */
+      --brand-600:#0a5bd9; /* hover */
+      --brand-500:#1c6fff; /* accents */
+      --accent-500:#0a7d5a; /* success */
+      --danger-600:#b00020; /* emergency */
+      --ink-900:#111;
+      --ink-700:#2b2b2b;
+      --ink-500:#555;
+      --ink-300:#777;
+      --bg-0:#fff;
+      --bg-50:#f7f9fc;
+      --bg-100:#eef2f8;
+      --ring: 3px solid rgba(28,111,255,.35);
+      --radius:14px;
+    }
+    [data-theme="high-contrast"]{
+      --brand-700:#000;
+      --brand-600:#000;
+      --brand-500:#000;
+      --accent-500:#000;
+      --danger-600:#000;
+      --ink-900:#000;
+      --ink-700:#000;
+      --ink-500:#000;
+      --ink-300:#000;
+      --bg-0:#fff;
+      --bg-50:#fff;
+      --bg-100:#fff;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";color:var(--ink-900);background:var(--bg-0);}
+    a{color:var(--brand-700)}
+    a:focus,button:focus,input:focus,select:focus,textarea:focus{outline:var(--ring);outline-offset:2px}
+    .visually-hidden{position:absolute !important; height:1px; width:1px; overflow:hidden; clip:rect(1px, 1px, 1px, 1px); white-space:nowrap;}
+    .container{max-width:1200px;margin:0 auto;padding:0 16px}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1rem;border-radius:12px;border:2px solid transparent;cursor:pointer;background:var(--brand-700);color:white;font-weight:600;}
+    .btn:hover{background:var(--brand-600)}
+    .btn.secondary{background:transparent;color:var(--brand-700);border-color:var(--brand-700)}
+    .btn.secondary:hover{background:var(--bg-100)}
+    .btn.danger{background:var(--danger-600)}
+
+    /* Skip Link */
+    .skip-link{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;}
+    .skip-link:focus{left:16px;top:16px;width:auto;height:auto;background:#fff;padding:8px 12px;border:2px solid var(--brand-700);border-radius:10px;z-index:10000}
+
+    /* ===================
+       Utility Bar
+       =================== */
+    .util-bar{background:var(--bg-50);border-bottom:1px solid var(--bg-100);font-size:.9rem}
+    .util-inner{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:8px 0}
+    .util-controls{display:flex;align-items:center;gap:12px}
+    .lang-toggle button,.contrast-toggle button,.textsize button{background:#fff;border:1px solid #ddd;border-radius:10px;padding:.4rem .6rem;cursor:pointer}
+    .search-mini{position:relative;flex:1;max-width:420px}
+    .search-mini input{width:100%;padding:.6rem .8rem .6rem 2.2rem;border:1px solid #cfd8ea;border-radius:12px}
+    .search-mini svg{position:absolute;left:8px;top:8px}
+
+    /* ===================
+       Emergency Bar (Persistent)
+       =================== */
+    .em-bar{position:sticky;top:0;z-index:9999;background:var(--danger-600);color:#fff}
+    .em-inner{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:10px 16px}
+    .em-actions{display:flex;flex-wrap:wrap;gap:8px}
+    .em-actions a,.em-actions button{background:#fff;color:#000;border-radius:10px;padding:.5rem .7rem;border:none;cursor:pointer;text-decoration:none;font-weight:700}
+    .em-note{font-weight:700}
+
+    /* ===================
+       Header & Nav
+       =================== */
+    header{position:relative;background:linear-gradient(180deg, var(--bg-50), transparent)}
+    .branding{display:flex;align-items:center;gap:12px;padding:18px 0}
+    .logo{width:42px;height:42px;border-radius:12px;background:var(--brand-700);display:grid;place-items:center;color:#fff;font-weight:800}
+    nav{border-top:1px solid var(--bg-100);border-bottom:1px solid var(--bg-100)}
+    .nav-inner{display:flex;gap:16px;align-items:center;justify-content:space-between}
+    .menu{display:flex;flex-wrap:wrap;gap:4px}
+    .menu a{display:inline-block;padding:14px 12px;border-radius:10px;text-decoration:none;color:var(--ink-900)}
+    .menu a:focus,.menu a:hover{background:var(--bg-100)}
+    .cta{padding:14px 0}
+
+    /* ===================
+       Hero
+       =================== */
+    .hero{padding:28px 0 16px}
+    .hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:stretch}
+    .hero h1{font-size:clamp(1.6rem, 1.2rem + 1.8vw, 2.4rem);margin:.2rem 0 .6rem}
+    .pill{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:var(--bg-100);font-weight:700}
+    .card{background:#fff;border:1px solid #e7ecf7;border-radius:var(--radius);padding:16px;box-shadow:0 4px 18px rgba(0,0,0,.04)}
+    .appt-form{display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:10px;margin-top:8px}
+    .appt-form label{font-size:.9rem}
+    .appt-form input,.appt-form select{width:100%;padding:.6rem .7rem;border:1px solid #cfd8ea;border-radius:12px}
+    .appt-form .actions{grid-column:1 / -1;display:flex;gap:8px;align-items:center}
+
+    /* ===================
+       Sections
+       =================== */
+    section{padding:28px 0}
+    h2{font-size:1.4rem;margin:0 0 10px}
+    .grid{display:grid;gap:12px}
+    .grid.cols-3{grid-template-columns:repeat(3, minmax(0,1fr))}
+    .grid.cols-4{grid-template-columns:repeat(4, minmax(0,1fr))}
+    .service-card{display:flex;flex-direction:column;gap:8px}
+    .service-card .title{font-weight:700}
+    .service-card .meta{color:var(--ink-500);font-size:.9rem}
+
+    /* ===================
+       Doctor Finder Preview
+       =================== */
+    .finder{display:grid;grid-template-columns:1fr 280px;gap:16px}
+    .finder .filters{display:flex;flex-wrap:wrap;gap:8px}
+    .finder .filters select{padding:.6rem;border:1px solid #cfd8ea;border-radius:12px}
+    .doc-list{display:grid;gap:8px}
+    .doc-item{display:flex;gap:12px;align-items:flex-start;border:1px solid #e7ecf7;border-radius:14px;padding:12px}
+    .doc-avatar{width:56px;height:56px;border-radius:12px;background:var(--bg-100);display:grid;place-items:center;font-weight:800}
+    .doc-body .name{font-weight:800}
+    .badge{display:inline-block;border-radius:999px;padding:4px 8px;background:var(--bg-100);font-size:.8rem;margin-right:6px}
+
+    /* ===================
+       Providers & Careers strip
+       =================== */
+    .audience-strip{display:grid;grid-template-columns:2fr 1fr;gap:16px}
+    .audience-strip .card{display:flex;flex-direction:column;gap:10px}
+
+    /* ===================
+       Footer
+       =================== */
+    footer{background:var(--bg-50);border-top:1px solid var(--bg-100)}
+    .footer-grid{display:grid;grid-template-columns:2fr repeat(3,1fr);gap:16px}
+    .foot h3{margin-top:0}
+    .legal{font-size:.85rem;color:var(--ink-500);margin-top:12px}
+
+    /* ===================
+       Modals
+       =================== */
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;padding:16px}
+    .modal[aria-hidden="false"]{display:flex}
+    .modal-dialog{background:#fff;border-radius:16px;max-width:720px;width:100%;padding:16px}
+    .modal-header{display:flex;align-items:center;justify-content:space-between}
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .hero-grid{grid-template-columns:1fr}
+      .grid.cols-4{grid-template-columns:repeat(2, minmax(0,1fr))}
+      .finder{grid-template-columns:1fr}
+      .audience-strip{grid-template-columns:1fr}
+      .footer-grid{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width: 600px){
+      .grid.cols-3{grid-template-columns:1fr}
+      .grid.cols-4{grid-template-columns:1fr}
+      .util-inner{flex-direction:column;align-items:stretch}
+      .em-inner{flex-direction:column;align-items:stretch}
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      *{scroll-behavior:auto;transition:none !important;}
+    }
+
+    /* Print */
+    @media print{
+      .em-bar,.util-bar,.cta,.modal{display:none !important}
+      a[href^="http"]::after{content:" (" attr(href) ")"}
+      .card{box-shadow:none !important;border-color:#ccc}
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <!-- =================== EMERGENCY PERSISTENT BAR =================== -->
+  <div class="em-bar" role="region" aria-label="Emergency quick access">
+    <div class="container em-inner">
+      <div class="em-note" data-i18n="em.barTitle">Emergency? Get help now.</div>
+      <div class="em-actions">
+        <a id="em-call" class="call-em" href="#" data-i18n="em.call">Call emergency</a>
+        <button class="btn-mini" id="btn-nearest-er" data-i18n="em.nearestER">Find nearest ER</button>
+        <button class="btn-mini" id="btn-what-to-do" data-i18n="em.whatToDo">What to do</button>
+        <button class="btn-mini" id="btn-alerts" data-i18n="em.alerts" aria-controls="modal-alerts" aria-expanded="false">Alerts</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =================== UTILITY BAR =================== -->
+  <div class="util-bar" role="region" aria-label="Utilities">
+    <div class="container util-inner">
+      <div class="branding" aria-label="Brand">
+        <div class="logo" aria-hidden="true">M</div>
+        <div>
+          <div style="font-weight:900">Metro Health System</div>
+          <div style="font-size:.9rem;color:var(--ink-500)" data-i18n="tagline">Care for every moment</div>
+        </div>
+      </div>
+      <div class="search-mini" role="search">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11 4a7 7 0 015.292 11.708l3.5 3.5-1.414 1.414-3.5-3.5A7 7 0 1111 4zm0 2a5 5 0 100 10 5 5 0 000-10z" fill="currentColor"/></svg>
+        <label class="visually-hidden" for="site-search" data-i18n="searchLabel">Search the site</label>
+        <input id="site-search" type="search" placeholder="Find doctors, services, locations…" aria-describedby="search-help" />
+        <div id="search-help" class="visually-hidden" data-i18n="searchHelp">Type to search doctors, services, locations and content</div>
+      </div>
+      <div class="util-controls">
+        <div class="lang-toggle" role="group" aria-label="Language">
+          <button id="lang-en" aria-pressed="true">EN</button>
+          <button id="lang-es" aria-pressed="false">ES</button>
+        </div>
+        <div class="contrast-toggle" role="group" aria-label="Contrast">
+          <button id="toggle-contrast" data-i18n="contrast">High contrast</button>
+        </div>
+        <div class="textsize" role="group" aria-label="Text size">
+          <button id="tsm" aria-label="Smaller text">A−</button>
+          <button id="tls" aria-label="Larger text">A+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =================== NAVIGATION =================== -->
+  <nav aria-label="Main" role="navigation">
+    <div class="container nav-inner">
+      <div class="menu" role="menubar">
+        <a role="menuitem" href="#patients" data-i18n="nav.patients">Patients & Visitors</a>
+        <a role="menuitem" href="#finder" data-i18n="nav.doctors">Find a Doctor</a>
+        <a role="menuitem" href="#locations" data-i18n="nav.locations">Locations</a>
+        <a role="menuitem" href="#services" data-i18n="nav.services">Services</a>
+        <a role="menuitem" href="#billing" data-i18n="nav.billing">Insurance & Billing</a>
+        <a role="menuitem" href="#education" data-i18n="nav.education">Health Education</a>
+        <a role="menuitem" href="#careers" data-i18n="nav.careers">Careers</a>
+        <a role="menuitem" href="#providers" data-i18n="nav.providers">For Providers</a>
+      </div>
+      <div class="cta">
+        <a class="btn" href="#book" id="book-top" data-i18n="cta.book">Book an appointment</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- =================== HERO =================== -->
+  <header class="hero" role="banner">
+    <div class="container hero-grid">
+      <div>
+        <div class="pill" aria-live="polite" id="alert-pill">Open today · 2 hospitals · 12 clinics</div>
+        <h1 data-i18n="hero.title">Your health, connected.</h1>
+        <p class="lead" data-i18n="hero.copy">Find doctors, book appointments, access your records, and get care in a crisis—across our city-wide network.</p>
+        <div class="card" id="quick-actions">
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <a class="btn" href="#finder" data-i18n="quick.findDoctor">Find a doctor</a>
+            <a class="btn secondary" href="#locations" data-i18n="quick.findLocation">Find a location</a>
+            <a class="btn secondary" href="#billing" data-i18n="quick.checkInsurance">Check insurance</a>
+            <a class="btn danger" href="#" id="btn-emergency-overlay" data-i18n="quick.emergency">Emergency help</a>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card" id="book" aria-labelledby="book-title">
+          <h2 id="book-title" data-i18n="book.title">Book an appointment</h2>
+          <form class="appt-form" id="appt-form" novalidate>
+            <div>
+              <label for="specialty" data-i18n="book.specialty">Specialty</label>
+              <select id="specialty" required></select>
+            </div>
+            <div>
+              <label for="location" data-i18n="book.location">Location</label>
+              <select id="location" required></select>
+            </div>
+            <div>
+              <label for="doctor" data-i18n="book.doctor">Doctor</label>
+              <select id="doctor"></select>
+            </div>
+            <div>
+              <label for="date" data-i18n="book.date">Preferred date</label>
+              <input id="date" type="date" />
+            </div>
+            <div class="actions">
+              <button type="submit" class="btn" data-i18n="book.submit">Search times</button>
+              <div id="appt-msg" role="status" aria-live="polite" style="font-size:.9rem"></div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <!-- =================== DOCTOR FINDER PREVIEW =================== -->
+    <section id="finder" aria-labelledby="finder-title">
+      <div class="container">
+        <h2 id="finder-title" data-i18n="finder.title">Find a Doctor</h2>
+        <div class="finder">
+          <div>
+            <div class="filters">
+              <label class="visually-hidden" for="f-q" data-i18n="finder.searchLabel">Search doctors</label>
+              <input id="f-q" type="search" placeholder="Name, specialty, condition" aria-describedby="f-help" />
+              <div id="f-help" class="visually-hidden" data-i18n="finder.help">Search by name, specialty, or condition</div>
+              <select id="f-specialty"><option value="" data-i18n="finder.allSpecialties">All specialties</option></select>
+              <select id="f-location"><option value="" data-i18n="finder.allLocations">All locations</option></select>
+              <select id="f-language"><option value="" data-i18n="finder.allLanguages">Any language</option><option value="English">English</option><option value="Spanish">Spanish</option></select>
+              <select id="f-insurance"><option value="" data-i18n="finder.allIns">Any insurance</option></select>
+            </div>
+            <div class="doc-list" id="doc-list" aria-live="polite"></div>
+            <div style="margin-top:8px"><a href="#" id="view-all-docs" data-i18n="finder.viewAll">View all 200+ doctors</a></div>
+          </div>
+          <aside class="card">
+            <h3 data-i18n="finder.tipsTitle">Tips</h3>
+            <ul>
+              <li data-i18n="finder.tip1">Filter by specialty, language, and insurance accepted.</li>
+              <li data-i18n="finder.tip2">Click a doctor's profile to see locations, wait times, and patient reviews.</li>
+              <li data-i18n="finder.tip3">Need help? Call our access center.</li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================== SERVICES =================== -->
+    <section id="services" aria-labelledby="services-title">
+      <div class="container">
+        <h2 id="services-title" data-i18n="services.title">Care & Services</h2>
+        <div class="grid cols-4" id="service-grid">
+          <!-- populated by JS -->
+        </div>
+        <div style="margin-top:10px">
+          <a class="btn secondary" href="#" data-i18n="services.viewAll">View all specialties</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================== LOCATIONS =================== -->
+    <section id="locations" aria-labelledby="locations-title">
+      <div class="container">
+        <h2 id="locations-title" data-i18n="locations.title">Hospitals & Clinics</h2>
+        <div class="grid cols-3" id="location-grid"></div>
+        <div class="card" style="margin-top:12px">
+          <strong data-i18n="locations.nearYou">Near you:</strong>
+          <span id="near-you">Enable location to see the nearest ER or urgent care.</span>
+          <div style="margin-top:8px">
+            <button class="btn secondary" id="loc-permission" data-i18n="locations.useMyLocation">Use my location</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================== BILLING & INSURANCE =================== -->
+    <section id="billing" aria-labelledby="billing-title">
+      <div class="container">
+        <h2 id="billing-title" data-i18n="billing.title">Insurance & Billing</h2>
+        <div class="grid cols-3">
+          <div class="card">
+            <h3 data-i18n="billing.insAccepted">Plans we accept</h3>
+            <ul id="plans-list"></ul>
+          </div>
+          <div class="card">
+            <h3 data-i18n="billing.estimates">Cost estimates</h3>
+            <p data-i18n="billing.estimatesCopy">Use our estimator or speak with a counselor about your expected costs.</p>
+            <a class="btn secondary" href="#" data-i18n="billing.getEstimate">Get estimate</a>
+          </div>
+          <div class="card">
+            <h3 data-i18n="billing.bills">Pay your bill</h3>
+            <p data-i18n="billing.billsCopy">Securely pay online or set up a payment plan.</p>
+            <a class="btn" href="#" data-i18n="billing.payNow">Pay now</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================== EDUCATION =================== -->
+    <section id="education" aria-labelledby="education-title">
+      <div class="container">
+        <h2 id="education-title" data-i18n="education.title">Health Education</h2>
+        <div class="grid cols-3" id="edu-grid"></div>
+      </div>
+    </section>
+
+    <!-- =================== PROVIDERS & CAREERS =================== -->
+    <section id="providers" aria-labelledby="providers-title">
+      <div class="container audience-strip">
+        <div class="card">
+          <h2 id="providers-title" data-i18n="providers.title">For Referring Physicians</h2>
+          <p data-i18n="providers.copy">Access referral guidelines, physician liaisons, and transfer center contacts.</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <a class="btn secondary" href="#" data-i18n="providers.referral">Referral guidelines</a>
+            <a class="btn secondary" href="#" data-i18n="providers.transfer">Transfer center</a>
+            <a class="btn secondary" href="#" data-i18n="providers.portal">Provider portal</a>
+          </div>
+        </div>
+        <div class="card" id="careers">
+          <h2 data-i18n="careers.title">Careers</h2>
+          <p data-i18n="careers.copy">Join our team of clinicians, nurses, and support staff across 3 cities.</p>
+          <a class="btn" href="#" data-i18n="careers.search">Search jobs</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =================== FOOTER =================== -->
+  <footer role="contentinfo">
+    <div class="container footer-grid foot">
+      <div>
+        <h3>Metro Health System</h3>
+        <p data-i18n="footer.copy">Two hospitals, 12 specialty clinics, urgent care, and emergency services serving 500,000 neighbors.</p>
+        <p><strong data-i18n="footer.contact">Contact:</strong> <a href="tel:+1-000-000-0000">+1 (000) 000‑0000</a> · <a href="mailto:info@metrohealth.example">info@metrohealth.example</a></p>
+      </div>
+      <div>
+        <h4 data-i18n="footer.patients">Patients</h4>
+        <ul>
+          <li><a href="#" data-i18n="footer.patientPortal">Patient portal</a></li>
+          <li><a href="#billing" data-i18n="footer.billing">Billing & insurance</a></li>
+          <li><a href="#education" data-i18n="footer.resources">Health resources</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-i18n="footer.providers">Providers</h4>
+        <ul>
+          <li><a href="#providers" data-i18n="footer.refer">Refer a patient</a></li>
+          <li><a href="#providers" data-i18n="footer.transfer">Transfer center</a></li>
+          <li><a href="#providers" data-i18n="footer.portal">Provider portal</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-i18n="footer.about">About</h4>
+        <ul>
+          <li><a href="#careers" data-i18n="footer.careers">Careers</a></li>
+          <li><a href="#" data-i18n="footer.accessibility">Accessibility</a></li>
+          <li><a href="#" data-i18n="footer.privacy">Privacy & terms</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container legal">
+      <p data-i18n="footer.legal">© <span id="year"></span> Metro Health System. This website does not provide medical advice. In an emergency, call your local emergency number.</p>
+    </div>
+  </footer>
+
+  <!-- =================== MODALS =================== -->
+  <div class="modal" id="modal-er" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-er-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="modal-er-title" data-i18n="modal.erTitle">Nearest Emergency Care</h3>
+        <button aria-label="Close" data-close>✕</button>
+      </div>
+      <div id="modal-er-body"></div>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-what" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-what-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="modal-what-title" data-i18n="modal.whatTitle">What to do in a medical emergency</h3>
+        <button aria-label="Close" data-close>✕</button>
+      </div>
+      <div>
+        <ol>
+          <li data-i18n="modal.what1">Call your local emergency number immediately.</li>
+          <li data-i18n="modal.what2">Stay on the line and follow the dispatcher’s instructions.</li>
+          <li data-i18n="modal.what3">If trained, begin CPR for unresponsive adults without normal breathing.</li>
+          <li data-i18n="modal.what4">Unlock doors and put pets away to allow responders access.</li>
+        </ol>
+        <p data-i18n="modal.disclaimer">This guidance is not a substitute for professional medical advice.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-alerts" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-alerts-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="modal-alerts-title" data-i18n="modal.alertsTitle">System Alerts</h3>
+        <button aria-label="Close" data-close>✕</button>
+      </div>
+      <div id="alerts-body" aria-live="polite">No active alerts.</div>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-emergency-overlay" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-emergency-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="modal-emergency-title" data-i18n="modal.overlayTitle">Emergency help</h3>
+        <button aria-label="Close" data-close>✕</button>
+      </div>
+      <div>
+        <p><strong data-i18n="modal.overlayLine">If you or someone else is in immediate danger:</strong></p>
+        <p>
+          <a class="btn danger" id="overlay-call" href="#" data-i18n="modal.overlayCall">Call emergency now</a>
+          <button class="btn secondary" id="overlay-nearest" data-i18n="modal.overlayFind">Find nearest ER</button>
+        </p>
+        <p data-i18n="modal.overlayCopy">You can also visit the nearest Emergency Department or Urgent Care center. We will never store your location.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- =================== DATA (DEMO) =================== -->
+  <script type="application/json" id="data-locations">{
+    "locations": [
+      {"id":"H1","name":"Metro General Hospital","type":"Hospital","services":["Emergency","Cardiology","Surgery"],"address":"100 Main St","city":"City A","phone":"+1-000-111-2222","lat":40.7128,"lng":-74.0060,"er":true},
+      {"id":"H2","name":"Riverside Heart Institute","type":"Hospital","services":["Emergency","Cardiology"],"address":"200 River Rd","city":"City B","phone":"+1-000-333-4444","lat":34.0522,"lng":-118.2437,"er":true},
+      {"id":"U1","name":"Uptown Urgent Care","type":"Urgent Care","services":["Urgent Care"],"address":"50 Uptown Ave","city":"City C","phone":"+1-000-555-6666","lat":41.8781,"lng":-87.6298,"er":false}
+    ]
+  }</script>
+
+  <script type="application/json" id="data-doctors">{
+    "doctors": [
+      {"id":"D1","name":"Dr. Jane Smith, MD","specialty":"Cardiology","locations":["H1","H2"],"languages":["English","Spanish"],"insurance":["Metro Gold","Unity Health"],"accepting":true},
+      {"id":"D2","name":"Dr. Luis García, DO","specialty":"Family Medicine","locations":["U1"],"languages":["Spanish","English"],"insurance":["Unity Health"],"accepting":true},
+      {"id":"D3","name":"Dr. Mei Chen, MD","specialty":"Pediatrics","locations":["H1"],"languages":["English"],"insurance":["Metro Gold"],"accepting":false}
+    ]
+  }</script>
+
+  <script type="application/json" id="data-services">{
+    "services": [
+      {"slug":"primary-care","title":"Primary Care","copy":"Checkups, vaccines, and preventive care.","featured":true},
+      {"slug":"cardiology","title":"Cardiology","copy":"Heart care from prevention to complex surgery.","featured":true},
+      {"slug":"orthopedics","title":"Orthopedics","copy":"Bone, joint, and sports injury care.","featured":true},
+      {"slug":"pediatrics","title":"Pediatrics","copy":"Care for infants, children, and teens.","featured":true},
+      {"slug":"women-health","title":"Women’s Health","copy":"OB/GYN and reproductive health.","featured":true},
+      {"slug":"cancer","title":"Cancer Care","copy":"Screening, diagnosis, and treatment.","featured":true},
+      {"slug":"neuro","title":"Neurosciences","copy":"Brain and spine care.","featured":true},
+      {"slug":"urgent","title":"Urgent Care","copy":"Walk-in care for minor illnesses and injuries.","featured":true}
+    ]
+  }</script>
+
+  <script type="application/json" id="data-plans">{"plans":["Metro Gold","Unity Health","CareFirst","HealthyPlus"]}</script>
+
+  <!-- =================== I18N STRINGS =================== -->
+  <script id="i18n-en" type="application/json">{
+    "em": {"barTitle":"Emergency? Get help now.","call":"Call emergency","nearestER":"Find nearest ER","whatToDo":"What to do","alerts":"Alerts"},
+    "tagline":"Care for every moment",
+    "searchLabel":"Search the site","searchHelp":"Type to search doctors, services, locations and content",
+    "nav": {"patients":"Patients & Visitors","doctors":"Find a Doctor","locations":"Locations","services":"Services","billing":"Insurance & Billing","education":"Health Education","careers":"Careers","providers":"For Providers"},
+    "cta": {"book":"Book an appointment"},
+    "hero": {"title":"Your health, connected.","copy":"Find doctors, book appointments, access your records, and get care in a crisis—across our city-wide network."},
+    "quick": {"findDoctor":"Find a doctor","findLocation":"Find a location","checkInsurance":"Check insurance","emergency":"Emergency help"},
+    "book": {"title":"Book an appointment","specialty":"Specialty","location":"Location","doctor":"Doctor","date":"Preferred date","submit":"Search times"},
+    "finder": {"title":"Find a Doctor","searchLabel":"Search doctors","help":"Search by name, specialty, or condition","allSpecialties":"All specialties","allLocations":"All locations","allLanguages":"Any language","allIns":"Any insurance","tipsTitle":"Tips","tip1":"Filter by specialty, language, and insurance accepted.","tip2":"Click a doctor's profile to see locations, wait times, and patient reviews.","tip3":"Need help? Call our access center.","viewAll":"View all 200+ doctors"},
+    "services": {"title":"Care & Services","viewAll":"View all specialties"},
+    "locations": {"title":"Hospitals & Clinics","nearYou":"Near you:","useMyLocation":"Use my location"},
+    "billing": {"title":"Insurance & Billing","insAccepted":"Plans we accept","estimates":"Cost estimates","estimatesCopy":"Use our estimator or speak with a counselor about your expected costs.","getEstimate":"Get estimate","bills":"Pay your bill","billsCopy":"Securely pay online or set up a payment plan.","payNow":"Pay now"},
+    "education": {"title":"Health Education"},
+    "providers": {"title":"For Referring Physicians","copy":"Access referral guidelines, physician liaisons, and transfer center contacts.","referral":"Referral guidelines","transfer":"Transfer center","portal":"Provider portal"},
+    "careers": {"title":"Careers","copy":"Join our team of clinicians, nurses, and support staff across 3 cities.","search":"Search jobs"},
+    "footer": {"copy":"Two hospitals, 12 specialty clinics, urgent care, and emergency services serving 500,000 neighbors.","contact":"Contact:","patients":"Patients","patientPortal":"Patient portal","billing":"Billing & insurance","resources":"Health resources","providers":"Providers","refer":"Refer a patient","transfer":"Transfer center","portal":"Provider portal","about":"About","careers":"Careers","accessibility":"Accessibility","privacy":"Privacy & terms","legal":"© {year} Metro Health System. This website does not provide medical advice. In an emergency, call your local emergency number."},
+    "modal": {"erTitle":"Nearest Emergency Care","whatTitle":"What to do in a medical emergency","what1":"Call your local emergency number immediately.","what2":"Stay on the line and follow the dispatcher’s instructions.","what3":"If trained, begin CPR for unresponsive adults without normal breathing.","what4":"Unlock doors and put pets away to allow responders access.","disclaimer":"This guidance is not a substitute for professional medical advice.","alertsTitle":"System Alerts","overlayTitle":"Emergency help","overlayLine":"If you or someone else is in immediate danger:","overlayCall":"Call emergency now","overlayFind":"Find nearest ER","overlayCopy":"You can also visit the nearest Emergency Department or Urgent Care center. We will never store your location."},
+    "contrast":"High contrast"
+  }</script>
+
+  <script id="i18n-es" type="application/json">{
+    "em": {"barTitle":"¿Emergencia? Obtén ayuda ahora.","call":"Llamar a emergencias","nearestER":"Buscar urgencias más cercanas","whatToDo":"Qué hacer","alerts":"Alertas"},
+    "tagline":"Cuidado para cada momento",
+    "searchLabel":"Buscar en el sitio","searchHelp":"Escribe para buscar médicos, servicios, ubicaciones y contenido",
+    "nav": {"patients":"Pacientes y visitantes","doctors":"Buscar un médico","locations":"Ubicaciones","services":"Servicios","billing":"Seguro y facturación","education":"Educación en salud","careers":"Empleos","providers":"Para médicos"},
+    "cta": {"book":"Programar una cita"},
+    "hero": {"title":"Tu salud, conectada.","copy":"Encuentra médicos, programa citas, accede a tus registros y recibe atención en una crisis—en toda nuestra red."},
+    "quick": {"findDoctor":"Buscar un médico","findLocation":"Buscar una ubicación","checkInsurance":"Verificar seguro","emergency":"Ayuda de emergencia"},
+    "book": {"title":"Programar una cita","specialty":"Especialidad","location":"Ubicación","doctor":"Médico","date":"Fecha preferida","submit":"Buscar horarios"},
+    "finder": {"title":"Buscar un médico","searchLabel":"Buscar médicos","help":"Busca por nombre, especialidad o condición","allSpecialties":"Todas las especialidades","allLocations":"Todas las ubicaciones","allLanguages":"Cualquier idioma","allIns":"Cualquier seguro","tipsTitle":"Consejos","tip1":"Filtra por especialidad, idioma y seguro aceptado.","tip2":"Abre el perfil del médico para ver ubicaciones, tiempos de espera y reseñas.","tip3":"¿Necesitas ayuda? Llama a nuestro centro de acceso.","viewAll":"Ver los 200+ médicos"},
+    "services": {"title":"Atención y servicios","viewAll":"Ver todas las especialidades"},
+    "locations": {"title":"Hospitales y clínicas","nearYou":"Cerca de ti:","useMyLocation":"Usar mi ubicación"},
+    "billing": {"title":"Seguro y facturación","insAccepted":"Planes que aceptamos","estimates":"Estimaciones de costos","estimatesCopy":"Usa nuestro estimador o habla con un asesor sobre tus costos.","getEstimate":"Obtener estimación","bills":"Pagar tu factura","billsCopy":"Paga en línea de forma segura o crea un plan de pagos.","payNow":"Pagar ahora"},
+    "education": {"title":"Educación en salud"},
+    "providers": {"title":"Para médicos remitentes","copy":"Accede a las guías de referencia, enlaces y contactos del centro de traslados.","referral":"Guías de referencia","transfer":"Centro de traslados","portal":"Portal para médicos"},
+    "careers": {"title":"Empleos","copy":"Únete a nuestro equipo de profesionales en 3 ciudades.","search":"Buscar empleos"},
+    "footer": {"copy":"Dos hospitales, 12 clínicas de especialidad, atención urgente y emergencias para 500,000 vecinos.","contact":"Contacto:","patients":"Pacientes","patientPortal":"Portal del paciente","billing":"Seguro y facturación","resources":"Recursos de salud","providers":"Médicos","refer":"Referir a un paciente","transfer":"Centro de traslados","portal":"Portal para médicos","about":"Acerca de","careers":"Empleos","accessibility":"Accesibilidad","privacy":"Privacidad y términos","legal":"© {year} Metro Health System. Este sitio web no proporciona consejo médico. En una emergencia, llama al número local de emergencias."},
+    "modal": {"erTitle":"Atención de emergencia más cercana","whatTitle":"Qué hacer en una emergencia médica","what1":"Llama de inmediato al número local de emergencias.","what2":"Permanece en la línea y sigue las instrucciones.","what3":"Si estás entrenado, inicia RCP para adultos sin respiración normal.","what4":"Abre la puerta y guarda a las mascotas para permitir el acceso.","disclaimer":"Esta guía no sustituye el consejo médico profesional.","alertsTitle":"Alertas del sistema","overlayTitle":"Ayuda de emergencia","overlayLine":"Si la vida está en peligro:","overlayCall":"Llamar ahora","overlayFind":"Buscar urgencias cercanas","overlayCopy":"También puedes ir al Servicio de Urgencias o Atención Rápida más cercano. Nunca guardamos tu ubicación."},
+    "contrast":"Alto contraste"
+  }</script>
+
+  <!-- =================== JS =================== -->
+  <script>
+    (function(){
+      const $ = (sel, root=document) => root.querySelector(sel);
+      const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+      /* ---- Config (replace with region-specific numbers) ---- */
+      const CONFIG = {
+        emergencyNumber: '911', // TODO: set per region
+        crisisNumbers: {
+          mentalHealth: '',
+          poison: ''
+        }
+      };
+
+      /* ---- I18N ---- */
+      const STR = {
+        en: JSON.parse($('#i18n-en').textContent),
+        es: JSON.parse($('#i18n-es').textContent)
+      };
+      let lang = localStorage.getItem('lang') || 'en';
+      function t(path){
+        return path.split('.').reduce((o,k)=>o&&o[k], STR[lang]) || path;
+      }
+      function applyI18n(){
+        $$('[data-i18n]').forEach(el=>{
+          const key = el.getAttribute('data-i18n');
+          const val = t(key);
+          if(typeof val === 'string'){
+            if(key === 'footer.legal'){
+              el.textContent = val.replace('{year}', new Date().getFullYear());
+            } else {
+              el.textContent = val;
+            }
+          }
+        });
+        document.documentElement.lang = lang;
+        $('#lang-en').setAttribute('aria-pressed', String(lang==='en'));
+        $('#lang-es').setAttribute('aria-pressed', String(lang==='es'));
+      }
+
+      $('#lang-en').addEventListener('click', ()=>{lang='en';localStorage.setItem('lang',lang);applyI18n();});
+      $('#lang-es').addEventListener('click', ()=>{lang='es';localStorage.setItem('lang',lang);applyI18n();});
+
+      /* ---- Contrast & Text Size ---- */
+      $('#toggle-contrast').addEventListener('click', ()=>{
+        const theme = document.documentElement.getAttribute('data-theme');
+        const next = theme==='high-contrast' ? 'light' : 'high-contrast';
+        document.documentElement.setAttribute('data-theme', next);
+      });
+      const root = document.documentElement;
+      let base = 16;
+      $('#tsm').addEventListener('click',()=>{base = Math.max(14, base-1); root.style.fontSize = base+'px';});
+      $('#tls').addEventListener('click',()=>{base = Math.min(20, base+1); root.style.fontSize = base+'px';});
+
+      /* ---- Data ---- */
+      const LOCS = JSON.parse($('#data-locations').textContent).locations;
+      const DOCS = JSON.parse($('#data-doctors').textContent).doctors;
+      const SRVS = JSON.parse($('#data-services').textContent).services;
+      const PLANS = JSON.parse($('#data-plans').textContent).plans;
+
+      /* ---- Populate selects ---- */
+      function unique(arr){return Array.from(new Set(arr)).sort()}
+      const specialties = unique(DOCS.map(d=>d.specialty));
+      const locations = unique(LOCS.map(l=>l.name));
+      const ins = unique(PLANS);
+      function fillSelect(sel, items){
+        const node = $(sel);
+        items.forEach(v=>{
+          const opt = document.createElement('option'); opt.value=v; opt.textContent=v; node.appendChild(opt);
+        });
+      }
+      fillSelect('#specialty', specialties);
+      fillSelect('#location', locations);
+      fillSelect('#doctor', DOCS.map(d=>d.name));
+      fillSelect('#f-specialty', specialties);
+      fillSelect('#f-location', locations);
+      fillSelect('#f-insurance', ins);
+
+      /* ---- Services grid ---- */
+      const serviceGrid = $('#service-grid');
+      SRVS.filter(s=>s.featured).forEach(s=>{
+        const el = document.createElement('article'); el.className='card service-card';
+        el.innerHTML = `<div class="title">${s.title}</div><div class="meta">${s.copy}</div><div><a class="btn secondary" href="#">Learn more</a></div>`;
+        serviceGrid.appendChild(el);
+      });
+
+      /* ---- Locations grid ---- */
+      const locGrid = $('#location-grid');
+      LOCS.forEach(l=>{
+        const el = document.createElement('article'); el.className='card';
+        const er = l.er ? '<span class="badge">ER</span>' : '';
+        el.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><div style="font-weight:800">${l.name}</div>${er}</div>
+          <div class="meta">${l.type} · ${l.city}</div>
+          <div>${l.address}</div>
+          <div><a href="tel:${l.phone}">${l.phone}</a></div>
+          <div style="margin-top:6px"><a class="btn secondary" href="#">View details</a></div>`;
+        locGrid.appendChild(el);
+      });
+
+      /* ---- Plans list ---- */
+      const pl = $('#plans-list');
+      PLANS.forEach(p=>{const li=document.createElement('li'); li.textContent=p; pl.appendChild(li)});
+
+      /* ---- Education demo ---- */
+      const eduGrid=$('#edu-grid');
+      ['Heart attack warning signs','Managing diabetes','When to visit urgent care'].forEach(ti=>{
+        const el=document.createElement('article'); el.className='card';
+        el.innerHTML=`<div style="font-weight:800">${ti}</div><p class="meta">Plain-language, medically reviewed content.</p><a class="btn secondary" href="#">Read more</a>`; eduGrid.appendChild(el);
+      });
+
+      /* ---- Doctor finder ---- */
+      function renderDocs(list){
+        const wrap = $('#doc-list'); wrap.innerHTML='';
+        if(!list.length){wrap.innerHTML='<div>No doctors match your filters.</div>'; return}
+        list.slice(0,6).forEach(d=>{
+          const el=document.createElement('article'); el.className='doc-item';
+          el.innerHTML=`<div class="doc-avatar" aria-hidden="true">${d.name.split(' ')[1]?.[0]||'D'}</div>
+            <div class="doc-body"><div class="name">${d.name}</div>
+            <div class="meta">${d.specialty}</div>
+            <div class="meta">${d.languages.join(', ')} · ${d.accepting? 'Accepting new patients':'Not accepting new patients'}</div>
+            <div class="meta">Locations: ${d.locations.map(id=>LOCS.find(l=>l.id===id)?.name).join(', ')}</div>
+            <div style="margin-top:6px"><a class="btn secondary" href="#">View profile</a> <a class="btn" href="#book">Book</a></div></div>`;
+          wrap.appendChild(el);
+        })
+      }
+      renderDocs(DOCS);
+
+      function filterDocs(){
+        const q = $('#f-q').value.toLowerCase();
+        const sp = $('#f-specialty').value; const lo=$('#f-location').value; const la=$('#f-language').value; const inx=$('#f-insurance').value;
+        const out = DOCS.filter(d=>{
+          const byQ = !q || d.name.toLowerCase().includes(q) || d.specialty.toLowerCase().includes(q);
+          const byS = !sp || d.specialty===sp;
+          const byL = !lo || d.locations.map(id=>LOCS.find(l=>l.id===id)?.name).includes(lo);
+          const byLang = !la || d.languages.includes(la);
+          const byIns = !inx || d.insurance.includes(inx);
+          return byQ && byS && byL && byLang && byIns;
+        });
+        renderDocs(out);
+      }
+      ['#f-q','#f-specialty','#f-location','#f-language','#f-insurance'].forEach(sel=>{
+        $(sel).addEventListener('input', filterDocs);
+        $(sel).addEventListener('change', filterDocs);
+      });
+
+      /* ---- Appointment form ---- */
+      $('#appt-form').addEventListener('submit', (e)=>{
+        e.preventDefault();
+        const spec=$('#specialty').value, loc=$('#location').value, doc=$('#doctor').value, dt=$('#date').value;
+        const msg = `Showing available times for ${spec || 'any specialty'} at ${loc || 'any location'} ${doc?('with '+doc):''} ${dt?('on '+dt):''}`;
+        $('#appt-msg').textContent = msg;
+      });
+
+      /* ---- Geolocation helpers ---- */
+      function haversine(lat1, lon1, lat2, lon2){
+        const toRad=deg=>deg*Math.PI/180; const R=6371; // km
+        const dLat = toRad(lat2-lat1); const dLon = toRad(lon2-lon1);
+        const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLon/2)**2;
+        return 2*R*Math.asin(Math.sqrt(a));
+      }
+      function nearestER(coords){
+        const withDist = LOCS.filter(l=>l.er).map(l=>({
+          loc:l,
+          dist:haversine(coords.latitude, coords.longitude, l.lat, l.lng)
+        })).sort((a,b)=>a.dist-b.dist);
+        return withDist[0];
+      }
+
+      function useLocation(cb){
+        if(!navigator.geolocation){cb(null);return}
+        navigator.geolocation.getCurrentPosition(pos=>cb(pos.coords), ()=>cb(null), {enableHighAccuracy:true, timeout:8000});
+      }
+
+      $('#loc-permission').addEventListener('click', ()=>{
+        $('#near-you').textContent = 'Locating…';
+        useLocation(coords=>{
+          if(!coords){$('#near-you').textContent='Unable to access location.';return}
+          const n = nearestER(coords);
+          if(n){$('#near-you').textContent=`${n.loc.name} (~${n.dist.toFixed(1)} km)`;}
+        });
+      });
+
+      /* ---- Emergency actions ---- */
+      function updateEmergencyLinks(){
+        const tel = `tel:${CONFIG.emergencyNumber}`;
+        $('#em-call').setAttribute('href', tel);
+        $('#overlay-call').setAttribute('href', tel);
+      }
+      updateEmergencyLinks();
+
+      function openModal(id){
+        const m = $(id); m.setAttribute('aria-hidden','false');
+        // focus first focusable
+        setTimeout(()=>{const f = m.querySelector('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])'); f && f.focus();}, 0);
+      }
+      function closeModal(e){
+        const m = e.target.closest('.modal'); m && m.setAttribute('aria-hidden','true');
+      }
+      $$('[data-close]').forEach(b=>b.addEventListener('click', closeModal));
+      $('#btn-nearest-er').addEventListener('click', ()=>{
+        $('#modal-er-body').textContent = 'Locating…';
+        useLocation(coords=>{
+          if(!coords){$('#modal-er-body').textContent='Unable to access location.';}
+          else {
+            const n = nearestER(coords);
+            if(n){
+              $('#modal-er-body').innerHTML = `<p><strong>${n.loc.name}</strong> · ${n.loc.address}, ${n.loc.city}<br/>${n.loc.phone}</p><p>Approx. ${n.dist.toFixed(1)} km away.</p>`;
+            } else {
+              $('#modal-er-body').textContent = 'No ER found in our network.';
+            }
+          }
+        });
+        openModal('#modal-er');
+      });
+      $('#btn-what-to-do').addEventListener('click', ()=>openModal('#modal-what'));
+      $('#btn-alerts').addEventListener('click', ()=>openModal('#modal-alerts'));
+      $('#btn-emergency-overlay').addEventListener('click', ()=>openModal('#modal-emergency-overlay'));
+      $('#overlay-nearest').addEventListener('click', ()=>{
+        closeModal({target:$('#modal-emergency-overlay')});
+        $('#btn-nearest-er').click();
+      });
+
+      // Close modals on ESC or backdrop click
+      $$('.modal').forEach(m=>{
+        m.addEventListener('click', (e)=>{if(e.target===m) m.setAttribute('aria-hidden','true')});
+        m.addEventListener('keydown', (e)=>{if(e.key==='Escape') m.setAttribute('aria-hidden','true')});
+      });
+
+      // Emergency takeover via query string ?emergency=1
+      if(new URLSearchParams(location.search).get('emergency')==='1'){
+        openModal('#modal-emergency-overlay');
+      }
+
+      // Year in footer
+      $('#year').textContent = new Date().getFullYear();
+
+      // Simple site search demo (client-side)
+      $('#site-search').addEventListener('input', (e)=>{
+        const v = e.target.value.toLowerCase();
+        const match = [];
+        DOCS.forEach(d=>{if(d.name.toLowerCase().includes(v)||d.specialty.toLowerCase().includes(v)) match.push(`Doctor: ${d.name}`)});
+        SRVS.forEach(s=>{if(s.title.toLowerCase().includes(v)||s.copy.toLowerCase().includes(v)) match.push(`Service: ${s.title}`)});
+        LOCS.forEach(l=>{if(l.name.toLowerCase().includes(v)||l.city.toLowerCase().includes(v)) match.push(`Location: ${l.name}`)});
+        $('#alert-pill').textContent = match.slice(0,3).join(' • ') || 'Open today · 2 hospitals · 12 clinics';
+      });
+
+      // Initial i18n apply
+      applyI18n();
+    })();
+  </script>
+
+  <!-- =================== Structured data (basic) =================== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Metro Health System",
+    "url": "https://www.metrohealth.example",
+    "sameAs": [],
+    "department": [
+      {"@type":"Hospital","name":"Metro General Hospital"},
+      {"@type":"Hospital","name":"Riverside Heart Institute"}
+    ]
+  }
+  </script>
+</body>
+</html>

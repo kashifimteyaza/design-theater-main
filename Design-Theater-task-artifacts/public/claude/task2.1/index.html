@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Essence Jewelry — Timeless Elegance</title>
+    <style>
+        :root {
+            --ivory: #FAF9F6;
+            --warm-white: #FFFEF9;
+            --gold: #C9A96E;
+            --deep-gold: #A68B5B;
+            --charcoal: #2B2B2B;
+            --soft-gray: #8B8B8B;
+            --taupe: #D4CFC9;
+            --light-taupe: #E8E5E0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Optima', 'Didot', 'Garamond', serif;
+            background-color: var(--ivory);
+            color: var(--charcoal);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Subtle grain texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.02) 2px, rgba(0,0,0,.02) 4px),
+                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,.02) 2px, rgba(0,0,0,.02) 4px);
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.3;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: linear-gradient(to bottom, var(--ivory) 0%, var(--ivory) 70%, transparent 100%);
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .logo {
+            font-size: 1.1rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            font-weight: 300;
+            color: var(--charcoal);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--soft-gray);
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 400;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--charcoal);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 4rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.85rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        .hero-title {
+            font-size: 5rem;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--soft-gray);
+            margin-bottom: 3rem;
+            font-family: 'Gill Sans', 'Trebuchet MS', sans-serif;
+            font-weight: 300;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background-color: var(--charcoal);
+            color: var(--ivory);
+            text-decoration: none;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            transition: all 0.4s ease;
+            border: 1px solid var(--charcoal);
+            font-weight: 400;
+        }
+
+        .cta-button:hover {
+            background-color: transparent;
+            color: var(--charcoal);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+
+        /* Decorative jewelry shapes */
+        .hero-visual {
+            position: absolute;
+            right: 8%;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: fadeIn 1.2s ease-out 0.6s both;
+        }
+
+        .jewelry-shape {
+            position: relative;
+            width: 400px;
+            height: 400px;
+        }
+
+        .ring-outer {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .ring-inner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 160px;
+            height: 160px;
+            border: 1px solid var(--deep-gold);
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: float 6s ease-in-out infinite 0.5s;
+        }
+
+        .pendant {
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 120px;
+            background: linear-gradient(to bottom, var(--gold), transparent);
+            opacity: 0.5;
+        }
+
+        .pendant::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, var(--warm-white), var(--gold));
+        }
+
+        /* Collections Section */
+        .collections {
+            padding: 8rem 4rem;
+            background-color: var(--warm-white);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .section-eyebrow {
+            font-size: 0.85rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: -0.01em;
+            color: var(--charcoal);
+        }
+
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .collection-card {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+            cursor: pointer;
+            transition: transform 0.4s ease;
+        }
+
+        .collection-card:nth-child(1) { animation-delay: 0.1s; }
+        .collection-card:nth-child(2) { animation-delay: 0.2s; }
+        .collection-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .collection-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .collection-image {
+            width: 100%;
+            aspect-ratio: 3/4;
+            background: linear-gradient(135deg, var(--light-taupe) 0%, var(--taupe) 100%);
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .collection-image::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            height: 60%;
+            border: 1px solid rgba(201, 169, 110, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .collection-card:hover .collection-image::before {
+            width: 70%;
+            height: 70%;
+            border-color: rgba(201, 169, 110, 0.6);
+        }
+
+        /* Rings collection - circular */
+        .collection-card:nth-child(1) .collection-image::before {
+            border-radius: 50%;
+        }
+
+        /* Necklaces collection - elongated */
+        .collection-card:nth-child(2) .collection-image::before {
+            width: 20%;
+            height: 80%;
+            border-radius: 50px;
+        }
+
+        .collection-card:nth-child(2):hover .collection-image::before {
+            width: 25%;
+            height: 85%;
+        }
+
+        /* Earrings collection - double circles */
+        .collection-card:nth-child(3) .collection-image::after {
+            content: '';
+            position: absolute;
+            top: 35%;
+            left: 35%;
+            width: 30px;
+            height: 30px;
+            border: 1px solid rgba(201, 169, 110, 0.3);
+            border-radius: 50%;
+        }
+
+        .collection-card:nth-child(3) .collection-image::before {
+            top: 35%;
+            right: 35%;
+            left: auto;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        .collection-name {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            color: var(--charcoal);
+        }
+
+        .collection-count {
+            font-size: 0.9rem;
+            color: var(--soft-gray);
+            font-family: 'Gill Sans', 'Trebuchet MS', sans-serif;
+            font-weight: 300;
+        }
+
+        /* Values Section */
+        .values {
+            padding: 8rem 4rem;
+            background-color: var(--ivory);
+        }
+
+        .values-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .values-text h2 {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: -0.01em;
+            margin-bottom: 2rem;
+            color: var(--charcoal);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .values-list {
+            list-style: none;
+        }
+
+        .value-item {
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .value-item:nth-child(1) { animation-delay: 0.2s; }
+        .value-item:nth-child(2) { animation-delay: 0.3s; }
+        .value-item:nth-child(3) { animation-delay: 0.4s; }
+
+        .value-title {
+            font-size: 1.2rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            color: var(--gold);
+        }
+
+        .value-description {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--soft-gray);
+            font-family: 'Gill Sans', 'Trebuchet MS', sans-serif;
+            font-weight: 300;
+        }
+
+        .values-visual {
+            position: relative;
+            height: 500px;
+            animation: fadeIn 1s ease-out 0.5s both;
+        }
+
+        .abstract-shape {
+            position: absolute;
+            border: 1px solid var(--gold);
+            opacity: 0.4;
+        }
+
+        .shape-1 {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            top: 10%;
+            left: 20%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .shape-2 {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            top: 50%;
+            right: 15%;
+            animation: float 8s ease-in-out infinite 1s;
+        }
+
+        .shape-3 {
+            width: 2px;
+            height: 200px;
+            background: linear-gradient(to bottom, var(--gold), transparent);
+            top: 20%;
+            right: 35%;
+            animation: float 6s ease-in-out infinite 0.5s;
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 4rem 3rem;
+            background-color: var(--charcoal);
+            color: var(--light-taupe);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.1rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+
+        .footer-brand p {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            color: var(--taupe);
+            font-family: 'Gill Sans', 'Trebuchet MS', sans-serif;
+            font-weight: 300;
+        }
+
+        .footer-section h4 {
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            color: var(--light-taupe);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section ul li a {
+            color: var(--taupe);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-family: 'Gill Sans', 'Trebuchet MS', sans-serif;
+            font-weight: 300;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(212, 207, 201, 0.2);
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--taupe);
+            font-family: 'Gill Sans', 'Trebuchet MS', sans-serif;
+            font-weight: 300;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(-50%, -50%) translateY(0);
+            }
+            50% {
+                transform: translate(-50%, -50%) translateY(-20px);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            nav {
+                padding: 2rem 2rem;
+            }
+
+            .hero {
+                padding: 0 2rem;
+            }
+
+            .hero-title {
+                font-size: 4rem;
+            }
+
+            .hero-visual {
+                right: 5%;
+            }
+
+            .jewelry-shape {
+                width: 300px;
+                height: 300px;
+            }
+
+            .collection-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .values-content {
+                gap: 4rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 2rem;
+            }
+
+            .nav-links a {
+                font-size: 0.8rem;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .hero-visual {
+                display: none;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .collection-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .values-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .values-visual {
+                height: 300px;
+            }
+
+            .values-text h2 {
+                font-size: 2.5rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">Essence</div>
+        <ul class="nav-links">
+            <li><a href="#collections">Collections</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#values">Our Values</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-eyebrow">Timeless Elegance</div>
+            <h1 class="hero-title">Where Minimalism Meets Meaning</h1>
+            <p class="hero-description">
+                Thoughtfully crafted jewelry for the modern woman. Each piece is designed to be worn daily, 
+                treasured forever, and sourced with unwavering ethical standards.
+            </p>
+            <a href="#collections" class="cta-button">Explore Collections</a>
+        </div>
+        <div class="hero-visual">
+            <div class="jewelry-shape">
+                <div class="ring-outer"></div>
+                <div class="ring-inner"></div>
+                <div class="pendant"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="collections" id="collections">
+        <div class="section-header">
+            <div class="section-eyebrow">Our Collections</div>
+            <h2 class="section-title">Refined Simplicity</h2>
+        </div>
+        <div class="collection-grid">
+            <div class="collection-card">
+                <div class="collection-image"></div>
+                <h3 class="collection-name">Rings</h3>
+                <p class="collection-count">12 Timeless Designs</p>
+            </div>
+            <div class="collection-card">
+                <div class="collection-image"></div>
+                <h3 class="collection-name">Necklaces</h3>
+                <p class="collection-count">18 Elegant Pieces</p>
+            </div>
+            <div class="collection-card">
+                <div class="collection-image"></div>
+                <h3 class="collection-name">Earrings</h3>
+                <p class="collection-count">15 Delicate Pairs</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="values" id="values">
+        <div class="values-content">
+            <div class="values-text">
+                <h2>Crafted With Intention</h2>
+                <ul class="values-list">
+                    <li class="value-item">
+                        <div class="value-title">Ethical Sourcing</div>
+                        <p class="value-description">
+                            Every stone and metal is traced to its origin. We partner only with certified 
+                            suppliers who share our commitment to environmental and social responsibility.
+                        </p>
+                    </li>
+                    <li class="value-item">
+                        <div class="value-title">Timeless Design</div>
+                        <p class="value-description">
+                            Our pieces transcend trends. Each design is refined over months to ensure 
+                            it will remain beautiful and relevant for decades, not seasons.
+                        </p>
+                    </li>
+                    <li class="value-item">
+                        <div class="value-title">Exceptional Craft</div>
+                        <p class="value-description">
+                            Made by master artisans using traditional techniques. Every detail is 
+                            considered, every finish is perfect, every piece is built to last a lifetime.
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <div class="values-visual">
+                <div class="abstract-shape shape-1"></div>
+                <div class="abstract-shape shape-2"></div>
+                <div class="abstract-shape shape-3"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>Essence</h3>
+                <p>Investment pieces that honor both the wearer and the maker. Timeless jewelry for conscious living.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Shop</h4>
+                <ul>
+                    <li><a href="#">All Collections</a></li>
+                    <li><a href="#">New Arrivals</a></li>
+                    <li><a href="#">Best Sellers</a></li>
+                    <li><a href="#">Gift Guide</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>About</h4>
+                <ul>
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">Craftsmanship</a></li>
+                    <li><a href="#">Care Guide</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Shipping</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2024 Essence Jewelry. Crafted with care in Copenhagen.
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for scroll-triggered animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        // Observe collection cards and value items
+        document.querySelectorAll('.collection-card, .value-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Parallax effect for hero visual
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroVisual = document.querySelector('.hero-visual');
+            if (heroVisual && scrolled < window.innerHeight) {
+                heroVisual.style.transform = `translateY(${scrolled * 0.3}px)`;
+            }
+        });
+    </script>
+</body>
+</html>

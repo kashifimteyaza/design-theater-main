@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MedTech Solutions - AI-powered diagnostic tools for hospitals. Early cancer detection through trusted, clinically-validated technology.">
+    <title>MedTech Solutions | Clinical AI for Modern Radiology</title>
+    <style>
+        /* ============================================
+           DESIGN STRATEGY DOCUMENTATION
+           ============================================
+           
+           COLOR SYSTEM (Medical + Tech Balance):
+           - Primary: Clinical blue (#0F4C75) - trustworthy, medical authority
+           - Secondary: Medical silver (#E8EEF5) - sterile, professional
+           - Accent: Technology cyan (#00A8E8) - innovation, modern
+           - Alert warm: #D97706 - attention without urgency
+           - Success: #10B981 - confidence indicator
+           - Text: Dark grays for contrast (works in bright rooms)
+           
+           ACCESSIBILITY FOR HOSPITAL ENVIRONMENTS:
+           - High contrast ratios (7:1+) for visibility in bright ER rooms
+           - Large font sizes (14px minimum) for tired eyes
+           - Generous line-height (1.6) to reduce eye strain
+           - Dark mode option for dimly-lit radiology suites
+           - Simple, clear iconography for quick comprehension
+           
+           CREDIBILITY SIGNALS:
+           - Symmetrical, organized layout = medical precision
+           - Subtle gradients and shadows = sophistication
+           - Clinical color palette = established authority
+           - Real use cases and metrics = proven efficacy
+           
+           INNOVATION SIGNALS:
+           - Modern typography = current technology
+           - Interactive confidence score visualization
+           - Smooth animations = polished, professional
+           - Clean spacing = forward-thinking design
+           ============================================ */
+
+        :root {
+            --color-primary: #0F4C75;
+            --color-primary-light: #1B5E9E;
+            --color-secondary: #E8EEF5;
+            --color-accent: #00A8E8;
+            --color-accent-dark: #0088B8;
+            --color-success: #10B981;
+            --color-warning: #D97706;
+            --color-error: #DC2626;
+            --color-text-dark: #1F2937;
+            --color-text-light: #6B7280;
+            --color-border: #D1D5DB;
+            --color-bg: #FFFFFF;
+            --color-bg-subtle: #F9FAFB;
+            
+            --spacing-unit: 8px;
+            --border-radius: 8px;
+            --transition-smooth: 0.3s ease-in-out;
+        }
+
+        [data-theme="dark"] {
+            --color-text-dark: #F3F4F6;
+            --color-text-light: #D1D5DB;
+            --color-bg: #111827;
+            --color-bg-subtle: #1F2937;
+            --color-border: #374151;
+            --color-secondary: #1E3A5F;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--color-text-dark);
+            background-color: var(--color-bg);
+            transition: background-color var(--transition-smooth), color var(--transition-smooth);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ============================================
+           HEADER & NAVIGATION
+           ============================================ */
+        header {
+            background-color: var(--color-bg);
+            border-bottom: 1px solid var(--color-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: border-color var(--transition-smooth);
+            backdrop-filter: blur(8px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+
+        [data-theme="dark"] header {
+            background-color: rgba(17, 24, 39, 0.95);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 calc(var(--spacing-unit) * 3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--color-primary);
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-unit);
+        }
+
+        .logo-icon {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 14px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: calc(var(--spacing-unit) * 3);
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--color-text-light);
+            font-size: 14px;
+            font-weight: 500;
+            transition: color var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            color: var(--color-accent);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: calc(var(--spacing-unit) * 2);
+            align-items: center;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--border-radius);
+            transition: background-color var(--transition-smooth);
+            color: var(--color-text-dark);
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--color-secondary);
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: calc(var(--spacing-unit) * 12) calc(var(--spacing-unit) * 3);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: calc(var(--spacing-unit) * 6);
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: calc(var(--spacing-unit) * 4);
+            color: var(--color-primary);
+            letter-spacing: -1px;
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            color: var(--color-text-light);
+            margin-bottom: calc(var(--spacing-unit) * 3);
+            line-height: 1.7;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: calc(var(--spacing-unit) * 2);
+            margin-bottom: calc(var(--spacing-unit) * 4);
+            flex-wrap: wrap;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            transition: all var(--transition-smooth);
+            padding: calc(var(--spacing-unit) * 3) calc(var(--spacing-unit) * 4);
+            font-size: 15px;
+        }
+
+        .btn-primary {
+            background-color: var(--color-primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(15, 76, 117, 0.15);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-primary-light);
+            box-shadow: 0 6px 16px rgba(15, 76, 117, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: var(--color-secondary);
+            color: var(--color-primary);
+            border: 2px solid var(--color-primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--color-primary);
+            color: white;
+        }
+
+        .hero-metrics {
+            display: flex;
+            gap: calc(var(--spacing-unit) * 6);
+            margin-top: calc(var(--spacing-unit) * 6);
+            padding-top: calc(var(--spacing-unit) * 4);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .metric {
+            flex: 1;
+        }
+
+        .metric-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--color-accent);
+            display: block;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: var(--color-text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: calc(var(--spacing-unit) * 1);
+        }
+
+        /* ============================================
+           HERO VISUALIZATION
+           ============================================ */
+        .hero-visual {
+            position: relative;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .diagnostic-panel {
+            background: var(--color-bg-subtle);
+            border: 2px solid var(--color-border);
+            border-radius: calc(var(--border-radius) * 2);
+            padding: calc(var(--spacing-unit) * 4);
+            width: 100%;
+            max-width: 320px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            position: relative;
+            z-index: 2;
+        }
+
+        .scan-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: calc(var(--spacing-unit) * 3);
+            padding-bottom: calc(var(--spacing-unit) * 2);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .scan-title {
+            font-weight: 600;
+            color: var(--color-primary);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .scan-status {
+            font-size: 12px;
+            color: var(--color-text-light);
+        }
+
+        .confidence-display {
+            margin-bottom: calc(var(--spacing-unit) * 4);
+        }
+
+        .confidence-label {
+            font-size: 12px;
+            color: var(--color-text-light);
+            margin-bottom: calc(var(--spacing-unit) * 1);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .confidence-bar {
+            position: relative;
+            height: 8px;
+            background-color: var(--color-border);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: calc(var(--spacing-unit) * 2);
+        }
+
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-accent), var(--color-success));
+            width: 87%;
+            animation: fillBar 2s ease-in-out;
+        }
+
+        @keyframes fillBar {
+            from { width: 0; }
+            to { width: 87%; }
+        }
+
+        .confidence-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--color-accent);
+            line-height: 1;
+        }
+
+        .confidence-subtext {
+            font-size: 12px;
+            color: var(--color-text-light);
+            margin-top: calc(var(--spacing-unit) * 1);
+        }
+
+        .findings {
+            background-color: var(--color-bg);
+            padding: calc(var(--spacing-unit) * 2);
+            border-radius: var(--border-radius);
+            margin-bottom: calc(var(--spacing-unit) * 2);
+        }
+
+        .finding-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-unit);
+            margin-bottom: var(--spacing-unit);
+            font-size: 13px;
+        }
+
+        .finding-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .finding-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .finding-icon.positive {
+            background-color: var(--color-success);
+        }
+
+        .finding-icon.caution {
+            background-color: var(--color-warning);
+        }
+
+        .finding-text {
+            color: var(--color-text-dark);
+        }
+
+        /* Decorative background elements */
+        .hero-visual::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, var(--color-accent), transparent);
+            opacity: 0.08;
+            border-radius: 50%;
+            top: -50px;
+            right: -50px;
+            z-index: 1;
+        }
+
+        .hero-visual::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, var(--color-primary), transparent);
+            opacity: 0.05;
+            border-radius: 50%;
+            bottom: -30px;
+            left: -30px;
+            z-index: 1;
+        }
+
+        /* ============================================
+           TRUST SECTION
+           ============================================ */
+        .trust-section {
+            background-color: var(--color-secondary);
+            padding: calc(var(--spacing-unit) * 12) calc(var(--spacing-unit) * 3);
+            margin-top: calc(var(--spacing-unit) * 10);
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: calc(var(--spacing-unit) * 10);
+        }
+
+        .section-header h2 {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: calc(var(--spacing-unit) * 2);
+        }
+
+        .section-header p {
+            font-size: 16px;
+            color: var(--color-text-light);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: calc(var(--spacing-unit) * 4);
+        }
+
+        .trust-card {
+            background-color: var(--color-bg);
+            padding: calc(var(--spacing-unit) * 4);
+            border-radius: calc(var(--border-radius) * 2);
+            transition: all var(--transition-smooth);
+            border: 1px solid var(--color-border);
+        }
+
+        .trust-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+            border-color: var(--color-accent);
+        }
+
+        .trust-icon {
+            width: 48px;
+            height: 48px;
+            background-color: var(--color-secondary);
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: calc(var(--spacing-unit) * 3);
+            font-size: 24px;
+        }
+
+        .trust-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: calc(var(--spacing-unit) * 2);
+        }
+
+        .trust-card p {
+            font-size: 14px;
+            color: var(--color-text-light);
+            line-height: 1.7;
+        }
+
+        /* ============================================
+           FEATURES SECTION
+           ============================================ */
+        .features-section {
+            padding: calc(var(--spacing-unit) * 12) calc(var(--spacing-unit) * 3);
+            background-color: var(--color-bg);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: calc(var(--spacing-unit) * 8);
+            align-items: center;
+        }
+
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: calc(var(--spacing-unit) * 5);
+        }
+
+        .feature-item {
+            display: flex;
+            gap: calc(var(--spacing-unit) * 3);
+        }
+
+        .feature-checkbox {
+            width: 32px;
+            height: 32px;
+            background-color: var(--color-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            flex-shrink: 0;
+            font-size: 18px;
+        }
+
+        .feature-content h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: calc(var(--spacing-unit) * 1);
+        }
+
+        .feature-content p {
+            font-size: 14px;
+            color: var(--color-text-light);
+            line-height: 1.7;
+        }
+
+        .feature-visual {
+            background: linear-gradient(135deg, var(--color-secondary), var(--color-bg-subtle));
+            border-radius: calc(var(--border-radius) * 2);
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-visual::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, var(--color-accent), transparent);
+            opacity: 0.1;
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .feature-demo {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .feature-demo-icon {
+            font-size: 64px;
+            margin-bottom: calc(var(--spacing-unit) * 2);
+        }
+
+        .feature-demo-text {
+            font-size: 14px;
+            color: var(--color-text-light);
+            font-weight: 500;
+        }
+
+        /* ============================================
+           CTA SECTION
+           ============================================ */
+        .cta-section {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+            padding: calc(var(--spacing-unit) * 10) calc(var(--spacing-unit) * 3);
+            text-align: center;
+            margin-top: calc(var(--spacing-unit) * 10);
+        }
+
+        .cta-section h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: calc(var(--spacing-unit) * 2);
+        }
+
+        .cta-section p {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: calc(var(--spacing-unit) * 6);
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-section .btn-primary {
+            background-color: white;
+            color: var(--color-primary);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .cta-section .btn-primary:hover {
+            background-color: rgba(255, 255, 255, 0.95);
+            transform: translateY(-2px);
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        footer {
+            background-color: var(--color-primary);
+            color: white;
+            padding: calc(var(--spacing-unit) * 6) calc(var(--spacing-unit) * 3);
+            border-top: 1px solid var(--color-accent);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: calc(var(--spacing-unit) * 4);
+            margin-bottom: calc(var(--spacing-unit) * 4);
+            padding-bottom: calc(var(--spacing-unit) * 4);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-section h4 {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: calc(var(--spacing-unit) * 3);
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color var(--transition-smooth);
+            display: block;
+            margin-bottom: calc(var(--spacing-unit) * 2);
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+           ============================================ */
+        @media (max-width: 768px) {
+            nav ul {
+                gap: calc(var(--spacing-unit) * 1.5);
+            }
+
+            nav a {
+                font-size: 13px;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                padding: calc(var(--spacing-unit) * 8) calc(var(--spacing-unit) * 3);
+            }
+
+            .hero-content h1 {
+                font-size: 32px;
+            }
+
+            .hero-content p {
+                font-size: 16px;
+            }
+
+            .hero-metrics {
+                flex-direction: column;
+                gap: calc(var(--spacing-unit) * 4);
+            }
+
+            .hero-visual {
+                height: 300px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: calc(var(--spacing-unit) * 6);
+            }
+
+            .section-header h2 {
+                font-size: 28px;
+            }
+
+            .trust-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-section h2 {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 24px;
+            }
+
+            .hero-metrics {
+                gap: var(--spacing-unit);
+            }
+
+            .metric-value {
+                font-size: 20px;
+            }
+
+            nav ul {
+                gap: var(--spacing-unit);
+            }
+
+            .feature-visual {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ============ HEADER ============ -->
+    <header>
+        <nav>
+            <div class="logo">
+                <div class="logo-icon">MT</div>
+                <span>MedTech</span>
+            </div>
+            <ul>
+                <li><a href="#features">How It Works</a></li>
+                <li><a href="#trust">Why Hospitals Choose Us</a></li>
+                <li><a href="#cta">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <span id="themeIcon">🌙</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ============ HERO SECTION ============ -->
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Clinical AI That Radiologists Trust</h1>
+                <p>MedTech combines cutting-edge artificial intelligence with clinical precision. Our diagnostic tools help radiologists detect cancer earlier while maintaining the human judgment that patients deserve.</p>
+                
+                <div class="hero-cta">
+                    <button class="btn-primary">Request Demo</button>
+                    <button class="btn-secondary">See Case Studies</button>
+                </div>
+
+                <div class="hero-metrics">
+                    <div class="metric">
+                        <span class="metric-value">94%</span>
+                        <span class="metric-label">Detection Accuracy</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-value">12+</span>
+                        <span class="metric-label">Hospitals Nationwide</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-value">FDA</span>
+                        <span class="metric-label">Cleared & Validated</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="diagnostic-panel">
+                    <div class="scan-header">
+                        <span class="scan-title">Scan Analysis</span>
+                        <span class="scan-status">AI-Assisted</span>
+                    </div>
+
+                    <div class="confidence-display">
+                        <div class="confidence-label">AI Confidence Score</div>
+                        <div class="confidence-bar">
+                            <div class="confidence-fill"></div>
+                        </div>
+                        <div class="confidence-value">87%</div>
+                        <div class="confidence-subtext">High confidence, multiple indicators</div>
+                    </div>
+
+                    <div class="findings">
+                        <div class="finding-item">
+                            <div class="finding-icon positive">✓</div>
+                            <span class="finding-text">Potential nodule detected</span>
+                        </div>
+                        <div class="finding-item">
+                            <div class="finding-icon caution">!</div>
+                            <span class="finding-text">Recommend specialist review</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ TRUST SECTION ============ -->
+        <section class="trust-section" id="trust">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2>Built for Modern Healthcare</h2>
+                    <p>Bridging the gap between innovation and clinical excellence</p>
+                </div>
+
+                <div class="trust-grid">
+                    <div class="trust-card">
+                        <div class="trust-icon">🏥</div>
+                        <h3>Clinical Validation</h3>
+                        <p>Every algorithm is rigorously tested against peer-reviewed datasets with transparency that physicians expect. We publish our results.</p>
+                    </div>
+
+                    <div class="trust-card">
+                        <div class="trust-icon">👨‍⚕️</div>
+                        <h3>Human-in-the-Loop</h3>
+                        <p>AI augments radiologist expertise, never replaces it. Your judgment remains central to every diagnosis decision.</p>
+                    </div>
+
+                    <div class="trust-card">
+                        <div class="trust-icon">🔒</div>
+                        <h3>HIPAA & Security</h3>
+                        <p>Bank-grade encryption, on-premise options, and compliance with every healthcare regulation. Your data stays yours.</p>
+                    </div>
+
+                    <div class="trust-card">
+                        <div class="trust-icon">⚡</div>
+                        <h3>Works Everywhere</h3>
+                        <p>Runs on existing hospital infrastructure. No expensive upgrades needed. Works in bright ER rooms and dark radiology suites.</p>
+                    </div>
+
+                    <div class="trust-card">
+                        <div class="trust-icon">📊</div>
+                        <h3>Clear Confidence Metrics</h3>
+                        <p>Every AI decision includes transparent reasoning—why it flagged something, confidence levels, and supporting evidence.</p>
+                    </div>
+
+                    <div class="trust-card">
+                        <div class="trust-icon">🎓</div>
+                        <h3>Physician-Led Design</h3>
+                        <p>Built by radiologists and software engineers together. We understand the workflow you actually use, not imaginary ones.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ FEATURES SECTION ============ -->
+        <section class="features-section" id="features">
+            <div class="section-container">
+                <div class="features-grid">
+                    <div class="feature-list">
+                        <h2 style="font-size: 32px; font-weight: 700; color: var(--color-primary); margin-bottom: calc(var(--spacing-unit) * 2);">
+                            Purpose-Built for Radiologists
+                        </h2>
+
+                        <div class="feature-item">
+                            <div class="feature-checkbox">✓</div>
+                            <div class="feature-content">
+                                <h3>Minimal Learning Curve</h3>
+                                <p>No special training required. If you can view a scan, you can use MedTech. Integrates seamlessly into your PACS workflow.</p>
+                            </div>
+                        </div>
+
+                        <div class="feature-item">
+                            <div class="feature-checkbox">✓</div>
+                            <div class="feature-content">
+                                <h3>Reduces Eye Strain</h3>
+                                <p>Carefully optimized typography, contrast ratios, and lighting modes mean you can work your full 12-hour shift without fatigue.</p>
+                            </div>
+                        </div>
+
+                        <div class="feature-item">
+                            <div class="feature-checkbox">✓</div>
+                            <div class="feature-content">
+                                <h3>Speed Without Sacrifice</h3>
+                                <p>AI flags critical findings in seconds, giving you more time for nuanced analysis. Efficiency that serves patient care.</p>
+                            </div>
+                        </div>
+
+                        <div class="feature-item">
+                            <div class="feature-checkbox">✓</div>
+                            <div class="feature-content">
+                                <h3>Documentation Built-In</h3>
+                                <p>Automatically generates audit trails and detailed reports. Compliance and liability coverage come standard.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="feature-visual">
+                        <div class="feature-demo">
+                            <div class="feature-demo-icon">🎯</div>
+                            <div class="feature-demo-text">Real-time AI analysis embedded in your workflow</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ CTA SECTION ============ -->
+        <section class="cta-section" id="cta">
+            <h2>Ready to Transform Your Diagnostic Capability?</h2>
+            <p>Hospital administrators and radiologists agree: MedTech is the bridge between innovation and clinical reality. Let's discuss how we can support your team.</p>
+            <button class="btn-primary">Schedule a 30-Minute Demo</button>
+        </section>
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Our Team</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">Case Studies</a></li>
+                    <li><a href="#">Research</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Compliance</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 MedTech Solutions. FDA-cleared diagnostic software. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // ============ THEME TOGGLE ============
+        // Dark mode support for different hospital lighting conditions
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const themeIcon = document.getElementById('themeIcon');
+
+        // Check for saved preference or system preference
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const savedTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
+
+        function setTheme(theme) {
+            html.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+        }
+
+        setTheme(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        });
+
+        // ============ SMOOTH SCROLL BEHAVIOR ============
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            });
+        });
+
+        // ============ INTERSECTION OBSERVER FOR ANIMATIONS ============
+        // Fade in cards as they scroll into view
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe trust cards and feature items
+        document.querySelectorAll('.trust-card, .feature-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            observer.observe(el);
+        });
+
+        // ============ BUTTON INTERACTIVITY ============
+        document.querySelectorAll('button.btn-primary, button.btn-secondary').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Add visual feedback
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 100);
+                // In a real app, this would open a modal or navigate
+                alert('Thank you for your interest! This would open a contact form or demo scheduler.');
+            });
+        });
+
+        // ============ ACCESSIBILITY IMPROVEMENTS ============
+        // Ensure all interactive elements are keyboard accessible
+        document.querySelectorAll('a, button').forEach(el => {
+            el.addEventListener('focus', function() {
+                this.style.outline = '2px solid var(--color-accent)';
+                this.style.outlineOffset = '2px';
+            });
+            el.addEventListener('blur', function() {
+                this.style.outline = 'none';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RebelRoots — Punk-Rock Plant-Based</title>
+  <meta name="description" content="RebelRoots makes indulgent, flavor-first plant-based meals. Bold taste, zero compromise." />
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --ink: #fff;
+      --ink-muted: #cfcfcf;
+      --accent: #ff2e63; /* hot magenta */
+      --accent-2: #00e5ff; /* electric cyan */
+      --accent-3: #ffe600; /* safety yellow */
+      --ok: #35f27f; /* neon green */
+      --danger: #ff5a36; /* hot orange */
+      --card: #121212;
+      --grid: rgba(255,255,255,.06);
+      --shadow: 0 20px 40px rgba(0,0,0,.5);
+    }
+
+    /* Global Reset */
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0; background: var(--bg); color: var(--ink); font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      line-height: 1.2; letter-spacing: 0.2px;
+      /* Subtle grunge grid */
+      background-image:
+        radial-gradient(circle at 10% 0%, rgba(255,255,255,.04), transparent 35%),
+        radial-gradient(circle at 90% 10%, rgba(255,255,255,.04), transparent 35%),
+        linear-gradient(transparent 98%, rgba(255,255,255,.07) 100%),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+        linear-gradient(0deg, var(--grid) 1px, transparent 1px);
+      background-size: auto, auto, 8px 8px, 24px 24px, 24px 24px;
+    }
+
+    a { color: var(--accent-2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container { width: min(1200px, 92vw); margin-inline: auto; }
+
+    /* Utility */
+    .btn { display: inline-flex; align-items: center; gap: .6rem; padding: .9rem 1.15rem; border: 2px solid var(--ink);
+      color: var(--bg); background: var(--ink); font-weight: 900; text-transform: uppercase; letter-spacing: .7px; border-radius: 14px; box-shadow: var(--shadow);
+      transition: transform .06s ease, box-shadow .2s ease, background .2s ease; }
+    .btn:hover { transform: translateY(-2px) rotate(-.5deg); box-shadow: 0 10px 24px rgba(0,0,0,.6); }
+    .btn.alt { background: transparent; color: var(--ink); border-color: var(--accent-2); }
+    .badge { font-size: .72rem; padding: .35rem .55rem; border: 1.5px dashed var(--ink); border-radius: 8px; text-transform: uppercase; opacity: .9; }
+
+    /* Header */
+    header { position: sticky; top: 0; backdrop-filter: blur(8px); background: rgba(10,10,10,.6); border-bottom: 1px solid rgba(255,255,255,.08); z-index: 999; }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: .9rem 0; }
+    .logo { display: inline-flex; align-items: center; gap: .6rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; }
+    .logo svg { width: 36px; height: 36px; }
+
+    .nav ul { list-style: none; display: flex; gap: 1rem; margin: 0; padding: 0; }
+    .nav a { color: var(--ink); padding: .6rem .8rem; border-radius: 10px; }
+    .nav a:hover { background: rgba(255,255,255,.08); text-decoration: none; }
+
+    .mobile-toggle { display: none; border: 2px solid var(--ink); border-radius: 10px; background: transparent; color: var(--ink); padding: .5rem .7rem; }
+
+    /* Hero */
+    .hero { position: relative; overflow: hidden; padding: 6rem 0 4rem; }
+    .hero::before { content: ""; position: absolute; inset: -40% -20% auto -20%; height: 130%;
+      background: conic-gradient(from 180deg at 50% 50%, var(--accent) 0deg, var(--accent-2) 110deg, var(--accent-3) 220deg, var(--accent) 360deg);
+      filter: blur(70px) saturate(120%); opacity: .25; transform: rotate(-6deg); pointer-events: none; }
+
+    .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 2rem; align-items: center; }
+    .kicker { color: var(--accent-3); font-weight: 900; text-transform: uppercase; letter-spacing: 1.8px; }
+    h1 { font-family: Impact, Haettenschweiler, 'Arial Black', sans-serif; font-size: clamp(2.4rem, 5vw, 5rem); line-height: .95; margin: .4rem 0 1rem; }
+    .hero p { font-size: clamp(1rem, 1.2vw, 1.15rem); color: var(--ink-muted); max-width: 58ch; }
+    .cta-row { display: flex; gap: .8rem; flex-wrap: wrap; margin-top: 1.2rem; }
+
+    .stamp { position: relative; display: inline-flex; align-items: center; gap: .5rem; padding: .5rem .8rem; border: 2px solid var(--accent-2); border-radius: 999px; background: rgba(0,229,255,.08); font-weight: 800; }
+    .stamp svg { width: 20px; height: 20px; }
+
+    .hero-art { background: var(--card); border: 1px solid rgba(255,255,255,.1); border-radius: 22px; padding: 1rem; box-shadow: var(--shadow); position: relative; }
+    .hero-art .tray { aspect-ratio: 4/3; border-radius: 16px; background: linear-gradient(135deg, #1f1f1f, #0f0f0f); display: grid; place-items: center; overflow: hidden; }
+    .punk-lines { position: absolute; inset: 0; background-image: repeating-linear-gradient(-45deg, rgba(255,255,255,.06) 0 10px, transparent 10px 20px); mix-blend-mode: screen; pointer-events: none; }
+
+    /* Products */
+    section { padding: 4rem 0; }
+    h2 { font-size: clamp(1.6rem, 3.2vw, 2.6rem); margin: 0 0 1rem; font-weight: 900; letter-spacing: .3px; }
+    .section-kicker { color: var(--accent-2); text-transform: uppercase; font-weight: 800; letter-spacing: 1.6px; display: inline-block; margin-bottom: .5rem; }
+
+    .products { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+    .card { background: var(--card); border: 1px solid rgba(255,255,255,.08); border-radius: 20px; padding: 1rem; position: relative; box-shadow: var(--shadow); }
+    .card .thumb { border-radius: 14px; aspect-ratio: 4/3; background: linear-gradient(135deg, rgba(255,46,99,.25), rgba(0,229,255,.25)), radial-gradient(circle at 30% 20%, rgba(255,230,0,.22), transparent 40%), linear-gradient(#1b1b1b,#0e0e0e); display: grid; place-items: center; position: relative; overflow: hidden; }
+    .pack { width: 72%; max-width: 380px; filter: drop-shadow(0 30px 30px rgba(0,0,0,.55)); }
+    .card h3 { margin: .8rem 0 .4rem; font-size: 1.25rem; }
+    .meta { font-size: .9rem; color: var(--ink-muted); display: flex; gap: .7rem; align-items: center; }
+    .meta .dot { width: 6px; height: 6px; background: var(--accent-2); border-radius: 50%; display: inline-block; }
+
+    .card .bottom { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; }
+    .price { font-weight: 900; font-size: 1.1rem; }
+
+    /* Taste vs Health strip */
+    .strip { position: relative; padding: 1.4rem; border-radius: 16px; border: 1px dashed rgba(255,255,255,.25); background: linear-gradient(90deg, rgba(53,242,127,.12), rgba(255,230,0,.12)); display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: center; }
+    .meter { width: 240px; height: 10px; background: rgba(255,255,255,.15); border-radius: 999px; position: relative; overflow: hidden; }
+    .meter .bar { position: absolute; inset: 0; transform: translateX(10%); width: 85%; background: linear-gradient(90deg, var(--ok), var(--accent)); }
+
+    /* Trust signals */
+    .trust { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; }
+    .trust .t { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 14px; padding: .9rem; display: grid; grid-template-columns: auto 1fr; gap: .8rem; align-items: center; }
+    .trust .t svg { width: 30px; height: 30px; }
+
+    /* Taste test */
+    .taste { display: grid; grid-template-columns: 1.2fr .8fr; gap: 1.2rem; align-items: center; }
+    .taste .panel { background: var(--card); border: 1px solid rgba(255,255,255,.08); border-radius: 20px; padding: 1.2rem; box-shadow: var(--shadow); }
+
+    /* Retailers */
+    .retailers { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .retailers .panel { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07); border-radius: 18px; padding: 1.2rem; }
+
+    /* Footer */
+    footer { border-top: 1px solid rgba(255,255,255,.08); padding: 2rem 0 4rem; color: var(--ink-muted); }
+    .cols { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; }
+    footer a { color: var(--ink-muted); }
+
+    /* Accessibility helpers */
+    .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .products { grid-template-columns: 1fr 1fr; }
+      .trust { grid-template-columns: 1fr 1fr; }
+      .taste { grid-template-columns: 1fr; }
+      .retailers { grid-template-columns: 1fr; }
+      .cols { grid-template-columns: 1fr 1fr; }
+      .nav ul { display: none; }
+      .mobile-toggle { display: inline-block; }
+      .nav.open ul { display: flex; position: absolute; top: 60px; right: 4vw; background: #121212; border: 1px solid rgba(255,255,255,.12); padding: .8rem; flex-direction: column; border-radius: 12px; }
+    }
+    @media (max-width: 600px) {
+      .products { grid-template-columns: 1fr; }
+      .cols { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav" id="nav">
+      <a href="#top" class="logo" aria-label="RebelRoots Home">
+        <!-- Bolt/Carrot Mark -->
+        <svg viewBox="0 0 64 64" aria-hidden="true" role="img">
+          <defs>
+            <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="var(--accent)"/>
+              <stop offset="100%" stop-color="var(--accent-2)"/>
+            </linearGradient>
+          </defs>
+          <path d="M36 2 10 36h14L20 62l34-40H40l-4-20z" fill="url(#g)" stroke="white" stroke-width="2"/>
+        </svg>
+        <span>RebelRoots</span>
+      </a>
+      <ul>
+        <li><a href="#products">Shop</a></li>
+        <li><a href="#why">Why Us</a></li>
+        <li><a href="#retailers">For Retailers</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <button class="mobile-toggle" aria-label="Toggle navigation" onclick="toggleNav()">☰</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="kicker">Flavor-first. Plant-powered.</div>
+          <h1>Vegan Food with <span style="background: linear-gradient(90deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent;">Attitude</span>.</h1>
+          <p>We make indulgent, punk-rock plant-based meals that slap—crispy, saucy, smashable. No lectures, just unreasonably good flavor. Because you shouldn't have to trade joy for values.</p>
+          <div class="cta-row">
+            <a class="btn" href="#products">Shop Bestsellers</a>
+            <a class="btn alt" href="#why">Prove It</a>
+            <span class="stamp" aria-label="Certified vegan and non-GMO">
+              <!-- shield icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l7 4v6c0 5-3.5 9-7 10-3.5-1-7-5-7-10V6l7-4z"/><path d="M8 12l2 2 5-5"/></svg>
+              Vegan • Non‑GMO • 0% BS
+            </span>
+          </div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="tray">
+            <!-- Stylized pack mock -->
+            <svg class="pack" viewBox="0 0 700 520">
+              <defs>
+                <linearGradient id="p1" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#222"/>
+                  <stop offset="100%" stop-color="#111"/>
+                </linearGradient>
+                <linearGradient id="tag" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="var(--accent-2)"/>
+                  <stop offset="100%" stop-color="var(--accent)"/>
+                </linearGradient>
+              </defs>
+              <rect x="50" y="30" width="600" height="420" rx="28" fill="url(#p1)" stroke="white" stroke-width="6"/>
+              <text x="90" y="130" fill="white" font-size="68" font-weight="900" font-family="Impact, Haettenschweiler, 'Arial Black', sans-serif">REBELROOTS</text>
+              <text x="90" y="190" fill="var(--accent-3)" font-size="42" font-weight="900">CRISPY KATSU CUTLETS</text>
+              <g>
+                <rect x="470" y="250" width="160" height="60" rx="12" fill="url(#tag)"/>
+                <text x="485" y="290" fill="#000" font-size="26" font-weight="900">18g PROTEIN</text>
+              </g>
+            </svg>
+          </div>
+          <div class="punk-lines"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Products -->
+    <section id="products" class="container">
+      <span class="section-kicker">Bestsellers</span>
+      <h2>Crave-Worthy, Plant-Only</h2>
+      <div class="strip" role="note" aria-label="Taste leads, health follows">
+        <strong>We lead with taste.</strong>
+        <div class="meter" aria-hidden="true"><div class="bar"></div></div>
+      </div>
+
+      <div class="products" style="margin-top:1.2rem">
+        <!-- Card 1 -->
+        <article class="card">
+          <div class="thumb">
+            <svg viewBox="0 0 400 300" width="100%" height="100%">
+              <defs>
+                <linearGradient id="meat" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#7d1b1b"/>
+                  <stop offset="100%" stop-color="#4a0f0f"/>
+                </linearGradient>
+              </defs>
+              <ellipse cx="200" cy="180" rx="120" ry="70" fill="url(#meat)"/>
+              <circle cx="150" cy="160" r="12" fill="#622"/>
+              <circle cx="240" cy="210" r="10" fill="#622"/>
+            </svg>
+          </div>
+          <h3>Smash Burgers (2 patties)</h3>
+          <div class="meta"><span class="dot"></span> 20g protein • Sizzles like the real deal • Soy-free</div>
+          <div class="bottom"><span class="price">$7.99</span><button class="btn" onclick="openModal('Smash Burgers','Calories: 280\nProtein: 20g\nSodium: 420mg\nAllergens: Wheat, Pea')">Nutrition</button></div>
+        </article>
+        <!-- Card 2 -->
+        <article class="card">
+          <div class="thumb">
+            <svg viewBox="0 0 400 300" width="100%" height="100%">
+              <rect x="90" y="80" width="220" height="140" rx="14" fill="#3e2200"/>
+              <rect x="110" y="95" width="180" height="22" rx="6" fill="#ffc800"/>
+              <circle cx="170" cy="170" r="34" fill="#8b3"/>
+              <circle cx="230" cy="170" r="34" fill="#8b3"/>
+            </svg>
+          </div>
+          <h3>Korean BBQ Ribs</h3>
+          <div class="meta"><span class="dot"></span> Sticky-sweet glaze • Grill-approved • Gluten-free</div>
+          <div class="bottom"><span class="price">$8.99</span><button class="btn" onclick="openModal('Korean BBQ Ribs','Calories: 310\nProtein: 21g\nSodium: 510mg\nAllergens: Soy, Sesame')">Nutrition</button></div>
+        </article>
+        <!-- Card 3 -->
+        <article class="card">
+          <div class="thumb">
+            <svg viewBox="0 0 400 300" width="100%" height="100%">
+              <circle cx="140" cy="150" r="40" fill="#f7a"/>
+              <circle cx="200" cy="160" r="40" fill="#f6b"/>
+              <circle cx="260" cy="150" r="40" fill="#f7a"/>
+            </svg>
+          </div>
+          <h3>Firecracker Nuggets</h3>
+          <div class="meta"><span class="dot"></span> Chili crunch coating • Air-fryer perfect • Kids-approved</div>
+          <div class="bottom"><span class="price">$6.49</span><button class="btn" onclick="openModal('Firecracker Nuggets','Calories: 230 (6 pcs)\nProtein: 16g\nSodium: 390mg\nAllergens: Wheat')">Nutrition</button></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Why Us -->
+    <section id="why" class="container">
+      <span class="section-kicker">Proof over promises</span>
+      <h2>We win taste tests. Then we talk macros.</h2>
+      <div class="taste" style="margin-top: .8rem;">
+        <div class="panel">
+          <h3>Blind Taste Test (2025)</h3>
+          <p class="meta">In side-by-side tests against leading meat alternatives, 72% preferred RebelRoots for flavor and texture.</p>
+          <div class="strip" aria-label="Taste preference">
+            <strong>Preference</strong>
+            <div class="meter"><div class="bar" style="transform: translateX(0); width:72%"></div></div>
+          </div>
+          <ul>
+            <li>High-heat sear for crispy edges and Maillard magic.</li>
+            <li>Chef-built spice blends from global street foods.</li>
+            <li>Short, pronounceable ingredient lists.</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>Radically Transparent</h3>
+          <p class="meta">Scan any pack to see sourcing, allergens, and batch QA. No hiding. No halos.</p>
+          <div class="trust">
+            <div class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l7 4v6c0 5-3.5 9-7 10-3.5-1-7-5-7-10V6l7-4z"/><path d="M8 12l2 2 5-5"/></svg><div>Vegan & Non‑GMO</div></div>
+            <div class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18"/><path d="M12 3v18"/></svg><div>HACCP / GMP</div></div>
+            <div class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg><div>Allergen Icons</div></div>
+            <div class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 8h10"/><path d="M7 12h7"/></svg><div>GS1 Barcodes</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- For Retailers -->
+    <section id="retailers" class="container">
+      <span class="section-kicker">For Retailers</span>
+      <h2>Rebellious on-shelf. Responsible in ops.</h2>
+      <div class="retailers">
+        <div class="panel">
+          <h3>Why we move units</h3>
+          <ul>
+            <li>Packaging that stops scroll IRL: neon accents, bold mark, clear flavor callouts.</li>
+            <li>Velocity drivers: indulgent SKUs, crave-forward names, social-ready prep.
+            </li>
+            <li>Operationally clean: case packs of 8, scannable GS1, clear allergens, shelf-ready trays.</li>
+          </ul>
+          <div class="strip" style="margin-top: .8rem;">
+            <strong>Projected weekly velocity</strong>
+            <div class="meter"><div class="bar" style="transform: translateX(0); width:66%"></div></div>
+          </div>
+          <div class="badge" style="margin-top:.8rem">Sell Sheet (PDF) →</div>
+        </div>
+        <div class="panel">
+          <h3>Planogram-Friendly</h3>
+          <p class="meta">Clean tops, bold fronts, color-coded SKUs (magenta = spicy, cyan = classic, yellow = crispy). Easy to block, no visual mush.</p>
+          <div class="trust">
+            <div class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg><div>Shelf Trays</div></div>
+            <div class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 8h8v8H8z"/></svg><div>Case Packs of 8</div></div>
+            <div class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5v14"/></svg><div>UPC/ITF ready</div></div>
+            <div class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><div>12‑mo Shelf Life</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="container">
+      <span class="section-kicker">FAQ</span>
+      <h2>Questions we get a lot</h2>
+      <details>
+        <summary><strong>Is this gluten‑free?</strong></summary>
+        <p>Some SKUs are. Look for the GF icon on the front and the allergen callout near the Nutrition Facts. Always read the ingredient list for your specific allergens.</p>
+      </details>
+      <details>
+        <summary><strong>Do you use soy?</strong></summary>
+        <p>We keep soy optional: several items are soy‑free (like Smash Burgers), others use non‑GMO soy for specific textures (like Korean BBQ Ribs).</p>
+      </details>
+      <details>
+        <summary><strong>How do these cook?</strong></summary>
+        <p>High heat. Pan, grill, or air‑fryer. Finish with oil + salt. Go louder than you think for best crisp.</p>
+      </details>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container cols">
+      <div>
+        <div class="logo" style="margin-bottom:.4rem">
+          <svg viewBox="0 0 64 64" aria-hidden="true" role="img"><path d="M36 2 10 36h14L20 62l34-40H40l-4-20z" fill="url(#g)" stroke="white" stroke-width="2"/></svg>
+          RebelRoots
+        </div>
+        <p>© <span id="year"></span> RebelRoots, Inc.</p>
+      </div>
+      <div>
+        <strong>Company</strong>
+        <ul>
+          <li><a href="#why">Our Difference</a></li>
+          <li><a href="#retailers">Retailers</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <strong>Quality</strong>
+        <ul>
+          <li>HACCP / GMP</li>
+          <li>Third‑party QA</li>
+          <li>Batch transparency</li>
+        </ul>
+      </div>
+      <div>
+        <strong>Get updates</strong>
+        <form onsubmit="event.preventDefault(); toast('Welcome to the rebellion!')">
+          <label class="sr-only" for="email">Email</label>
+          <input id="email" required type="email" placeholder="email@you.com" style="width:100%;padding:.8rem 1rem;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:#141414;color:var(--ink);margin-bottom:.6rem" />
+          <button class="btn" style="width:100%">Join the list</button>
+        </form>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal -->
+  <dialog id="modal" style="border:none;border-radius:16px;background:#111;color:#fff;max-width:560px;width:calc(92vw);">
+    <form method="dialog" style="margin:0;padding:0">
+      <header style="display:flex;justify-content:space-between;align-items:center;padding:1rem 1.2rem;border-bottom:1px solid rgba(255,255,255,.12)">
+        <strong id="modal-title">Nutrition</strong>
+        <button class="btn alt" value="cancel">Close</button>
+      </header>
+      <div style="padding:1rem 1.2rem;white-space:pre-line" id="modal-body">Nutrition info...</div>
+    </form>
+  </dialog>
+
+  <!-- Toast -->
+  <div id="toast" role="status" aria-live="polite" style="position:fixed;inset:auto 0 20px 0;display:grid;place-items:center;pointer-events:none;">
+    <div id="toast-inner" style="transform:translateY(20px);opacity:0;transition:all .25s ease;background:#141414;border:1px solid rgba(255,255,255,.16);padding:1rem 1.2rem;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.6);"></div>
+  </div>
+
+  <script>
+    function toggleNav(){ document.getElementById('nav').classList.toggle('open'); }
+
+    function openModal(title, body){
+      const m = document.getElementById('modal');
+      document.getElementById('modal-title').textContent = title;
+      document.getElementById('modal-body').textContent = body;
+      if (typeof m.showModal === 'function') m.showModal(); else alert(title + "\n\n" + body);
+    }
+
+    function toast(msg){
+      const el = document.getElementById('toast-inner');
+      el.textContent = msg; el.style.opacity = 1; el.style.transform = 'translateY(0)';
+      setTimeout(()=>{ el.style.opacity = 0; el.style.transform = 'translateY(20px)'; }, 2200);
+    }
+
+    // Set year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Lil' confetti on CTA click (punk sparkles)
+    document.querySelectorAll('.btn').forEach(btn=>{
+      btn.addEventListener('click', (e)=>{
+        const {x,y} = e.target.getBoundingClientRect();
+        for(let i=0;i<8;i++){
+          const s=document.createElement('span');
+          s.style.cssText = `position:fixed;left:${x+e.offsetX}px;top:${y+e.offsetY}px;width:6px;height:6px;border-radius:50%;background:hsl(${(i*45)%360} 90% 60%);pointer-events:none;transform:translate(-50%,-50%);`;
+          document.body.appendChild(s);
+          const dx=(Math.random()*2-1)*80, dy=(Math.random()*2-1)*80;
+          s.animate([{transform:`translate(-50%,-50%)`},{transform:`translate(${dx}px,${dy}px)`}],{duration:420, easing:'cubic-bezier(.2,.7,.1,1)'}).onfinish=()=>s.remove();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

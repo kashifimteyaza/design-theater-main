@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Morning Brew — Artisanal Coffee &amp; Pastries</title>
+    <meta name="description" content="Morning Brew is a neighborhood coffee shop serving artisanal espresso, fresh pastries, and good vibes for 3 years. Come find your cozy spot." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/style.css" />
+    <meta property="og:image" content="https://bolt.new/static/og_default.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
+</head>
+  <body>
+
+    <!-- NAV -->
+    <header class="site-header" id="site-header">
+      <div class="header-inner">
+        <a href="#" class="logo-link">
+          <span class="logo-icon">&#9749;</span>
+          <span class="logo-text">Morning Brew</span>
+        </a>
+        <nav class="main-nav" id="main-nav">
+          <a href="#about">Our Story</a>
+          <a href="#menu">Menu</a>
+          <a href="#atmosphere">Gallery</a>
+          <a href="#visit">Visit Us</a>
+          <a href="#visit" class="nav-cta">Order In-Store</a>
+        </nav>
+        <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+      <a href="#about" class="mobile-link">Our Story</a>
+      <a href="#menu" class="mobile-link">Menu</a>
+      <a href="#atmosphere" class="mobile-link">Gallery</a>
+      <a href="#visit" class="mobile-link">Visit Us</a>
+    </div>
+
+    <main>
+
+      <!-- HERO -->
+      <section class="hero" id="hero">
+        <div class="hero-overlay"></div>
+        <img
+          src="https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=1600"
+          alt="Warm coffee shop interior with espresso and pastries"
+          class="hero-bg"
+        />
+        <div class="hero-content reveal">
+          <p class="hero-eyebrow">Neighborhood coffee since 2021</p>
+          <h1 class="hero-title">Your Morning,<br>Made Better.</h1>
+          <p class="hero-sub">Artisanal espresso. Fresh-baked pastries. A place to belong.</p>
+          <div class="hero-actions">
+            <a href="#menu" class="btn btn-primary">See Our Menu</a>
+            <a href="#visit" class="btn btn-ghost">Find Us</a>
+          </div>
+        </div>
+        <a href="#about" class="hero-scroll-hint" aria-label="Scroll down">
+          <span class="scroll-chevron"></span>
+        </a>
+      </section>
+
+      <!-- ABOUT -->
+      <section class="about" id="about">
+        <div class="container">
+          <div class="about-grid">
+            <div class="about-text reveal">
+              <p class="section-label">Our Story</p>
+              <h2 class="section-title">A little shop with a lot of heart.</h2>
+              <p class="about-body">Three years ago we opened our doors on Maple Street with one idea: give this neighborhood a place that felt like home. Not a chain, not a concept — just great coffee, lovingly made, and space for people to think, connect, and slow down for a minute.</p>
+              <p class="about-body">Every espresso is pulled to order. Every pastry arrives before dawn, made by hand in small batches. We know most of our regulars by name, and we can't wait to learn yours.</p>
+            </div>
+            <div class="about-stats reveal reveal-delay">
+              <div class="stat-card">
+                <span class="stat-number">3</span>
+                <span class="stat-label">Years in the community</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-number">12+</span>
+                <span class="stat-label">Pastry varieties daily</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-number">100%</span>
+                <span class="stat-label">Single-origin beans</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-number">&#8734;</span>
+                <span class="stat-label">Free refills on drip coffee</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MENU HIGHLIGHTS -->
+      <section class="menu" id="menu">
+        <div class="container">
+          <div class="section-header reveal">
+            <p class="section-label">What We Serve</p>
+            <h2 class="section-title">Crafted with care, every cup.</h2>
+            <p class="section-sub">A taste of our most-loved drinks and pastries. Full menu available in-store.</p>
+          </div>
+
+          <div class="menu-tabs reveal">
+            <button class="tab-btn active" data-tab="drinks">Drinks</button>
+            <button class="tab-btn" data-tab="pastries">Pastries</button>
+          </div>
+
+          <div class="menu-grid" id="menu-grid">
+            <!-- injected by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ATMOSPHERE -->
+      <section class="atmosphere" id="atmosphere">
+        <div class="container">
+          <div class="section-header reveal">
+            <p class="section-label">The Vibe</p>
+            <h2 class="section-title">A place to settle in.</h2>
+          </div>
+          <div class="gallery-grid reveal">
+            <div class="gallery-item gallery-large">
+              <img src="https://images.pexels.com/photos/1307698/pexels-photo-1307698.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Cozy coffee shop corner with warm lighting" loading="lazy" />
+            </div>
+            <div class="gallery-item">
+              <img src="https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Latte art close-up" loading="lazy" />
+            </div>
+            <div class="gallery-item">
+              <img src="https://images.pexels.com/photos/1855214/pexels-photo-1855214.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Fresh pastries on display" loading="lazy" />
+            </div>
+            <div class="gallery-item">
+              <img src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Breakfast spread with coffee" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VISIT / HOURS -->
+      <section class="visit" id="visit">
+        <div class="container">
+          <div class="section-header reveal">
+            <p class="section-label">Come See Us</p>
+            <h2 class="section-title">We're ready when you are.</h2>
+          </div>
+          <div class="visit-grid">
+            <div class="visit-info reveal">
+              <div class="info-block">
+                <h3 class="info-heading">Hours</h3>
+                <ul class="hours-list">
+                  <li><span class="day">Mon – Fri</span><span class="time">6:30 am – 7:00 pm</span></li>
+                  <li><span class="day">Saturday</span><span class="time">7:00 am – 8:00 pm</span></li>
+                  <li><span class="day">Sunday</span><span class="time">8:00 am – 5:00 pm</span></li>
+                </ul>
+              </div>
+              <div class="info-block">
+                <h3 class="info-heading">Location</h3>
+                <address class="address">
+                  42 Maple Street<br>
+                  Your Neighborhood, NY 10001
+                </address>
+                <a href="https://maps.google.com" target="_blank" rel="noopener" class="directions-link">Get Directions &rarr;</a>
+              </div>
+              <div class="info-block">
+                <h3 class="info-heading">Contact</h3>
+                <p class="contact-line"><a href="tel:+15551234567">(555) 123-4567</a></p>
+                <p class="contact-line"><a href="mailto:hello@morningbrewcafe.com">hello@morningbrewcafe.com</a></p>
+              </div>
+            </div>
+            <div class="visit-map reveal reveal-delay">
+              <div class="map-placeholder">
+                <img
+                  src="https://images.pexels.com/photos/2253873/pexels-photo-2253873.jpeg?auto=compress&cs=tinysrgb&w=900"
+                  alt="Neighborhood street view near Morning Brew"
+                  class="map-img"
+                />
+                <div class="map-pin-overlay">
+                  <div class="map-pin">
+                    <span class="pin-icon">&#9749;</span>
+                    <span class="pin-label">Morning Brew</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TESTIMONIALS -->
+      <section class="testimonials" id="testimonials">
+        <div class="container">
+          <div class="section-header reveal">
+            <p class="section-label">Regulars Say</p>
+            <h2 class="section-title">Why they keep coming back.</h2>
+          </div>
+          <div class="testimonial-grid reveal">
+            <blockquote class="testimonial-card">
+              <p>"I've been working from Morning Brew every Tuesday for two years. The wifi is fast, the oat latte is perfect, and they know my order before I reach the counter."</p>
+              <footer>— Sarah M., neighbor</footer>
+            </blockquote>
+            <blockquote class="testimonial-card">
+              <p>"Best almond croissant in the city, full stop. I drive across town for it every Saturday morning and I have no regrets."</p>
+              <footer>— James T., regular</footer>
+            </blockquote>
+            <blockquote class="testimonial-card">
+              <p>"They hosted my daughter's book club and set up a whole pastry spread. The staff are genuinely kind people. This place is special."</p>
+              <footer>— Linda R., community member</footer>
+            </blockquote>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="footer-brand">
+          <span class="logo-icon">&#9749;</span>
+          <span class="logo-text">Morning Brew</span>
+          <p class="footer-tagline">Serving the neighborhood since 2021.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#about">Our Story</a>
+          <a href="#menu">Menu</a>
+          <a href="#atmosphere">Gallery</a>
+          <a href="#visit">Visit Us</a>
+        </div>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram" class="social-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="#" aria-label="Facebook" class="social-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="#" aria-label="Google Maps" class="social-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 Morning Brew. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

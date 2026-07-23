@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Global Ventures Inc. — Building Enduring Brands</title>
+  <meta name="description" content="Global Ventures Inc. is a strategic holding company behind TechFlow, BrightStart, UrbanEats, GreenBuild, and WellnessWorks." />
+  <style>
+    :root {
+      /* Parent (Global Ventures) neutral palette */
+      --gv-bg: #ffffff;
+      --gv-surface: #f7f7fb;
+      --gv-text: #0f172a; /* slate-900 */
+      --gv-muted: #475569; /* slate-600 */
+      --gv-line: #e5e7eb; /* gray-200 */
+      --gv-accent: #0ea5e9; /* cyan-500 */
+      --gv-accent-2: #7c3aed; /* violet-600 for subtle highlights */
+      --radius-xl: 18px;
+      --radius-2xl: 22px;
+      --shadow-1: 0 8px 24px rgba(2, 6, 23, 0.08);
+      --shadow-2: 0 16px 40px rgba(2, 6, 23, 0.12);
+    }
+
+    /* Brand tokens. Each stays inside the parent frame. */
+    .brand--techflow { --b-fg: #0b5ae0; --b-bg: #e8f0ff; --b-ink: #0b2b6d; --b-pattern: linear-gradient(135deg, rgba(11,90,224,.08) 25%, transparent 25%), linear-gradient(225deg, rgba(11,90,224,.08) 25%, transparent 25%), linear-gradient(45deg, rgba(11,90,224,.08) 25%, transparent 25%), linear-gradient(315deg, rgba(11,90,224,.08) 25%, #e8f0ff 25%); background-size: 24px 24px; background-position: 12px 0, 12px 0, 0 0, 0 0; }
+    .brand--brightstart { --b-fg: #eab308; --b-bg: #fff7cc; --b-ink: #8a5a00; --b-pattern: radial-gradient(circle at 20% 30%, rgba(234,179,8,.18) 0 18%, transparent 19%), radial-gradient(circle at 75% 60%, rgba(234,179,8,.18) 0 20%, transparent 21%); }
+    .brand--urbaneats { --b-fg: #10b981; --b-bg: #0b1220; --b-ink: #e5ffe7; --b-pattern: repeating-linear-gradient( 45deg, rgba(255,255,255,.07) 0 8px, transparent 8px 16px ); }
+    .brand--greenbuild { --b-fg: #22c55e; --b-bg: #ecfdf5; --b-ink: #064e3b; --b-pattern: radial-gradient(circle at 10% 10%, rgba(34,197,94,.18) 0 12%, transparent 13%), radial-gradient(circle at 90% 80%, rgba(34,197,94,.14) 0 15%, transparent 16%), repeating-linear-gradient( 0deg, rgba(34,197,94,.06), rgba(34,197,94,.06) 2px, transparent 2px, transparent 6px ); }
+    .brand--wellnessworks { --b-fg: #06b6d4; --b-bg: #ecfeff; --b-ink: #0e7490; --b-pattern: radial-gradient( 80% 120% at 50% 0%, rgba(6,182,212,.25) 0%, transparent 60% ), radial-gradient( 120% 120% at 50% 120%, rgba(6,182,212,.2) 0%, transparent 60% ); }
+
+    /* Global resets */
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body { margin:0; font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji","Segoe UI Emoji"; color: var(--gv-text); background: var(--gv-bg); }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    .container { width: min(1200px, 92vw); margin: 0 auto; }
+
+    /* Header */
+    .topbar { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.8); backdrop-filter: saturate(180%) blur(16px); border-bottom: 1px solid var(--gv-line); }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: .2px; }
+    .logo-mark { width: 34px; height: 34px; border-radius: 9px; background: conic-gradient(from 180deg at 50% 50%, var(--gv-accent), var(--gv-accent-2)); box-shadow: 0 6px 14px rgba(14,165,233,.3) inset; display: grid; place-items: center; color: #fff; font-weight: 900; }
+    .nav a { color: var(--gv-muted); padding: 8px 10px; border-radius: 8px; }
+    .nav a:hover, .nav a:focus { background: var(--gv-surface); color: var(--gv-text); outline: none; }
+    .cta { padding: 10px 16px; border-radius: 999px; background: var(--gv-text); color: #fff; font-weight: 600; box-shadow: var(--shadow-1); }
+    .cta:hover, .cta:focus { transform: translateY(-1px); box-shadow: var(--shadow-2); }
+
+    /* Hero */
+    .hero { padding: 56px 0 24px; }
+    .hero-inner { display: grid; grid-template-columns: 1.2fr 1fr; gap: 32px; align-items: center; }
+    .eyebrow { display:inline-flex; align-items:center; gap:8px; background: #eef6ff; color:#1d4ed8; border:1px solid #bfdbfe; padding:6px 10px; border-radius: 999px; font-size: 13px; }
+    .headline { font-size: clamp(28px, 4.2vw, 48px); line-height: 1.12; letter-spacing: -.02em; margin: 14px 0 10px; }
+    .subhead { color: var(--gv-muted); font-size: clamp(16px, 2.2vw, 18px); }
+    .audience-grid { margin-top: 22px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .aud-card { padding: 18px; border-radius: var(--radius-xl); border:1px solid var(--gv-line); background: #fff; box-shadow: var(--shadow-1); transition: transform .2s ease, box-shadow .2s ease; }
+    .aud-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); }
+    .aud-card h4 { margin: 4px 0 6px; font-size: 16px; }
+    .aud-card p { color: var(--gv-muted); font-size: 14px; margin:0; }
+
+    /* Brand ticker */
+    .brand-ticker { margin: 24px 0 4px; padding: 12px; border-radius: var(--radius-xl); background: var(--gv-surface); border:1px solid var(--gv-line); display: flex; gap: 14px; overflow:auto; }
+    .badge { flex: 0 0 auto; display: grid; grid-template-columns: auto 1fr; align-items:center; gap: 10px; padding: 8px 12px; border-radius: 1000px; border: 1px solid var(--gv-line); background: #fff; box-shadow: var(--shadow-1); white-space: nowrap; }
+    .badge .dot { width: 22px; height: 22px; border-radius: 7px; display: grid; place-items: center; color: #fff; font-weight: 800; }
+    .badge small { color: var(--gv-muted); }
+
+    /* Portfolio */
+    .section { padding: 40px 0; }
+    .section h3 { font-size: 22px; margin: 0 0 10px; }
+    .kicker { color: var(--gv-muted); margin-bottom: 12px; }
+
+    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+    .card { grid-column: span 6; min-height: 220px; border-radius: var(--radius-2xl); position: relative; overflow: hidden; border: 1px solid var(--gv-line); background: #fff; box-shadow: var(--shadow-1); transition: transform .2s ease, box-shadow .2s ease; }
+    .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-2); }
+
+    .card .brand-surface { position: absolute; inset: 0; background: var(--b-bg); }
+    .card .brand-surface::before { content:""; position:absolute; inset:0; background: var(--b-pattern); opacity:.8; }
+
+    .card-inner { position: relative; padding: 18px; height: 100%; display: grid; grid-template-rows: auto 1fr auto; }
+    .brand-chip { display:inline-flex; align-items:center; gap:10px; background: #fff; border-radius: 14px; border: 1px solid var(--gv-line); padding: 6px 10px; box-shadow: var(--shadow-1); }
+    .brand-chip .glyph { width: 26px; height: 26px; border-radius: 8px; background: var(--b-fg); color: #fff; font-weight: 800; display:grid; place-items:center; }
+
+    .brand-title { margin: 10px 0 6px; font-size: 20px; letter-spacing: -.01em; color: var(--b-ink); }
+    .brand-desc { color: var(--gv-muted); }
+
+    .stats { display:flex; gap: 14px; margin-top: 10px; flex-wrap: wrap; }
+    .stat { background: rgba(255,255,255,.72); border:1px solid var(--gv-line); border-radius: 12px; padding: 6px 10px; font-size: 14px; }
+
+    .actions { display:flex; gap: 10px; }
+    .btn { display:inline-flex; align-items:center; gap: 8px; font-weight: 600; padding: 10px 14px; border-radius: 12px; border:1px solid var(--gv-line); background: #fff; }
+    .btn.primary { background: var(--b-fg); border-color: transparent; color: #fff; }
+
+    /* Strategy strip */
+    .strategy { margin-top: 22px; padding: 18px; border-radius: var(--radius-xl); border:1px solid var(--gv-line); background: linear-gradient(180deg, #ffffff, #f8fbff); box-shadow: var(--shadow-1); }
+    .pill-list { display:flex; flex-wrap: wrap; gap: 8px; }
+    .pill { border: 1px solid var(--gv-line); border-radius: 1000px; padding: 6px 10px; background:#fff; font-size: 14px; }
+
+    /* Highlights */
+    .highlights { display:grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px; }
+    .hl { border:1px solid var(--gv-line); border-radius: var(--radius-xl); padding: 16px; background:#fff; box-shadow: var(--shadow-1); }
+    .hl strong { font-size: 28px; }
+    .hl p { color: var(--gv-muted); margin: 6px 0 0; }
+
+    /* Footer */
+    footer { margin-top: 40px; border-top: 1px solid var(--gv-line); background: #fafafa; }
+    .footer-inner { padding: 24px 0; display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 16px; }
+    .foot h5 { margin: 0 0 8px; }
+    .foot a { display:block; color: var(--gv-muted); padding: 6px 0; }
+
+    /* Modal (Brand Spotlight) */
+    .overlay { position: fixed; inset: 0; background: rgba(2, 6, 23, .6); display: none; align-items: center; justify-content: center; padding: 18px; z-index: 50; }
+    .overlay[aria-hidden="false"] { display: flex; }
+    .modal { width: min(880px, 96vw); max-height: 90vh; overflow: auto; border-radius: 20px; background: #fff; box-shadow: 0 40px 100px rgba(0,0,0,.25); }
+    .modal-head { display:flex; justify-content: space-between; align-items:center; padding: 16px; border-bottom: 1px solid var(--gv-line); }
+    .modal-body { padding: 0; }
+    .modal-banner { position: relative; height: 160px; }
+    .modal-banner .brand-surface { border-radius: 20px 20px 0 0; }
+    .modal-content { padding: 18px; display:grid; grid-template-columns: 1.2fr 1fr; gap: 16px; }
+    .meta { display:grid; gap: 8px; }
+    .meta .row { display:flex; justify-content: space-between; border: 1px solid var(--gv-line); border-radius: 12px; padding: 10px; background:#fff; }
+
+    /* Responsive */
+    @media (max-width: 980px) { .hero-inner { grid-template-columns: 1fr; } .audience-grid { grid-template-columns: 1fr; } .card { grid-column: span 12; } .footer-inner { grid-template-columns: 1fr 1fr; } .modal-content { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <a class="visually-hidden" href="#main">Skip to content</a>
+
+  <header class="topbar" role="banner">
+    <div class="container nav" aria-label="Global Ventures navigation">
+      <div class="logo" aria-label="Global Ventures Inc.">
+        <div class="logo-mark" aria-hidden="true">GV</div>
+        <span>Global Ventures Inc.</span>
+      </div>
+      <nav>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#strategy">Strategy</a>
+        <a href="#highlights">Highlights</a>
+        <a href="#careers">Careers</a>
+        <a href="#contact" class="cta">Get in touch</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <div>
+          <span class="eyebrow">Strategic holding company • Operator-led</span>
+          <h1 class="headline">We build enduring companies—and let their brands shine.</h1>
+          <p class="subhead">Global Ventures backs five category leaders across software, education, food logistics, sustainable construction, and corporate wellbeing.</p>
+
+          <div class="audience-grid" aria-label="Audience entry points">
+            <article class="aud-card" tabindex="0">
+              <h4>For Founders & Acquisition Targets</h4>
+              <p>Considering selling your company? Keep your brand. Gain an operator partner and shared services.</p>
+              <div style="margin-top:10px"><a class="cta" href="#contact">Start a conversation</a></div>
+            </article>
+            <article class="aud-card" tabindex="0">
+              <h4>For Investors</h4>
+              <p>Multi-sector exposure, disciplined capital allocation, and resilient cash flows across five brands.</p>
+              <div style="margin-top:10px"><a class="cta" href="#highlights">See our thesis</a></div>
+            </article>
+            <article class="aud-card" tabindex="0" id="careers">
+              <h4>For Job Seekers</h4>
+              <p>Build your career inside one of our brands—or on the platform team powering them all.</p>
+              <div style="margin-top:10px"><a class="cta" href="#portfolio">Explore roles</a></div>
+            </article>
+          </div>
+
+          <div class="brand-ticker" aria-label="Our brands">
+            <div class="badge"><div class="dot" style="background:#0b5ae0">T</div> TechFlow <small>• B2B Software</small></div>
+            <div class="badge"><div class="dot" style="background:#eab308; color:#111">B</div> BrightStart <small>• Education</small></div>
+            <div class="badge"><div class="dot" style="background:#10b981">U</div> UrbanEats <small>• Food Delivery</small></div>
+            <div class="badge"><div class="dot" style="background:#22c55e">G</div> GreenBuild <small>• Construction</small></div>
+            <div class="badge"><div class="dot" style="background:#06b6d4">W</div> WellnessWorks <small>• Health</small></div>
+          </div>
+        </div>
+        <div>
+          <div class="strategy" id="strategy">
+            <h3>Our platform advantage</h3>
+            <p class="kicker">A neutral Global Ventures frame with brand-specific expression inside it. Shared services accelerate growth without diluting identities.</p>
+            <div class="pill-list">
+              <span class="pill">Capital & M&A</span>
+              <span class="pill">Data & Engineering</span>
+              <span class="pill">People & Culture</span>
+              <span class="pill">Legal & Finance</span>
+              <span class="pill">Sustainability</span>
+            </div>
+            <div class="highlights" id="highlights" aria-label="Investor highlights">
+              <div class="hl"><strong id="metric-a">0</strong><p>Combined customers across portfolio</p></div>
+              <div class="hl"><strong id="metric-b">0%</strong><p>5-year revenue CAGR (portfolio)</p></div>
+              <div class="hl"><strong id="metric-c">0</strong><p>Operating regions</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section class="section" id="portfolio" aria-label="Portfolio brands">
+      <div class="container">
+        <h3>Our brands</h3>
+        <p class="kicker">Five distinct identities. One aligned operating system.</p>
+        <div class="grid">
+          <!-- TechFlow -->
+          <article class="card brand--techflow" aria-labelledby="t-title">
+            <div class="brand-surface" aria-hidden="true"></div>
+            <div class="card-inner">
+              <div>
+                <span class="brand-chip"><span class="glyph">T</span><span>TechFlow</span></span>
+                <h4 class="brand-title" id="t-title">Sleek, enterprise-grade B2B software</h4>
+                <p class="brand-desc">Workflow automation and integrations for mid-market finance teams.</p>
+              </div>
+              <div class="stats">
+                <span class="stat">98% NRR</span>
+                <span class="stat">SOC 2 Type II</span>
+                <span class="stat">Fortune 100 clients</span>
+              </div>
+              <div class="actions">
+                <a href="#" class="btn" data-brand="techflow">Learn more</a>
+                <a href="#" class="btn primary" data-apply="techflow">See roles</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- BrightStart -->
+          <article class="card brand--brightstart" aria-labelledby="b-title">
+            <div class="brand-surface" aria-hidden="true"></div>
+            <div class="card-inner">
+              <div>
+                <span class="brand-chip"><span class="glyph">B</span><span>BrightStart</span></span>
+                <h4 class="brand-title" id="b-title">Playful, colorful children's learning</h4>
+                <p class="brand-desc">Curricula and apps that turn curiosity into daily skill-building.</p>
+              </div>
+              <div class="stats">
+                <span class="stat">5M+ lessons</span>
+                <span class="stat">K–6 alignment</span>
+                <span class="stat">Parental controls</span>
+              </div>
+              <div class="actions">
+                <a href="#" class="btn" data-brand="brightstart">Learn more</a>
+                <a href="#" class="btn primary" data-apply="brightstart">See roles</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- UrbanEats -->
+          <article class="card brand--urbaneats" aria-labelledby="u-title">
+            <div class="brand-surface" aria-hidden="true"></div>
+            <div class="card-inner">
+              <div>
+                <span class="brand-chip"><span class="glyph">U</span><span>UrbanEats</span></span>
+                <h4 class="brand-title" id="u-title" style="color:#e5ffe7">Trendy, urban food delivery</h4>
+                <p class="brand-desc" style="color:#cdecd3">Nightlife-friendly logistics and hyperlocal favorites.</p>
+              </div>
+              <div class="stats">
+                <span class="stat">30-min avg ETA</span>
+                <span class="stat">Rider benefits</span>
+                <span class="stat">City partnerships</span>
+              </div>
+              <div class="actions">
+                <a href="#" class="btn" data-brand="urbaneats">Learn more</a>
+                <a href="#" class="btn primary" data-apply="urbaneats">See roles</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- GreenBuild -->
+          <article class="card brand--greenbuild" aria-labelledby="g-title">
+            <div class="brand-surface" aria-hidden="true"></div>
+            <div class="card-inner">
+              <div>
+                <span class="brand-chip"><span class="glyph">G</span><span>GreenBuild</span></span>
+                <h4 class="brand-title" id="g-title">Earth-conscious, professional builds</h4>
+                <p class="brand-desc">Low-carbon materials and LEED-first commercial construction.</p>
+              </div>
+              <div class="stats">
+                <span class="stat">LEED Platinum</span>
+                <span class="stat">Embodied carbon ↓35%</span>
+                <span class="stat">Safety score 99</span>
+              </div>
+              <div class="actions">
+                <a href="#" class="btn" data-brand="greenbuild">Learn more</a>
+                <a href="#" class="btn primary" data-apply="greenbuild">See roles</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- WellnessWorks -->
+          <article class="card brand--wellnessworks" aria-labelledby="w-title">
+            <div class="brand-surface" aria-hidden="true"></div>
+            <div class="card-inner">
+              <div>
+                <span class="brand-chip"><span class="glyph">W</span><span>WellnessWorks</span></span>
+                <h4 class="brand-title" id="w-title">Calming, health-focused programs</h4>
+                <p class="brand-desc">Holistic employee wellbeing with measurable outcomes.</p>
+              </div>
+              <div class="stats">
+                <span class="stat">Absenteeism ↓18%</span>
+                <span class="stat">Clinical coaches</span>
+                <span class="stat">Global rollout</span>
+              </div>
+              <div class="actions">
+                <a href="#" class="btn" data-brand="wellnessworks">Learn more</a>
+                <a href="#" class="btn primary" data-apply="wellnessworks">See roles</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" id="contact" aria-label="Contact">
+      <div class="container">
+        <h3>Let’s talk</h3>
+        <p class="kicker">Whether you’re exploring a sale, investing, or looking for your next role, we’d love to meet you.</p>
+        <form class="strategy" onsubmit="event.preventDefault(); alert('Thanks! We\'ll get back to you.');" aria-label="Contact form">
+          <div class="grid" style="grid-template-columns: repeat(12, 1fr); gap:12px;">
+            <input aria-label="Your name" required placeholder="Name" style="grid-column: span 6; padding:12px; border-radius:12px; border:1px solid var(--gv-line);">
+            <input aria-label="Email" required type="email" placeholder="Email" style="grid-column: span 6; padding:12px; border-radius:12px; border:1px solid var(--gv-line);">
+            <select aria-label="I am" required style="grid-column: span 6; padding:12px; border-radius:12px; border:1px solid var(--gv-line); background:#fff;">
+              <option value="">I am…</option>
+              <option>Founder exploring acquisition</option>
+              <option>Investor</option>
+              <option>Job seeker</option>
+              <option>Partner / Other</option>
+            </select>
+            <input aria-label="Company" placeholder="Company (optional)" style="grid-column: span 6; padding:12px; border-radius:12px; border:1px solid var(--gv-line);">
+            <textarea aria-label="Message" required placeholder="Your message" rows="4" style="grid-column: span 12; padding:12px; border-radius:12px; border:1px solid var(--gv-line);"></textarea>
+          </div>
+          <div style="margin-top:12px; display:flex; gap:10px; align-items:center;">
+            <button class="cta" type="submit">Send</button>
+            <small style="color:var(--gv-muted)">We reply within 2 business days.</small>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="container footer-inner">
+      <div class="foot">
+        <div class="logo" style="margin-bottom:10px"><div class="logo-mark">GV</div><span>Global Ventures Inc.</span></div>
+        <small style="color:var(--gv-muted)">© <span id="year"></span> Global Ventures Inc. All rights reserved.</small>
+      </div>
+      <div class="foot"><h5>Company</h5>
+        <a href="#strategy">Strategy</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#careers">Careers</a>
+      </div>
+      <div class="foot"><h5>For founders</h5>
+        <a href="#contact">Sell your company</a>
+        <a href="#">Integration playbook</a>
+        <a href="#">Operator network</a>
+      </div>
+      <div class="foot"><h5>Investors</h5>
+        <a href="#highlights">Highlights</a>
+        <a href="#">Governance</a>
+        <a href="#">Reports</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Brand Spotlight Modal -->
+  <div class="overlay" id="overlay" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal" role="document">
+      <div class="modal-head">
+        <strong id="modal-title">Brand spotlight</strong>
+        <button class="btn" id="closeModal" aria-label="Close">Close</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-banner"><div class="brand-surface" id="modalSurface" aria-hidden="true"></div></div>
+        <div class="modal-content">
+          <div>
+            <h3 id="modalBrandName">Brand</h3>
+            <p id="modalBrandDesc" style="color:var(--gv-muted)"></p>
+            <div class="pill-list" id="modalPills"></div>
+          </div>
+          <div class="meta" aria-label="Key facts">
+            <div class="row"><span>Category</span><strong id="modalCategory"></strong></div>
+            <div class="row"><span>Stage</span><strong id="modalStage"></strong></div>
+            <div class="row"><span>Careers</span><a href="#" class="cta" id="modalRoles">Open roles</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Dynamic copyright year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Simple investor highlight counters (example values)
+    const metrics = [
+      { el: 'metric-a', target: 120000 },
+      { el: 'metric-b', target: 24, suffix: '%' },
+      { el: 'metric-c', target: 18 }
+    ];
+    const animateMetric = (el, target, suffix = '') => {
+      let v = 0; const inc = Math.max(1, Math.floor(target / 120));
+      const step = () => { v += inc; if (v >= target) v = target; document.getElementById(el).textContent = v.toLocaleString() + suffix; if (v < target) requestAnimationFrame(step); };
+      requestAnimationFrame(step);
+    };
+    const onVisible = (node, cb) => { const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { cb(); io.disconnect(); } }, { threshold: .4 }); io.observe(node); };
+    onVisible(document.querySelector('.highlights'), () => metrics.forEach(m => animateMetric(m.el, m.target, m.suffix)));
+
+    // Brand Spotlight modal content
+    const BRAND_DATA = {
+      techflow: {
+        name: 'TechFlow',
+        className: 'brand--techflow',
+        desc: 'Workflow automation suite for finance and ops. API-first, enterprise-grade security.',
+        category: 'B2B Software',
+        stage: 'Scale',
+        pills: ['98% Net Revenue Retention', 'SOC 2 Type II', 'ERP integrations']
+      },
+      brightstart: {
+        name: 'BrightStart',
+        className: 'brand--brightstart',
+        desc: 'Play-based learning across reading, math, and science with parent dashboards.',
+        category: "Children's Education",
+        stage: 'Growth',
+        pills: ['K–6 curriculum', '5M+ lessons', 'Offline mode']
+      },
+      urbaneats: {
+        name: 'UrbanEats',
+        className: 'brand--urbaneats',
+        desc: 'Modern delivery for urban living: late-night availability and local gems.',
+        category: 'Food Delivery',
+        stage: 'Scale',
+        pills: ['30-min avg ETA', 'Rider benefits', 'Restaurant analytics']
+      },
+      greenbuild: {
+        name: 'GreenBuild',
+        className: 'brand--greenbuild',
+        desc: 'Sustainable commercial construction with low-carbon materials and LEED-first process.',
+        category: 'Sustainable Construction',
+        stage: 'Established',
+        pills: ['LEED Platinum', 'Embodied carbon ↓35%', 'Safety score 99']
+      },
+      wellnessworks: {
+        name: 'WellnessWorks',
+        className: 'brand--wellnessworks',
+        desc: 'Corporate wellbeing programs: mental health, fitness, nutrition—measurable outcomes.',
+        category: 'Corporate Health Programs',
+        stage: 'Growth',
+        pills: ['Clinical coaches', '18% absenteeism reduction', 'Global rollout']
+      }
+    };
+
+    const overlay = document.getElementById('overlay');
+    const modalSurface = document.getElementById('modalSurface');
+    const modalTitle = document.getElementById('modal-title');
+    const modalBrandName = document.getElementById('modalBrandName');
+    const modalBrandDesc = document.getElementById('modalBrandDesc');
+    const modalPills = document.getElementById('modalPills');
+    const modalCategory = document.getElementById('modalCategory');
+    const modalStage = document.getElementById('modalStage');
+    const modalRoles = document.getElementById('modalRoles');
+
+    function openBrand(key) {
+      const data = BRAND_DATA[key];
+      if (!data) return;
+      modalTitle.textContent = `${data.name} • Brand spotlight`;
+      modalBrandName.textContent = data.name;
+      modalBrandDesc.textContent = data.desc;
+      modalCategory.textContent = data.category;
+      modalStage.textContent = data.stage;
+      modalPills.innerHTML = '';
+      data.pills.forEach(p => {
+        const span = document.createElement('span');
+        span.className = 'pill';
+        span.textContent = p;
+        modalPills.appendChild(span);
+      });
+      modalRoles.href = '#careers';
+
+      // Apply brand surface style to banner
+      modalSurface.className = 'brand-surface ' + data.className;
+
+      overlay.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      document.getElementById('closeModal').focus();
+    }
+
+    function closeBrand() {
+      overlay.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('[data-brand]').forEach(btn => btn.addEventListener('click', (e) => { e.preventDefault(); openBrand(btn.dataset.brand); }));
+    document.getElementById('closeModal').addEventListener('click', closeBrand);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) closeBrand(); });
+    window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeBrand(); });
+
+    // Keyboard focus for accessibility on card actions
+    document.querySelectorAll('.card').forEach(card => { card.addEventListener('keydown', (e) => { if (e.key === 'Enter') { const btn = card.querySelector('[data-brand]'); if (btn) btn.click(); } }); });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhotoCommunity - Where Photographers Connect & Grow</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Dark base inspired by darkrooms */
+            --bg-dark: #0a0a0a;
+            --bg-card: #1a1a1a;
+            --bg-elevated: #252525;
+            
+            /* Warm accents like darkroom safelights */
+            --accent-amber: #ff9f43;
+            --accent-warm: #f39c12;
+            --accent-red: #e74c3c;
+            
+            /* Neutrals */
+            --text-primary: #f5f5f5;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666;
+            --border: #2a2a2a;
+            
+            /* Semantic colors */
+            --community: #3498db;
+            --commercial: #9b59b6;
+            --featured: #ff9f43;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', 'Arial', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Film grain texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            z-index: 1000;
+            pointer-events: none;
+            background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="4" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: 'Georgia', serif;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(180deg, rgba(10, 10, 10, 0.95) 0%, rgba(10, 10, 10, 0.8) 100%);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Georgia', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent-amber), var(--accent-warm));
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent-amber);
+        }
+
+        .nav-cta {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.65rem 1.5rem;
+            border-radius: 6px;
+            border: none;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-amber), var(--accent-warm));
+            color: var(--bg-dark);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(255, 159, 67, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--text-secondary);
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-content .highlight {
+            color: var(--accent-amber);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .stat {
+            text-align: left;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-amber);
+            font-family: 'Georgia', serif;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .hero-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            position: relative;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            z-index: 10;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.7) 100%);
+        }
+
+        .gallery-item:nth-child(1) {
+            grid-column: span 2;
+            aspect-ratio: 2/1;
+        }
+
+        /* Featured badge */
+        .featured-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--featured);
+            color: var(--bg-dark);
+            padding: 0.35rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            z-index: 2;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Dual Purpose Section */
+        .dual-purpose {
+            max-width: 1400px;
+            margin: 6rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .purpose-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .purpose-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .purpose-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            transition: height 0.4s ease;
+        }
+
+        .purpose-card.community::before {
+            background: linear-gradient(90deg, var(--community), #2980b9);
+        }
+
+        .purpose-card.commercial::before {
+            background: linear-gradient(90deg, var(--commercial), #8e44ad);
+        }
+
+        .purpose-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--text-muted);
+        }
+
+        .purpose-card:hover::before {
+            height: 100%;
+            opacity: 0.05;
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .community .card-icon {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.2), rgba(41, 128, 185, 0.2));
+            color: var(--community);
+        }
+
+        .commercial .card-icon {
+            background: linear-gradient(135deg, rgba(155, 89, 182, 0.2), rgba(142, 68, 173, 0.2));
+            color: var(--commercial);
+        }
+
+        .purpose-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .purpose-card p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .card-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .card-features li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .card-features li:last-child {
+            border-bottom: none;
+        }
+
+        .card-features li::before {
+            content: '→';
+            color: var(--accent-amber);
+            font-weight: 700;
+        }
+
+        /* Content Feed Section */
+        .content-feed {
+            background: var(--bg-elevated);
+            padding: 6rem 0;
+            margin-top: 6rem;
+        }
+
+        .feed-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .feed-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .feed-tab {
+            padding: 1rem 2rem;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .feed-tab.active {
+            color: var(--text-primary);
+        }
+
+        .feed-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent-amber);
+        }
+
+        .feed-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feed-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .feed-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--text-muted);
+        }
+
+        .feed-image {
+            aspect-ratio: 4/3;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .feed-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .feed-card:hover .feed-image img {
+            transform: scale(1.1);
+        }
+
+        .feed-content {
+            padding: 1.5rem;
+        }
+
+        .feed-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-amber), var(--accent-warm));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--bg-dark);
+        }
+
+        .user-info h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .user-info p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .feed-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .feed-description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .feed-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .feed-stats {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .stat-item .icon {
+            font-size: 1rem;
+        }
+
+        .challenge-badge {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Weekly Challenge Section */
+        .weekly-challenge {
+            max-width: 1400px;
+            margin: 6rem auto;
+            padding: 0 2rem;
+        }
+
+        .challenge-container {
+            background: linear-gradient(135deg, var(--bg-card), var(--bg-elevated));
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .challenge-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 159, 67, 0.05), transparent);
+            pointer-events: none;
+        }
+
+        .challenge-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .challenge-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 2rem;
+        }
+
+        .challenge-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .challenge-theme {
+            font-size: 1.5rem;
+            color: var(--accent-amber);
+            font-weight: 600;
+        }
+
+        .challenge-timer {
+            text-align: right;
+        }
+
+        .timer-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .timer-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-amber);
+            font-family: 'Georgia', serif;
+        }
+
+        .challenge-description {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 800px;
+            line-height: 1.7;
+        }
+
+        .challenge-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* Feedback System Section */
+        .feedback-system {
+            max-width: 1400px;
+            margin: 6rem auto;
+            padding: 0 2rem;
+        }
+
+        .feedback-demo {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 3rem;
+            margin-top: 3rem;
+        }
+
+        .feedback-types {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feedback-type {
+            text-align: center;
+            padding: 2rem;
+            background: var(--bg-elevated);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .feedback-type:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-amber);
+        }
+
+        .feedback-icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 1rem;
+            background: linear-gradient(135deg, rgba(255, 159, 67, 0.2), rgba(243, 156, 18, 0.2));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .feedback-type h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feedback-type p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .quality-metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .metric {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--bg-dark);
+            border-radius: 8px;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-amber);
+            font-family: 'Georgia', serif;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            padding: 4rem 2rem 2rem;
+            margin-top: 8rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-elevated);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--accent-amber);
+            color: var(--bg-dark);
+        }
+
+        .footer-section h4 {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-amber);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .animate-delay-1 { animation-delay: 0.1s; opacity: 0; }
+        .animate-delay-2 { animation-delay: 0.2s; opacity: 0; }
+        .animate-delay-3 { animation-delay: 0.3s; opacity: 0; }
+        .animate-delay-4 { animation-delay: 0.4s; opacity: 0; }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .purpose-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-stats {
+                gap: 2rem;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .feed-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feedback-types {
+                grid-template-columns: 1fr;
+            }
+
+            .quality-metrics {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <div class="logo-icon">📷</div>
+                <span>PhotoCommunity</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#" class="active">Explore</a></li>
+                <li><a href="#challenges">Challenges</a></li>
+                <li><a href="#community">Community</a></li>
+                <li><a href="#hire">Hire Photographers</a></li>
+                <li><a href="#learn">Learn</a></li>
+            </ul>
+            <div class="nav-cta">
+                <a href="#" class="btn btn-secondary">Sign In</a>
+                <a href="#" class="btn btn-primary">Join Free</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content animate-in">
+            <h1>Where photographers <span class="highlight">create, connect</span> & grow together</h1>
+            <p>Join a vibrant community of local photographers sharing their work, giving constructive feedback, and building successful businesses — all in one place.</p>
+            <div class="hero-actions">
+                <a href="#" class="btn btn-primary">Start Your Portfolio</a>
+                <a href="#" class="btn btn-secondary">Browse Photographers</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">12K+</div>
+                    <div class="stat-label">Active Photographers</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">48K+</div>
+                    <div class="stat-label">Photos Shared</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">850+</div>
+                    <div class="stat-label">Projects Booked</div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-gallery animate-in animate-delay-2">
+            <div class="gallery-item">
+                <div class="featured-badge">Featured</div>
+                <img src="data:image/svg+xml,%3Csvg width='800' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='g1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23667eea;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23764ba2;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='400' fill='url(%23g1)'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='20' fill='white' opacity='0.7'%3ELandscape Photography%3C/text%3E%3C/svg%3E" alt="Featured landscape">
+            </div>
+            <div class="gallery-item">
+                <img src="data:image/svg+xml,%3Csvg width='400' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='g2' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23f093fb;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%234facfe;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='400' fill='url(%23g2)'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='16' fill='white' opacity='0.7'%3EPortrait%3C/text%3E%3C/svg%3E" alt="Portrait">
+            </div>
+            <div class="gallery-item">
+                <img src="data:image/svg+xml,%3Csvg width='400' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='g3' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23fa709a;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23fee140;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='400' fill='url(%23g3)'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='16' fill='white' opacity='0.7'%3EStreet%3C/text%3E%3C/svg%3E" alt="Street photography">
+            </div>
+        </div>
+    </section>
+
+    <!-- Dual Purpose Section -->
+    <section class="dual-purpose">
+        <div class="section-header animate-in">
+            <h2>Built for Community & Commerce</h2>
+            <p>We seamlessly blend authentic creative community with professional opportunities — helping you grow as an artist while building your business.</p>
+        </div>
+        <div class="purpose-cards">
+            <div class="purpose-card community animate-in animate-delay-1">
+                <div class="card-icon">🤝</div>
+                <h3>Community Hub</h3>
+                <p>Connect with fellow photographers who genuinely want to help you improve your craft through thoughtful critique and support.</p>
+                <ul class="card-features">
+                    <li>Weekly themed challenges with peer voting</li>
+                    <li>Structured critique system (composition, lighting, story)</li>
+                    <li>Skill-based circles (beginners, advanced, genre-specific)</li>
+                    <li>Mentorship matching program</li>
+                    <li>Local meetup coordination</li>
+                    <li>Achievement badges & reputation system</li>
+                </ul>
+                <a href="#" class="btn btn-primary">Explore Community</a>
+            </div>
+            <div class="purpose-card commercial animate-in animate-delay-2">
+                <div class="card-icon">💼</div>
+                <h3>Professional Platform</h3>
+                <p>Turn your passion into income with tools designed to connect you with clients looking for exactly your style of photography.</p>
+                <ul class="card-features">
+                    <li>Service listings (events, portraits, commercial)</li>
+                    <li>Portfolio builder with customizable galleries</li>
+                    <li>Client inquiry system & booking calendar</li>
+                    <li>Secure payment processing</li>
+                    <li>Review & rating system</li>
+                    <li>Business analytics dashboard</li>
+                </ul>
+                <a href="#" class="btn btn-primary">Start Earning</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Feed Section -->
+    <section class="content-feed">
+        <div class="feed-container">
+            <div class="section-header">
+                <h2>Latest from the Community</h2>
+                <p>Discover amazing work, participate in challenges, and get inspired</p>
+            </div>
+            <div class="feed-tabs">
+                <button class="feed-tab active">Trending</button>
+                <button class="feed-tab">Recent</button>
+                <button class="feed-tab">Challenges</button>
+                <button class="feed-tab">Following</button>
+            </div>
+            <div class="feed-grid">
+                <div class="feed-card animate-in animate-delay-1">
+                    <div class="feed-image">
+                        <div class="challenge-badge">Challenge</div>
+                        <img src="data:image/svg+xml,%3Csvg width='400' height='300' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='g4' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23ff6b6b;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23ee5a6f;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='300' fill='url(%23g4)'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='18' fill='white' opacity='0.8'%3EGolden Hour%3C/text%3E%3C/svg%3E" alt="Golden hour photo">
+                    </div>
+                    <div class="feed-content">
+                        <div class="feed-header">
+                            <div class="user-avatar">SM</div>
+                            <div class="user-info">
+                                <h4>Sarah Mitchell</h4>
+                                <p>Portrait Specialist • Pro</p>
+                            </div>
+                        </div>
+                        <h3 class="feed-title">Golden Hour Portrait Series</h3>
+                        <p class="feed-description">Experimenting with natural light during the magic hour. Looking for feedback on composition and color grading.</p>
+                        <div class="feed-meta">
+                            <div class="feed-stats">
+                                <div class="stat-item">
+                                    <span class="icon">❤️</span>
+                                    <span>342</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="icon">💬</span>
+                                    <span>28</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="icon">👁️</span>
+                                    <span>1.2K</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feed-card animate-in animate-delay-2">
+                    <div class="feed-image">
+                        <img src="data:image/svg+xml,%3Csvg width='400' height='300' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='g5' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2330cfd0;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23330867;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='300' fill='url(%23g5)'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='18' fill='white' opacity='0.8'%3EUrban Architecture%3C/text%3E%3C/svg%3E" alt="Architecture">
+                    </div>
+                    <div class="feed-content">
+                        <div class="feed-header">
+                            <div class="user-avatar">JC</div>
+                            <div class="user-info">
+                                <h4>James Chen</h4>
+                                <p>Commercial Photographer</p>
+                            </div>
+                        </div>
+                        <h3 class="feed-title">Downtown Reflections</h3>
+                        <p class="feed-description">Playing with symmetry and reflections in modern architecture. Available for commercial bookings.</p>
+                        <div class="feed-meta">
+                            <div class="feed-stats">
+                                <div class="stat-item">
+                                    <span class="icon">❤️</span>
+                                    <span>189</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="icon">💬</span>
+                                    <span>15</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="icon">👁️</span>
+                                    <span>856</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feed-card animate-in animate-delay-3">
+                    <div class="feed-image">
+                        <img src="data:image/svg+xml,%3Csvg width='400' height='300' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='g6' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23ffecd2;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23fcb69f;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='300' fill='url(%23g6)'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='18' fill='%23333' opacity='0.8'%3EWildlife%3C/text%3E%3C/svg%3E" alt="Wildlife">
+                    </div>
+                    <div class="feed-content">
+                        <div class="feed-header">
+                            <div class="user-avatar">EK</div>
+                            <div class="user-info">
+                                <h4>Emma Kingston</h4>
+                                <p>Nature & Wildlife</p>
+                            </div>
+                        </div>
+                        <h3 class="feed-title">Morning Visitor</h3>
+                        <p class="feed-description">Captured this beautiful cardinal during my morning walk. First time trying bird photography!</p>
+                        <div class="feed-meta">
+                            <div class="feed-stats">
+                                <div class="stat-item">
+                                    <span class="icon">❤️</span>
+                                    <span>267</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="icon">💬</span>
+                                    <span>22</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="icon">👁️</span>
+                                    <span>943</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Weekly Challenge Section -->
+    <section class="weekly-challenge" id="challenges">
+        <div class="challenge-container animate-in">
+            <div class="challenge-content">
+                <div class="challenge-header">
+                    <div class="challenge-title">
+                        <h2>This Week's Challenge</h2>
+                        <div class="challenge-theme">"Shadows & Light"</div>
+                    </div>
+                    <div class="challenge-timer">
+                        <div class="timer-label">Ends In</div>
+                        <div class="timer-value">3d 14h</div>
+                    </div>
+                </div>
+                <p class="challenge-description">
+                    Explore the interplay between light and shadow. Capture images where shadows become as important as the subjects themselves. How can contrast, silhouettes, and dramatic lighting tell your story?
+                </p>
+                <div class="challenge-actions">
+                    <a href="#" class="btn btn-primary">Submit Your Entry</a>
+                    <a href="#" class="btn btn-secondary">View All Entries (284)</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feedback System Section -->
+    <section class="feedback-system">
+        <div class="section-header animate-in">
+            <h2>Constructive Feedback System</h2>
+            <p>Our structured critique system ensures you get meaningful, helpful feedback that actually improves your work</p>
+        </div>
+        <div class="feedback-demo">
+            <div class="feedback-types">
+                <div class="feedback-type">
+                    <div class="feedback-icon">🎯</div>
+                    <h4>Technical</h4>
+                    <p>Exposure, focus, composition, and technical execution</p>
+                </div>
+                <div class="feedback-type">
+                    <div class="feedback-icon">🎨</div>
+                    <h4>Artistic</h4>
+                    <p>Creative vision, mood, color harmony, and storytelling</p>
+                </div>
+                <div class="feedback-type">
+                    <div class="feedback-icon">💡</div>
+                    <h4>Suggestions</h4>
+                    <p>Alternative approaches, editing tips, and creative ideas</p>
+                </div>
+            </div>
+            <div class="quality-metrics">
+                <div class="metric">
+                    <div class="metric-value">4.8★</div>
+                    <div class="metric-label">Avg Feedback Quality</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">92%</div>
+                    <div class="metric-label">Constructive Rate</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">15K+</div>
+                    <div class="metric-label">Reviews Given</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">2.4hr</div>
+                    <div class="metric-label">Avg Response Time</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>PhotoCommunity</h3>
+                <p>Where local photographers connect, grow, and build successful businesses together.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link">📷</a>
+                    <a href="#" class="social-link">🐦</a>
+                    <a href="#" class="social-link">📘</a>
+                    <a href="#" class="social-link">📺</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Community</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Explore Photos</a></li>
+                    <li><a href="#">Weekly Challenges</a></li>
+                    <li><a href="#">Discussion Forums</a></li>
+                    <li><a href="#">Local Meetups</a></li>
+                    <li><a href="#">Learning Resources</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>For Professionals</h4>
+                <ul class="footer-links">
+                    <li><a href="#">List Your Services</a></li>
+                    <li><a href="#">Hire Photographers</a></li>
+                    <li><a href="#">Portfolio Builder</a></li>
+                    <li><a href="#">Business Tools</a></li>
+                    <li><a href="#">Success Stories</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Community Guidelines</a></li>
+                    <li><a href="#">Feedback Policy</a></li>
+                    <li><a href="#">Privacy & Terms</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 PhotoCommunity. Empowering photographers since 2020.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Tab switching functionality
+        const feedTabs = document.querySelectorAll('.feed-tab');
+        feedTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                feedTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                // In a real app, this would filter the feed content
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animate-in elements
+        document.querySelectorAll('.animate-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Simulated like/bookmark interactions
+        document.querySelectorAll('.feed-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                if (!e.target.closest('.btn')) {
+                    console.log('Card clicked - would navigate to photo detail page');
+                }
+            });
+        });
+
+        // Challenge timer countdown (simulated)
+        function updateTimer() {
+            const timerElement = document.querySelector('.timer-value');
+            if (timerElement) {
+                // In a real app, this would calculate actual time remaining
+                const timeRemaining = '3d 14h';
+                timerElement.textContent = timeRemaining;
+            }
+        }
+        updateTimer();
+    </script>
+</body>
+</html>

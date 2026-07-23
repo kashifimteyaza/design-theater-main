@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FitCore Studio — Yoga · Pilates · Strength | Boutique Fitness</title>
+  <meta name="description" content="FitCore Studio is a boutique fitness center offering yoga, pilates, and strength training with certified trainers in a welcoming, non-intimidating space. Group classes & personal training." />
+  <meta name="robots" content="index,follow" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23000' width='100' height='100'/><text y='60' x='50' text-anchor='middle' font-family='Arial' font-size='60' fill='white'>F</text></svg>">
+  <!-- Open Graph -->
+  <meta property="og:title" content="FitCore Studio — Boutique Fitness" />
+  <meta property="og:description" content="Yoga · Pilates · Strength | Friendly coaches, small classes, real results." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 630'><rect width='1200' height='630' fill='%230A0A0B'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='90' fill='white'>FitCore Studio</text></svg>" />
+
+  <style>
+    :root{
+      --bg:#0b0c10;        /* near-black background */
+      --card:#111318;      /* card background */
+      --muted:#c9d1d9;     /* body text */
+      --fg:#f6f8fa;        /* headings */
+      --brand:#7be495;     /* mint green */
+      --brand-2:#59bfff;   /* accent blue */
+      --warn:#ffb86b;      /* warm accent */
+      --bad:#ff6b6b;       
+      --ok:#39d353;        
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --radius-lg:22px;
+      --maxw:1200px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
+      color:var(--muted);
+      background:radial-gradient(1200px 500px at 20% -10%, rgba(91,207,255,.08), transparent),
+                 radial-gradient(900px 400px at 120% 0%, rgba(123,228,149,.08), transparent),
+                 var(--bg);
+      letter-spacing:.2px;
+    }
+    a{color:var(--brand-2);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    /* Layout */
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+
+    /* Header */
+    header{
+      position:sticky;top:0;z-index:1000;
+      backdrop-filter:saturate(180%) blur(10px);
+      background:rgba(11,12,16,.7);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .logo{display:flex;align-items:center;gap:12px}
+    .logo-mark{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--brand),var(--brand-2));display:grid;place-items:center;box-shadow:var(--shadow)}
+    .logo-mark span{font-weight:800;color:#0b0c10}
+    .logo h1{font-size:18px;margin:0;color:var(--fg)}
+    nav ul{list-style:none;display:flex;gap:22px;margin:0;padding:0}
+    nav a{color:var(--muted);font-weight:600}
+    .cta{
+      appearance:none;border:0;cursor:pointer;font-weight:700;color:#0b0c10;background:linear-gradient(135deg,var(--brand),var(--brand-2));
+      padding:10px 16px;border-radius:999px;box-shadow:var(--shadow)
+    }
+    .hamburger{display:none;background:none;border:0;color:var(--fg);font-size:26px}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1.25fr 1fr;gap:36px;align-items:center;padding:56px 0 28px}
+    .hero h2{color:var(--fg);font-size:48px;line-height:1.1;margin:.2em 0}
+    .hero p{font-size:18px;opacity:.9}
+    .badges{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 24px}
+    .badge{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);padding:8px 12px;border-radius:999px;font-weight:600}
+    .hero-card{background:linear-gradient(180deg,rgba(123,228,149,.08),transparent 60%),var(--card);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius-lg);padding:22px;box-shadow:var(--shadow)}
+    .hero-list{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;margin:0;padding:0;list-style:none}
+    .hero-list li{display:flex;gap:10px;align-items:center}
+    .hero-list .dot{width:10px;height:10px;border-radius:50%;background:var(--brand)}
+
+    .social-proof{display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin-top:18px;opacity:.8}
+    .sp-item{display:flex;gap:10px;align-items:center}
+    .sp-logo{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.08)}
+
+    /* Sections */
+    section{padding:48px 0}
+    .section-title{color:var(--fg);font-size:28px;margin:0 0 20px}
+    .kicker{display:inline-block;font-size:12px;letter-spacing:.25em;text-transform:uppercase;color:#9ca3af;margin-bottom:6px}
+
+    /* Schedule */
+    .filters{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 22px}
+    .filter-btn{padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:var(--fg);cursor:pointer;font-weight:600}
+    .filter-btn[aria-pressed="true"]{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#0b0c10;border-color:transparent}
+
+    .schedule{overflow:auto;border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);box-shadow:var(--shadow)}
+    table{width:100%;border-collapse:separate;border-spacing:0;background:var(--card)}
+    thead th{position:sticky;top:0;background:rgba(17,19,24,.95);backdrop-filter:blur(4px);color:var(--fg);font-size:14px;text-align:left;padding:12px;border-bottom:1px solid rgba(255,255,255,.08)}
+    tbody td{padding:12px;border-bottom:1px solid rgba(255,255,255,.06)}
+    tbody tr:hover{background:rgba(255,255,255,.03)}
+    .class-chip{padding:4px 8px;border-radius:8px;font-size:12px;font-weight:700;display:inline-block}
+    .Yoga{background:rgba(123,228,149,.18);color:#b7ffcf}
+    .Pilates{background:rgba(89,191,255,.18);color:#c9e9ff}
+    .Strength{background:rgba(255,184,107,.18);color:#ffe0bd}
+    .waitlist{color:var(--warn);font-weight:700}
+
+    /* Trainers */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .card{background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+    .card .media{aspect-ratio:4/3;background:linear-gradient(135deg, rgba(123,228,149,.25), rgba(89,191,255,.25));display:grid;place-items:center;color:#0b0c10;font-weight:800;font-size:32px}
+    .card .body{padding:16px}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+    .chip{font-size:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:6px 8px;border-radius:999px}
+
+    /* Philosophy & Comparison */
+    .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .pillar{background:linear-gradient(180deg, rgba(255,255,255,.03), transparent), var(--card);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:18px}
+    .compare{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);overflow:hidden}
+    .compare th, .compare td{padding:12px;border-bottom:1px solid rgba(255,255,255,.06)}
+    .compare thead th{background:rgba(255,255,255,.04);color:var(--fg)}
+    .yes{color:var(--ok);font-weight:800}
+    .no{color:var(--bad);font-weight:800}
+
+    /* Pricing CTA */
+    .pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .price-card{background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius-lg);padding:20px;box-shadow:var(--shadow)}
+    .price{font-size:36px;color:var(--fg);margin:6px 0}
+    .muted{opacity:.8}
+
+    /* FAQ */
+    details{background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:12px}
+    summary{cursor:pointer;color:var(--fg);font-weight:700}
+
+    /* Footer */
+    footer{border-top:1px solid rgba(255,255,255,.08);padding:28px 0;color:#9ca3af}
+
+    /* Sticky convert bar */
+    .sticky-cta{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:999;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#0b0c10;padding:10px 16px;border-radius:999px;font-weight:800;box-shadow:var(--shadow)}
+    .sticky-cta button{all:unset;cursor:pointer}
+
+    /* Modal */
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:20px}
+    .modal[open]{display:flex}
+    .modal-card{background:var(--card);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius-lg);padding:18px;max-width:520px;width:100%;box-shadow:var(--shadow)}
+    .modal-card h3{margin:6px 0 12px;color:var(--fg)}
+    .field{display:grid;gap:6px;margin:10px 0}
+    .input, select{background:#0d0f14;border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:10px;color:var(--fg)}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .actions{display:flex;gap:10px;justify-content:flex-end;margin-top:12px}
+    .btn{padding:10px 14px;border-radius:10px;cursor:pointer;border:1px solid rgba(255,255,255,.12);font-weight:700}
+    .btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#0b0c10;border-color:transparent}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero{grid-template-columns:1fr;}
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .pricing{grid-template-columns:1fr}
+      .pillars{grid-template-columns:1fr}
+    }
+    @media (max-width: 680px){
+      nav ul{display:none}
+      .hamburger{display:block}
+      .grid{grid-template-columns:1fr}
+      .hero h2{font-size:38px}
+    }
+  </style>
+
+  <!-- JSON-LD for LocalBusiness / Fitness Center -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SportsActivityLocation",
+    "name": "FitCore Studio",
+    "description": "Boutique fitness studio offering yoga, pilates, and strength training. Group classes & personal training in a non-intimidating environment.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "123 Center St",
+      "addressLocality": "Your City",
+      "postalCode": "00000",
+      "addressCountry": "US"
+    },
+    "telephone": "+1-000-000-0000",
+    "url": "https://example.com",
+    "employees": 6,
+    "amenityFeature": [
+      {"@type":"LocationFeatureSpecification","name":"Small class sizes","value":true},
+      {"@type":"LocationFeatureSpecification","name":"Certified trainers","value":true},
+      {"@type":"LocationFeatureSpecification","name":"Personal training","value":true}
+    ]
+  }
+  </script>
+</head>
+
+<body>
+  <header aria-label="Main">
+    <div class="container nav">
+      <a class="logo" href="#home" aria-label="FitCore Studio home">
+        <div class="logo-mark" aria-hidden="true"><span>F</span></div>
+        <h1>FitCore Studio</h1>
+      </a>
+      <nav aria-label="Primary">
+        <button class="hamburger" aria-expanded="false" aria-controls="menu">☰</button>
+        <ul id="menu">
+          <li><a href="#schedule">Schedule</a></li>
+          <li><a href="#trainers">Trainers</a></li>
+          <li><a href="#philosophy">Philosophy</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </nav>
+      <button class="cta" data-open-modal>Book Free Intro</button>
+    </div>
+  </header>
+
+  <main id="home" class="container">
+    <!-- Hero -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div>
+        <span class="kicker">Yoga · Pilates · Strength</span>
+        <h2 id="hero-title">Small classes. Big results. Zero intimidation.</h2>
+        <p>Join a community where form, safety, and progress matter. Our six certified trainers coach you through expertly programmed classes and personal training tailored to your goals.</p>
+        <div class="badges">
+          <span class="badge">6 Certified Trainers</span>
+          <span class="badge">Group & 1:1 Training</span>
+          <span class="badge">All Levels Welcome</span>
+          <span class="badge">Flexible Memberships</span>
+        </div>
+        <div class="social-proof" aria-label="Proof & trust">
+          <div class="sp-item"><div class="sp-logo" aria-hidden="true"></div><small>5★ Member Reviews</small></div>
+          <div class="sp-item"><div class="sp-logo" aria-hidden="true"></div><small>Locally Owned</small></div>
+          <div class="sp-item"><div class="sp-logo" aria-hidden="true"></div><small>Safety-First Coaching</small></div>
+        </div>
+        <p style="margin-top:16px">
+          <button class="cta" data-open-modal>Start with a Free Class</button>
+        </p>
+      </div>
+      <aside class="hero-card" aria-label="Why FitCore?">
+        <h3 class="section-title" style="margin:0 0 10px">What makes us different</h3>
+        <ul class="hero-list">
+          <li><span class="dot" aria-hidden="true"></span> Personalized attention in every class</li>
+          <li><span class="dot" aria-hidden="true"></span> Strength, mobility & breathwork combined</li>
+          <li><span class="dot" aria-hidden="true"></span> No mirrors, no crowds—just progress</li>
+          <li><span class="dot" aria-hidden="true"></span> Clear path from intro → foundations → results</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Schedule -->
+    <section id="schedule" aria-labelledby="schedule-title">
+      <span class="kicker">Plan your week</span>
+      <h3 id="schedule-title" class="section-title">Class Schedule</h3>
+
+      <div class="filters" role="tablist" aria-label="Filter by class type">
+        <button class="filter-btn" role="tab" aria-pressed="true" data-filter="All">All</button>
+        <button class="filter-btn" role="tab" aria-pressed="false" data-filter="Yoga">Yoga</button>
+        <button class="filter-btn" role="tab" aria-pressed="false" data-filter="Pilates">Pilates</button>
+        <button class="filter-btn" role="tab" aria-pressed="false" data-filter="Strength">Strength</button>
+      </div>
+
+      <div class="schedule" aria-live="polite">
+        <table aria-describedby="schedule-title">
+          <thead>
+            <tr><th scope="col">Day</th><th scope="col">Time</th><th scope="col">Class</th><th scope="col">Coach</th><th scope="col">Spots</th><th scope="col" aria-label="Call to action"> </th></tr>
+          </thead>
+          <tbody id="schedule-body">
+            <!-- rows created by JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Trainers -->
+    <section id="trainers" aria-labelledby="trainers-title">
+      <span class="kicker">Meet your coaches</span>
+      <h3 id="trainers-title" class="section-title">Our Trainers (6)</h3>
+      <div class="grid" id="trainer-grid">
+        <!-- cards created by JS -->
+      </div>
+    </section>
+
+    <!-- Philosophy -->
+    <section id="philosophy" aria-labelledby="philosophy-title">
+      <span class="kicker">How we train</span>
+      <h3 id="philosophy-title" class="section-title">Our Philosophy</h3>
+      <div class="pillars">
+        <div class="pillar">
+          <h4 style="margin:0;color:var(--fg)">Progress over punishment</h4>
+          <p>We coach sustainable, measurable progress—not burnouts. Expect structured programming with planned recovery and clear milestones.</p>
+        </div>
+        <div class="pillar">
+          <h4 style="margin:0;color:var(--fg)">Form first, always</h4>
+          <p>Small classes allow for attentive coaching and tactile cues so you move safely and effectively—at any level.</p>
+        </div>
+        <div class="pillar">
+          <h4 style="margin:0;color:var(--fg)">Community matters</h4>
+          <p>A welcoming atmosphere where everyone belongs. No mirrors, no intimidation—just people getting stronger together.</p>
+        </div>
+      </div>
+
+      <h4 style="color:var(--fg);margin:26px 0 10px">Why boutique beats big-box</h4>
+      <table class="compare" aria-label="FitCore vs Big Gym">
+        <thead><tr><th>Feature</th><th>FitCore Studio</th><th>Big Gym Chains</th></tr></thead>
+        <tbody>
+          <tr><td>Class size</td><td class="yes">Small (attention on you)</td><td class="no">Large & crowded</td></tr>
+          <tr><td>Coaching</td><td class="yes">Certified coaches in every session</td><td class="no">Limited floor coverage</td></tr>
+          <tr><td>Programming</td><td class="yes">Progression-based plans</td><td class="no">Random classes, little continuity</td></tr>
+          <tr><td>Environment</td><td class="yes">Supportive, non-intimidating</td><td class="no">Mirror-heavy, performative</td></tr>
+          <tr><td>Personalization</td><td class="yes">Options for 1:1 training</td><td class="no">Upsells, little guidance</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Pricing & CTA -->
+    <section id="pricing" aria-labelledby="pricing-title">
+      <span class="kicker">Simple memberships</span>
+      <h3 id="pricing-title" class="section-title">Pick your path</h3>
+      <div class="pricing">
+        <div class="price-card">
+          <h4 style="margin:0;color:var(--fg)">Starter (4 classes / mo)</h4>
+          <p class="price">$79</p>
+          <p class="muted">Dip your toes in with weekly sessions.</p>
+          <button class="btn primary" data-open-modal>Start Free Intro</button>
+        </div>
+        <div class="price-card">
+          <h4 style="margin:0;color:var(--fg)">Unlimited Classes</h4>
+          <p class="price">$149</p>
+          <p class="muted">Best for consistent progress.</p>
+          <button class="btn primary" data-open-modal>Start Free Intro</button>
+        </div>
+        <div class="price-card">
+          <h4 style="margin:0;color:var(--fg)">Personal Training</h4>
+          <p class="price">From $65 / session</p>
+          <p class="muted">One-on-one coaching tailored to you.</p>
+          <button class="btn primary" data-open-modal>Book Consultation</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section aria-labelledby="testimonials-title">
+      <span class="kicker">Member stories</span>
+      <h3 id="testimonials-title" class="section-title">Real people, real progress</h3>
+      <div class="grid">
+        <blockquote class="card body"><p>“I was nervous to start, but the coaches made everything feel doable. I can finally do a proper push-up!”</p><cite>— Taylor M.</cite></blockquote>
+        <blockquote class="card body"><p>“Small classes mean the coach actually notices your form. My back pain is gone.”</p><cite>— Priya S.</cite></blockquote>
+        <blockquote class="card body"><p>“The mix of yoga, pilates, and strength is perfect. I feel stronger and more mobile.”</p><cite>— Alex R.</cite></blockquote>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" aria-labelledby="faq-title">
+      <span class="kicker">Good to know</span>
+      <h3 id="faq-title" class="section-title">FAQ</h3>
+      <div class="grid">
+        <details>
+          <summary>Do I need experience to join?</summary>
+          <p>Nope! Every class offers beginner options. Your coach will guide you.</p>
+        </details>
+        <details>
+          <summary>What should I bring?</summary>
+          <p>Comfortable clothes and a water bottle. We provide mats and props.</p>
+        </details>
+        <details>
+          <summary>How big are classes?</summary>
+          <p>We cap classes at small sizes so coaches can keep an eye on everyone.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="container">
+      <p><strong>FitCore Studio</strong> · 123 Center St, Your City · <a href="tel:+10000000000">(000) 000‑0000</a> · <a href="mailto:hello@fitcorestudio.com">hello@fitcorestudio.com</a></p>
+      <p>© <span id="year"></span> FitCore Studio. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Sticky CTA -->
+  <div class="sticky-cta" role="dialog" aria-label="Book free intro">
+    <button data-open-modal>Book your free intro →</button>
+  </div>
+
+  <!-- Modal -->
+  <dialog class="modal" id="lead-modal" aria-labelledby="lead-title" aria-modal="true">
+    <div class="modal-card" role="document">
+      <h3 id="lead-title">Claim Your Free Intro Class</h3>
+      <form id="lead-form" novalidate>
+        <div class="row">
+          <label class="field">First name
+            <input class="input" name="first" required autocomplete="given-name" />
+          </label>
+          <label class="field">Last name
+            <input class="input" name="last" required autocomplete="family-name" />
+          </label>
+        </div>
+        <label class="field">Email
+          <input class="input" type="email" name="email" required autocomplete="email" />
+        </label>
+        <label class="field">Phone
+          <input class="input" type="tel" name="phone" required autocomplete="tel" />
+        </label>
+        <label class="field">Preferred class
+          <select name="interest" class="input">
+            <option>Yoga</option>
+            <option>Pilates</option>
+            <option>Strength</option>
+          </select>
+        </label>
+        <div class="actions">
+          <button type="button" class="btn" data-close-modal>Cancel</button>
+          <button type="submit" class="btn primary">Reserve my spot</button>
+        </div>
+        <p id="form-msg" role="status" aria-live="polite" style="margin:6px 2px 0"></p>
+      </form>
+    </div>
+  </dialog>
+
+  <script>
+    // --- Utilities & State ---
+    const $ = (sel, el=document) => el.querySelector(sel);
+    const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
+
+    const classes = [
+      { day:'Mon', time:'7:00 AM',  type:'Yoga',     coach:'Ava', spots:4 },
+      { day:'Mon', time:'6:30 PM',  type:'Strength', coach:'Diego', spots:0 },
+      { day:'Tue', time:'6:30 AM',  type:'Pilates',  coach:'Maya', spots:2 },
+      { day:'Tue', time:'7:00 PM',  type:'Yoga',     coach:'Iris', spots:6 },
+      { day:'Wed', time:'12:00 PM', type:'Strength', coach:'Kai',  spots:1 },
+      { day:'Thu', time:'6:30 AM',  type:'Yoga',     coach:'Liam', spots:5 },
+      { day:'Thu', time:'6:00 PM',  type:'Pilates',  coach:'Maya', spots:0 },
+      { day:'Fri', time:'5:30 PM',  type:'Strength', coach:'Diego',spots:3 },
+      { day:'Sat', time:'9:00 AM',  type:'Yoga',     coach:'Iris', spots:8 },
+      { day:'Sun', time:'10:00 AM', type:'Pilates',  coach:'Maya', spots:7 }
+    ];
+
+    const trainers = [
+      { name:'Ava Chen', role:'RYT-200 Yoga', blurb:'Breath-led flow and mobility.', tags:['Yoga','Mobility','Breathwork'] },
+      { name:'Diego Alvarez', role:'CSCS Strength', blurb:'Progressive strength & form.', tags:['Strength','Barbell','Beginners'] },
+      { name:'Maya Patel', role:'Pilates CPT', blurb:'Core stability & posture.', tags:['Pilates','Core','Rehab'] },
+      { name:'Kai Nakamura', role:'Strength & Kettlebells', blurb:'Power and technique.', tags:['Strength','Kettlebell'] },
+      { name:'Iris Romero', role:'Yoga & Mindfulness', blurb:'Calming, alignment-based.', tags:['Yoga','Mindfulness'] },
+      { name:'Liam Brooks', role:'Mobility Specialist', blurb:'Move better, live better.', tags:['Mobility','Prehab'] }
+    ];
+
+    // --- Nav (mobile) ---
+    const hamburger = $('.hamburger');
+    hamburger?.addEventListener('click', () => {
+      const menu = $('#menu');
+      const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+      hamburger.setAttribute('aria-expanded', String(!expanded));
+      menu.style.display = expanded ? 'none' : 'flex';
+      menu.style.flexDirection = 'column';
+      menu.style.gap = '10px';
+    });
+
+    // --- Schedule table rendering & filters ---
+    const renderRows = (filter='All') => {
+      const tbody = $('#schedule-body');
+      tbody.innerHTML = '';
+      const today = new Date().toLocaleString(undefined,{weekday:'short'});
+
+      classes
+        .filter(c => filter==='All' || c.type===filter)
+        .sort((a,b) => a.day.localeCompare(b.day) || timeToMinutes(a.time)-timeToMinutes(b.time))
+        .forEach(c => {
+          const tr = document.createElement('tr');
+          if (c.day === today) tr.style.background = 'rgba(123,228,149,.06)';
+          tr.innerHTML = `
+            <td>${c.day}</td>
+            <td>${c.time}</td>
+            <td><span class="class-chip ${c.type}">${c.type}</span></td>
+            <td>${c.coach}</td>
+            <td>${c.spots>0 ? c.spots + ' open' : '<span class="waitlist">Waitlist</span>'}</td>
+            <td><button class="btn primary" data-open-modal>${c.spots>0 ? 'Book' : 'Join waitlist'}</button></td>
+          `;
+          tbody.appendChild(tr);
+        });
+    }
+
+    const timeToMinutes = t => {
+      const [hm, ampm] = t.split(' ');
+      let [h,m] = hm.split(':').map(Number);
+      if (ampm === 'PM' && h !== 12) h += 12;
+      if (ampm === 'AM' && h === 12) h = 0;
+      return h*60 + m;
+    }
+
+    $$('.filter-btn').forEach(btn => btn.addEventListener('click', () => {
+      $$('.filter-btn').forEach(b => b.setAttribute('aria-pressed','false'));
+      btn.setAttribute('aria-pressed','true');
+      renderRows(btn.dataset.filter);
+    }));
+
+    // --- Trainers grid ---
+    const trainerGrid = $('#trainer-grid');
+    trainers.forEach((t,i)=>{
+      const card = document.createElement('article');
+      card.className='card';
+      card.innerHTML = `
+        <div class="media" aria-hidden="true">${t.name.split(' ').map(w=>w[0]).join('')}</div>
+        <div class="body">
+          <h4 style="margin:0;color:var(--fg)">${t.name}</h4>
+          <p style="margin:4px 0 6px"><strong>${t.role}</strong> — ${t.blurb}</p>
+          <div class="chips">${t.tags.map(tag=>`<span class="chip">${tag}</span>`).join('')}</div>
+        </div>`;
+      trainerGrid.appendChild(card);
+    });
+
+    // --- Modal logic ---
+    const modal = $('#lead-modal');
+    const openers = $$('[data-open-modal]');
+    const closers = $$('[data-close-modal]');
+
+    openers.forEach(o=>o.addEventListener('click',()=>{ modal.showModal(); $('#lead-form [name="first"]').focus(); }))
+    closers.forEach(c=>c.addEventListener('click',()=> modal.close()))
+    modal.addEventListener('click',(e)=>{ if(e.target===modal) modal.close(); });
+
+    // --- Form handling (simulated) ---
+    $('#lead-form').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const form = e.currentTarget;
+      const data = Object.fromEntries(new FormData(form));
+
+      // basic validation
+      const msg = $('#form-msg');
+      if(!data.first || !data.last || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email) || !data.phone){
+        msg.textContent = 'Please fill out all fields with a valid email.';
+        msg.style.color = 'var(--warn)';
+        return;
+      }
+
+      // Pretend to send...
+      msg.textContent = 'Thanks, ' + data.first + '! We\'ll be in touch shortly.';
+      msg.style.color = 'var(--ok)';
+      setTimeout(()=>{ modal.close(); form.reset(); msg.textContent=''; }, 1200);
+    });
+
+    // Footer year
+    $('#year').textContent = new Date().getFullYear();
+
+    // Initial render
+    renderRows();
+  </script>
+</body>
+</html>

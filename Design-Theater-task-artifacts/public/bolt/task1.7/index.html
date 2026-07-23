@@ -1,0 +1,838 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Metro Daily News - Local journalism serving three metropolitan areas. Breaking news, politics, business, sports, and community." />
+    <title>Metro Daily News</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <meta property="og:image" content="https://bolt.new/static/og_default.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
+</head>
+  <body>
+    <a href="#main-content" class="skip-link" id="skip-link">Skip to main content</a>
+
+    <!-- Breaking News Ticker -->
+    <div class="breaking-bar" role="marquee" aria-label="Breaking news" aria-live="polite">
+      <span class="breaking-label" data-i18n="breaking">BREAKING</span>
+      <div class="ticker-track">
+        <div class="ticker-content" id="ticker">
+          <span>City Council votes on downtown rezoning plan tonight at 7pm — live coverage</span>
+          <span class="ticker-sep">|</span>
+          <span>Tech layoffs hit regional offices: 340 jobs affected across three counties</span>
+          <span class="ticker-sep">|</span>
+          <span>Metro Transit announces new express line opening next month</span>
+          <span class="ticker-sep">|</span>
+          <span>High school football playoffs: Regional semifinals set for Friday</span>
+          <span class="ticker-sep">|</span>
+          <span>Farmers market expansion approved for Riverside district</span>
+          <span class="ticker-sep">|</span>
+          <span>City Council votes on downtown rezoning plan tonight at 7pm — live coverage</span>
+          <span class="ticker-sep">|</span>
+          <span>Tech layoffs hit regional offices: 340 jobs affected across three counties</span>
+          <span class="ticker-sep">|</span>
+          <span>Metro Transit announces new express line opening next month</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Site Header -->
+    <header class="site-header" role="banner">
+      <div class="header-inner">
+        <div class="header-top">
+          <div class="header-meta">
+            <time class="header-date" id="header-date" datetime="">Tuesday, April 29, 2026</time>
+            <span class="header-edition" data-i18n="edition">Metro Edition</span>
+          </div>
+          <div class="header-actions">
+            <button class="lang-toggle" id="lang-toggle" aria-label="Switch to Spanish" title="Cambiar a Español">
+              <span class="lang-icon" aria-hidden="true">ES</span>
+              <span data-i18n="lang-toggle">Español</span>
+            </button>
+            <button class="accessibility-btn" id="text-size-btn" aria-label="Increase text size" title="Increase text size">
+              <span aria-hidden="true">A+</span>
+            </button>
+            <button class="btn-secondary" data-i18n="sign-in">Sign In</button>
+            <button class="btn-primary" data-i18n="subscribe">Subscribe</button>
+          </div>
+        </div>
+
+        <div class="masthead">
+          <a href="/" class="masthead-link" aria-label="Metro Daily News - Homepage">
+            <div class="masthead-logo" aria-hidden="true">
+              <span class="masthead-star">★</span>
+            </div>
+            <div class="masthead-text">
+              <span class="masthead-title">Metro Daily News</span>
+              <span class="masthead-tagline" data-i18n="tagline">Serving Our Community Since 1952</span>
+            </div>
+          </a>
+          <div class="header-search">
+            <form role="search" aria-label="Site search">
+              <label for="search-input" class="sr-only" data-i18n="search-label">Search articles</label>
+              <input type="search" id="search-input" class="search-input" placeholder="Search articles..." data-i18n-placeholder="search-placeholder" aria-label="Search articles" autocomplete="off" />
+              <button type="submit" class="search-btn" aria-label="Submit search">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Primary Navigation -->
+        <nav class="primary-nav" role="navigation" aria-label="Main navigation">
+          <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Open navigation menu">
+            <span class="hamburger" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </span>
+            <span data-i18n="menu">Menu</span>
+          </button>
+          <ul class="nav-menu" id="nav-menu" role="list">
+            <li><a href="#top-stories" class="nav-link active" data-i18n="nav-top">Top Stories</a></li>
+            <li><a href="#politics" class="nav-link" data-i18n="nav-politics">Politics</a></li>
+            <li><a href="#business" class="nav-link" data-i18n="nav-business">Business</a></li>
+            <li><a href="#sports" class="nav-link" data-i18n="nav-sports">Sports</a></li>
+            <li><a href="#community" class="nav-link" data-i18n="nav-community">Community</a></li>
+            <li><a href="#podcasts" class="nav-link" data-i18n="nav-podcasts">Podcasts</a></li>
+            <li><a href="#investigations" class="nav-link nav-premium" data-i18n="nav-investigations">
+              Investigations <span class="premium-badge" data-i18n="premium-badge">Premium</span>
+            </a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- My Topics Strip (progressive disclosure) -->
+    <div class="topics-strip" id="topics-strip" role="complementary" aria-label="Topic filters">
+      <div class="topics-inner">
+        <span class="topics-label" data-i18n="my-topics">My Topics:</span>
+        <div class="topics-chips" role="group" aria-label="Filter by topic">
+          <button class="topic-chip active" data-topic="all" data-i18n="topic-all">All</button>
+          <button class="topic-chip" data-topic="politics" data-i18n="topic-politics">Politics</button>
+          <button class="topic-chip" data-topic="business" data-i18n="topic-business">Business</button>
+          <button class="topic-chip" data-topic="sports" data-i18n="topic-sports">Sports</button>
+          <button class="topic-chip" data-topic="community" data-i18n="topic-community">Community</button>
+        </div>
+        <button class="topics-clear" id="topics-clear" aria-label="Clear topic filter" hidden data-i18n="clear-filter">Clear filter</button>
+      </div>
+    </div>
+
+    <main id="main-content" class="main-content" role="main">
+
+      <!-- Hero Section -->
+      <section class="hero-section" id="top-stories" aria-label="Top stories">
+        <div class="container">
+          <div class="hero-grid">
+
+            <!-- Lead Story -->
+            <article class="hero-lead" data-topic="politics" aria-label="Lead story">
+              <div class="article-media">
+                <img
+                  src="https://images.pexels.com/photos/1464223/pexels-photo-1464223.jpeg?auto=compress&cs=tinysrgb&w=800"
+                  alt="City council chamber with officials seated at dais during evening session"
+                  width="800"
+                  height="500"
+                  loading="eager"
+                  fetchpriority="high"
+                  class="article-img"
+                />
+                <div class="article-overlay">
+                  <span class="label-live" aria-label="Live coverage">LIVE</span>
+                </div>
+              </div>
+              <div class="article-body">
+                <div class="article-meta">
+                  <a href="#politics" class="category-tag politics" data-i18n="nav-politics">Politics</a>
+                  <time class="article-time" datetime="2026-04-29T18:45:00">45 min ago</time>
+                </div>
+                <h2 class="article-headline headline-lead">
+                  <a href="#" class="article-link">City Council Prepares Historic Vote on Downtown Rezoning That Would Add 4,000 Housing Units</a>
+                </h2>
+                <p class="article-deck">Tonight's 7pm session will determine the fate of the largest urban housing expansion in the metro area's history, with major implications for transit, schools, and affordable housing mandates across all three counties.</p>
+                <div class="article-footer">
+                  <span class="article-byline">By <a href="#" class="byline-link">Maria Santos</a> &amp; <a href="#" class="byline-link">David Chen</a></span>
+                  <div class="article-actions">
+                    <button class="action-btn" aria-label="Save article" title="Save for later">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+                    </button>
+                    <button class="action-btn" aria-label="Share article" title="Share">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                    </button>
+                    <span class="comment-count" aria-label="124 comments">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                      124
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Secondary Stories Column -->
+            <div class="hero-secondary" aria-label="Secondary top stories">
+
+              <article class="article-card card-secondary" data-topic="business">
+                <div class="card-media">
+                  <img
+                    src="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=400"
+                    alt="Business professionals in a modern office discussing layoffs"
+                    width="400"
+                    height="250"
+                    loading="lazy"
+                    class="article-img"
+                  />
+                </div>
+                <div class="card-body">
+                  <div class="article-meta">
+                    <a href="#business" class="category-tag business" data-i18n="nav-business">Business</a>
+                    <time class="article-time" datetime="2026-04-29T17:00:00">2 hr ago</time>
+                  </div>
+                  <h3 class="article-headline headline-secondary">
+                    <a href="#" class="article-link">Tech Layoffs Hit Regional Offices; 340 Jobs Cut as Sector Contracts in Q1</a>
+                  </h3>
+                  <p class="article-summary">Companies cite rising costs and shifting demand as metro's tech sector faces its sharpest quarterly decline in a decade.</p>
+                  <div class="article-footer">
+                    <span class="article-byline">By <a href="#" class="byline-link">James Okafor</a></span>
+                    <div class="article-actions">
+                      <button class="action-btn" aria-label="Save article"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg></button>
+                      <button class="action-btn" aria-label="Share article"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+              <article class="article-card card-secondary" data-topic="community">
+                <div class="card-media">
+                  <img
+                    src="https://images.pexels.com/photos/1036641/pexels-photo-1036641.jpeg?auto=compress&cs=tinysrgb&w=400"
+                    alt="Farmers market with vendors and shoppers in an outdoor plaza"
+                    width="400"
+                    height="250"
+                    loading="lazy"
+                    class="article-img"
+                  />
+                </div>
+                <div class="card-body">
+                  <div class="article-meta">
+                    <a href="#community" class="category-tag community" data-i18n="nav-community">Community</a>
+                    <time class="article-time" datetime="2026-04-29T14:30:00">4 hr ago</time>
+                  </div>
+                  <h3 class="article-headline headline-secondary">
+                    <a href="#" class="article-link">Riverside Farmers Market Wins Expansion Approval, Adding 40 New Vendors and Year-Round Hours</a>
+                  </h3>
+                  <p class="article-summary">The beloved weekend market will triple its footprint and add a permanent indoor pavilion, opening doors to small food producers citywide.</p>
+                  <div class="article-footer">
+                    <span class="article-byline">By <a href="#" class="byline-link">Ana Reyes</a></span>
+                    <div class="article-actions">
+                      <button class="action-btn" aria-label="Save article"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg></button>
+                      <button class="action-btn" aria-label="Share article"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+            </div>
+          </div>
+
+          <!-- Quick Read Strip: for mobile morning scanners -->
+          <div class="quick-reads" aria-label="Quick read headlines">
+            <h2 class="quick-reads-heading" data-i18n="more-headlines">More Headlines</h2>
+            <ul class="quick-list" role="list">
+              <li class="quick-item" data-topic="sports">
+                <a href="#" class="quick-link">
+                  <span class="category-dot sports" aria-hidden="true"></span>
+                  <span class="quick-text"><strong data-i18n="nav-sports">Sports</strong> — Westside Eagles advance to regional semifinals with 28-14 victory over Northgate</span>
+                  <time class="quick-time">1h</time>
+                </a>
+              </li>
+              <li class="quick-item" data-topic="politics">
+                <a href="#" class="quick-link">
+                  <span class="category-dot politics" aria-hidden="true"></span>
+                  <span class="quick-text"><strong data-i18n="nav-politics">Politics</strong> — State senator announces re-election bid, citing infrastructure priorities</span>
+                  <time class="quick-time">3h</time>
+                </a>
+              </li>
+              <li class="quick-item" data-topic="business">
+                <a href="#" class="quick-link">
+                  <span class="category-dot business" aria-hidden="true"></span>
+                  <span class="quick-text"><strong data-i18n="nav-business">Business</strong> — New federal grant targets small business recovery in two metro districts</span>
+                  <time class="quick-time">5h</time>
+                </a>
+              </li>
+              <li class="quick-item" data-topic="community">
+                <a href="#" class="quick-link">
+                  <span class="category-dot community" aria-hidden="true"></span>
+                  <span class="quick-text"><strong data-i18n="nav-community">Community</strong> — Metro Transit rapid bus line opens November 1, connecting all three corridors</span>
+                  <time class="quick-time">6h</time>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Main Content + Sidebar Layout -->
+      <div class="content-layout container">
+        <div class="content-main">
+
+          <!-- Politics Section -->
+          <section class="news-section" id="politics" data-topic="politics" aria-labelledby="politics-heading">
+            <div class="section-header">
+              <h2 class="section-heading" id="politics-heading">
+                <a href="#politics" class="section-heading-link">
+                  <span class="section-bar politics" aria-hidden="true"></span>
+                  <span data-i18n="nav-politics">Politics</span>
+                </a>
+              </h2>
+              <a href="#" class="section-more" aria-label="See all Politics articles" data-i18n="see-all">See all →</a>
+            </div>
+
+            <div class="section-grid">
+              <article class="article-card card-featured" data-topic="politics">
+                <div class="card-media">
+                  <img src="https://images.pexels.com/photos/1550337/pexels-photo-1550337.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Government building exterior with American flag" width="500" height="300" loading="lazy" class="article-img" />
+                </div>
+                <div class="card-body">
+                  <div class="article-meta">
+                    <span class="label-new" data-i18n="label-new">NEW</span>
+                    <time class="article-time" datetime="2026-04-29T16:00:00">3 hr ago</time>
+                  </div>
+                  <h3 class="article-headline headline-section">
+                    <a href="#" class="article-link">State Legislature Passes Emergency School Funding Bill After Months of Deadlock</a>
+                  </h3>
+                  <p class="article-summary">A bipartisan majority secured $240 million in emergency aid for underfunded districts, with $80 million directed to the three metro areas.</p>
+                  <span class="article-byline">By <a href="#" class="byline-link">Priya Nair</a></span>
+                </div>
+              </article>
+
+              <article class="article-card card-compact" data-topic="politics">
+                <div class="card-body">
+                  <div class="article-meta">
+                    <time class="article-time" datetime="2026-04-29T13:00:00">6 hr ago</time>
+                  </div>
+                  <h3 class="article-headline headline-compact">
+                    <a href="#" class="article-link">Mayor's Budget Proposal Draws Praise and Criticism in Public Hearing</a>
+                  </h3>
+                  <span class="article-byline">By <a href="#" class="byline-link">Carlos Rivera</a></span>
+                </div>
+              </article>
+
+              <article class="article-card card-compact" data-topic="politics">
+                <div class="card-body">
+                  <div class="article-meta">
+                    <time class="article-time" datetime="2026-04-29T10:00:00">9 hr ago</time>
+                  </div>
+                  <h3 class="article-headline headline-compact">
+                    <a href="#" class="article-link">Police Reform Task Force Releases 47-Point Recommendation Report</a>
+                  </h3>
+                  <span class="article-byline">By <a href="#" class="byline-link">Latoya Williams</a></span>
+                </div>
+              </article>
+
+              <article class="article-card card-compact" data-topic="politics">
+                <div class="card-body">
+                  <div class="article-meta">
+                    <time class="article-time" datetime="2026-04-29T08:30:00">Yesterday</time>
+                  </div>
+                  <h3 class="article-headline headline-compact">
+                    <a href="#" class="article-link">County Commission Approves New Environmental Oversight Board</a>
+                  </h3>
+                  <span class="article-byline">By <a href="#" class="byline-link">Tom Bradfield</a></span>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <!-- Business Section -->
+          <section class="news-section" id="business" data-topic="business" aria-labelledby="business-heading">
+            <div class="section-header">
+              <h2 class="section-heading" id="business-heading">
+                <a href="#business" class="section-heading-link">
+                  <span class="section-bar business" aria-hidden="true"></span>
+                  <span data-i18n="nav-business">Business</span>
+                </a>
+              </h2>
+              <a href="#" class="section-more" aria-label="See all Business articles" data-i18n="see-all">See all →</a>
+            </div>
+
+            <div class="section-grid">
+              <article class="article-card card-featured" data-topic="business">
+                <div class="card-media">
+                  <img src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Business team collaborating around conference table with charts" width="500" height="300" loading="lazy" class="article-img" />
+                  <span class="premium-lock" aria-label="Premium subscribers only">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 11H5V5a7 7 0 0 1 14 0v6zm1 0h-1V5A8 8 0 0 0 4 5v6H3a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V12a1 1 0 0 0-1-1z"/></svg>
+                    Premium
+                  </span>
+                </div>
+                <div class="card-body">
+                  <div class="article-meta">
+                    <time class="article-time" datetime="2026-04-29T15:00:00">4 hr ago</time>
+                  </div>
+                  <h3 class="article-headline headline-section">
+                    <a href="#" class="article-link">Downtown Office Vacancy Hits 22% as Hybrid Work Reshapes Commercial Real Estate Market</a>
+                  </h3>
+                  <p class="article-summary">An exclusive analysis of lease data across 180 commercial properties reveals the deepest vacancy rates since the 2008 recession, forcing landlords to convert empty floors to residential use.</p>
+                  <span class="article-byline">By <a href="#" class="byline-link">Rachel Kim</a></span>
+                </div>
+              </article>
+
+              <article class="article-card card-compact" data-topic="business">
+                <div class="card-body">
+                  <div class="article-meta">
+                    <time class="article-time" datetime="2026-04-29T12:00:00">7 hr ago</time>
+                  </div>
+                  <h3 class="article-headline headline-compact">
+                    <a href="#" class="article-link">Federal Grant Unlocks $12M for Small Business Recovery in Eastside Corridor</a>
+                  </h3>
+                  <span class="article-byline">By <a href="#" class="byline-link">Michael Torres</a></span>
+                </div>
+              </article>
+
+              <article class="article-card card-compact" data-topic="business">
+                <div class="card-body">
+                  <div class="article-meta">
+                    <time class="article-time" datetime="2026-04-29T09:00:00">10 hr ago</time>
+                  </div>
+                  <h3 class="article-headline headline-compact">
+                    <a href="#" class="article-link">New Credit Union Opens Three Branches to Serve Underbanked Communities</a>
+                  </h3>
+                  <span class="article-byline">By <a href="#" class="byline-link">Diane Foster</a></span>
+                </div>
+              </article>
+
+              <article class="article-card card-compact" data-topic="business">
+                <div class="card-body">
+                  <div class="article-meta">
+                    <time class="article-time" datetime="2026-04-28T14:00:00">Yesterday</time>
+                  </div>
+                  <h3 class="article-headline headline-compact">
+                    <a href="#" class="article-link">Local Restaurant Group Expands to Fourth Location Despite Rising Costs</a>
+                  </h3>
+                  <span class="article-byline">By <a href="#" class="byline-link">Sarah Bloom</a></span>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <!-- Investigations Banner (Premium) -->
+          <section class="investigations-promo" id="investigations" aria-labelledby="investigations-heading">
+            <div class="investigations-inner">
+              <div class="investigations-badge">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.5 2A1.5 1.5 0 0 0 8 3.5v1A1.5 1.5 0 0 0 9.5 6h5A1.5 1.5 0 0 0 16 4.5v-1A1.5 1.5 0 0 0 14.5 2h-5zM6.5 4A1.5 1.5 0 0 0 5 5.5V21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V5.5A1.5 1.5 0 0 0 17.5 4H16v.5A2.5 2.5 0 0 1 13.5 7h-3A2.5 2.5 0 0 1 8 4.5V4H6.5z"/></svg>
+                <span data-i18n="nav-investigations">Investigations</span>
+              </div>
+              <h2 id="investigations-heading" class="investigations-heading">Exclusive: Six-Month Investigation Into School District Financial Misconduct</h2>
+              <p class="investigations-deck">Our reporting team uncovered $2.3M in questionable expenditures across four administrations. This story is free for all readers this week.</p>
+              <div class="investigations-actions">
+                <a href="#" class="btn-investigations" data-i18n="read-investigation">Read the Investigation</a>
+                <a href="#" class="btn-investigations-outline" data-i18n="subscribe-premium">Subscribe for Premium Access</a>
+              </div>
+            </div>
+          </section>
+
+          <!-- Sports Section -->
+          <section class="news-section" id="sports" data-topic="sports" aria-labelledby="sports-heading">
+            <div class="section-header">
+              <h2 class="section-heading" id="sports-heading">
+                <a href="#sports" class="section-heading-link">
+                  <span class="section-bar sports" aria-hidden="true"></span>
+                  <span data-i18n="nav-sports">Sports</span>
+                </a>
+              </h2>
+              <a href="#" class="section-more" aria-label="See all Sports articles" data-i18n="see-all">See all →</a>
+            </div>
+
+            <div class="section-grid">
+              <article class="article-card card-featured" data-topic="sports">
+                <div class="card-media">
+                  <img src="https://images.pexels.com/photos/1618200/pexels-photo-1618200.jpeg?auto=compress&cs=tinysrgb&w=500" alt="High school football game under stadium lights at night" width="500" height="300" loading="lazy" class="article-img" />
+                </div>
+                <div class="card-body">
+                  <div class="article-meta">
+                    <time class="article-time" datetime="2026-04-29T14:00:00">5 hr ago</time>
+                  </div>
+                  <h3 class="article-headline headline-section">
+                    <a href="#" class="article-link">Westside Eagles Punch Ticket to Regionals With Dominant 28-14 Win Over Northgate</a>
+                  </h3>
+                  <p class="article-summary">Junior quarterback Marcus Webb threw for 312 yards and three touchdowns as the Eagles secured their first playoff berth in eight years.</p>
+                  <span class="article-byline">By <a href="#" class="byline-link">Tony Graham</a></span>
+                </div>
+              </article>
+
+              <article class="article-card card-compact" data-topic="sports">
+                <div class="card-body">
+                  <div class="article-meta">
+                    <time class="article-time" datetime="2026-04-29T11:00:00">8 hr ago</time>
+                  </div>
+                  <h3 class="article-headline headline-compact">
+                    <a href="#" class="article-link">City FC Draws 1-1 in Conference Opener; Season Ticket Sales Up 18%</a>
+                  </h3>
+                  <span class="article-byline">By <a href="#" class="byline-link">Linda Park</a></span>
+                </div>
+              </article>
+
+              <article class="article-card card-compact" data-topic="sports">
+                <div class="card-body">
+                  <div class="article-meta">
+                    <time class="article-time" datetime="2026-04-29T07:30:00">11 hr ago</time>
+                  </div>
+                  <h3 class="article-headline headline-compact">
+                    <a href="#" class="article-link">Metro Marathon Registration Opens; Record 8,000 Runners Expected</a>
+                  </h3>
+                  <span class="article-byline">By <a href="#" class="byline-link">Kevin Moss</a></span>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <!-- Community Section -->
+          <section class="news-section" id="community" data-topic="community" aria-labelledby="community-heading">
+            <div class="section-header">
+              <h2 class="section-heading" id="community-heading">
+                <a href="#community" class="section-heading-link">
+                  <span class="section-bar community" aria-hidden="true"></span>
+                  <span data-i18n="nav-community">Community</span>
+                </a>
+              </h2>
+              <a href="#" class="section-more" aria-label="See all Community articles" data-i18n="see-all">See all →</a>
+            </div>
+
+            <div class="section-grid">
+              <article class="article-card card-featured" data-topic="community">
+                <div class="card-media">
+                  <img src="https://images.pexels.com/photos/1595391/pexels-photo-1595391.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Community volunteers working together on a neighborhood project" width="500" height="300" loading="lazy" class="article-img" />
+                </div>
+                <div class="card-body">
+                  <div class="article-meta">
+                    <time class="article-time" datetime="2026-04-29T13:30:00">5 hr ago</time>
+                  </div>
+                  <h3 class="article-headline headline-section">
+                    <a href="#" class="article-link">Neighborhood Volunteers Plant 500 Trees Across Metro in Earth Week Initiative</a>
+                  </h3>
+                  <p class="article-summary">More than 1,200 residents turned out across 18 sites to plant native species, part of a five-year urban canopy restoration program.</p>
+                  <span class="article-byline">By <a href="#" class="byline-link">Elena Cruz</a></span>
+                </div>
+              </article>
+
+              <article class="article-card card-compact" data-topic="community">
+                <div class="card-body">
+                  <div class="article-meta">
+                    <time class="article-time" datetime="2026-04-29T10:30:00">8 hr ago</time>
+                  </div>
+                  <h3 class="article-headline headline-compact">
+                    <a href="#" class="article-link">Local Library System Launches Free Digital Skills Program for Seniors</a>
+                  </h3>
+                  <span class="article-byline">By <a href="#" class="byline-link">Grace Ihejirika</a></span>
+                </div>
+              </article>
+
+              <article class="article-card card-compact" data-topic="community">
+                <div class="card-body">
+                  <div class="article-meta">
+                    <time class="article-time" datetime="2026-04-28T16:00:00">Yesterday</time>
+                  </div>
+                  <h3 class="article-headline headline-compact">
+                    <a href="#" class="article-link">Food Bank Reports Record Demand; Donations Needed Before Summer Shortfall</a>
+                  </h3>
+                  <span class="article-byline">By <a href="#" class="byline-link">Marcus Webb</a></span>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <!-- Podcasts Section -->
+          <section class="news-section podcasts-section" id="podcasts" aria-labelledby="podcasts-heading">
+            <div class="section-header">
+              <h2 class="section-heading" id="podcasts-heading">
+                <a href="#podcasts" class="section-heading-link">
+                  <span class="section-bar podcasts" aria-hidden="true"></span>
+                  <span data-i18n="nav-podcasts">Podcasts</span>
+                </a>
+              </h2>
+              <a href="#" class="section-more" aria-label="See all Podcasts" data-i18n="see-all">See all →</a>
+            </div>
+
+            <div class="podcasts-grid">
+              <article class="podcast-card" aria-label="Podcast episode">
+                <div class="podcast-thumb">
+                  <img src="https://images.pexels.com/photos/3784566/pexels-photo-3784566.jpeg?auto=compress&cs=tinysrgb&w=200" alt="Podcast cover art - Metro Morning show" width="200" height="200" loading="lazy" />
+                  <button class="podcast-play" aria-label="Play Metro Morning episode">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </button>
+                </div>
+                <div class="podcast-body">
+                  <span class="podcast-show">Metro Morning</span>
+                  <h3 class="podcast-title"><a href="#" class="article-link">The Housing Crisis: What Tonight's Vote Really Means for Renters</a></h3>
+                  <div class="podcast-meta">
+                    <time class="article-time" datetime="2026-04-29">Today</time>
+                    <span class="podcast-duration" aria-label="Duration: 24 minutes">24 min</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="podcast-card" aria-label="Podcast episode">
+                <div class="podcast-thumb">
+                  <img src="https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?auto=compress&cs=tinysrgb&w=200" alt="Podcast cover art - Business Beat show" width="200" height="200" loading="lazy" />
+                  <button class="podcast-play" aria-label="Play Business Beat episode">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </button>
+                </div>
+                <div class="podcast-body">
+                  <span class="podcast-show">Business Beat</span>
+                  <h3 class="podcast-title"><a href="#" class="article-link">Q1 Recap: What Local Business Leaders Say About the Economy Ahead</a></h3>
+                  <div class="podcast-meta">
+                    <time class="article-time" datetime="2026-04-28">Yesterday</time>
+                    <span class="podcast-duration" aria-label="Duration: 31 minutes">31 min</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="podcast-card" aria-label="Podcast episode">
+                <div class="podcast-thumb">
+                  <img src="https://images.pexels.com/photos/1432946/pexels-photo-1432946.jpeg?auto=compress&cs=tinysrgb&w=200" alt="Podcast cover art - Community Voices show" width="200" height="200" loading="lazy" />
+                  <button class="podcast-play" aria-label="Play Community Voices episode">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </button>
+                </div>
+                <div class="podcast-body">
+                  <span class="podcast-show">Community Voices</span>
+                  <h3 class="podcast-title"><a href="#" class="article-link">Eastside Renewal: Residents on How the Neighborhood Has Changed in 10 Years</a></h3>
+                  <div class="podcast-meta">
+                    <time class="article-time" datetime="2026-04-27">2 days ago</time>
+                    <span class="podcast-duration" aria-label="Duration: 42 minutes">42 min</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </section>
+
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="content-sidebar" role="complementary" aria-label="More content">
+
+          <!-- Most Read -->
+          <div class="sidebar-module" aria-labelledby="most-read-heading">
+            <h2 class="sidebar-heading" id="most-read-heading" data-i18n="most-read">Most Read Today</h2>
+            <ol class="most-read-list" role="list">
+              <li class="most-read-item">
+                <span class="most-read-rank" aria-hidden="true">1</span>
+                <div class="most-read-body">
+                  <a href="#" class="most-read-link">City Council Prepares Historic Vote on Downtown Rezoning</a>
+                  <time class="article-time">45 min ago</time>
+                </div>
+              </li>
+              <li class="most-read-item">
+                <span class="most-read-rank" aria-hidden="true">2</span>
+                <div class="most-read-body">
+                  <a href="#" class="most-read-link">Tech Layoffs Hit Regional Offices; 340 Jobs Cut in Q1</a>
+                  <time class="article-time">2 hr ago</time>
+                </div>
+              </li>
+              <li class="most-read-item">
+                <span class="most-read-rank" aria-hidden="true">3</span>
+                <div class="most-read-body">
+                  <a href="#" class="most-read-link">School Funding Bill Passes After Months of Deadlock</a>
+                  <time class="article-time">3 hr ago</time>
+                </div>
+              </li>
+              <li class="most-read-item">
+                <span class="most-read-rank" aria-hidden="true">4</span>
+                <div class="most-read-body">
+                  <a href="#" class="most-read-link">Eagles Punch Ticket to Regionals With 28-14 Win</a>
+                  <time class="article-time">5 hr ago</time>
+                </div>
+              </li>
+              <li class="most-read-item">
+                <span class="most-read-rank" aria-hidden="true">5</span>
+                <div class="most-read-body">
+                  <a href="#" class="most-read-link">Downtown Office Vacancy Hits 22% as Hybrid Work Reshapes Market</a>
+                  <time class="article-time">4 hr ago</time>
+                </div>
+              </li>
+            </ol>
+          </div>
+
+          <!-- Newsletter Signup -->
+          <div class="sidebar-module newsletter-module" aria-labelledby="newsletter-heading">
+            <div class="newsletter-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <h2 class="sidebar-heading" id="newsletter-heading" data-i18n="newsletter-heading">Daily Briefing</h2>
+            <p class="newsletter-desc" data-i18n="newsletter-desc">Get the top 5 stories every morning, delivered to your inbox before 7am.</p>
+            <form class="newsletter-form" aria-label="Newsletter signup">
+              <label for="newsletter-email" class="sr-only" data-i18n="newsletter-email-label">Email address</label>
+              <input type="email" id="newsletter-email" class="newsletter-input" placeholder="Your email address" data-i18n-placeholder="newsletter-placeholder" required autocomplete="email" />
+              <button type="submit" class="btn-newsletter" data-i18n="newsletter-cta">Subscribe Free</button>
+            </form>
+            <p class="newsletter-fine" data-i18n="newsletter-fine">No spam. Unsubscribe anytime.</p>
+          </div>
+
+          <!-- Event Calendar -->
+          <div class="sidebar-module" aria-labelledby="events-heading">
+            <h2 class="sidebar-heading" id="events-heading" data-i18n="upcoming-events">Upcoming Events</h2>
+            <ul class="events-list" role="list">
+              <li class="event-item">
+                <div class="event-date" aria-label="April 29">
+                  <span class="event-month">APR</span>
+                  <span class="event-day">29</span>
+                </div>
+                <div class="event-body">
+                  <span class="event-title"><a href="#" class="event-link">City Council — Downtown Rezoning Vote</a></span>
+                  <span class="event-time">7:00 PM · City Hall</span>
+                </div>
+              </li>
+              <li class="event-item">
+                <div class="event-date" aria-label="May 2">
+                  <span class="event-month">MAY</span>
+                  <span class="event-day">2</span>
+                </div>
+                <div class="event-body">
+                  <span class="event-title"><a href="#" class="event-link">Riverside Farmers Market — Grand Reopening</a></span>
+                  <span class="event-time">8:00 AM · Riverside Park</span>
+                </div>
+              </li>
+              <li class="event-item">
+                <div class="event-date" aria-label="May 5">
+                  <span class="event-month">MAY</span>
+                  <span class="event-day">5</span>
+                </div>
+                <div class="event-body">
+                  <span class="event-title"><a href="#" class="event-link">Regional Playoff Semifinals — Football</a></span>
+                  <span class="event-time">6:00 PM · Metro Stadium</span>
+                </div>
+              </li>
+              <li class="event-item">
+                <div class="event-date" aria-label="May 10">
+                  <span class="event-month">MAY</span>
+                  <span class="event-day">10</span>
+                </div>
+                <div class="event-body">
+                  <span class="event-title"><a href="#" class="event-link">Metro Marathon — Registration Open</a></span>
+                  <span class="event-time">7:00 AM · Downtown Start</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Trending Topics -->
+          <div class="sidebar-module" aria-labelledby="trending-heading">
+            <h2 class="sidebar-heading" id="trending-heading" data-i18n="trending">Trending Topics</h2>
+            <div class="trending-tags" role="list">
+              <a href="#" class="trending-tag" role="listitem">#DowntownRezoning</a>
+              <a href="#" class="trending-tag" role="listitem">#TechLayoffs</a>
+              <a href="#" class="trending-tag" role="listitem">#SchoolFunding</a>
+              <a href="#" class="trending-tag" role="listitem">#EaglesFootball</a>
+              <a href="#" class="trending-tag" role="listitem">#FarmersMarket</a>
+              <a href="#" class="trending-tag" role="listitem">#MetroTransit</a>
+            </div>
+          </div>
+
+          <!-- Spanish Edition Promo -->
+          <div class="sidebar-module spanish-module" aria-labelledby="spanish-heading">
+            <h2 class="sidebar-heading" id="spanish-heading">Edición en Español</h2>
+            <p class="spanish-desc">Lea las noticias más importantes de hoy en su idioma.</p>
+            <button class="btn-spanish" id="sidebar-lang-toggle">Ver en Español</button>
+          </div>
+
+        </aside>
+      </div>
+    </main>
+
+    <!-- Subscribe Banner -->
+    <section class="subscribe-banner" aria-labelledby="subscribe-banner-heading">
+      <div class="container">
+        <div class="subscribe-banner-inner">
+          <div class="subscribe-banner-text">
+            <h2 id="subscribe-banner-heading" class="subscribe-banner-heading" data-i18n="subscribe-banner-heading">Support local journalism that matters.</h2>
+            <p class="subscribe-banner-desc" data-i18n="subscribe-banner-desc">Metro Daily News is independently owned. Your subscription funds investigative reporting, community coverage, and 40+ stories every day.</p>
+          </div>
+          <div class="subscribe-banner-actions">
+            <div class="subscribe-plans">
+              <div class="subscribe-plan">
+                <span class="plan-name" data-i18n="plan-digital">Digital</span>
+                <span class="plan-price">$9<span class="plan-period" data-i18n="per-month">/mo</span></span>
+                <button class="btn-plan" data-i18n="get-started">Get Started</button>
+              </div>
+              <div class="subscribe-plan featured">
+                <span class="plan-badge" data-i18n="most-popular">Most Popular</span>
+                <span class="plan-name" data-i18n="plan-all-access">All Access</span>
+                <span class="plan-price">$14<span class="plan-period" data-i18n="per-month">/mo</span></span>
+                <button class="btn-plan featured" data-i18n="get-started">Get Started</button>
+              </div>
+            </div>
+            <a href="#" class="subscribe-learn" data-i18n="compare-plans">Compare plans →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer" role="contentinfo">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <div class="footer-logo">
+              <span class="masthead-star" aria-hidden="true">★</span>
+              <span class="footer-name">Metro Daily News</span>
+            </div>
+            <p class="footer-about" data-i18n="footer-about">Independent local journalism serving three metropolitan areas since 1952.</p>
+            <div class="footer-social" aria-label="Social media links">
+              <a href="#" class="social-link" aria-label="Follow on Facebook">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              </a>
+              <a href="#" class="social-link" aria-label="Follow on Twitter/X">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4l16 16M4 20L20 4" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+              </a>
+              <a href="#" class="social-link" aria-label="Follow on Instagram">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <nav class="footer-nav" aria-label="Footer navigation">
+            <h3 class="footer-nav-heading" data-i18n="footer-sections">Sections</h3>
+            <ul role="list">
+              <li><a href="#politics" data-i18n="nav-politics">Politics</a></li>
+              <li><a href="#business" data-i18n="nav-business">Business</a></li>
+              <li><a href="#sports" data-i18n="nav-sports">Sports</a></li>
+              <li><a href="#community" data-i18n="nav-community">Community</a></li>
+              <li><a href="#podcasts" data-i18n="nav-podcasts">Podcasts</a></li>
+              <li><a href="#investigations" data-i18n="nav-investigations">Investigations</a></li>
+            </ul>
+          </nav>
+
+          <nav class="footer-nav" aria-label="Reader services navigation">
+            <h3 class="footer-nav-heading" data-i18n="footer-services">Reader Services</h3>
+            <ul role="list">
+              <li><a href="#" data-i18n="footer-subscribe">Subscribe</a></li>
+              <li><a href="#" data-i18n="footer-newsletters">Newsletters</a></li>
+              <li><a href="#" data-i18n="footer-comments">Comment Policy</a></li>
+              <li><a href="#" data-i18n="footer-accessibility">Accessibility</a></li>
+              <li><a href="#" data-i18n="footer-spanish">Edición Español</a></li>
+            </ul>
+          </nav>
+
+          <nav class="footer-nav" aria-label="Company navigation">
+            <h3 class="footer-nav-heading" data-i18n="footer-company">Company</h3>
+            <ul role="list">
+              <li><a href="#" data-i18n="footer-about-us">About Us</a></li>
+              <li><a href="#" data-i18n="footer-staff">Our Staff</a></li>
+              <li><a href="#" data-i18n="footer-advertise">Advertise</a></li>
+              <li><a href="#" data-i18n="footer-contact">Contact Us</a></li>
+              <li><a href="#" data-i18n="footer-privacy">Privacy Policy</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <div class="footer-bottom">
+          <p class="footer-copyright" data-i18n="footer-copyright">© 2026 Metro Daily News. All rights reserved.</p>
+          <p class="footer-disclaimer" data-i18n="footer-disclaimer">Metro Daily News is committed to accuracy and accountability in local reporting.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

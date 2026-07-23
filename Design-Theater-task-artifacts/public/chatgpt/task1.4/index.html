@@ -1,0 +1,685 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Riverside University</title>
+  <meta name="description" content="Riverside University — a mid-sized liberal arts college. Explore academics, student life, research, and community." />
+  <style>
+    /* ---------------------------
+       Design tokens (brand system)
+       --------------------------- */
+    :root{
+      --brand: #114e96;          /* Primary brand (Riverside blue) */
+      --brand-2: #0c376a;        /* Brand dark */
+      --accent: #ffb000;         /* Warm accent */
+      --ink: #1a1a1a;            /* Main text */
+      --muted: #5f6b7a;          /* Muted text */
+      --bg: #ffffff;             /* Surface */
+      --bg-2: #f5f7fa;           /* Sub-surface */
+      --ok: #1b9e5a;
+      --warn: #b85c00;
+      --danger: #b91c1c;
+      --radius: 14px;
+      --shadow: 0 10px 30px rgba(0,0,0,.07);
+      --maxw: 1200px;
+      --focus: 2px solid #1c74ff;
+      --ring: 0 0 0 3px rgba(28,116,255,.25);
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg:#0b1017; --bg-2:#111827;
+        --ink:#eef2f7; --muted:#9aa6b2;
+        --brand:#4aa3ff; --brand-2:#2f6bb0; --accent:#ffd166;
+        --shadow: 0 10px 30px rgba(0,0,0,.4);
+      }
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:var(--font); color:var(--ink); background:var(--bg);
+      line-height:1.45;
+    }
+    a{color:var(--brand); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{max-width:var(--maxw); margin:0 auto; padding:0 20px}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .skip{position:absolute;left:-999px;top:-999px}
+    .skip:focus{left:12px;top:12px;background:#fff;color:#000;padding:.6rem 1rem;border-radius:8px;box-shadow:var(--shadow);z-index:10000}
+
+    /* ---------------------------
+       Top utility bar / alert
+       --------------------------- */
+    .alert{
+      background:linear-gradient(90deg,var(--brand-2),var(--brand));
+      color:#fff; font-size:.95rem
+    }
+    .alert .container{display:flex;gap:12px;align-items:center;padding:.5rem 20px}
+    .alert button{
+      margin-left:auto;background:transparent;border:1px solid rgba(255,255,255,.5);
+      color:#fff;border-radius:999px;padding:.25rem .6rem;cursor:pointer
+    }
+    .alert button:focus{outline:var(--focus);box-shadow:var(--ring)}
+
+    /* ---------------------------
+       Header & nav
+       --------------------------- */
+    header{
+      position:sticky; top:0; z-index:1000; background:var(--bg);
+      border-bottom:1px solid rgba(0,0,0,.08); backdrop-filter:saturate(140%) blur(6px)
+    }
+    .brandbar{display:flex;align-items:center;gap:16px;padding:14px 0}
+    .crest{
+      width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--brand),var(--brand-2));
+      box-shadow:var(--shadow);display:grid;place-items:center;color:#fff;font-weight:800
+    }
+    .wordmark{font-size:1.3rem;font-weight:700;letter-spacing:.2px}
+    .search{
+      margin-left:auto; position:relative; flex:1; max-width:420px
+    }
+    .search input{
+      width:100%; padding:.65rem .9rem .65rem 2.25rem;border-radius:999px;border:1px solid rgba(0,0,0,.1);
+      background:var(--bg-2); color:var(--ink)
+    }
+    .search input:focus{outline:var(--focus); box-shadow:var(--ring)}
+    .search .ico{position:absolute;left:9px; top:50%; transform:translateY(-50%); opacity:.7}
+    nav.primary{
+      display:flex; align-items:center; gap:18px; flex-wrap:wrap; padding:0 0 12px 0
+    }
+    .navlink{
+      padding:.5rem .8rem;border-radius:10px;color:var(--ink);font-weight:600
+    }
+    .navlink:hover{background:var(--bg-2)}
+    .audience-switch{
+      margin-left:auto;display:flex;gap:8px;flex-wrap:wrap
+    }
+    .chip{
+      border:1px solid rgba(0,0,0,.1); background:var(--bg-2); color:var(--ink);
+      padding:.45rem .7rem;border-radius:999px; cursor:pointer; font-weight:600
+    }
+    .chip[aria-pressed="true"]{background:var(--brand);color:#fff;border-color:var(--brand)}
+    .chip:focus{outline:var(--focus); box-shadow:var(--ring)}
+
+    /* ---------------------------
+       Hero
+       --------------------------- */
+    .hero{
+      background:
+        radial-gradient(1200px 400px at 70% -20%, rgba(17,78,150,.12), transparent 60%),
+        radial-gradient(800px 300px at 10% -10%, rgba(255,176,0,.15), transparent 50%);
+      border-bottom:1px solid rgba(0,0,0,.06)
+    }
+    .hero-inner{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;padding:34px 0}
+    @media (max-width:900px){.hero-inner{grid-template-columns:1fr}}
+    h1{font-size:clamp(1.6rem,3vw,2.4rem);margin:.2rem 0 .4rem}
+    .hero p{font-size:1.05rem;color:var(--muted);margin:.2rem 0 1rem}
+    .cta{
+      display:flex;gap:10px;flex-wrap:wrap
+    }
+    .btn{
+      display:inline-flex;align-items:center;gap:.5rem;border-radius:12px;padding:.7rem 1rem;font-weight:700;
+      border:1px solid rgba(0,0,0,.12); background:#fff; color:var(--brand-2)
+    }
+    .btn.primary{background:var(--brand);color:#fff;border-color:var(--brand)}
+    .btn:focus{outline:var(--focus); box-shadow:var(--ring)}
+    .hero-card{
+      background:var(--bg); border:1px solid rgba(0,0,0,.06); border-radius:var(--radius);
+      padding:18px; box-shadow:var(--shadow)
+    }
+    .hero-card h3{margin:.2rem 0 .6rem;font-size:1.05rem}
+    .mini{font-size:.92rem;color:var(--muted);margin-top:.2rem}
+
+    /* ---------------------------
+       Dynamic panels
+       --------------------------- */
+    .panels{
+      padding:24px 0 10px; display:grid; grid-template-columns:2fr 1fr; gap:24px
+    }
+    @media (max-width:980px){.panels{grid-template-columns:1fr}}
+    .card{
+      background:var(--bg); border:1px solid rgba(0,0,0,.07); border-radius:var(--radius);
+      padding:18px; box-shadow:var(--shadow)
+    }
+    .card h2{margin:0 0 10px;font-size:1.25rem}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    @media (max-width:900px){.grid-3{grid-template-columns:1fr 1fr}}
+    @media (max-width:640px){.grid-3{grid-template-columns:1fr}}
+    .tile{
+      background:var(--bg-2); border:1px solid rgba(0,0,0,.05);
+      padding:16px; border-radius:12px; height:100%; display:flex; flex-direction:column; gap:6px
+    }
+    .tile b{font-size:1rem}
+    .tile p{margin:0; color:var(--muted); font-size:.95rem}
+    .tile a.cta-link{margin-top:auto; font-weight:700}
+    .quick{
+      display:flex; gap:10px; flex-wrap:wrap; margin-top:10px
+    }
+    .ql{
+      border:1px solid rgba(0,0,0,.1); background:#fff; padding:.5rem .7rem; border-radius:999px;
+      display:inline-flex; align-items:center; gap:.45rem; font-weight:600
+    }
+    .mutelist{margin:0;padding-left:1.1rem;color:var(--muted)}
+    .mutelist li{margin:.3rem 0}
+
+    .side .card + .card{margin-top:16px}
+
+    /* ---------------------------
+       Footer
+       --------------------------- */
+    footer{
+      margin-top:28px; background:var(--bg-2); border-top:1px solid rgba(0,0,0,.08)
+    }
+    .footgrid{display:grid;grid-template-columns:2fr 1fr 1fr; gap:20px; padding:28px 0}
+    @media (max-width:900px){.footgrid{grid-template-columns:1fr 1fr}}
+    @media (max-width:640px){.footgrid{grid-template-columns:1fr}}
+    .copyright{
+      border-top:1px solid rgba(0,0,0,.08); padding:14px 0; font-size:.92rem; color:var(--muted)
+    }
+
+    /* ---------------------------
+       Tiny icons (emoji fallback)
+       --------------------------- */
+    .ico{font-style:normal}
+    .badge{display:inline-block;background:var(--bg-2);border:1px solid rgba(0,0,0,.1);border-radius:8px;padding:.12rem .4rem;font-size:.8rem}
+    .status-dot{display:inline-block;width:8px;height:8px;border-radius:999px;background:var(--ok);margin-right:6px}
+    .status-dot.warn{background:var(--warn)}
+    .status-dot.danger{background:var(--danger)}
+
+    /* ---------------------------
+       Mobile nav
+       --------------------------- */
+    .hamburger{display:none;margin-left:8px}
+    @media (max-width:860px){
+      nav.primary{display:none}
+      nav.primary.open{display:flex;flex-direction:column;gap:6px;padding:10px 0}
+      .hamburger{display:inline-flex;background:var(--bg-2);border:1px solid rgba(0,0,0,.1);border-radius:10px;padding:.45rem .6rem;cursor:pointer}
+    }
+
+    /* ---------------------------
+       Quick link search
+       --------------------------- */
+    .ql-search{
+      display:flex; gap:8px; align-items:center; margin-top:.5rem
+    }
+    .ql-search input{
+      flex:1; padding:.5rem .7rem; border-radius:10px; border:1px solid rgba(0,0,0,.12); background:#fff
+    }
+    .ql-search button{
+      border-radius:10px; border:1px solid rgba(0,0,0,.12); padding:.5rem .7rem; background:var(--bg-2); cursor:pointer
+    }
+    .ql-empty{font-size:.95rem;color:var(--muted);margin-top:6px}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to main content</a>
+
+  <!-- Emergency / status banner (dismissible) -->
+  <div class="alert" id="alert" role="region" aria-label="University status">
+    <div class="container">
+      <span class="badge">Status</span>
+      <span id="alertText"><span class="status-dot"></span> Campus open. Flu clinic this week in Student Health (Mon–Thu).</span>
+      <button id="dismissAlert" aria-label="Dismiss status banner">Dismiss</button>
+    </div>
+  </div>
+
+  <header>
+    <div class="container">
+      <div class="brandbar">
+        <div class="crest" aria-hidden="true">RU</div>
+        <div class="wordmark" aria-label="Riverside University">Riverside University</div>
+
+        <div class="search" role="search">
+          <span class="ico" aria-hidden="true">🔎</span>
+          <label class="sr-only" for="site-search">Search the site</label>
+          <input id="site-search" type="search" placeholder="Search academics, people, offices…" />
+        </div>
+
+        <button class="hamburger" id="menuBtn" aria-expanded="false" aria-controls="primaryNav">Menu</button>
+      </div>
+
+      <nav class="primary" id="primaryNav" aria-label="Primary">
+        <a class="navlink" href="#" aria-current="page">Home</a>
+        <a class="navlink" href="#">Academics</a>
+        <a class="navlink" href="#">Admissions &amp; Aid</a>
+        <a class="navlink" href="#">Campus Life</a>
+        <a class="navlink" href="#">Research</a>
+        <a class="navlink" href="#">Athletics</a>
+        <a class="navlink" href="#">About RU</a>
+
+        <div class="audience-switch" id="audienceSwitch" role="group" aria-label="Choose your audience">
+          <button class="chip" data-a="prospective" aria-pressed="false">Prospective</button>
+          <button class="chip" data-a="current" aria-pressed="false">Students</button>
+          <button class="chip" data-a="faculty" aria-pressed="false">Faculty</button>
+          <button class="chip" data-a="alumni" aria-pressed="false">Alumni</button>
+          <button class="chip" data-a="parents" aria-pressed="false">Parents</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-inner">
+      <div>
+        <h1 id="heroTitle">Find your path at Riverside.</h1>
+        <p id="heroSubtitle">Explore a transformative liberal arts education on a riverfront campus with a close-knit community.</p>
+        <div class="cta" id="heroCtas">
+          <a class="btn primary" href="#"><span aria-hidden="true">✨</span><span id="primaryCta">Explore Programs</span></a>
+          <a class="btn" href="#"><span aria-hidden="true">🎓</span><span id="secondaryCta">Admissions &amp; Aid</span></a>
+        </div>
+        <p class="mini" id="heroMini">Tip: Use the audience chips above to tailor quick links and announcements.</p>
+      </div>
+      <aside class="hero-card" aria-label="At a glance">
+        <h3>At a glance</h3>
+        <ul class="mutelist" id="glance">
+          <li><b>8,000</b> students across undergraduate &amp; graduate studies</li>
+          <li><b>60+</b> majors and programs</li>
+          <li><b>14:1</b> student-faculty ratio</li>
+          <li><b>96%</b> graduates employed or in grad school within 6 months</li>
+        </ul>
+        <div class="mini">Data shown for illustration.</div>
+      </aside>
+    </div>
+  </section>
+
+  <main id="main" class="container">
+    <section class="panels">
+      <div>
+        <!-- Task hub (audience-specific) -->
+        <div class="card" aria-live="polite" aria-atomic="true">
+          <h2 id="taskHubTitle">Quick links</h2>
+          <div class="ql-search">
+            <label class="sr-only" for="qlFilter">Filter quick links</label>
+            <input id="qlFilter" type="search" placeholder="Filter quick links (e.g., schedule, tour, FAFSA)" />
+            <button id="qlClear" aria-label="Clear quick link filter">Clear</button>
+          </div>
+          <div class="quick" id="quickLinks" role="list"></div>
+          <div class="ql-empty" id="noQlMsg" hidden>No results. Try a different term.</div>
+        </div>
+
+        <!-- Featured services (audience-specific tiles) -->
+        <div class="card" style="margin-top:16px">
+          <h2 id="featuredTitle">Do more at RU</h2>
+          <div class="grid-3" id="tiles"></div>
+        </div>
+      </div>
+
+      <!-- Right column -->
+      <aside class="side">
+        <div class="card">
+          <h2>Announcements</h2>
+          <ul class="mutelist" id="announcements"></ul>
+        </div>
+
+        <div class="card">
+          <h2>Dates &amp; deadlines</h2>
+          <ul class="mutelist" id="deadlines"></ul>
+        </div>
+
+        <div class="card">
+          <h2>Contact &amp; help</h2>
+          <p>
+            OneStop Student Services<br/>
+            <a href="#">onestop@riverside.edu</a> · (555) 555-0142
+          </p>
+          <p>
+            Campus Safety (24/7)<br/>
+            <a href="#">safety@riverside.edu</a> · (555) 555-0199
+          </p>
+          <p class="mini">Emergency? Call 911 first.</p>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footgrid">
+      <div>
+        <b>Riverside University</b><br/>
+        100 River Rd, Riverside, USA<br/>
+        (555) 555-0100 · <a href="#">hello@riverside.edu</a><br/>
+        <div style="margin-top:8px">
+          <a class="ql" href="#"><span aria-hidden="true">🧭</span>Visit</a>
+          <a class="ql" href="#"><span aria-hidden="true">📝</span>Apply</a>
+          <a class="ql" href="#"><span aria-hidden="true">💸</span>Give</a>
+        </div>
+      </div>
+      <div>
+        <b>Resources</b>
+        <ul class="mutelist">
+          <li><a href="#">Directory</a></li>
+          <li><a href="#">Libraries</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Accessibility</a></li>
+        </ul>
+      </div>
+      <div>
+        <b>Legal</b>
+        <ul class="mutelist">
+          <li><a href="#">Consumer Info</a></li>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Non-Discrimination</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container copyright">© <span id="year"></span> Riverside University.</div>
+  </footer>
+
+  <script>
+    // ---------------------------
+    // Audience data (task- and goal-driven)
+    // ---------------------------
+    const DATA = {
+      prospective: {
+        hero: {
+          title: "Imagine your future at Riverside.",
+          subtitle: "Find majors, visit campus, and see how RU feels in real life.",
+          primary: ["Explore Programs", "#"],
+          secondary: ["Plan a Visit", "#"]
+        },
+        quick: [
+          ["🎓 Programs & Majors", "#"],
+          ["👟 Campus Tours", "#"],
+          ["📝 Apply", "#"],
+          ["💰 Scholarships & Aid", "#"],
+          ["🏠 Housing & Dining", "#"],
+          ["💬 Chat with an Ambassador", "#"],
+          ["📅 Admissions Events", "#"],
+          ["📘 Request Info", "#"],
+        ],
+        tiles: [
+          ["Life at RU", "Clubs, traditions, and weekend life on the river.", "#"],
+          ["Honors & Research", "Undergrad research from day one.", "#"],
+          ["Cost & Aid", "Tuition, scholarships, and how to plan.", "#"]
+        ],
+        announce: [
+          ["Fall Open House weekends now live — reserve your spot.", "ok"],
+          ["Application fee waivers available for first-gen students.", "warn"]
+        ],
+        deadlines: [
+          ["Nov 1 — Early Action deadline"],
+          ["Dec 1 — Scholarship priority deadline"],
+          ["Jan 15 — Regular Decision deadline"]
+        ]
+      },
+      current: {
+        hero: {
+          title: "Everything you need, one jump away.",
+          subtitle: "Check your schedule, connect to services, and get support.",
+          primary: ["MyRU Portal", "#"],
+          secondary: ["Advising", "#"]
+        },
+        quick: [
+          ["📚 Learning Portal (LMS)", "#"],
+          ["📅 Class Schedule", "#"],
+          ["🧭 Degree Audit", "#"],
+          ["🧾 Billing & Payments", "#"],
+          ["🩺 Student Health", "#"],
+          ["🛠 Tech Help Desk", "#"],
+          ["🏛 Registrar", "#"],
+          ["💬 Counseling & Support", "#"],
+          ["🧑‍🎓 Career Center", "#"]
+        ],
+        tiles: [
+          ["Tutoring & Writing Center", "Free support across subjects.", "#"],
+          ["Study Abroad", "Scholarships and program search.", "#"],
+          ["Campus Events", "Talks, concerts, and club fairs.", "#"]
+        ],
+        announce: [
+          ["Course evals open through Fri — check your email.", "ok"],
+          ["Health Center flu clinic: Mon–Thu this week.", "ok"]
+        ],
+        deadlines: [
+          ["Sep 28 — Add/Drop ends"],
+          ["Oct 10 — Priority registration opens"],
+          ["Dec 6 — Final exams begin"]
+        ]
+      },
+      faculty: {
+        hero: {
+          title: "Teach, advise, and thrive.",
+          subtitle: "Access teaching tools, policies, and research support.",
+          primary: ["Faculty Portal", "#"],
+          secondary: ["Submit Grades", "#"]
+        },
+        quick: [
+          ["📚 LMS Courses", "#"],
+          ["📝 Grade Submission", "#"],
+          ["🧪 Office of Research", "#"],
+          ["💼 HR & Benefits", "#"],
+          ["📄 Syllabi Policy", "#"],
+          ["🏛 Faculty Senate", "#"],
+          ["🧑‍🏫 Teaching & Learning Center", "#"],
+          ["🗓 Academic Calendar", "#"],
+        ],
+        tiles: [
+          ["Grant Opportunities", "Seed funding and external calls.", "#"],
+          ["Curriculum Resources", "Templates, rubrics, and tools.", "#"],
+          ["Advisees", "Manage appointments & degree audits.", "#"]
+        ],
+        announce: [
+          ["Internal grant proposals due Oct 5.", "warn"],
+          ["IRB turnaround ~2 weeks — plan ahead.", "warn"]
+        ],
+        deadlines: [
+          ["Sep 30 — Midterm grades due"],
+          ["Dec 12 — Final grades due"],
+          ["Jan 8 — Spring syllabi posted"]
+        ]
+      },
+      alumni: {
+        hero: {
+          title: "Stay connected to Riverside.",
+          subtitle: "Events, news, and ways to make an impact.",
+          primary: ["Give to RU", "#"],
+          secondary: ["Alumni Events", "#"]
+        },
+        quick: [
+          ["🗞 Alumni Magazine", "#"],
+          ["🎉 Reunion & Events", "#"],
+          ["🤝 Alumni Network", "#"],
+          ["💼 Hire a Highlander", "#"],
+          ["💸 Make a Gift", "#"],
+          ["🏟 Athletics Tickets", "#"],
+        ],
+        tiles: [
+          ["Mentor Students", "Share your path and open doors.", "#"],
+          ["Regional Chapters", "Find your local RU community.", "#"],
+          ["Lifelong Learning", "Courses & lectures for alumni.", "#"]
+        ],
+        announce: [
+          ["Homecoming weekend schedule released.", "ok"],
+          ["Matching gifts month — double your impact.", "ok"]
+        ],
+        deadlines: [
+          ["Oct 3 — Reunion RSVP deadline"],
+          ["Nov 30 — Year-end giving cutoff"]
+        ]
+      },
+      parents: {
+        hero: {
+          title: "Support your student with confidence.",
+          subtitle: "Safety, financial aid, and how to navigate campus life.",
+          primary: ["Parent & Family Hub", "#"],
+          secondary: ["Safety & Alerts", "#"]
+        },
+        quick: [
+          ["🛡 Campus Safety", "#"],
+          ["💰 Financial Aid & FAFSA", "#"],
+          ["🧾 Billing & FERPA", "#"],
+          ["🏥 Health & Insurance", "#"],
+          ["📅 Academic Calendar", "#"],
+          ["🧭 Orientation & Move-in", "#"],
+          ["🧑‍⚕️ Counseling & Wellbeing", "#"],
+          ["🏠 Housing & Dining", "#"],
+        ],
+        tiles: [
+          ["Conversation Starters", "Topics for checking in with your student.", "#"],
+          ["Support Services", "Where to go when they need help.", "#"],
+          ["Career Readiness", "Internships, jobs, and networking.", "#"],
+        ],
+        announce: [
+          ["Sign up for text alerts for timely safety updates.", "warn"],
+          ["Family Weekend registration open.", "ok"]
+        ],
+        deadlines: [
+          ["Oct 1 — FAFSA opens"],
+          ["Oct 15 — Payment plan enrollment last day"],
+          ["Nov 5 — Family Weekend"]
+        ]
+      }
+    };
+
+    // ---------------------------
+    // Helpers
+    // ---------------------------
+    const $ = sel => document.querySelector(sel);
+    const $$ = sel => Array.from(document.querySelectorAll(sel));
+    const setText = (id, text) => (document.getElementById(id).textContent = text);
+
+    function getAudienceFromURL(){
+      const p = new URLSearchParams(location.search);
+      return p.get("audience");
+    }
+    function saveAudience(a){ localStorage.setItem("ru_audience", a); }
+    function loadAudience(){ return getAudienceFromURL() || localStorage.getItem("ru_audience") || "prospective"; }
+
+    function renderAudience(aud){
+      const a = DATA[aud];
+      if(!a) return;
+
+      // Switcher button states
+      $$("#audienceSwitch .chip").forEach(btn=>{
+        const on = btn.dataset.a === aud;
+        btn.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+
+      // Hero
+      setText("heroTitle", a.hero.title);
+      setText("heroSubtitle", a.hero.subtitle);
+      $("#heroCtas .btn.primary").href = a.hero.primary[1];
+      setText("primaryCta", a.hero.primary[0]);
+      $("#heroCtas .btn:not(.primary)").href = a.hero.secondary[1];
+      setText("secondaryCta", a.hero.secondary[0]);
+      setText("heroMini", `You're viewing resources tailored for ${aud}.`);
+
+      // Quick links
+      const ql = $("#quickLinks");
+      ql.innerHTML = "";
+      a.quick.forEach(([label, href])=>{
+        const el = document.createElement("a");
+        el.className = "ql"; el.href = href; el.role="listitem";
+        el.innerHTML = `<span aria-hidden="true">${label.slice(0,2)}</span> ${label}`;
+        ql.appendChild(el);
+      });
+      $("#noQlMsg").hidden = true;
+      $("#qlFilter").value = "";
+
+      // Tiles
+      const tiles = $("#tiles");
+      tiles.innerHTML = "";
+      a.tiles.forEach(([title, desc, href])=>{
+        const d = document.createElement("div");
+        d.className = "tile";
+        d.innerHTML = `<b>${title}</b><p>${desc}</p><a class="cta-link" href="${href}">Learn more →</a>`;
+        tiles.appendChild(d);
+      });
+
+      // Announcements
+      const ann = $("#announcements");
+      ann.innerHTML = "";
+      a.announce.forEach(([text, level])=>{
+        const dotClass = level === "danger" ? "danger" : level === "warn" ? "warn" : "";
+        const li = document.createElement("li");
+        li.innerHTML = `<span class="status-dot ${dotClass}"></span>${text}`;
+        ann.appendChild(li);
+      });
+
+      // Deadlines
+      const dl = $("#deadlines");
+      dl.innerHTML = "";
+      a.deadlines.forEach(item=>{
+        const li = document.createElement("li");
+        li.textContent = item[0];
+        dl.appendChild(li);
+      });
+
+      // Labels
+      setText("taskHubTitle", aud === "prospective" ? "Get started fast" : "Quick links");
+      setText("featuredTitle", aud === "prospective" ? "Experience RU" : "Do more at RU");
+
+      saveAudience(aud);
+    }
+
+    // Quick link filter
+    function filterQuickLinks(term){
+      const items = $$("#quickLinks .ql");
+      let visible = 0;
+      items.forEach(item=>{
+        const show = item.textContent.toLowerCase().includes(term.toLowerCase());
+        item.style.display = show ? "inline-flex" : "none";
+        if(show) visible++;
+      });
+      $("#noQlMsg").hidden = visible !== 0;
+    }
+
+    // ---------------------------
+    // Event wiring
+    // ---------------------------
+    document.addEventListener("DOMContentLoaded", ()=>{
+      // Year
+      $("#year").textContent = new Date().getFullYear();
+
+      // Dismissible alert
+      const alertEl = $("#alert");
+      if(localStorage.getItem("ru_alert_dismissed")==="1"){ alertEl.style.display="none"; }
+      $("#dismissAlert").addEventListener("click", ()=>{
+        alertEl.style.display="none"; localStorage.setItem("ru_alert_dismissed","1");
+      });
+
+      // Mobile menu
+      const menuBtn = $("#menuBtn"), nav = $("#primaryNav");
+      menuBtn.addEventListener("click", ()=>{
+        const open = nav.classList.toggle("open");
+        menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+
+      // Audience switching
+      $("#audienceSwitch").addEventListener("click", (e)=>{
+        const btn = e.target.closest(".chip"); if(!btn) return;
+        renderAudience(btn.dataset.a);
+      });
+
+      // Deep link / stored audience
+      const initial = loadAudience();
+      renderAudience(initial);
+
+      // Quick link searching
+      $("#qlFilter").addEventListener("input", (e)=> filterQuickLinks(e.target.value));
+      $("#qlClear").addEventListener("click", ()=>{
+        $("#qlFilter").value = ""; filterQuickLinks("");
+        $("#qlFilter").focus();
+      });
+
+      // Basic site search demo (client-only)
+      $("#site-search").addEventListener("keydown", (e)=>{
+        if(e.key==="Enter"){
+          e.preventDefault();
+          alert(`Search submitted for: "${e.target.value}"\n(Connect to your real search backend here.)`);
+        }
+      });
+
+      // Keyboard: allow arrow movement across audience chips
+      $$("#audienceSwitch .chip").forEach((chip, idx, arr)=>{
+        chip.addEventListener("keydown", (e)=>{
+          if(!["ArrowRight","ArrowLeft"].includes(e.key)) return;
+          e.preventDefault();
+          const next = e.key==="ArrowRight" ? (idx+1)%arr.length : (idx-1+arr.length)%arr.length;
+          arr[next].focus();
+        });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitCore Studio - Your Boutique Fitness Haven</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #c77652;
+            --primary-dark: #a55d3f;
+            --secondary: #7a9b76;
+            --cream: #faf6f1;
+            --warm-white: #fff9f4;
+            --charcoal: #2d2d2d;
+            --text-light: #6b6b6b;
+            --accent: #d4a574;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--charcoal);
+            background: var(--cream);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Libre Baskerville', serif;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(250, 246, 241, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(199, 118, 82, 0.1);
+        }
+
+        .logo {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--charcoal);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .cta-button {
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.75rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .cta-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(199, 118, 82, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            padding-top: 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            z-index: 2;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            color: var(--charcoal);
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease-out 0.2s backwards;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.4s backwards;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            animation: fadeInUp 1s ease-out 0.6s backwards;
+        }
+
+        .secondary-button {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .secondary-button:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .hero-decorative {
+            position: absolute;
+            right: -10%;
+            top: 10%;
+            width: 60%;
+            height: 80%;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            opacity: 0.08;
+            border-radius: 50% 0 50% 0;
+            animation: float 6s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        /* Philosophy Section */
+        .philosophy {
+            padding: 8rem 5%;
+            background: var(--warm-white);
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-tag {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--charcoal);
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .value-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(199, 118, 82, 0.1);
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(199, 118, 82, 0.15);
+        }
+
+        .value-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .value-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--charcoal);
+        }
+
+        .value-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* Classes Section */
+        .classes {
+            padding: 8rem 5%;
+            background: var(--cream);
+        }
+
+        .class-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .class-card {
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(199, 118, 82, 0.1);
+        }
+
+        .class-card:hover {
+            transform: translateY(-8px) rotate(1deg);
+            box-shadow: 0 15px 40px rgba(199, 118, 82, 0.2);
+        }
+
+        .class-image {
+            height: 250px;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .class-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 255, 255, 0.05) 10px,
+                rgba(255, 255, 255, 0.05) 20px
+            );
+        }
+
+        .class-emoji {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 5rem;
+            opacity: 0.9;
+        }
+
+        .class-info {
+            padding: 2rem;
+        }
+
+        .class-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.75rem;
+            color: var(--charcoal);
+        }
+
+        .class-meta {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .class-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .class-info p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .class-schedule {
+            background: var(--cream);
+            padding: 1rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: var(--charcoal);
+        }
+
+        /* Trainers Section */
+        .trainers {
+            padding: 8rem 5%;
+            background: var(--warm-white);
+        }
+
+        .trainer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .trainer-card {
+            text-align: center;
+            transition: all 0.4s ease;
+            animation: fadeIn 0.6s ease-out backwards;
+        }
+
+        .trainer-card:nth-child(1) { animation-delay: 0.1s; }
+        .trainer-card:nth-child(2) { animation-delay: 0.2s; }
+        .trainer-card:nth-child(3) { animation-delay: 0.3s; }
+        .trainer-card:nth-child(4) { animation-delay: 0.4s; }
+        .trainer-card:nth-child(5) { animation-delay: 0.5s; }
+        .trainer-card:nth-child(6) { animation-delay: 0.6s; }
+
+        .trainer-photo {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            position: relative;
+            overflow: hidden;
+            border: 4px solid white;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+        }
+
+        .trainer-card:hover .trainer-photo {
+            transform: scale(1.05);
+            box-shadow: 0 12px 35px rgba(199, 118, 82, 0.3);
+        }
+
+        .trainer-initials {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            color: white;
+            font-family: 'Libre Baskerville', serif;
+            font-weight: 700;
+        }
+
+        .trainer-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--charcoal);
+        }
+
+        .trainer-specialty {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .trainer-bio {
+            color: var(--text-light);
+            line-height: 1.7;
+            max-width: 280px;
+            margin: 0 auto;
+        }
+
+        /* CTA Section */
+        .final-cta {
+            padding: 8rem 5%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 40px,
+                rgba(255, 255, 255, 0.03) 40px,
+                rgba(255, 255, 255, 0.03) 80px
+            );
+            animation: slide 20s linear infinite;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .final-cta h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .final-cta p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            line-height: 1.8;
+        }
+
+        .white-button {
+            background: white;
+            color: var(--primary);
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            border-radius: 35px;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .white-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--charcoal);
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            line-height: 2;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(2deg);
+            }
+        }
+
+        @keyframes slide {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(80px, 80px);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .final-cta h2 {
+                font-size: 2.2rem;
+            }
+
+            .class-grid,
+            .trainer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">FitCore</div>
+        <ul class="nav-links">
+            <li><a href="#philosophy">Our Story</a></li>
+            <li><a href="#classes">Classes</a></li>
+            <li><a href="#trainers">Trainers</a></li>
+            <li><a href="#membership">Join</a></li>
+        </ul>
+        <a href="#membership" class="cta-button">Start Free Trial</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Fitness That Feels Like Home</h1>
+            <p class="hero-subtitle">A boutique studio where every body belongs. Expert-led yoga, pilates, and strength training in a welcoming, judgment-free space.</p>
+            <div class="hero-buttons">
+                <a href="#membership" class="cta-button">Try Your First Class Free</a>
+                <a href="#classes" class="cta-button secondary-button">View Schedule</a>
+            </div>
+        </div>
+        <div class="hero-decorative"></div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section id="philosophy" class="philosophy">
+        <div class="section-header">
+            <span class="section-tag">What Makes Us Different</span>
+            <h2>Not Your Average Gym</h2>
+            <p>We're a community, not a crowd. While big-box gyms measure success in membership numbers, we measure it in personal transformations and lasting connections.</p>
+        </div>
+        
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">👥</div>
+                <h3>Small Classes, Big Impact</h3>
+                <p>Maximum 12 people per class means your trainer knows your name, your goals, and your journey. You're never just a number.</p>
+            </div>
+            
+            <div class="value-card">
+                <div class="value-icon">🎯</div>
+                <h3>All Levels Welcome</h3>
+                <p>First time exercising? Returning after years away? We meet you exactly where you are—no intimidation, just encouragement.</p>
+            </div>
+            
+            <div class="value-card">
+                <div class="value-icon">✨</div>
+                <h3>6 Certified Experts</h3>
+                <p>Our trainers aren't just certified—they're passionate about helping you discover what movement feels good in your body.</p>
+            </div>
+            
+            <div class="value-card">
+                <div class="value-icon">🌱</div>
+                <h3>Progress Over Perfection</h3>
+                <p>Sustainable fitness is about consistency, not comparison. We celebrate every step forward, no matter how small.</p>
+            </div>
+            
+            <div class="value-card">
+                <div class="value-icon">💪</div>
+                <h3>Personal Training Available</h3>
+                <p>Want one-on-one attention? Our trainers offer personalized sessions tailored to your specific goals and needs.</p>
+            </div>
+            
+            <div class="value-card">
+                <div class="value-icon">🏡</div>
+                <h3>Community That Cares</h3>
+                <p>More than a workout spot—it's where friendships form, accountability grows, and everyone supports each other's journey.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Classes Section -->
+    <section id="classes" class="classes">
+        <div class="section-header">
+            <span class="section-tag">What We Offer</span>
+            <h2>Find Your Flow</h2>
+            <p>From mindful movement to strength building, we offer classes that challenge and nurture your body at every stage.</p>
+        </div>
+        
+        <div class="class-grid">
+            <div class="class-card">
+                <div class="class-image">
+                    <div class="class-emoji">🧘</div>
+                </div>
+                <div class="class-info">
+                    <h3>Yoga</h3>
+                    <div class="class-meta">
+                        <span>⏱️ 60 min</span>
+                        <span>👥 Max 12</span>
+                        <span>📊 All Levels</span>
+                    </div>
+                    <p>Vinyasa flow, restorative, and power yoga classes designed to build strength, flexibility, and mental clarity. Perfect for beginners and seasoned yogis alike.</p>
+                    <div class="class-schedule">
+                        <strong>Weekly Schedule:</strong> Mon/Wed/Fri 6:30am & 6pm | Sat 9am | Sun 10am
+                    </div>
+                </div>
+            </div>
+            
+            <div class="class-card">
+                <div class="class-image" style="background: linear-gradient(135deg, #7a9b76 0%, #a5c4a0 100%);">
+                    <div class="class-emoji">🤸</div>
+                </div>
+                <div class="class-info">
+                    <h3>Pilates</h3>
+                    <div class="class-meta">
+                        <span>⏱️ 50 min</span>
+                        <span>👥 Max 10</span>
+                        <span>📊 All Levels</span>
+                    </div>
+                    <p>Mat-based pilates focusing on core strength, posture, and controlled movement. Low-impact but incredibly effective for toning and stability.</p>
+                    <div class="class-schedule">
+                        <strong>Weekly Schedule:</strong> Tue/Thu 7am & 5:30pm | Sat 10:30am
+                    </div>
+                </div>
+            </div>
+            
+            <div class="class-card">
+                <div class="class-image" style="background: linear-gradient(135deg, #c77652 0%, #d4a574 100%);">
+                    <div class="class-emoji">💪</div>
+                </div>
+                <div class="class-info">
+                    <h3>Strength Training</h3>
+                    <div class="class-meta">
+                        <span>⏱️ 45 min</span>
+                        <span>👥 Max 12</span>
+                        <span>📊 Beginner-Intermediate</span>
+                    </div>
+                    <p>Functional strength training using weights, resistance bands, and bodyweight. Build confidence and muscle in a supportive, non-competitive environment.</p>
+                    <div class="class-schedule">
+                        <strong>Weekly Schedule:</strong> Mon/Wed/Fri 5:30pm | Tue/Thu 6am | Sat 8am
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trainers Section -->
+    <section id="trainers" class="trainers">
+        <div class="section-header">
+            <span class="section-tag">Meet Your Guides</span>
+            <h2>Expert Trainers Who Care</h2>
+            <p>Six certified professionals dedicated to your success. Each brings unique expertise, genuine warmth, and a commitment to making fitness accessible for everyone.</p>
+        </div>
+        
+        <div class="trainer-grid">
+            <div class="trainer-card">
+                <div class="trainer-photo">
+                    <div class="trainer-initials">SM</div>
+                </div>
+                <h3>Sarah Martinez</h3>
+                <div class="trainer-specialty">Yoga & Mindfulness</div>
+                <p class="trainer-bio">RYT-500 certified with 8 years teaching. Specializes in making yoga accessible for tight muscles and anxious minds.</p>
+            </div>
+            
+            <div class="trainer-card">
+                <div class="trainer-photo" style="background: linear-gradient(135deg, #7a9b76 0%, #a5c4a0 100%);">
+                    <div class="trainer-initials">JC</div>
+                </div>
+                <h3>James Chen</h3>
+                <div class="trainer-specialty">Strength & Conditioning</div>
+                <p class="trainer-bio">NASM-CPT certified. Former college athlete who loves helping beginners discover their strength without intimidation.</p>
+            </div>
+            
+            <div class="trainer-card">
+                <div class="trainer-photo" style="background: linear-gradient(135deg, #d4a574 0%, #c77652 100%);">
+                    <div class="trainer-initials">EP</div>
+                </div>
+                <h3>Emma Patterson</h3>
+                <div class="trainer-specialty">Pilates & Core</div>
+                <p class="trainer-bio">STOTT Pilates certified. Focuses on injury prevention and helping clients move pain-free through daily life.</p>
+            </div>
+            
+            <div class="trainer-card">
+                <div class="trainer-photo" style="background: linear-gradient(135deg, #a5c4a0 0%, #7a9b76 100%);">
+                    <div class="trainer-initials">MJ</div>
+                </div>
+                <h3>Marcus Johnson</h3>
+                <div class="trainer-specialty">Yoga & Flexibility</div>
+                <p class="trainer-bio">E-RYT 200 with expertise in restorative yoga. Creates safe spaces for healing movement and stress relief.</p>
+            </div>
+            
+            <div class="trainer-card">
+                <div class="trainer-photo" style="background: linear-gradient(135deg, #c77652 0%, #a55d3f 100%);">
+                    <div class="trainer-initials">LK</div>
+                </div>
+                <h3>Lisa Kowalski</h3>
+                <div class="trainer-specialty">Strength Training</div>
+                <p class="trainer-bio">ACE-CPT certified. Passionate about empowering women through strength training in a judgment-free zone.</p>
+            </div>
+            
+            <div class="trainer-card">
+                <div class="trainer-photo" style="background: linear-gradient(135deg, #d4a574 0%, #a5c4a0 100%);">
+                    <div class="trainer-initials">DR</div>
+                </div>
+                <h3>David Rodriguez</h3>
+                <div class="trainer-specialty">Multi-Disciplinary</div>
+                <p class="trainer-bio">Certified in yoga, pilates, and personal training. Believes every body has unique needs and deserves personalized attention.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section id="membership" class="final-cta">
+        <div class="cta-content">
+            <h2>Your Fitness Journey Starts Here</h2>
+            <p>Join a community that celebrates progress over perfection. Try your first class completely free—no pressure, no commitment, just a chance to experience the FitCore difference.</p>
+            <button class="white-button" onclick="openMembershipForm()">Claim Your Free Trial Class</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>FitCore Studio</h4>
+                <p>Where every body belongs</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#classes">Class Schedule</a></li>
+                    <li><a href="#trainers">Our Trainers</a></li>
+                    <li><a href="#membership">Membership</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <ul class="footer-links">
+                    <li>123 Wellness Lane</li>
+                    <li>info@fitcorestudio.com</li>
+                    <li>(555) FIT-CORE</li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Hours</h4>
+                <ul class="footer-links">
+                    <li>Mon-Fri: 6am - 8pm</li>
+                    <li>Saturday: 8am - 2pm</li>
+                    <li>Sunday: 9am - 1pm</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2024 FitCore Studio. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Membership form modal (placeholder - would connect to actual form system)
+        function openMembershipForm() {
+            alert('Welcome to FitCore! In a production site, this would open a membership form. For now, contact us at info@fitcorestudio.com or call (555) FIT-CORE to claim your free trial class!');
+        }
+
+        // Intersection Observer for fade-in animations on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards
+        document.querySelectorAll('.value-card, .class-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease-out';
+            observer.observe(card);
+        });
+
+        // Parallax effect for hero decorative element
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const decorative = document.querySelector('.hero-decorative');
+            if (decorative && scrolled < 1000) {
+                decorative.style.transform = `translateY(${scrolled * 0.3}px)`;
+            }
+        });
+    </script>
+</body>
+</html>

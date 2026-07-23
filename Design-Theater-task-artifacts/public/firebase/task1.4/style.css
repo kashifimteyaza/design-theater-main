@@ -1,0 +1,74 @@
+/* Basic Styles */
+body {
+    font-family: sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    background-color: #003366; /* Deep Blue */
+    color: #ffd700; /* Gold */
+    padding: 1rem 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+main {
+    padding: 1rem;
+}
+
+/* Audience Gateway */
+#audience-gateway {
+    text-align: center;
+    padding: 2rem 0;
+}
+
+#audience-gateway h2 {
+    margin-bottom: 1.5rem;
+}
+
+.options button {
+    background-color: #003366;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    margin: 0.5rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.options button:hover {
+    background-color: #0055a4; /* Lighter Blue */
+}
+
+/* Content Area */
+#content-area {
+    padding: 2rem;
+    background-color: white;
+    border-radius: 8px;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .options button {
+        display: block;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+}

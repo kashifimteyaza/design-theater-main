@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>StreamVault – Curated Cinema</title>
+  <meta name="description" content="StreamVault curates independent films, documentaries, and international cinema. Sophisticated yet welcoming.">
+  <style>
+    /* ------------------
+      Design Tokens
+    ------------------ */
+    :root {
+      --bg: #0d0f12;               /* charcoal ink */
+      --panel: #14171b;            /* deep graphite */
+      --elev: #191d22;             /* elevated cards */
+      --text: #e9edf1;             /* near-white */
+      --muted: #aab3bd;            /* muted copy */
+      --accent: #b7f2d4;           /* soft jade */
+      --accent-ink: #0b2216;       /* accent contrast for chips */
+      --brand: #f2b279;            /* warm amber */
+      --brand-ink: #23170e;        
+      --focus: #85d7ff;            /* focus ring */
+      --danger: #ff8b8b;
+      --good: #9be79b;
+
+      --radius-lg: 20px;
+      --radius-sm: 12px;
+      --shadow-1: 0 6px 24px rgba(0,0,0,.28);
+      --shadow-2: 0 12px 32px rgba(0,0,0,.35);
+
+      --gutter: clamp(14px, 2.2vw, 24px);
+      --hero-h: clamp(320px, 48vh, 540px);
+
+      --font-sans: system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #fafafa;
+        --panel: #ffffff;
+        --elev: #f4f6f8;
+        --text: #0e1114;
+        --muted: #47505a;
+        --focus: #005fcc;
+      }
+      header.site { box-shadow: 0 1px 0 rgba(0,0,0,.06); }
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; color: inherit; }
+
+    /* ------------------
+      Global Layout
+    ------------------ */
+    header.site {
+      position: sticky; top: 0; z-index: 50;
+      background: linear-gradient(180deg, rgba(13,15,18,.92), rgba(13,15,18,.75) 60%, rgba(13,15,18,0));
+      backdrop-filter: blur(10px);
+    }
+    .bar {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 10px;
+      padding: 10px var(--gutter);
+    }
+    .logo {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-weight: 700; letter-spacing: .6px;
+    }
+    .logo-mark {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: conic-gradient(from 210deg, var(--brand), #ffd9a5 25%, #c6ffe7 60%, #9ed8ff 80%, var(--brand));
+      box-shadow: inset 0 0 0 2px rgba(0,0,0,.35), var(--shadow-1);
+    }
+    .logo-type { font-size: 18px; }
+
+    .nav {
+      display: flex; gap: 8px; align-items: center; justify-content: center;
+    }
+    .nav a {
+      padding: 8px 12px; border-radius: 999px; color: var(--muted);
+    }
+    .nav a[aria-current="page"], .nav a:hover { color: var(--text); background: rgba(255,255,255,.06); }
+
+    .actions { display: flex; align-items: center; gap: 10px; }
+    .chip {
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      padding: 6px 10px; border-radius: 999px; color: var(--muted);
+    }
+
+    .search {
+      display: grid; grid-template-columns: 24px 1fr 36px; align-items: center; gap: 10px;
+      background: var(--panel); border: 1px solid rgba(255,255,255,.08);
+      padding: 10px 12px; border-radius: 999px; max-width: 680px; margin: 6px auto 12px;
+      box-shadow: var(--shadow-1);
+    }
+    .search input { background: transparent; border: 0; outline: none; color: var(--text); }
+    .search button { background: transparent; border: 0; cursor: pointer; opacity: .8; }
+
+    /* Hero */
+    .hero {
+      height: var(--hero-h);
+      margin: 0 var(--gutter);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(120deg, #1b1f26, #0e1014 60%),
+        radial-gradient(80% 140% at 20% 40%, rgba(242, 178, 121,.25), transparent 60%),
+        radial-gradient(70% 100% at 80% 10%, rgba(183, 242, 212,.2), transparent 40%);
+      overflow: hidden;
+      position: relative;
+      box-shadow: var(--shadow-2);
+    }
+    .hero-inner { position: absolute; inset: 0; display: grid; grid-template-columns: 1.2fr 1fr; }
+    .hero-copy {
+      padding: clamp(20px, 4vw, 48px);
+      display: flex; flex-direction: column; justify-content: center; gap: 14px;
+    }
+    .kicker { color: var(--brand); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; font-size: 12px; }
+    h1.title { font-size: clamp(28px, 5.2vw, 56px); margin: 0; letter-spacing: .3px; }
+    .subtitle { color: var(--muted); max-width: 58ch; }
+    .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn {
+      border: 0; border-radius: 999px; padding: 10px 16px; cursor: pointer; font-weight: 600;
+    }
+    .btn-primary {
+      background: linear-gradient(180deg, var(--brand), #ffcc98);
+      color: var(--brand-ink);
+      box-shadow: 0 8px 24px rgba(242,178,121,.25);
+    }
+    .btn-ghost { background: rgba(255,255,255,.08); color: var(--text); border: 1px solid rgba(255,255,255,.14); }
+
+    .hero-poster {
+      position: relative; overflow: hidden; border-left: 1px solid rgba(255,255,255,.06);
+    }
+    .poster-art {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(120% 80% at 80% 20%, rgba(255,255,255,.12), transparent 40%),
+        linear-gradient(25deg, rgba(183,242,212,.3), rgba(242,178,121,.33)),
+        linear-gradient(0deg, rgba(0,0,0,.3), rgba(0,0,0,.3)),
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1200"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0%" stop-color="%23191d22"/><stop offset="100%" stop-color="%230e1014"/></linearGradient></defs><rect width="800" height="1200" fill="url(%23g)"/><g fill="none" stroke="%23ffffff" stroke-opacity="0.06"><circle cx="600" cy="200" r="90"/><circle cx="180" cy="520" r="60"/><circle cx="680" cy="880" r="110"/></g></svg>');
+      background-size: cover; background-position: center; filter: saturate(1.1) contrast(1.02);
+    }
+    .poster-badge { position: absolute; top: 14px; right: 14px; background: rgba(0,0,0,.4); backdrop-filter: blur(6px); padding: 6px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,.15); font-size: 12px; }
+
+    /* Rails */
+    .section { padding: 18px var(--gutter) 10px; }
+    .section h2 { font-size: clamp(18px, 2.4vw, 24px); margin: 0 0 10px; }
+    .rail { position: relative; }
+    .row {
+      display: grid; grid-auto-flow: column; grid-auto-columns: clamp(160px, 20vw, 220px);
+      gap: 12px; overflow-x: auto; padding-bottom: 10px; scroll-snap-type: x mandatory;
+    }
+    .row::-webkit-scrollbar { height: 8px; }
+    .row::-webkit-scrollbar-thumb { background: rgba(255,255,255,.15); border-radius: 999px; }
+
+    .card {
+      background: var(--elev); border: 1px solid rgba(255,255,255,.08); border-radius: 16px;
+      overflow: hidden; scroll-snap-align: start; position: relative; outline: none;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .card:focus-visible { box-shadow: 0 0 0 3px var(--focus), var(--shadow-2); transform: translateY(-2px); }
+    .poster { aspect-ratio: 2/3; background: linear-gradient(160deg, #2a313a, #0f1216); position: relative; display: grid; place-items: center; color: #dfe7ef; font-weight: 700; font-size: 18px; }
+
+    .labels { position: absolute; top: 8px; left: 8px; display: flex; gap: 6px; flex-wrap: wrap; }
+    .label { font-size: 10px; padding: 4px 6px; border-radius: 999px; background: rgba(0,0,0,.5); border: 1px solid rgba(255,255,255,.14); }
+
+    .meta { padding: 10px; display: grid; gap: 6px; }
+    .title { font-weight: 600; font-size: 14px; }
+    .submeta { color: var(--muted); font-size: 12px; }
+
+    .progress { height: 3px; background: rgba(255,255,255,.1); border-radius: 999px; overflow: hidden; }
+    .progress > span { display:block; height:100%; background: linear-gradient(90deg, var(--brand), #ffd9a5); width: var(--p, 0%); }
+
+    .rail-nav { position: absolute; inset: 0; pointer-events: none; display: flex; justify-content: space-between; align-items: center; }
+    .rail-btn { pointer-events: all; border: 0; background: rgba(0,0,0,.45); color: #fff; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,.14); }
+
+    /* Filters */
+    .filters { display: flex; flex-wrap: wrap; gap: 8px; padding: 6px var(--gutter) 0; }
+    .pill {
+      display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 999px; cursor: pointer;
+      border: 1px solid rgba(255,255,255,.12); color: var(--muted); background: rgba(255,255,255,.04);
+      user-select: none;
+    }
+    .pill[data-active="true"] { background: var(--accent); color: var(--accent-ink); border-color: transparent; }
+
+    /* Editorial card */
+    .editorial { display: grid; grid-template-columns: 1.2fr 1fr; gap: 12px; background: var(--elev); border: 1px solid rgba(255,255,255,.08); padding: 16px; border-radius: 16px; }
+    .ed-note { color: var(--muted); }
+
+    /* Footer */
+    footer { color: var(--muted); padding: 30px var(--gutter) 50px; }
+
+    /* TV Mode + Responsiveness */
+    .toolbar { display: flex; gap: 10px; align-items: center; justify-content: space-between; padding: 6px var(--gutter) 0; color: var(--muted); }
+
+    .toggle { display: inline-flex; align-items: center; gap: 8px; }
+    .toggle input { width: 44px; height: 24px; appearance: none; background: rgba(255,255,255,.18); border-radius: 999px; position: relative; outline: none; cursor: pointer; }
+    .toggle input::after { content: ""; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; background: #fff; border-radius: 50%; transition: transform .2s ease; }
+    .toggle input:checked::after { transform: translateX(20px); }
+
+    .tv-mode .row { grid-auto-columns: clamp(220px, 24vw, 320px); gap: 16px; }
+    .tv-mode .card:focus-visible { box-shadow: 0 0 0 4px var(--focus), var(--shadow-2); }
+    .tv-mode .poster { font-size: 22px; }
+    .tv-mode .hero { height: min(64vh, 680px); }
+
+    @media (max-width: 920px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-poster { display:none; }
+      .editorial { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .nav { display: none; }
+      .search { grid-template-columns: 20px 1fr 28px; }
+      .row { grid-auto-columns: 66vw; }
+    }
+
+    /* Reduce motion */
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; }
+    }
+
+    /* Focus styles */
+    :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 10px; }
+  </style>
+</head>
+<body>
+  <header class="site" role="banner">
+    <div class="bar" aria-label="Primary">
+      <a class="logo" href="#" aria-label="StreamVault Home">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span class="logo-type">StreamVault</span>
+      </a>
+      <nav class="nav" aria-label="Main">
+        <a href="#" aria-current="page">Home</a>
+        <a href="#">Browse</a>
+        <a href="#">Collections</a>
+        <a href="#">My List</a>
+      </nav>
+      <div class="actions">
+        <span class="chip" title="Account">SV • Member</span>
+      </div>
+    </div>
+    <div class="search" role="search">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9.5 3a6.5 6.5 0 0 1 5.149 10.5l5.326 5.326l-1.414 1.414l-5.326-5.326A6.5 6.5 0 1 1 9.5 3m0 2a4.5 4.5 0 1 0 0 9a4.5 4.5 0 0 0 0-9"/></svg>
+      <input id="q" type="search" aria-label="Search films and collections" placeholder="Search films, directors, countries, moods…" />
+      <button id="clear" aria-label="Clear search">✕</button>
+    </div>
+  </header>
+
+  <main id="app" tabindex="-1">
+    <section class="hero" aria-label="Featured selection">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <span class="kicker">Curated Cinema, No Filler</span>
+          <h1 class="title">Tonight’s Feature: "The River Sings"</h1>
+          <p class="subtitle">A luminous story from the Andes about memory, migration, and a village choir—winner of the Asteria Festival Grand Jury Prize.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" aria-label="Play The River Sings">► Play</button>
+            <button class="btn btn-ghost" aria-label="More info about The River Sings">More info</button>
+            <span class="chip" title="Subtitles available">Subtitles</span>
+            <span class="chip" title="Audio descriptions available">Audio Descriptions</span>
+          </div>
+        </div>
+        <div class="hero-poster" aria-hidden="true">
+          <div class="poster-art"></div>
+          <span class="poster-badge">Festival Winner</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="toolbar">
+      <div class="toggle">
+        <label for="tvMode">TV Mode</label>
+        <input id="tvMode" type="checkbox" aria-label="Toggle TV Mode for large screens" />
+      </div>
+      <div class="toggle">
+        <label for="subsOnly">Require Subtitles</label>
+        <input id="subsOnly" type="checkbox" aria-label="Filter to titles with subtitles" />
+      </div>
+      <div class="toggle">
+        <label for="adOnly">Require Audio Descriptions</label>
+        <input id="adOnly" type="checkbox" aria-label="Filter to titles with audio descriptions" />
+      </div>
+    </div>
+
+    <div class="filters" role="group" aria-label="Quick moods & regions">
+      <span class="pill" data-key="mood" data-val="uplifting" tabindex="0">Uplifting</span>
+      <span class="pill" data-key="mood" data-val="thoughtful" tabindex="0">Thoughtful</span>
+      <span class="pill" data-key="mood" data-val="edge" tabindex="0">On the Edge</span>
+      <span class="pill" data-key="region" data-val="asia" tabindex="0">Asia</span>
+      <span class="pill" data-key="region" data-val="europe" tabindex="0">Europe</span>
+      <span class="pill" data-key="region" data-val="latin" tabindex="0">Latin America</span>
+      <span class="pill" data-key="type" data-val="doc" tabindex="0">Documentary</span>
+      <span class="pill" data-key="type" data-val="feature" tabindex="0">Feature</span>
+    </div>
+
+    <section class="section" aria-label="Continue Watching">
+      <h2>Continue Watching</h2>
+      <div class="rail">
+        <div class="row" data-rail="continue"></div>
+        <div class="rail-nav">
+          <button class="rail-btn" aria-label="Scroll left" data-dir="-1">◄</button>
+          <button class="rail-btn" aria-label="Scroll right" data-dir="1">►</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-label="Tonight’s Picks">
+      <h2>Tonight’s Picks</h2>
+      <div class="rail">
+        <div class="row" data-rail="tonight"></div>
+        <div class="rail-nav">
+          <button class="rail-btn" aria-label="Scroll left" data-dir="-1">◄</button>
+          <button class="rail-btn" aria-label="Scroll right" data-dir="1">►</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-label="World Cinema">
+      <h2>World Cinema</h2>
+      <div class="rail">
+        <div class="row" data-rail="world"></div>
+        <div class="rail-nav">
+          <button class="rail-btn" aria-label="Scroll left" data-dir="-1">◄</button>
+          <button class="rail-btn" aria-label="Scroll right" data-dir="1">►</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-label="Documentary Spotlight">
+      <h2>Documentary Spotlight</h2>
+      <div class="rail">
+        <div class="row" data-rail="docs"></div>
+        <div class="rail-nav">
+          <button class="rail-btn" aria-label="Scroll left" data-dir="-1">◄</button>
+          <button class="rail-btn" aria-label="Scroll right" data-dir="1">►</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-label="Curator’s Note">
+      <div class="editorial" role="article" aria-labelledby="ed-title">
+        <div>
+          <h2 id="ed-title">Curator’s Note: Festival Winners to Start With</h2>
+          <p class="ed-note">Each month our programming team highlights a handful of films that open a door—accessible, conversation-starting, and beautiful. If you’re new to international cinema, start here. If you’re a regular, you’ll still find surprises.</p>
+        </div>
+        <div>
+          <ul id="ed-list" aria-label="Editor picks" style="margin:0;padding-left:18px;"></ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    StreamVault © 2025 · Subscriptions support restorations and filmmaker royalties · <a href="#">Help & Accessibility</a>
+  </footer>
+
+  <script>
+    // ----------------------
+    // Demo Data (inline only)
+    // ----------------------
+    const titles = [
+      { id: 'r1', rail: 'continue', title: 'The River Sings', year: 2025, region: 'latin', mood: 'thoughtful', type: 'feature', lang: 'Spanish', subtitles: true, ad: true, minutes: 112, progress: 62 },
+      { id: 'r2', rail: 'continue', title: 'Snowlight', year: 2023, region: 'europe', mood: 'uplifting', type: 'doc', lang: 'French', subtitles: true, ad: false, minutes: 89, progress: 34 },
+      { id: 'r3', rail: 'continue', title: 'Street of Kites', year: 2022, region: 'asia', mood: 'edge', type: 'feature', lang: 'Japanese', subtitles: true, ad: true, minutes: 101, progress: 78 },
+
+      { id: 't1', rail: 'tonight', title: 'Small Fires', year: 2024, region: 'europe', mood: 'thoughtful', type: 'feature', lang: 'Italian', subtitles: true, ad: true, minutes: 94 },
+      { id: 't2', rail: 'tonight', title: 'Sea Grass', year: 2025, region: 'asia', mood: 'uplifting', type: 'doc', lang: 'Korean', subtitles: true, ad: false, minutes: 80 },
+      { id: 't3', rail: 'tonight', title: 'Golden Orchard', year: 2021, region: 'latin', mood: 'uplifting', type: 'feature', lang: 'Portuguese', subtitles: true, ad: true, minutes: 106 },
+      { id: 't4', rail: 'tonight', title: 'Stone Drummer', year: 2024, region: 'asia', mood: 'edge', type: 'feature', lang: 'Mandarin', subtitles: true, ad: false, minutes: 118 },
+
+      { id: 'w1', rail: 'world', title: 'Night Bicycles', year: 2019, region: 'europe', mood: 'edge', type: 'feature', lang: 'German', subtitles: true, ad: true, minutes: 97 },
+      { id: 'w2', rail: 'world', title: 'Salt Harvesters', year: 2018, region: 'asia', mood: 'thoughtful', type: 'doc', lang: 'Hindi', subtitles: true, ad: true, minutes: 83 },
+      { id: 'w3', rail: 'world', title: 'Blue Courtyard', year: 2020, region: 'latin', mood: 'uplifting', type: 'feature', lang: 'Spanish', subtitles: true, ad: false, minutes: 91 },
+      { id: 'w4', rail: 'world', title: 'Wind Across the Steppe', year: 2022, region: 'asia', mood: 'thoughtful', type: 'feature', lang: 'Mongolian', subtitles: true, ad: false, minutes: 122 },
+
+      { id: 'd1', rail: 'docs', title: 'Cities After Midnight', year: 2023, region: 'europe', mood: 'edge', type: 'doc', lang: 'English', subtitles: true, ad: true, minutes: 76 },
+      { id: 'd2', rail: 'docs', title: 'The Pepper Route', year: 2017, region: 'asia', mood: 'uplifting', type: 'doc', lang: 'Malayalam', subtitles: true, ad: false, minutes: 68 },
+      { id: 'd3', rail: 'docs', title: 'Last Archivist', year: 2021, region: 'europe', mood: 'thoughtful', type: 'doc', lang: 'Polish', subtitles: true, ad: true, minutes: 88 },
+      { id: 'd4', rail: 'docs', title: 'Tierra Roja', year: 2020, region: 'latin', mood: 'edge', type: 'doc', lang: 'Spanish', subtitles: true, ad: true, minutes: 82 }
+    ];
+
+    const rails = ['continue', 'tonight', 'world', 'docs'];
+
+    // Utility: create an accessible poster placeholder (no external images)
+    function posterSVG(title) {
+      const initials = title.split(' ').slice(0,2).map(t=>t[0]).join('').toUpperCase();
+      const hue = (title.length * 29) % 360;
+      const hue2 = (hue + 40) % 360;
+      const svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 600'>
+        <defs>
+          <linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>
+            <stop offset='0%' stop-color='hsl(${hue},28%,30%)'/>
+            <stop offset='100%' stop-color='hsl(${hue2},28%,16%)'/>
+          </linearGradient>
+        </defs>
+        <rect width='400' height='600' fill='url(%23g)'/>
+        <g fill='white' fill-opacity='.08'>
+          <circle cx='70' cy='120' r='24'/>
+          <circle cx='330' cy='200' r='36'/>
+          <circle cx='280' cy='520' r='48'/>
+        </g>
+        <text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='system-ui, Segoe UI, Roboto' font-size='88' fill='white' fill-opacity='.9'>${initials}</text>
+      </svg>`;
+      return `url("data:image/svg+xml;utf8,${encodeURIComponent(svg)}")`;
+    }
+
+    function cardHTML(item) {
+      return `
+        <article class="card" tabindex="0" role="button" aria-label="Open ${item.title}" data-lang="${item.lang}" data-region="${item.region}" data-mood="${item.mood}" data-type="${item.type}" data-subs="${item.subtitles}" data-ad="${item.ad}">
+          <div class="poster" style="background-image:${posterSVG(item.title)}">
+            <div class="labels">
+              ${item.subtitles ? '<span class="label" title="Subtitles">CC</span>' : ''}
+              ${item.ad ? '<span class="label" title="Audio Descriptions">AD</span>' : ''}
+              ${item.year >= 2024 ? '<span class="label" title="New">New</span>' : ''}
+            </div>
+          </div>
+          <div class="meta">
+            <div class="title">${item.title}</div>
+            <div class="submeta">${item.year} • ${item.lang} • ${item.minutes} min</div>
+            ${item.progress ? `<div class="progress" aria-label="Progress"><span style="--p:${item.progress}%"></span></div>` : ''}
+          </div>
+        </article>`;
+    }
+
+    function render() {
+      rails.forEach(r => {
+        const row = document.querySelector(`.row[data-rail="${r}"]`);
+        row.innerHTML = titles.filter(t => t.rail === r).map(cardHTML).join('');
+      });
+      // Editorial picks
+      const ed = document.getElementById('ed-list');
+      ed.innerHTML = titles.filter(t => t.year >= 2023 && (t.type==='feature' || t.type==='doc')).slice(0,4)
+        .map(t => `<li>${t.title} <span style="color:var(--muted)">(${t.region === 'latin' ? 'Latin America' : t.region === 'asia' ? 'Asia' : 'Europe'})</span></li>`).join('');
+      attachCardHandlers();
+    }
+
+    // Filtering
+    const activeFilters = { mood: new Set(), region: new Set(), type: new Set(), subs: false, ad: false };
+
+    function applyFilters() {
+      const q = document.getElementById('q').value.trim().toLowerCase();
+      const subsOnly = document.getElementById('subsOnly').checked;
+      const adOnly = document.getElementById('adOnly').checked;
+
+      document.querySelectorAll('.card').forEach(card => {
+        const title = card.querySelector('.title').textContent.toLowerCase();
+        const okQ = !q || title.includes(q);
+        const okMood = activeFilters.mood.size === 0 || activeFilters.mood.has(card.dataset.mood);
+        const okRegion = activeFilters.region.size === 0 || activeFilters.region.has(card.dataset.region);
+        const okType = activeFilters.type.size === 0 || activeFilters.type.has(card.dataset.type);
+        const okSubs = !subsOnly || card.dataset.subs === 'true';
+        const okAd = !adOnly || card.dataset.ad === 'true';
+
+        const show = okQ && okMood && okRegion && okType && okSubs && okAd;
+        card.style.display = show ? '' : 'none';
+      });
+    }
+
+    function attachFilters() {
+      document.querySelectorAll('.pill').forEach(pill => {
+        pill.addEventListener('click', togglePill);
+        pill.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); togglePill.call(pill); }});
+      });
+      document.getElementById('subsOnly').addEventListener('change', applyFilters);
+      document.getElementById('adOnly').addEventListener('change', applyFilters);
+      document.getElementById('q').addEventListener('input', applyFilters);
+      document.getElementById('clear').addEventListener('click', ()=>{ document.getElementById('q').value=''; applyFilters(); });
+    }
+
+    function togglePill() {
+      const key = this.dataset.key; const val = this.dataset.val;
+      const isActive = this.getAttribute('data-active') === 'true';
+      if (isActive) { activeFilters[key].delete(val); this.setAttribute('data-active','false'); }
+      else { activeFilters[key].add(val); this.setAttribute('data-active','true'); }
+      applyFilters();
+    }
+
+    // Rail navigation (buttons + keys)
+    function attachRailNav() {
+      document.querySelectorAll('.rail').forEach(rail => {
+        const row = rail.querySelector('.row');
+        rail.querySelectorAll('.rail-btn').forEach(btn => {
+          btn.addEventListener('click', ()=> {
+            const dir = parseInt(btn.dataset.dir,10);
+            row.scrollBy({ left: dir * row.clientWidth * 0.9, behavior:'smooth' });
+          });
+        });
+      });
+    }
+
+    // 10-foot / TV keyboard navigation (arrows & enter)
+    function attachCardHandlers() {
+      document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('keydown', e => {
+          const container = card.closest('.row');
+          const cards = Array.from(container.querySelectorAll('.card')).filter(c=>c.style.display!=='none');
+          const i = cards.indexOf(card);
+          if (e.key === 'ArrowRight') { e.preventDefault(); const next = cards[i+1] || cards[i]; next.focus(); next.scrollIntoView({behavior:'smooth', inline:'center'}); }
+          if (e.key === 'ArrowLeft') { e.preventDefault(); const prev = cards[i-1] || cards[i]; prev.focus(); prev.scrollIntoView({behavior:'smooth', inline:'center'}); }
+          if (e.key === 'Enter') {
+            // Simulate open/play
+            alert(`Play ▶ ${card.querySelector('.title').textContent}`);
+          }
+          if (e.key.toLowerCase() === 'i') {
+            alert(`Info ℹ️  ${card.querySelector('.title').textContent}\n${card.querySelector('.submeta').textContent}`);
+          }
+        });
+      });
+    }
+
+    // TV Mode toggle
+    function attachToggles() {
+      const tv = document.getElementById('tvMode');
+      tv.addEventListener('change', ()=>{
+        document.body.classList.toggle('tv-mode', tv.checked);
+      });
+    }
+
+    // Init
+    render();
+    attachFilters();
+    attachRailNav();
+    attachToggles();
+    applyFilters();
+
+    // Respect safe-area insets for notched devices
+    (function safeArea(){
+      const r = document.documentElement.style;
+      const top = getComputedStyle(document.documentElement).getPropertyValue('env(safe-area-inset-top)');
+      if (top) r.setProperty('--safe-top', top);
+    })();
+  </script>
+</body>
+</html>

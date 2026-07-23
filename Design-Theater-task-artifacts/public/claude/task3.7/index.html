@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoneyWise - Financial Management for Everyone</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #2d5016;
+            --soft-green: #4a7c2c;
+            --accent-amber: #d4a04c;
+            --warm-cream: #faf8f3;
+            --warm-gray: #6b6b6b;
+            --light-gray: #e8e5dc;
+            --dark-text: #2a2a2a;
+            --success-green: #52a447;
+            --alert-amber: #e89a3c;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: var(--warm-cream);
+            color: var(--dark-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3 {
+            font-family: 'Didot', 'Bodoni MT', 'Playfair Display', serif;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+        }
+
+        h1 {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        p, li, button, input, label {
+            font-family: 'Helvetica Neue', 'Segoe UI', sans-serif;
+            font-size: 1.05rem;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(250, 248, 243, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid var(--light-gray);
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--primary-green);
+            letter-spacing: -0.01em;
+        }
+
+        nav {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--dark-text);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 1rem;
+        }
+
+        nav a:hover {
+            color: var(--soft-green);
+        }
+
+        .cta-button {
+            background: var(--primary-green);
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            background: var(--soft-green);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(45, 80, 22, 0.2);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 100px;
+            padding: 8rem 5% 6rem;
+            background: linear-gradient(135deg, var(--warm-cream) 0%, #f0ebe0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(74, 124, 44, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-30px, 20px) scale(1.05); }
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text {
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-text p {
+            font-size: 1.25rem;
+            color: var(--warm-gray);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .trust-badges {
+            display: flex;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            color: var(--warm-gray);
+            font-size: 0.95rem;
+        }
+
+        .trust-badge::before {
+            content: '✓';
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: var(--success-green);
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        /* Interactive Demo */
+        .demo-container {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .demo-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--light-gray);
+        }
+
+        .demo-tab {
+            padding: 0.8rem 1.5rem;
+            background: none;
+            border: none;
+            color: var(--warm-gray);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .demo-tab.active {
+            color: var(--primary-green);
+        }
+
+        .demo-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--primary-green);
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: scaleX(0);
+            }
+            to {
+                transform: scaleX(1);
+            }
+        }
+
+        .demo-content {
+            display: none;
+        }
+
+        .demo-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .balance-card {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--soft-green) 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+        }
+
+        .balance-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        .balance-amount {
+            font-size: 3rem;
+            font-weight: 300;
+            font-family: 'Didot', serif;
+            letter-spacing: -0.02em;
+        }
+
+        .account-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .account-item {
+            background: var(--warm-cream);
+            padding: 1.2rem;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .account-item:hover {
+            background: var(--light-gray);
+            transform: translateX(5px);
+        }
+
+        .account-name {
+            font-size: 0.95rem;
+            color: var(--warm-gray);
+        }
+
+        .account-balance {
+            font-weight: 600;
+            color: var(--primary-green);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 8rem 5%;
+            background: white;
+        }
+
+        .features-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 5rem;
+        }
+
+        .section-header p {
+            color: var(--warm-gray);
+            font-size: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 2.5rem 2rem;
+            border-radius: 15px;
+            background: var(--warm-cream);
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .feature-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--primary-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-green);
+        }
+
+        .feature-card p {
+            color: var(--warm-gray);
+            line-height: 1.7;
+        }
+
+        /* Accessibility Section */
+        .accessibility {
+            padding: 8rem 5%;
+            background: linear-gradient(135deg, var(--warm-cream) 0%, #e8e5dc 100%);
+            position: relative;
+        }
+
+        .accessibility-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .accessibility-features {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .accessibility-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid var(--accent-amber);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+
+        .accessibility-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .accessibility-item h3 {
+            color: var(--primary-green);
+            margin-bottom: 0.8rem;
+            font-size: 1.5rem;
+        }
+
+        .visual-example {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+        }
+
+        .number-display-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .number-option {
+            padding: 1.5rem;
+            background: var(--warm-cream);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .number-option:hover {
+            border-color: var(--soft-green);
+            background: white;
+        }
+
+        .number-option.active {
+            border-color: var(--primary-green);
+            background: white;
+        }
+
+        .option-label {
+            font-size: 0.9rem;
+            color: var(--warm-gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .option-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-green);
+        }
+
+        /* Security Section */
+        .security {
+            padding: 8rem 5%;
+            background: var(--primary-green);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .security::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .security-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .security h2 {
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .security p {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+
+        .security-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .security-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem 1.5rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .security-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .security-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .security-item p {
+            font-size: 0.95rem;
+            opacity: 0.8;
+        }
+
+        /* Goals Showcase */
+        .goals-showcase {
+            padding: 8rem 5%;
+            background: white;
+        }
+
+        .goals-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .goals-interactive {
+            background: var(--warm-cream);
+            padding: 3rem;
+            border-radius: 20px;
+            margin-top: 3rem;
+        }
+
+        .goal-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .goal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .goal-title {
+            font-size: 1.3rem;
+            color: var(--primary-green);
+            font-weight: 600;
+        }
+
+        .goal-amount {
+            font-size: 1.5rem;
+            color: var(--dark-text);
+            font-family: 'Didot', serif;
+        }
+
+        .progress-bar-container {
+            background: var(--light-gray);
+            height: 12px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--soft-green) 0%, var(--success-green) 100%);
+            border-radius: 10px;
+            transition: width 1s ease-out;
+        }
+
+        .goal-message {
+            color: var(--warm-gray);
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+
+        .goal-message.encouraging {
+            color: var(--success-green);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-text);
+            color: white;
+            padding: 4rem 5% 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--accent-amber);
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            h1 { font-size: 3rem; }
+            h2 { font-size: 2.2rem; }
+            
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .accessibility-content {
+                grid-template-columns: 1fr;
+            }
+
+            .security-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 1.8rem; }
+            
+            header {
+                padding: 1rem 5%;
+            }
+
+            nav {
+                gap: 1.5rem;
+            }
+
+            .hero {
+                padding: 4rem 5% 3rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .account-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .security-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">MoneyWise</div>
+        <nav>
+            <a href="#features">Features</a>
+            <a href="#accessibility">Accessibility</a>
+            <a href="#security">Security</a>
+            <a href="#" class="cta-button">Get Started</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Your Financial Life, Beautifully Simple</h1>
+                <p>From your first checking account to retirement planning, MoneyWise grows with you. Manage everything in one place, without the overwhelm.</p>
+                <button class="cta-button" style="font-size: 1.1rem; padding: 1rem 2.5rem;">Start Your Journey</button>
+                
+                <div class="trust-badges">
+                    <div class="trust-badge">Bank-level encryption</div>
+                    <div class="trust-badge">Your data stays yours</div>
+                    <div class="trust-badge">No hidden fees</div>
+                </div>
+            </div>
+
+            <div class="demo-container">
+                <div class="demo-tabs">
+                    <button class="demo-tab active" data-tab="overview">Quick View</button>
+                    <button class="demo-tab" data-tab="accounts">Accounts</button>
+                    <button class="demo-tab" data-tab="goals">Goals</button>
+                </div>
+
+                <div class="demo-content active" id="overview">
+                    <div class="balance-card">
+                        <div class="balance-label">Total Balance</div>
+                        <div class="balance-amount">$24,567</div>
+                    </div>
+                    <div style="display: flex; gap: 1rem; justify-content: space-between; margin-top: 1rem;">
+                        <div style="flex: 1; padding: 1rem; background: var(--warm-cream); border-radius: 10px;">
+                            <div style="font-size: 0.85rem; color: var(--warm-gray); margin-bottom: 0.3rem;">This Month</div>
+                            <div style="font-size: 1.3rem; font-weight: 600; color: var(--success-green);">+$2,340</div>
+                        </div>
+                        <div style="flex: 1; padding: 1rem; background: var(--warm-cream); border-radius: 10px;">
+                            <div style="font-size: 0.85rem; color: var(--warm-gray); margin-bottom: 0.3rem;">Spent</div>
+                            <div style="font-size: 1.3rem; font-weight: 600; color: var(--dark-text);">$3,127</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-content" id="accounts">
+                    <div class="account-grid">
+                        <div class="account-item">
+                            <span class="account-name">Checking</span>
+                            <span class="account-balance">$4,231</span>
+                        </div>
+                        <div class="account-item">
+                            <span class="account-name">Savings</span>
+                            <span class="account-balance">$12,450</span>
+                        </div>
+                        <div class="account-item">
+                            <span class="account-name">Investment</span>
+                            <span class="account-balance">$7,886</span>
+                        </div>
+                        <div class="account-item">
+                            <span class="account-name">Emergency Fund</span>
+                            <span class="account-balance">$15,000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-content" id="goals">
+                    <div style="padding: 1.5rem; background: var(--warm-cream); border-radius: 10px; margin-bottom: 1rem;">
+                        <div style="font-size: 0.9rem; color: var(--warm-gray); margin-bottom: 0.5rem;">Europe Trip 2027</div>
+                        <div style="font-size: 1.5rem; font-weight: 600; color: var(--primary-green); margin-bottom: 1rem;">$3,200 of $5,000</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 64%;"></div>
+                        </div>
+                        <div style="font-size: 0.85rem; color: var(--success-green); margin-top: 0.5rem;">Great progress! You're on track to reach your goal early.</div>
+                    </div>
+                    <div style="padding: 1.5rem; background: var(--warm-cream); border-radius: 10px;">
+                        <div style="font-size: 0.9rem; color: var(--warm-gray); margin-bottom: 0.5rem;">New Car Down Payment</div>
+                        <div style="font-size: 1.5rem; font-weight: 600; color: var(--primary-green); margin-bottom: 1rem;">$1,800 of $4,000</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 45%;"></div>
+                        </div>
+                        <div style="font-size: 0.85rem; color: var(--warm-gray); margin-top: 0.5rem;">Saving $200/month - you're building momentum!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="features-container">
+            <div class="section-header fade-in-section">
+                <h2>Built for Real Life</h2>
+                <p>We understand that everyone's financial journey is different. Our tools adapt to your needs, whether you're just starting out or managing complex investments.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Smart Categorization</h3>
+                    <p>Transactions are automatically sorted, but you're always in control. Correct categories with a tap, and MoneyWise learns your preferences.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Adaptive Goals</h3>
+                    <p>Life happens. Your goals adjust when you need a pause, and we'll celebrate your wins without judgment when you get back on track.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Investment Tracking</h3>
+                    <p>Monitor your portfolio in plain language. See growth without needing a finance degree, with explanations tailored to your experience level.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔔</div>
+                    <h3>Helpful Alerts</h3>
+                    <p>Get notified about important changes without feeling scolded. Our alerts inform and encourage, never shame.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3>Family Sharing</h3>
+                    <p>Share what you want, keep what you need private. Perfect for couples, families, or roommates with customizable visibility controls.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💡</div>
+                    <h3>Financial Insights</h3>
+                    <p>Understand your money patterns with clear visualizations and actionable suggestions, not confusing jargon.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="accessibility" id="accessibility">
+        <div class="accessibility-content">
+            <div class="accessibility-features">
+                <div class="section-header" style="text-align: left; margin-bottom: 2rem;">
+                    <h2>Designed for Everyone</h2>
+                    <p>We believe financial management should be accessible to all. Our platform adapts to different learning styles, numerical processing needs, and technical comfort levels.</p>
+                </div>
+
+                <div class="accessibility-item">
+                    <h3>Multiple Number Formats</h3>
+                    <p>Choose how you see numbers: full digits, rounded amounts, word descriptions, or visual indicators. Perfect for users with dyscalculia or anyone who prefers simplified views.</p>
+                </div>
+
+                <div class="accessibility-item">
+                    <h3>Context-Aware Complexity</h3>
+                    <p>Quick balance checks stay simple. Deep analysis reveals detail. The interface shows you what you need, when you need it.</p>
+                </div>
+
+                <div class="accessibility-item">
+                    <h3>Plain Language Everything</h3>
+                    <p>No financial jargon required. Compound interest? We explain it. Investment terms? Defined in context. You'll learn as you go, at your own pace.</p>
+                </div>
+            </div>
+
+            <div class="visual-example">
+                <h3 style="margin-bottom: 1.5rem; color: var(--primary-green);">Your Checking Account</h3>
+                <div class="number-display-options">
+                    <div class="number-option active">
+                        <div class="option-label">Standard View</div>
+                        <div class="option-value">$4,231.67</div>
+                    </div>
+                    <div class="number-option">
+                        <div class="option-label">Rounded View</div>
+                        <div class="option-value">About $4,200</div>
+                    </div>
+                    <div class="number-option">
+                        <div class="option-label">Word View</div>
+                        <div class="option-value" style="font-size: 1.2rem;">Four thousand, two hundred dollars</div>
+                    </div>
+                    <div class="number-option">
+                        <div class="option-label">Simple View</div>
+                        <div class="option-value" style="font-size: 1.1rem;">✓ Healthy balance (&gt; $1,000)</div>
+                    </div>
+                </div>
+                <p style="margin-top: 1.5rem; color: var(--warm-gray); font-size: 0.95rem; font-style: italic;">Click any option to switch your preferred number display throughout the app</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="security" id="security">
+        <div class="security-content">
+            <h2>Your Trust is Our Foundation</h2>
+            <p>We know you're trusting us with your most sensitive information. Here's exactly how we protect it.</p>
+
+            <div class="security-grid">
+                <div class="security-item">
+                    <h4>256-bit Encryption</h4>
+                    <p>Bank-level security protects every connection and data point</p>
+                </div>
+                <div class="security-item">
+                    <h4>Zero-Knowledge Architecture</h4>
+                    <p>We can't see your data even if we wanted to</p>
+                </div>
+                <div class="security-item">
+                    <h4>Multi-Factor Authentication</h4>
+                    <p>Your account stays locked to anyone but you</p>
+                </div>
+                <div class="security-item">
+                    <h4>Regular Security Audits</h4>
+                    <p>Independent experts verify our protection quarterly</p>
+                </div>
+            </div>
+
+            <button class="cta-button" style="margin-top: 3rem; background: white; color: var(--primary-green); font-size: 1.1rem; padding: 1rem 2.5rem;">Read Our Security Practices</button>
+        </div>
+    </section>
+
+    <section class="goals-showcase">
+        <div class="goals-content">
+            <div class="section-header fade-in-section">
+                <h2>Goals That Grow With You</h2>
+                <p>Set ambitious targets or modest milestones. Our goal tracking celebrates every step forward and adjusts when life changes your plans.</p>
+            </div>
+
+            <div class="goals-interactive fade-in-section">
+                <div class="goal-card">
+                    <div class="goal-header">
+                        <span class="goal-title">🏠 House Down Payment</span>
+                        <span class="goal-amount">$18,500 / $25,000</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 74%;"></div>
+                    </div>
+                    <p class="goal-message encouraging">Incredible! You've saved 74% of your goal. At this pace, you'll reach it 3 months early.</p>
+                </div>
+
+                <div class="goal-card">
+                    <div class="goal-header">
+                        <span class="goal-title">🎓 Emergency Fund</span>
+                        <span class="goal-amount">$6,200 / $10,000</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 62%;"></div>
+                    </div>
+                    <p class="goal-message">You paused savings last month - that's okay! Every month you contribute brings you closer to security.</p>
+                </div>
+
+                <div class="goal-card">
+                    <div class="goal-header">
+                        <span class="goal-title">✈️ Family Vacation</span>
+                        <span class="goal-amount">$2,100 / $3,500</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 60%;"></div>
+                    </div>
+                    <p class="goal-message encouraging">Great momentum! You're 60% of the way there. Small, consistent contributions add up quickly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">MoneyWise</div>
+                <p style="color: rgba(255, 255, 255, 0.7); line-height: 1.7; margin-top: 1rem;">
+                    Financial management that respects your journey, protects your privacy, and grows with your life.
+                </p>
+            </div>
+            <div class="footer-section">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="#">Features</a></li>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">Mobile Apps</a></li>
+                    <li><a href="#">Integrations</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Security</a></li>
+                    <li><a href="#">Accessibility</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 MoneyWise. Your data, your control, your financial future.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Demo tabs functionality
+        const tabs = document.querySelectorAll('.demo-tab');
+        const contents = document.querySelectorAll('.demo-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = tab.dataset.tab;
+                
+                tabs.forEach(t => t.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
+                
+                tab.classList.add('active');
+                document.getElementById(target).classList.add('active');
+            });
+        });
+
+        // Number format selector
+        const numberOptions = document.querySelectorAll('.number-option');
+        numberOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                numberOptions.forEach(opt => opt.classList.remove('active'));
+                option.classList.add('active');
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe feature cards
+        document.querySelectorAll('.feature-card').forEach((card, index) => {
+            card.style.transitionDelay = `${index * 0.1}s`;
+            observer.observe(card);
+        });
+
+        // Observe accessibility items
+        document.querySelectorAll('.accessibility-item').forEach((item, index) => {
+            item.style.transitionDelay = `${index * 0.15}s`;
+            observer.observe(item);
+        });
+
+        // Observe fade-in sections
+        document.querySelectorAll('.fade-in-section').forEach((section) => {
+            observer.observe(section);
+        });
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && href !== '') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Animate progress bars when visible
+        const progressBars = document.querySelectorAll('.progress-bar');
+        const progressObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const bar = entry.target;
+                    const width = bar.style.width;
+                    bar.style.width = '0%';
+                    setTimeout(() => {
+                        bar.style.width = width;
+                    }, 100);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        progressBars.forEach(bar => progressObserver.observe(bar));
+    </script>
+</body>
+</html>

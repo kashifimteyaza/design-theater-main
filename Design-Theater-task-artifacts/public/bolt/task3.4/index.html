@@ -1,0 +1,650 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FreelanceFlow — Where Great Work Happens</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+    <meta property="og:image" content="https://bolt.new/static/og_default.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
+</head>
+  <body>
+
+    <!-- NAV -->
+    <header class="nav" id="nav">
+      <div class="nav__inner container">
+        <a href="#" class="nav__logo">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+            <rect width="28" height="28" rx="8" fill="#0EA5E9"/>
+            <path d="M7 14L12 19L21 9" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          FreelanceFlow
+        </a>
+        <nav class="nav__links" aria-label="Main navigation">
+          <a href="#how-it-works" class="nav__link">How It Works</a>
+          <a href="#categories" class="nav__link">Browse Talent</a>
+          <a href="#features" class="nav__link">Features</a>
+          <a href="#pricing" class="nav__link">Pricing</a>
+        </nav>
+        <div class="nav__actions">
+          <a href="#" class="btn btn--ghost btn--sm">Sign In</a>
+          <a href="#" class="btn btn--primary btn--sm">Get Started</a>
+        </div>
+        <button class="nav__hamburger" aria-label="Open menu" id="hamburger">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <div class="nav__mobile" id="mobileMenu">
+        <a href="#how-it-works" class="nav__mobile-link">How It Works</a>
+        <a href="#categories" class="nav__mobile-link">Browse Talent</a>
+        <a href="#features" class="nav__mobile-link">Features</a>
+        <a href="#pricing" class="nav__mobile-link">Pricing</a>
+        <hr class="nav__mobile-divider" />
+        <a href="#" class="nav__mobile-link">Sign In</a>
+        <a href="#" class="btn btn--primary" style="margin-top:8px;text-align:center">Get Started Free</a>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <div class="hero__bg-shapes" aria-hidden="true">
+        <div class="shape shape--1"></div>
+        <div class="shape shape--2"></div>
+        <div class="shape shape--3"></div>
+      </div>
+      <div class="container hero__inner">
+        <div class="hero__badge">
+          <span class="badge__dot"></span>
+          Over 12,000 successful projects delivered
+        </div>
+        <h1 class="hero__headline">
+          Long-term talent.<br />
+          <span class="headline--accent">Exceptional work.</span>
+        </h1>
+        <p class="hero__sub">
+          FreelanceFlow connects growing businesses with elite designers, developers,
+          writers, and marketers — through structured proposals, milestone contracts,
+          and managed payments. Not just gigs. Lasting partnerships.
+        </p>
+        <div class="hero__ctas">
+          <a href="#" class="btn btn--primary btn--lg">Post a Project</a>
+          <a href="#" class="btn btn--outline btn--lg">Browse Talent</a>
+        </div>
+        <div class="hero__stats">
+          <div class="stat">
+            <span class="stat__num" data-target="48000">0</span><span class="stat__suffix">+</span>
+            <span class="stat__label">Vetted Freelancers</span>
+          </div>
+          <div class="stat__divider" aria-hidden="true"></div>
+          <div class="stat">
+            <span class="stat__num" data-target="12400">0</span><span class="stat__suffix">+</span>
+            <span class="stat__label">Projects Completed</span>
+          </div>
+          <div class="stat__divider" aria-hidden="true"></div>
+          <div class="stat">
+            <span class="stat__num" data-target="97">0</span><span class="stat__suffix">%</span>
+            <span class="stat__label">Client Satisfaction</span>
+          </div>
+          <div class="stat__divider" aria-hidden="true"></div>
+          <div class="stat">
+            <span class="stat__prefix">$</span><span class="stat__num" data-target="42">0</span><span class="stat__suffix">M+</span>
+            <span class="stat__label">Paid to Freelancers</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Floating social proof -->
+      <div class="hero__float hero__float--left float-card" aria-hidden="true">
+        <img src="https://images.pexels.com/photos/3796217/pexels-photo-3796217.jpeg?auto=compress&cs=tinysrgb&w=64&h=64&dpr=2" alt="" class="float-card__avatar" />
+        <div>
+          <div class="float-card__name">Sarah K. — UI Designer</div>
+          <div class="float-card__stars">★★★★★</div>
+          <div class="float-card__text">"Just closed a $18k retainer"</div>
+        </div>
+      </div>
+      <div class="hero__float hero__float--right float-card" aria-hidden="true">
+        <div class="float-card__icon">✓</div>
+        <div>
+          <div class="float-card__name">Milestone Approved</div>
+          <div class="float-card__text">Brand Identity · $4,200 released</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRUSTED BY -->
+    <section class="trusted" aria-label="Trusted by">
+      <div class="container">
+        <p class="trusted__label">Trusted by teams at</p>
+        <div class="trusted__logos">
+          <span class="trusted__logo">Accenture</span>
+          <span class="trusted__logo">HubSpot</span>
+          <span class="trusted__logo">Shopify</span>
+          <span class="trusted__logo">Notion</span>
+          <span class="trusted__logo">Stripe</span>
+          <span class="trusted__logo">Figma</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how" id="how-it-works">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">The Process</span>
+          <h2 class="section-title">From brief to delivery — every step managed</h2>
+          <p class="section-sub">A structured lifecycle that protects both sides and keeps projects on track.</p>
+        </div>
+
+        <div class="how__steps">
+          <div class="how__line" aria-hidden="true"></div>
+
+          <div class="how__step" data-step="1">
+            <div class="step__icon-wrap">
+              <div class="step__num">01</div>
+              <div class="step__icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              </div>
+            </div>
+            <div class="step__content">
+              <h3>Post Your Brief</h3>
+              <p>Write a structured project brief with budget, timeline, and deliverables. Our brief builder ensures you cover everything freelancers need to give you accurate proposals.</p>
+              <ul class="step__bullets">
+                <li>Guided brief templates by category</li>
+                <li>File attachment support</li>
+                <li>Budget range & timeline fields</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="how__step" data-step="2">
+            <div class="step__icon-wrap">
+              <div class="step__num">02</div>
+              <div class="step__icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              </div>
+            </div>
+            <div class="step__content">
+              <h3>Receive Proposals</h3>
+              <p>Freelancers submit custom proposals — not just bids. Each includes their approach, relevant portfolio work, revised timeline, and a detailed cost breakdown.</p>
+              <ul class="step__bullets">
+                <li>Structured proposal format</li>
+                <li>Portfolio & past work samples</li>
+                <li>Compare proposals side-by-side</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="how__step" data-step="3">
+            <div class="step__icon-wrap">
+              <div class="step__num">03</div>
+              <div class="step__icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l4.553-2.069A1 1 0 0 1 21 8.845v6.31a1 1 0 0 1-1.447.894L15 14M3 8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z"/></svg>
+              </div>
+            </div>
+            <div class="step__content">
+              <h3>Interview & Select</h3>
+              <p>Schedule video interviews directly on the platform. Use our structured interview guide to assess communication, expertise, and cultural fit before committing.</p>
+              <ul class="step__bullets">
+                <li>Built-in video call scheduling</li>
+                <li>Interview notes & scoring</li>
+                <li>Skills verification badges</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="how__step" data-step="4">
+            <div class="step__icon-wrap">
+              <div class="step__num">04</div>
+              <div class="step__icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+              </div>
+            </div>
+            <div class="step__content">
+              <h3>Milestone Contracts</h3>
+              <p>Auto-generate contracts with milestone-based payment schedules. Funds are held in escrow per milestone — released only when you approve the deliverable.</p>
+              <ul class="step__bullets">
+                <li>E-signed contracts & NDAs</li>
+                <li>Escrow per milestone</li>
+                <li>Scope change request flow</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="how__step" data-step="5">
+            <div class="step__icon-wrap">
+              <div class="step__num">05</div>
+              <div class="step__icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+              </div>
+            </div>
+            <div class="step__content">
+              <h3>Pay & Retain</h3>
+              <p>Release milestone payments with one click. Extend the engagement as a retainer, leave a detailed review, and build your trusted freelancer roster for future projects.</p>
+              <ul class="step__bullets">
+                <li>International wire & card payments</li>
+                <li>Auto-generated invoices</li>
+                <li>Retainer conversion in 2 clicks</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section class="categories" id="categories">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Browse Talent</span>
+          <h2 class="section-title">Expert professionals across every discipline</h2>
+          <p class="section-sub">All freelancers pass a portfolio review, skills assessment, and reference check.</p>
+        </div>
+        <div class="cat__grid">
+
+          <div class="cat__card cat__card--design">
+            <div class="cat__card-bg" style="background-image:url('https://images.pexels.com/photos/196645/pexels-photo-196645.jpeg?auto=compress&cs=tinysrgb&w=600')"></div>
+            <div class="cat__card-overlay"></div>
+            <div class="cat__card-content">
+              <div class="cat__icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
+              </div>
+              <h3>Design & Creative</h3>
+              <p>UI/UX, branding, illustration, motion graphics</p>
+              <span class="cat__count">8,200+ freelancers</span>
+            </div>
+          </div>
+
+          <div class="cat__card cat__card--dev">
+            <div class="cat__card-bg" style="background-image:url('https://images.pexels.com/photos/1181677/pexels-photo-1181677.jpeg?auto=compress&cs=tinysrgb&w=600')"></div>
+            <div class="cat__card-overlay"></div>
+            <div class="cat__card-content">
+              <div class="cat__icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+              </div>
+              <h3>Development</h3>
+              <p>Web, mobile, backend, DevOps, APIs</p>
+              <span class="cat__count">14,500+ freelancers</span>
+            </div>
+          </div>
+
+          <div class="cat__card cat__card--writing">
+            <div class="cat__card-bg" style="background-image:url('https://images.pexels.com/photos/261662/pexels-photo-261662.jpeg?auto=compress&cs=tinysrgb&w=600')"></div>
+            <div class="cat__card-overlay"></div>
+            <div class="cat__card-content">
+              <div class="cat__icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              </div>
+              <h3>Writing & Content</h3>
+              <p>Copywriting, SEO, technical writing, scripts</p>
+              <span class="cat__count">6,800+ freelancers</span>
+            </div>
+          </div>
+
+          <div class="cat__card cat__card--marketing">
+            <div class="cat__card-bg" style="background-image:url('https://images.pexels.com/photos/905163/pexels-photo-905163.jpeg?auto=compress&cs=tinysrgb&w=600')"></div>
+            <div class="cat__card-overlay"></div>
+            <div class="cat__card-content">
+              <div class="cat__icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+              </div>
+              <h3>Marketing</h3>
+              <p>Growth, paid ads, email, social media, SEO</p>
+              <span class="cat__count">5,100+ freelancers</span>
+            </div>
+          </div>
+
+          <div class="cat__card cat__card--video">
+            <div class="cat__card-bg" style="background-image:url('https://images.pexels.com/photos/3379934/pexels-photo-3379934.jpeg?auto=compress&cs=tinysrgb&w=600')"></div>
+            <div class="cat__card-overlay"></div>
+            <div class="cat__card-content">
+              <div class="cat__icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+              </div>
+              <h3>Video & Animation</h3>
+              <p>Editing, explainers, 3D, VFX, social clips</p>
+              <span class="cat__count">3,900+ freelancers</span>
+            </div>
+          </div>
+
+          <div class="cat__card cat__card--strategy">
+            <div class="cat__card-bg" style="background-image:url('https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=600')"></div>
+            <div class="cat__card-overlay"></div>
+            <div class="cat__card-content">
+              <div class="cat__icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/></svg>
+              </div>
+              <h3>Strategy & Consulting</h3>
+              <p>Product strategy, business analysis, OKRs</p>
+              <span class="cat__count">2,600+ freelancers</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Featured freelancer profiles -->
+        <div class="profiles">
+          <h3 class="profiles__title">Recently joined talent</h3>
+          <div class="profiles__grid">
+
+            <div class="profile-card">
+              <img src="https://images.pexels.com/photos/3796217/pexels-photo-3796217.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&dpr=2" alt="Sarah K." class="profile-card__avatar" />
+              <div class="profile-card__badge">Top Rated</div>
+              <div class="profile-card__name">Sarah K.</div>
+              <div class="profile-card__role">UI/UX Designer</div>
+              <div class="profile-card__stars">★★★★★ <span>4.97</span></div>
+              <div class="profile-card__rate">$95 / hr</div>
+              <div class="profile-card__tags">
+                <span>Figma</span><span>Design Systems</span><span>Prototyping</span>
+              </div>
+            </div>
+
+            <div class="profile-card">
+              <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&dpr=2" alt="Marcus T." class="profile-card__avatar" />
+              <div class="profile-card__badge profile-card__badge--new">Rising Star</div>
+              <div class="profile-card__name">Marcus T.</div>
+              <div class="profile-card__role">Full-Stack Developer</div>
+              <div class="profile-card__stars">★★★★★ <span>4.92</span></div>
+              <div class="profile-card__rate">$120 / hr</div>
+              <div class="profile-card__tags">
+                <span>React</span><span>Node.js</span><span>PostgreSQL</span>
+              </div>
+            </div>
+
+            <div class="profile-card">
+              <img src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&dpr=2" alt="Aisha R." class="profile-card__avatar" />
+              <div class="profile-card__badge">Expert Verified</div>
+              <div class="profile-card__name">Aisha R.</div>
+              <div class="profile-card__role">Content Strategist</div>
+              <div class="profile-card__stars">★★★★★ <span>4.88</span></div>
+              <div class="profile-card__rate">$75 / hr</div>
+              <div class="profile-card__tags">
+                <span>SEO</span><span>B2B SaaS</span><span>Long-form</span>
+              </div>
+            </div>
+
+            <div class="profile-card">
+              <img src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&dpr=2" alt="James L." class="profile-card__avatar" />
+              <div class="profile-card__badge">Top Rated</div>
+              <div class="profile-card__name">James L.</div>
+              <div class="profile-card__role">Growth Marketer</div>
+              <div class="profile-card__stars">★★★★★ <span>4.95</span></div>
+              <div class="profile-card__rate">$110 / hr</div>
+              <div class="profile-card__tags">
+                <span>Paid Media</span><span>Analytics</span><span>CRO</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features" id="features">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Platform Features</span>
+          <h2 class="section-title">Everything you need to run complex projects</h2>
+          <p class="section-sub">Built for high-value engagements where contracts, accountability, and quality matter.</p>
+        </div>
+
+        <div class="features__bento">
+
+          <div class="bento bento--wide bento--highlight">
+            <div class="bento__label">Project Hub</div>
+            <h3 class="bento__title">Full project management — built in</h3>
+            <p class="bento__desc">Kanban boards, milestone tracking, file versioning, comment threads, and time logs — all inside each project. No external tools needed.</p>
+            <div class="bento__visual bento--pm-visual">
+              <div class="pm-bar"><div class="pm-bar__fill" style="width:75%"></div><span>Brand Discovery</span><small>3/4 tasks</small></div>
+              <div class="pm-bar"><div class="pm-bar__fill" style="width:40%"></div><span>Logo Concepts</span><small>2/5 tasks</small></div>
+              <div class="pm-bar"><div class="pm-bar__fill pm-bar__fill--green" style="width:100%"></div><span>Style Guide</span><small>Done ✓</small></div>
+              <div class="pm-bar"><div class="pm-bar__fill" style="width:10%"></div><span>Final Delivery</span><small>1/8 tasks</small></div>
+            </div>
+          </div>
+
+          <div class="bento bento--escrow">
+            <div class="bento__label">Payments</div>
+            <h3 class="bento__title">Milestone escrow & instant releases</h3>
+            <p class="bento__desc">Funds held securely. Released the moment you approve a deliverable. Both parties protected, always.</p>
+            <div class="bento__visual escrow-visual">
+              <div class="escrow-step escrow-step--done">Funded</div>
+              <div class="escrow-arrow">→</div>
+              <div class="escrow-step escrow-step--active">In Escrow</div>
+              <div class="escrow-arrow">→</div>
+              <div class="escrow-step">Released</div>
+            </div>
+          </div>
+
+          <div class="bento bento--contracts">
+            <div class="bento__label">Legal</div>
+            <h3 class="bento__title">Auto-generated contracts & NDAs</h3>
+            <p class="bento__desc">Legally binding agreements generated from your project details. E-sign in seconds. NDA templates included.</p>
+            <div class="bento__visual contract-visual">
+              <svg width="40" height="52" viewBox="0 0 40 52" fill="none" aria-hidden="true"><rect x="0" y="0" width="40" height="52" rx="4" fill="#F0F9FF"/><rect x="6" y="10" width="28" height="2" rx="1" fill="#BAE6FD"/><rect x="6" y="16" width="20" height="2" rx="1" fill="#BAE6FD"/><rect x="6" y="22" width="24" height="2" rx="1" fill="#BAE6FD"/><rect x="6" y="28" width="18" height="2" rx="1" fill="#BAE6FD"/><path d="M6 40 Q13 36 20 40 Q27 44 34 40" stroke="#0EA5E9" stroke-width="1.5" fill="none"/><text x="6" y="50" font-size="6" fill="#0EA5E9">Signed ✓</text></svg>
+              <span class="contract-visual__text">Service Agreement<br/><small>Signed by both parties</small></span>
+            </div>
+          </div>
+
+          <div class="bento bento--time">
+            <div class="bento__label">Time Tracking</div>
+            <h3 class="bento__title">Verified time logs with screenshots</h3>
+            <p class="bento__desc">Optional time tracking with activity screenshots. Full audit trail for hourly engagements.</p>
+            <div class="bento__visual time-visual">
+              <div class="time-circle">
+                <svg width="70" height="70" viewBox="0 0 70 70" aria-hidden="true">
+                  <circle cx="35" cy="35" r="28" fill="none" stroke="#E0F2FE" stroke-width="6"/>
+                  <circle cx="35" cy="35" r="28" fill="none" stroke="#0EA5E9" stroke-width="6" stroke-dasharray="175.9" stroke-dashoffset="44" stroke-linecap="round" transform="rotate(-90 35 35)"/>
+                </svg>
+                <span class="time-circle__text">18.5h</span>
+              </div>
+              <div class="time-details">
+                <div>Today: <strong>2.5h</strong></div>
+                <div>This week: <strong>11h</strong></div>
+                <div>Total: <strong>18.5h</strong></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bento bento--revisions">
+            <div class="bento__label">Quality Control</div>
+            <h3 class="bento__title">Structured revision rounds</h3>
+            <p class="bento__desc">Define revision rounds in the contract. Clients submit annotated feedback directly on deliverables. No more email chains.</p>
+          </div>
+
+          <div class="bento bento--disputes">
+            <div class="bento__label">Dispute Resolution</div>
+            <h3 class="bento__title">Expert mediation when things go wrong</h3>
+            <p class="bento__desc">Our trained mediation team resolves disputes within 5 business days. Evidence-based, fair, and final. Less than 0.8% of projects ever reach this stage.</p>
+          </div>
+
+          <div class="bento bento--wide bento--invoicing">
+            <div class="bento__label">Invoicing & Tax</div>
+            <h3 class="bento__title">Instant invoice generation & tax compliance</h3>
+            <p class="bento__desc">Every payment auto-generates a PDF invoice. We handle VAT, GST, and 1099 reporting automatically. Finance teams love us.</p>
+            <div class="bento__visual invoice-visual">
+              <div class="invoice-row invoice-row--header">
+                <span>Description</span><span>Qty</span><span>Rate</span><span>Total</span>
+              </div>
+              <div class="invoice-row">
+                <span>Homepage Redesign — Milestone 2</span><span>1</span><span>$6,000</span><span>$6,000</span>
+              </div>
+              <div class="invoice-row invoice-row--total">
+                <span></span><span></span><span>Total Due</span><span>$6,000</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- TRUST -->
+    <section class="trust">
+      <div class="container trust__inner">
+        <div class="trust__copy">
+          <span class="section-tag">Why FreelanceFlow</span>
+          <h2 class="section-title">Built for high-stakes projects</h2>
+          <p class="section-sub">Fortune 500s and startups both run $50,000+ projects on our platform. Here's why they trust us.</p>
+          <div class="trust__list">
+            <div class="trust__item">
+              <div class="trust__check">✓</div>
+              <div>
+                <strong>Escrow-protected payments</strong>
+                <p>Funds only release when you explicitly approve each milestone. Zero risk of paying for subpar work.</p>
+              </div>
+            </div>
+            <div class="trust__item">
+              <div class="trust__check">✓</div>
+              <div>
+                <strong>Scope-creep prevention</strong>
+                <p>Every change request goes through a formal amendment process. Original contract is never modified silently.</p>
+              </div>
+            </div>
+            <div class="trust__item">
+              <div class="trust__check">✓</div>
+              <div>
+                <strong>Vetted talent only</strong>
+                <p>Portfolio review, skills test, identity verification, and reference check before any freelancer goes live.</p>
+              </div>
+            </div>
+            <div class="trust__item">
+              <div class="trust__check">✓</div>
+              <div>
+                <strong>Enterprise-grade security</strong>
+                <p>SOC 2 Type II, GDPR compliant. Encrypted file storage, audit logs, and SSO for teams.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="trust__image-side">
+          <img src="https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Team collaboration" class="trust__img" />
+          <div class="trust__badge-float">
+            <div class="trust__badge-icon">🛡</div>
+            <div>
+              <strong>$500M+</strong>
+              <span>in escrow processed</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Stories</span>
+          <h2 class="section-title">Trusted by clients and freelancers alike</h2>
+        </div>
+        <div class="testi__tabs" id="testiTabs">
+          <button class="testi__tab testi__tab--active" data-tab="clients">Client Stories</button>
+          <button class="testi__tab" data-tab="freelancers">Freelancer Stories</button>
+        </div>
+        <div class="testi__grid" id="testiGrid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="pricing" id="pricing">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Pricing</span>
+          <h2 class="section-title">Simple, transparent fees</h2>
+          <p class="section-sub">No hidden charges. Freelancers keep more; clients pay less overhead than hiring full-time.</p>
+        </div>
+        <div class="pricing__toggle">
+          <span class="pricing__toggle-label pricing__toggle-label--active" id="clientLabel">For Clients</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="pricingToggle" />
+            <span class="toggle-slider"></span>
+          </label>
+          <span class="pricing__toggle-label" id="freelancerLabel">For Freelancers</span>
+        </div>
+        <div class="pricing__grid" id="pricingGrid">
+          <!-- Populated by JS -->
+        </div>
+        <p class="pricing__note">All plans include escrow protection, e-signatures, invoicing, and dispute resolution.</p>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="cta-section">
+      <div class="container cta-section__inner">
+        <div class="cta-section__copy">
+          <h2>Ready to find your next great hire?</h2>
+          <p>Post your first project free. No subscription needed to browse and hire.</p>
+          <div class="cta-section__actions">
+            <a href="#" class="btn btn--primary btn--lg">Post a Project Free</a>
+            <a href="#" class="btn btn--ghost-white btn--lg">Talk to Sales</a>
+          </div>
+        </div>
+        <img src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Happy team" class="cta-section__img" />
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="container footer__inner">
+        <div class="footer__brand">
+          <a href="#" class="nav__logo footer__logo">
+            <svg width="24" height="24" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+              <rect width="28" height="28" rx="8" fill="#0EA5E9"/>
+              <path d="M7 14L12 19L21 9" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            FreelanceFlow
+          </a>
+          <p>Where businesses and top freelancers build lasting partnerships.</p>
+          <div class="footer__social">
+            <a href="#" aria-label="Twitter">𝕏</a>
+            <a href="#" aria-label="LinkedIn">in</a>
+            <a href="#" aria-label="Instagram">◎</a>
+          </div>
+        </div>
+        <div class="footer__col">
+          <h4>Platform</h4>
+          <a href="#">Browse Talent</a>
+          <a href="#">Post a Project</a>
+          <a href="#">How It Works</a>
+          <a href="#">Enterprise</a>
+        </div>
+        <div class="footer__col">
+          <h4>For Freelancers</h4>
+          <a href="#">Join as Freelancer</a>
+          <a href="#">Skills Tests</a>
+          <a href="#">Freelancer Academy</a>
+          <a href="#">Community</a>
+        </div>
+        <div class="footer__col">
+          <h4>Resources</h4>
+          <a href="#">Blog</a>
+          <a href="#">Case Studies</a>
+          <a href="#">Hiring Guide</a>
+          <a href="#">API Docs</a>
+        </div>
+        <div class="footer__col">
+          <h4>Company</h4>
+          <a href="#">About Us</a>
+          <a href="#">Careers</a>
+          <a href="#">Security</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+      <div class="footer__bottom container">
+        <span>© 2026 FreelanceFlow, Inc. All rights reserved.</span>
+        <div class="footer__bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Cookie Settings</a>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

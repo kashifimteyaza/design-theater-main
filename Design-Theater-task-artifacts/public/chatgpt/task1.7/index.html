@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en" data-view="standard">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Metro Daily News — Local journalism for three metros</title>
+  <meta name="theme-color" content="#0a0a0a" />
+  <style>
+    /* ============ Critical, compact, dependency-free CSS ============ */
+    :root{
+      --bg: #ffffff;
+      --text: #111111;
+      --muted:#6b7280;
+      --brand:#0d6efd;
+      --brand-ink:#0a47a1;
+      --accent:#10b981;
+      --surface:#f6f7f9;
+      --card:#ffffff;
+      --border:#e5e7eb;
+      --focus:#ffbf47;
+      --danger:#ef4444;
+      --ok:#16a34a;
+
+      /* typography scale: modified major third, clamp for responsiveness */
+      --fs-0: clamp(0.88rem, 0.84rem + 0.2vw, 0.98rem);
+      --fs-1: clamp(1.0rem, 0.95rem + 0.35vw, 1.125rem);
+      --fs-2: clamp(1.125rem, 1.05rem + 0.55vw, 1.25rem);
+      --fs-3: clamp(1.35rem, 1.2rem + 1vw, 1.6rem);
+      --fs-4: clamp(1.6rem, 1.4rem + 1.6vw, 2rem);
+      --fs-5: clamp(2rem, 1.8rem + 2.5vw, 2.8rem);
+
+      --radius: 14px;
+      --shadow: 0 2px 10px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.05);
+      --grid-gap: 14px;
+      --maxw: 1200px;
+    }
+    @media (prefers-color-scheme: dark){
+      :root{ --bg:#0b0b0c; --text:#f3f4f6; --muted:#9aa3b2; --surface:#0f1115; --card:#111318; --border:#1f232b; --brand:#5ea2ff; --brand-ink:#cfe2ff; }
+    }
+    /* High contrast toggle */
+    .contrast-high{
+      --bg:#000; --text:#fff; --muted:#e5e7eb; --surface:#000; --card:#000; --border:#fff; --brand:#ffde00; --brand-ink:#000; --accent:#00ff8c; --focus:#ff0;
+    }
+
+    html,body{height:100%;}
+    body{
+      margin:0; background:var(--bg); color:var(--text);
+      font: 400 16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    }
+    .fs-112{ font-size:112%; } .fs-125{ font-size:125%; }
+
+    a{ color:var(--brand); text-decoration: none; }
+    a:hover{ text-decoration: underline; }
+    img{ max-width:100%; border-radius: calc(var(--radius) - 6px); }
+    .skip{ position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
+    .skip:focus{ position:fixed; left:16px; top:16px; width:auto; height:auto; padding:8px 12px; background:#ffd; color:#000; z-index:9999; border-radius:8px; box-shadow:var(--shadow); }
+
+    header{
+      border-bottom:1px solid var(--border);
+      position:sticky; top:0; z-index:50; background:var(--bg);
+      backdrop-filter:saturate(180%) blur(6px);
+    }
+    .bar{
+      display:flex; gap:12px; align-items:center; justify-content:space-between;
+      max-width:var(--maxw); margin:0 auto; padding:10px 14px;
+    }
+    .logo{ font-weight:800; letter-spacing:0.2px; font-size:var(--fs-3); display:flex; gap:10px; align-items:center; }
+    .logo-badge{ width:28px; height:28px; border-radius:8px; background:linear-gradient(135deg,var(--brand),var(--accent)); display:inline-block; }
+    .controls{ display:flex; gap:8px; align-items:center; flex-wrap: wrap; }
+    .pill, .chip, .btn{
+      border:1px solid var(--border); background:var(--card); color:var(--text);
+      border-radius:999px; padding:8px 12px; font-size:var(--fs-0); line-height:1; cursor:pointer;
+    }
+    .btn{ border-radius:10px; font-weight:600; }
+    .btn[aria-pressed="true"], .chip[aria-pressed="true"]{ background:var(--brand); color:#fff; border-color:var(--brand); }
+    .btn.primary{ background:var(--brand); color:#fff; border-color:var(--brand); }
+    .btn.ghost{ background:transparent; }
+    .icon{ width:18px; height:18px; vertical-align:-3px; }
+    .search{
+      display:flex; align-items:center; gap:8px; padding:8px 12px; border:1px solid var(--border); border-radius:12px; background:var(--surface);
+    }
+    .search input{
+      border:0; background:transparent; outline:0; min-width:140px; font-size:var(--fs-0); color:var(--text);
+    }
+    nav{
+      border-top:1px solid var(--border);
+      overflow:auto hidden; white-space:nowrap;
+    }
+    .navwrap{ max-width:var(--maxw); margin:0 auto; padding:8px 14px; display:flex; gap:8px; }
+    .navwrap a{ padding:8px 10px; border-radius:8px; color:var(--text); border:1px solid transparent; }
+    .navwrap a[aria-current="page"], .navwrap a:hover{ background:var(--surface); border-color:var(--border); text-decoration:none; }
+
+    .ticker{
+      border-bottom:1px solid var(--border);
+      background: var(--surface);
+    }
+    .ticker-wrap{
+      max-width:var(--maxw); margin:0 auto; padding:8px 14px; display:flex; gap:10px; align-items:center;
+      font-size:var(--fs-0);
+    }
+    .breaking{ background:var(--danger); color:#fff; padding:4px 8px; border-radius:8px; font-weight:700; letter-spacing:.3px; }
+
+    main{ max-width:var(--maxw); margin:0 auto; padding:16px 14px 48px; }
+    .grid{
+      display:grid; gap:var(--grid-gap);
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 960px){
+      .grid{ grid-template-columns: 2fr 1fr; align-items:start; }
+    }
+
+    .section{ background:var(--card); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); }
+    .section header{ position:initial; border:0; backdrop-filter:none; }
+    .section-title{
+      padding:12px 14px; border-bottom:1px solid var(--border); display:flex; gap:8px; align-items:center; justify-content:space-between;
+    }
+    .section-body{ padding:12px; }
+    .cards{ display:grid; gap:var(--grid-gap); grid-template-columns: 1fr; }
+    @media (min-width: 720px){ .cards{ grid-template-columns: repeat(2,1fr); } }
+    @media (min-width: 1100px){ .cards.hero{ grid-template-columns: 2fr 1fr 1fr; } }
+
+    .card{
+      border:1px solid var(--border); border-radius:calc(var(--radius) - 6px); background:var(--card); overflow:hidden; display:flex; flex-direction:column; min-height:100%;
+    }
+    .thumb{ aspect-ratio: 16/9; background:linear-gradient(135deg,#eaeef5,#f7f8fa); display:flex; align-items:center; justify-content:center; }
+    .thumb svg{ opacity:.25; }
+    .badge{ display:inline-flex; gap:6px; align-items:center; padding:4px 8px; border-radius:999px; background:var(--surface); border:1px solid var(--border); font-size:12px; }
+    .meta{ display:flex; gap:10px; align-items:center; color:var(--muted); font-size:12px; }
+    .card .content{ padding:12px; display:flex; flex-direction:column; gap:6px; flex:1; }
+    .title{ font-weight:800; font-size:var(--fs-2); line-height:1.2; }
+    .title.small{ font-size:var(--fs-1); }
+    .summary{ color:var(--muted); font-size:var(--fs-0); }
+    .actions{ margin-top:auto; display:flex; gap:8px; flex-wrap:wrap; }
+
+    .feed{ display:grid; gap:10px; }
+    .feed .row{ display:grid; grid-template-columns: auto 1fr auto; gap:10px; align-items:center; padding:8px; border:1px solid var(--border); border-radius:12px; background:var(--card); }
+    .feed .row .dot{ width:10px; height:10px; border-radius:50%; background:var(--brand); }
+    .feed .row .headline{ font-weight:650; font-size:var(--fs-1); }
+    .feed .row .topic{ color:var(--muted); font-size:12px; }
+    .feed .row .time{ color:var(--muted); font-size:12px; white-space:nowrap; }
+
+    .rail{ display:grid; gap:var(--grid-gap); content-visibility:auto; }
+    .rail .mini-list{ display:grid; gap:10px; }
+    .rail .mini-item{ display:grid; gap:8px; grid-template-columns: 64px 1fr; align-items:center; }
+    .rail .mini-item .t{ font-weight:700; font-size:var(--fs-0); }
+    .rail .mini-item .s{ color:var(--muted); font-size:12px; }
+
+    .toolbar{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+    .chips{ display:flex; gap:8px; flex-wrap:wrap; }
+    .pills{ display:flex; gap:8px; flex-wrap:wrap; }
+    .divider{ height:1px; background:var(--border); margin:10px 0; }
+
+    /* Compact (Morning Scan) layout for headlines: same order, just denser */
+    [data-view="compact"] .cards .card .summary{ display:none; }
+    [data-view="compact"] .title{ font-size:var(--fs-1); }
+    [data-view="compact"] .feed .row{ padding:6px; }
+    [data-view="compact"] .thumb{ display:none; }
+
+    .skeleton{ background:linear-gradient(90deg, rgba(0,0,0,.05), rgba(0,0,0,.08), rgba(0,0,0,.05)); height:120px; border-radius:12px; animation: shimmer 1.25s infinite; }
+    @keyframes shimmer{ 0%{ background-position:-200% 0; } 100%{ background-position:200% 0; } }
+
+    .kbd{ border:1px solid var(--border); padding:2px 6px; border-radius:6px; font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size:12px; }
+
+    /* Focus / a11y */
+    :focus{ outline:3px solid var(--focus); outline-offset:2px; }
+    ::selection{ background: #ffe08a; color:#000; }
+
+    footer{ border-top:1px solid var(--border); margin-top:28px; }
+    footer .wrap{ max-width:var(--maxw); margin:0 auto; padding:20px 14px; color:var(--muted); display:flex; gap:12px; flex-wrap:wrap; align-items:center; justify-content:space-between; }
+
+    /* Dialogs */
+    dialog{ border:1px solid var(--border); border-radius:16px; background:var(--card); color:var(--text); box-shadow:var(--shadow); width:min(680px, 92vw); }
+    dialog::backdrop{ background: rgba(0,0,0,.3); }
+    .dialog-head{ padding:12px 16px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+    .dialog-body{ padding:14px; display:grid; gap:12px; }
+    .field{ display:grid; gap:6px; }
+    label{ font-weight:600; }
+    input[type="checkbox"], input[type="radio"]{ transform: translateY(1px); }
+
+    /* Below-fold sections get cheaper rendering */
+    .lazy-section{ content-visibility:auto; contain-intrinsic-size:auto 600px; }
+
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+
+  <header aria-label="Site header">
+    <div class="bar">
+      <div class="logo" aria-label="Metro Daily News">
+        <span class="logo-badge" aria-hidden="true"></span>
+        <span>Metro Daily News</span>
+      </div>
+
+      <div class="controls" role="group" aria-label="Quick controls">
+        <div class="search" role="search">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M10 18a8 8 0 1 1 5.3-14l4.9 4.9-1.4 1.4-4.2-4.2A6 6 0 1 0 16 10h2a8 8 0 0 1-8 8z"/></svg>
+          <input id="q" type="search" placeholder="Search metro news…" aria-label="Search articles" />
+        </div>
+
+        <button id="toggleView" class="btn ghost" aria-pressed="false" title="Toggle Morning Scan">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 5h18v2H3zm0 6h12v2H3zm0 6h18v2H3z"/></svg>
+          <span data-i18n="scan">Morning Scan</span>
+        </button>
+
+        <button id="lang" class="btn ghost" aria-pressed="false" title="Cambiar a español">ES</button>
+        <button id="contrast" class="btn ghost" aria-pressed="false" title="High contrast">HC</button>
+
+        <div class="btn-group" role="group" aria-label="Text size">
+          <button id="fsDefault" class="btn ghost" aria-pressed="true">A</button>
+          <button id="fsPlus" class="btn ghost" aria-pressed="false">A<span style="font-size:120%;">+</span></button>
+          <button id="fsMax" class="btn ghost" aria-pressed="false">A<span style="font-size:140%;">++</span></button>
+        </div>
+
+        <button id="manage" class="btn primary">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm-7 9a7 7 0 0 1 14 0z"/></svg>
+          <span data-i18n="account">Account</span>
+        </button>
+      </div>
+    </div>
+
+    <nav aria-label="Primary">
+      <div class="navwrap">
+        <a href="#top" aria-current="page" data-i18n="top">Top</a>
+        <a href="#politics" data-i18n="politics">Politics</a>
+        <a href="#business" data-i18n="business">Business</a>
+        <a href="#sports" data-i18n="sports">Sports</a>
+        <a href="#community" data-i18n="community">Community</a>
+        <a href="#investigations" data-i18n="investigations">Investigations</a>
+        <a href="#podcasts" data-i18n="podcasts">Podcasts</a>
+        <a href="#localgov" data-i18n="localgov">Local Gov</a>
+      </div>
+    </nav>
+
+    <div class="ticker" aria-live="polite" aria-atomic="true">
+      <div class="ticker-wrap">
+        <span class="breaking" data-i18n="breaking">BREAKING</span>
+        <span id="breakingText">—</span>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="grid">
+      <section class="section" id="top">
+        <div class="section-title">
+          <strong style="font-size:var(--fs-3);" data-i18n="topStories">Top Stories</strong>
+          <div class="toolbar">
+            <div class="pills" role="group" aria-label="Date filters">
+              <button class="pill" data-date="today" aria-pressed="true" data-i18n="today">Today</button>
+              <button class="pill" data-date="yesterday" aria-pressed="false" data-i18n="yesterday">Yesterday</button>
+              <button class="pill" data-date="week" aria-pressed="false" data-i18n="week">This Week</button>
+            </div>
+            <div class="chips" role="group" aria-label="Topics">
+              <button class="chip" data-topic="all" aria-pressed="true" data-i18n="all">All</button>
+              <button class="chip" data-topic="politics" aria-pressed="false" data-i18n="politics">Politics</button>
+              <button class="chip" data-topic="business" aria-pressed="false" data-i18n="business">Business</button>
+              <button class="chip" data-topic="sports" aria-pressed="false" data-i18n="sports">Sports</button>
+              <button class="chip" data-topic="community" aria-pressed="false" data-i18n="community">Community</button>
+            </div>
+          </div>
+        </div>
+        <div class="section-body">
+          <div id="forYou" class="cards" aria-live="polite" hidden></div>
+          <div class="divider" aria-hidden="true"></div>
+          <div id="hero" class="cards hero" aria-live="polite">
+            <div class="skeleton"></div>
+            <div class="skeleton"></div>
+            <div class="skeleton"></div>
+          </div>
+          <div class="divider" aria-hidden="true"></div>
+          <div class="feed" id="latest" aria-live="polite">
+            <!-- populated by JS -->
+          </div>
+        </div>
+      </section>
+
+      <aside class="rail" aria-label="Secondary">
+        <section class="section" id="localgov">
+          <div class="section-title">
+            <strong data-i18n="localgovPinned">Local Government (Pinned)</strong>
+            <button class="btn ghost" id="followLocal" aria-pressed="false" data-topic-follow="localgov" data-i18n="follow">Follow</button>
+          </div>
+          <div class="section-body mini-list" id="localgovList">
+            <div class="skeleton"></div>
+          </div>
+        </section>
+
+        <section class="section lazy-section">
+          <div class="section-title">
+            <strong data-i18n="evergreen">Evergreen Features</strong>
+          </div>
+          <div class="section-body mini-list" id="evergreenList"></div>
+        </section>
+
+        <section class="section lazy-section">
+          <div class="section-title">
+            <strong data-i18n="mostRead">Most Read</strong>
+          </div>
+          <div class="section-body mini-list" id="mostRead"></div>
+        </section>
+
+        <section class="section lazy-section">
+          <div class="section-title">
+            <strong data-i18n="newsletters">Newsletters</strong>
+            <button class="btn ghost" id="openPrefs" data-i18n="edit">Edit</button>
+          </div>
+          <div class="section-body">
+            <p class="summary" data-i18n="nlCopy">Pick your briefings; no inbox spam.</p>
+            <ul id="nlPreview" style="margin:0; padding-left:18px;">
+              <li data-i18n="nlMorning">Morning Briefing (7am)</li>
+              <li data-i18n="nlBusiness">Business Pulse (noon)</li>
+              <li data-i18n="nlSports">Sports Digest (6pm)</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="section lazy-section" id="podcasts">
+          <div class="section-title"><strong data-i18n="podcasts">Podcasts</strong></div>
+          <div class="section-body mini-list" id="podcastList"></div>
+        </section>
+
+        <section class="section lazy-section">
+          <div class="section-title"><strong data-i18n="commentPolicy">Comment Policy</strong></div>
+          <div class="section-body">
+            <p class="summary" data-i18n="policyCopy">We moderate for civility and local relevance. Read the guidelines before posting.</p>
+            <a href="#" data-i18n="readGuidelines">Read guidelines</a>
+          </div>
+        </section>
+      </aside>
+    </div>
+
+    <!-- Stakeholder note: IA rationale inline so product/editorial can review on the page -->
+    <details class="section" style="margin-top:16px;">
+      <summary class="section-title"><strong>Information Architecture Strategy (click to expand)</strong></summary>
+      <div class="section-body" style="font-size:var(--fs-1);">
+        <ul>
+          <li><strong>Consistent skeleton across devices</strong>: Top → Latest → Rails (Local Gov pinned, Evergreen, Most Read, Newsletters, Podcasts). Order never changes; cards densify for phones.</li>
+          <li><strong>High volume handling</strong>: unified Latest feed with date pills + topic chips + search; breaking ticker; hero stack prioritizes <em>breaking</em>, then recency and follow signals.</li>
+          <li><strong>Reader control without overwhelm</strong>: Follow up to 5 topics, “For You” appears above hero. One-tap Morning Scan compacts visuals for quick passes.</li>
+          <li><strong>Find “yesterday” fast</strong>: dedicated pill pre-filters to previous day; also visible in search results and Most Read.</li>
+          <li><strong>Accessibility & Spanish</strong>: skip link, high-contrast, text size, reduced motion, keyboardable filters, Spanish UI with persistent choice.</li>
+          <li><strong>Performance</strong>: inline critical CSS, lazy images, content-visibility on rails, tiny JS, skeletons, and defer non-critical hydration.</li>
+          <li><strong>Biz needs</strong>: Business chip + newsletter; Investigations and Podcasts surfaced in nav and rails.</li>
+        </ul>
+      </div>
+    </details>
+
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div>&copy; <span id="year"></span> Metro Daily News</div>
+      <div>
+        <a href="#" data-i18n="about">About</a> ·
+        <a href="#" data-i18n="careers">Careers</a> ·
+        <a href="#" data-i18n="advertise">Advertise</a> ·
+        <a href="#" data-i18n="privacy">Privacy</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Account / Preferences -->
+  <dialog id="accountDlg" aria-label="Subscription and preferences">
+    <div class="dialog-head">
+      <strong data-i18n="accountSettings">Account & Preferences</strong>
+      <button class="btn ghost" onclick="this.closest('dialog').close()" aria-label="Close">✕</button>
+    </div>
+    <form class="dialog-body" method="dialog">
+      <fieldset class="field" style="border:0; padding:0;">
+        <legend><strong data-i18n="subscription">Subscription</strong></legend>
+        <label><input type="radio" name="plan" value="free" checked /> <span data-i18n="planFree">Free (metered)</span></label>
+        <label><input type="radio" name="plan" value="premium" /> <span data-i18n="planPremium">Premium (ad-light, investigations)</span></label>
+      </fieldset>
+
+      <fieldset class="field" style="border:0; padding:0;">
+        <legend><strong data-i18n="followTopics">Follow topics (max 5)</strong></legend>
+        <div class="chips" id="followChips">
+          <!-- populated to mirror main chips -->
+        </div>
+      </fieldset>
+
+      <fieldset class="field" style="border:0; padding:0;">
+        <legend><strong data-i18n="newsletters">Newsletters</strong></legend>
+        <label><input type="checkbox" name="nl" value="morning" checked /> <span data-i18n="nlMorning">Morning Briefing (7am)</span></label>
+        <label><input type="checkbox" name="nl" value="business" checked /> <span data-i18n="nlBusiness">Business Pulse (noon)</span></label>
+        <label><input type="checkbox" name="nl" value="sports" /> <span data-i18n="nlSports">Sports Digest (6pm)</span></label>
+      </fieldset>
+
+      <div style="display:flex; justify-content:flex-end; gap:8px;">
+        <button class="btn ghost" value="cancel" data-i18n="cancel">Cancel</button>
+        <button class="btn primary" value="default" id="savePrefs" data-i18n="save">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="nlDlg" aria-label="Newsletter preferences">
+    <div class="dialog-head">
+      <strong data-i18n="editNewsletters">Edit newsletters</strong>
+      <button class="btn ghost" onclick="this.closest('dialog').close()" aria-label="Close">✕</button>
+    </div>
+    <form class="dialog-body" method="dialog">
+      <label><input type="checkbox" name="nl" value="morning" checked /> <span data-i18n="nlMorning">Morning Briefing (7am)</span></label>
+      <label><input type="checkbox" name="nl" value="business" checked /> <span data-i18n="nlBusiness">Business Pulse (noon)</span></label>
+      <label><input type="checkbox" name="nl" value="sports" /> <span data-i18n="nlSports">Sports Digest (6pm)</span></label>
+      <div style="display:flex; justify-content:flex-end; gap:8px;">
+        <button class="btn ghost" value="cancel" data-i18n="cancel">Cancel</button>
+        <button class="btn primary" value="default" id="saveNl" data-i18n="save">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <template id="cardTmpl">
+    <article class="card">
+      <div class="thumb" aria-hidden="true">
+        <!-- lightweight inline SVG placeholder -->
+        <svg width="64" height="64" viewBox="0 0 24 24"><path fill="currentColor" d="M4 5h16v14H4z"/><path fill="currentColor" d="M7.5 13.5 10 16l3.5-3.5L18 17H6z"/></svg>
+      </div>
+      <div class="content">
+        <div class="meta">
+          <span class="badge topic"></span>
+          <span class="time" aria-label="Published time">—</span>
+          <span class="badge brk" hidden>Breaking</span>
+        </div>
+        <a class="title" href="#" rel="bookmark"></a>
+        <p class="summary"></p>
+        <div class="actions">
+          <button class="btn ghost share" aria-label="Share">Share</button>
+          <button class="btn ghost save" aria-label="Save for later">☆</button>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <script>
+  /* ===================== Data & Utilities ===================== */
+
+  const i18n = {
+    en: {
+      scan:"Morning Scan", account:"Account", top:"Top", politics:"Politics", business:"Business", sports:"Sports",
+      community:"Community", investigations:"Investigations", podcasts:"Podcasts", localgov:"Local Gov",
+      breaking:"BREAKING", topStories:"Top Stories", today:"Today", yesterday:"Yesterday", week:"This Week", all:"All",
+      evergreen:"Evergreen Features", mostRead:"Most Read", newsletters:"Newsletters", edit:"Edit",
+      nlCopy:"Pick your briefings; no inbox spam.", nlMorning:"Morning Briefing (7am)",
+      nlBusiness:"Business Pulse (noon)", nlSports:"Sports Digest (6pm)", commentPolicy:"Comment Policy",
+      policyCopy:"We moderate for civility and local relevance. Read the guidelines before posting.",
+      readGuidelines:"Read guidelines", accountSettings:"Account & Preferences", subscription:"Subscription",
+      planFree:"Free (metered)", planPremium:"Premium (ad-light, investigations)",
+      followTopics:"Follow topics (max 5)", cancel:"Cancel", save:"Save", editNewsletters:"Edit newsletters",
+      localgovPinned:"Local Government (Pinned)", follow:"Follow", about:"About", careers:"Careers",
+      advertise:"Advertise", privacy:"Privacy"
+    },
+    es: {
+      scan:"Lectura Rápida", account:"Cuenta", top:"Inicio", politics:"Política", business:"Negocios", sports:"Deportes",
+      community:"Comunidad", investigations:"Investigaciones", podcasts:"Podcasts", localgov:"Gob. Local",
+      breaking:"URGENTE", topStories:"Historias Principales", today:"Hoy", yesterday:"Ayer", week:"Esta Semana", all:"Todo",
+      evergreen:"Artículos Atemporales", mostRead:"Más Leídos", newsletters:"Boletines", edit:"Editar",
+      nlCopy:"Elige tus resúmenes; sin spam.", nlMorning:"Resumen Matutino (7am)",
+      nlBusiness:"Pulso de Negocios (12pm)", nlSports:"Resumen Deportivo (6pm)", commentPolicy:"Normas de Comentarios",
+      policyCopy:"Moderamos por civismo y relevancia local. Lee las pautas antes de comentar.",
+      readGuidelines:"Leer pautas", accountSettings:"Cuenta y Preferencias", subscription:"Suscripción",
+      planFree:"Gratis (con límite)", planPremium:"Premium (menos anuncios, investigaciones)",
+      followTopics:"Seguir temas (máx. 5)", cancel:"Cancelar", save:"Guardar", editNewsletters:"Editar boletines",
+      localgovPinned:"Gobierno Local (Fijado)", follow:"Seguir", about:"Acerca de", careers:"Empleos",
+      advertise:"Anunciar", privacy:"Privacidad"
+    }
+  };
+
+  const TOPICS = ["politics","business","sports","community","investigations","localgov","podcast","evergreen"];
+  const NOW = new Date();
+  const ONE_H = 36e5, ONE_D = 864e5;
+
+  // Generate 48 mock articles across last 3 days to simulate 40+ daily
+  const seed = [
+    ["City Council approves transit improvements","Concejo Municipal aprueba mejoras al tránsito","politics","localgov"],
+    ["Tech park secures funding for 1,200 jobs","Parque tecnológico consigue fondos para 1,200 empleos","business"],
+    ["High school champions take regional title","Equipo escolar gana título regional","sports"],
+    ["Neighborhood festival draws record crowds","Festival barrial rompe récord de asistencia","community"],
+    ["Investigative: water quality disparities revealed","Investigación: desigualdades en calidad de agua","investigations"],
+    ["Podcast: Morning rundown with editors","Podcast: Resumen matutino con editores","podcast"],
+    ["Small businesses brace for tax changes","Pequeñas empresas se preparan para cambios fiscales","business"],
+    ["Mayor proposes open data portal","Alcalde propone portal de datos abiertos","politics","localgov"],
+    ["Transit strike averted after late deal","Huelga de transporte evitada tras acuerdo","politics"],
+    ["Hospital announces new cardiac center","Hospital anuncia nuevo centro cardiaco","community"],
+    ["Local team rookie breaks debut record","Novato rompe récord en debut","sports"],
+    ["Guide: Best fall hikes around the metro","Guía: Mejores caminatas de otoño","evergreen","community"],
+  ];
+
+  function buildArticles(){
+    const out=[]; let id=1;
+    for(let d=0; d<3; d++){
+      for(let i=0;i<seed.length;i++){
+        const base=seed[i];
+        const isBreaking = (i===8 && d===0) || (i===2 && d===0);
+        const createdAt = new Date(NOW - d*ONE_D - (i*1.4%6)*ONE_H);
+        out.push({
+          id:`a${id++}`,
+          title: base[0],
+          esTitle: base[1],
+          summary: lorem(base[2]),
+          topic: base[2],
+          tags: base.slice(3),
+          isBreaking,
+          isEvergreen: base.includes("evergreen"),
+          createdAt,
+          readMins: 3 + (i%6),
+          views: Math.floor(400 + Math.random()*800)
+        });
+      }
+    }
+    // add some extra to exceed 40
+    out.push({
+      id:`a${id++}`, title:"Editorial: A safer late-night downtown", esTitle:"Editorial: Un centro más seguro de noche",
+      summary:lorem("politics"), topic:"politics", tags:["community"], isBreaking:false, isEvergreen:false, createdAt: new Date(NOW - 6*ONE_H), readMins:5, views:1200
+    });
+    out.push({
+      id:`a${id++}`, title:"Profile: Founder behind the metro’s fastest-growing startup", esTitle:"Perfil: Fundador tras la startup de mayor crecimiento",
+      summary:lorem("business"), topic:"business", tags:[], isBreaking:false, isEvergreen:true, createdAt: new Date(NOW - 2*ONE_D), readMins:7, views:980
+    });
+    return out.sort((a,b)=>b.createdAt - a.createdAt);
+  }
+
+  function lorem(topic="news"){
+    const map={
+      politics:"Policy impact across three metros with what it means for commuters and families.",
+      business:"Market shifts and local hiring signals that matter to leaders and workers.",
+      sports:"Scores, standout players, and what’s next on the schedule.",
+      community:"Events, service changes, and neighborhood highlights you can use.",
+      investigations:"Data-driven reporting to hold institutions accountable.",
+      podcast:"Listen on your commute. New episodes daily.",
+      evergreen:"Saveable guides and explainers that stay useful."
+    };
+    return map[topic]||"Local coverage you can trust, updated all day.";
+  }
+
+  const ARTICLES = buildArticles();
+
+  /* ===================== State & Persistence ===================== */
+  const state = {
+    lang: localStorage.getItem("mdn_language") || "en",
+    contrast: localStorage.getItem("mdn_contrast")==="high",
+    fs: localStorage.getItem("mdn_font_scale") || "100",
+    view: localStorage.getItem("mdn_view") || "standard",
+    followed: JSON.parse(localStorage.getItem("mdn_topics")||"[]"),
+    dateFilter: "today",
+    topicFilter: "all",
+    q: ""
+  };
+
+  /* ===================== DOM Helpers ===================== */
+  const $ = (sel,root=document)=>root.querySelector(sel);
+  const $$ = (sel,root=document)=>Array.from(root.querySelectorAll(sel));
+
+  function t(key){ return i18n[state.lang][key]||key; }
+  function setLangTexts(){
+    // Update all data-i18n nodes
+    $$("[data-i18n]").forEach(n=>{ const k=n.getAttribute("data-i18n"); if(i18n[state.lang][k]) n.textContent = i18n[state.lang][k]; });
+    document.documentElement.lang = state.lang;
+    $("#lang").setAttribute("title", state.lang==="en"?"Cambiar a español":"Switch to English");
+  }
+
+  function fmtTime(d){
+    const dt = new Date(d);
+    const diff = (Date.now()-dt)/1000;
+    if(diff<60) return state.lang==="en"?"just now":"ahora";
+    if(diff<3600){ const m = Math.floor(diff/60); return state.lang==="en"?`${m}m ago`:`hace ${m}m`; }
+    if(diff<86400){ const h = Math.floor(diff/3600); return state.lang==="en"?`${h}h ago`:`hace ${h}h`; }
+    return dt.toLocaleDateString(document.documentElement.lang, { month:"short", day:"numeric"});
+  }
+
+  function withinDate(a){
+    const d = new Date(a.createdAt);
+    const startToday = new Date(NOW); startToday.setHours(0,0,0,0);
+    const startYesterday = new Date(startToday - ONE_D);
+    const startWeek = new Date(startToday - 6*ONE_D);
+    if(state.dateFilter==="today") return d>=startToday;
+    if(state.dateFilter==="yesterday") return d>=startYesterday && d<startToday;
+    if(state.dateFilter==="week") return d>=startWeek;
+    return true;
+  }
+  function matchesTopic(a){
+    if(state.topicFilter==="all") return true;
+    return a.topic===state.topicFilter || a.tags.includes(state.topicFilter);
+  }
+  function matchesQuery(a){
+    if(!state.q) return true;
+    const s = state.q.toLowerCase();
+    const title = (state.lang==="es" && a.esTitle ? a.esTitle : a.title).toLowerCase();
+    return title.includes(s) || a.summary.toLowerCase().includes(s);
+  }
+
+  /* ===================== Rendering ===================== */
+  const heroEl = $("#hero"), latestEl = $("#latest"), localgovList=$("#localgovList"), evergreenList=$("#evergreenList"),
+        mostRead=$("#mostRead"), podcastList=$("#podcastList"), forYou=$("#forYou"), breakTxt=$("#breakingText");
+
+  function render(){
+    // i18n labels
+    setLangTexts();
+
+    // Adjust toggles for view and a11y settings
+    document.documentElement.setAttribute("data-view", state.view);
+    $("#toggleView").setAttribute("aria-pressed", state.view==="compact");
+    $("#contrast").setAttribute("aria-pressed", state.contrast);
+    $("body").classList.toggle("contrast-high", state.contrast);
+    $("body").classList.toggle("fs-112", state.fs==="112");
+    $("body").classList.toggle("fs-125", state.fs==="125");
+
+    // Breaking ticker
+    const brk = ARTICLES.find(a=>a.isBreaking && withinDate(a));
+    breakTxt.textContent = brk ? (state.lang==="es" && brk.esTitle ? brk.esTitle : brk.title) : (state.lang==="en"?"No active alerts.":"Sin alertas activas.");
+
+    // Hero: breaking → recency → followed boost
+    heroEl.innerHTML="";
+    const heroCandidates = ARTICLES
+      .filter(a=>withinDate(a) && matchesTopic(a) && matchesQuery(a))
+      .sort((a,b)=>{
+        const b1 = (b.isBreaking?1000:0) + (state.followed.some(t=>b.topic===t||b.tags.includes(t))?200:0) + b.views/100;
+        const a1 = (a.isBreaking?1000:0) + (state.followed.some(t=>a.topic===t||a.tags.includes(t))?200:0) + a.views/100;
+        if(b1!==a1) return b1-a1;
+        return b.createdAt - a.createdAt;
+      })
+      .slice(0,3);
+    heroCandidates.forEach(a=>heroEl.appendChild(card(a,true)));
+
+    // For You stripe (only if following)
+    if(state.followed.length){
+      forYou.hidden=false;
+      forYou.innerHTML="";
+      const fy = ARTICLES.filter(a=>state.followed.some(t=>a.topic===t||a.tags.includes(t)) && withinDate(a))
+                         .slice(0,4);
+      fy.forEach(a=>forYou.appendChild(card(a,false,true)));
+    } else {
+      forYou.hidden=true;
+    }
+
+    // Latest feed (chronological, filtered)
+    latestEl.innerHTML="";
+    ARTICLES.filter(a=>withinDate(a)&&matchesTopic(a)&&matchesQuery(a))
+      .slice(0,40) // show first page; could add "Load more"
+      .forEach(a=>{
+        const row = document.createElement("div");
+        row.className="row";
+        row.innerHTML=`
+          <span class="dot" aria-hidden="true"></span>
+          <div>
+            <div class="headline"><a href="#" rel="bookmark">${escapeHtml(state.lang==="es"&&a.esTitle ? a.esTitle : a.title)}</a></div>
+            <div class="topic">${labelFor(a.topic)} • ${a.readMins} min</div>
+          </div>
+          <div class="time">${fmtTime(a.createdAt)}</div>
+        `;
+        latestEl.appendChild(row);
+      });
+
+    // Local Gov pinned list
+    localgovList.innerHTML="";
+    ARTICLES.filter(a=> (a.topic==="politics"||a.tags.includes("localgov")) && withinDate(a))
+      .slice(0,5).forEach(a=>localgovList.appendChild(mini(a)));
+
+    // Evergreen shelf
+    evergreenList.innerHTML="";
+    ARTICLES.filter(a=>a.isEvergreen).slice(0,5).forEach(a=>evergreenList.appendChild(mini(a)));
+
+    // Most read (views)
+    mostRead.innerHTML="";
+    ARTICLES.slice().sort((a,b)=>b.views-a.views).slice(0,6).forEach(a=>mostRead.appendChild(mini(a)));
+
+    // Podcasts
+    podcastList.innerHTML="";
+    ARTICLES.filter(a=>a.topic==="podcast").slice(0,4).forEach(a=>podcastList.appendChild(mini(a)));
+
+    // Follow button for local gov
+    const followingLocal = state.followed.includes("localgov");
+    $("#followLocal").setAttribute("aria-pressed", followingLocal);
+    $("#followLocal").textContent = followingLocal ? (state.lang==="en"?"Following":"Siguiendo") : t("follow");
+
+    // Mirror chips in account dialog
+    const followChips = $("#followChips"); followChips.innerHTML="";
+    $$("[data-topic]").forEach(ch=>{
+      if(ch.dataset.topic==="all") return;
+      const b = document.createElement("button");
+      b.type="button";
+      b.className="chip"; b.dataset.topicFollow = ch.dataset.topic;
+      b.setAttribute("aria-pressed", state.followed.includes(ch.dataset.topic));
+      b.textContent = labelFor(ch.dataset.topic);
+      b.addEventListener("click", toggleFollow);
+      followChips.appendChild(b);
+    });
+  }
+
+  function labelFor(topic){
+    const map = { politics:t("politics"), business:t("business"), sports:t("sports"), community:t("community"),
+                  investigations:t("investigations"), localgov:t("localgov"), podcast:t("podcasts"), evergreen:t("evergreen") };
+    return map[topic] || topic;
+  }
+
+  function card(a, big=false, small=false){
+    const tpl = $("#cardTmpl").content.cloneNode(true);
+    const el = tpl.querySelector(".card");
+    const titleEl = tpl.querySelector(".title");
+    const metaTopic = tpl.querySelector(".topic");
+    const timeEl = tpl.querySelector(".time");
+    const brk = tpl.querySelector(".brk");
+    if(!big) titleEl.classList.add("small");
+    titleEl.textContent = state.lang==="es" && a.esTitle ? a.esTitle : a.title;
+    titleEl.href = "#";
+    metaTopic.textContent = `${labelFor(a.topic)} • ${a.readMins} min`;
+    timeEl.textContent = fmtTime(a.createdAt);
+    if(a.isBreaking) { brk.hidden=false; brk.textContent = t("breaking"); }
+    const sum = tpl.querySelector(".summary"); sum.textContent = a.summary;
+
+    // share/save
+    tpl.querySelector(".share").addEventListener("click", (e)=>shareArticle(a,e));
+    tpl.querySelector(".save").addEventListener("click", (e)=>saveArticle(a,e));
+
+    return el;
+  }
+
+  function mini(a){
+    const wrap = document.createElement("div");
+    wrap.className="mini-item";
+    wrap.innerHTML = `
+      <div class="thumb" style="border-radius:8px; aspect-ratio:1/1;"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 5h16v14H4z"/></svg></div>
+      <div>
+        <div class="t"><a href="#">${escapeHtml(state.lang==="es"&&a.esTitle ? a.esTitle : a.title)}</a></div>
+        <div class="s">${labelFor(a.topic)} • ${fmtTime(a.createdAt)}</div>
+      </div>
+    `;
+    return wrap;
+  }
+
+  function escapeHtml(s){ return s.replace(/[&<>"']/g, m=>({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;" }[m])); }
+
+  /* ===================== Interactions ===================== */
+  // Search
+  $("#q").addEventListener("input", (e)=>{ state.q = e.target.value.trim(); render(); });
+
+  // Date pills
+  $$(".pill").forEach(p=>{
+    p.addEventListener("click", ()=>{
+      $$(".pill").forEach(x=>x.setAttribute("aria-pressed","false"));
+      p.setAttribute("aria-pressed","true");
+      state.dateFilter = p.dataset.date; render();
+    })
+  });
+
+  // Topic chips
+  $$(".chip").forEach(c=>{
+    c.addEventListener("click", ()=>{
+      $$(".chip").forEach(x=>x.setAttribute("aria-pressed","false"));
+      c.setAttribute("aria-pressed","true");
+      state.topicFilter = c.dataset.topic;
+      render();
+    })
+  });
+
+  // Follow topics (from account dialog and local gov button)
+  function toggleFollow(e){
+    const t = e.currentTarget.dataset.topicFollow;
+    const i = state.followed.indexOf(t);
+    if(i>-1) state.followed.splice(i,1);
+    else{
+      if(state.followed.length>=5){ alert(state.lang==="en"?"Max 5 topics":"Máximo 5 temas"); return; }
+      state.followed.push(t);
+    }
+    localStorage.setItem("mdn_topics", JSON.stringify(state.followed));
+    render();
+  }
+  $("#followLocal").addEventListener("click", toggleFollow);
+
+  // Morning Scan
+  $("#toggleView").addEventListener("click", ()=>{
+    state.view = (state.view==="compact")?"standard":"compact";
+    localStorage.setItem("mdn_view", state.view);
+    render();
+  });
+
+  // Language
+  $("#lang").addEventListener("click", ()=>{
+    state.lang = state.lang==="en"?"es":"en";
+    localStorage.setItem("mdn_language", state.lang);
+    render();
+  });
+
+  // Contrast
+  $("#contrast").addEventListener("click", ()=>{
+    state.contrast = !state.contrast;
+    localStorage.setItem("mdn_contrast", state.contrast?"high":"default");
+    render();
+  });
+
+  // Font scaling
+  function setFs(v){
+    state.fs=v; localStorage.setItem("mdn_font_scale", v);
+    $("#fsDefault").setAttribute("aria-pressed", v==="100");
+    $("#fsPlus").setAttribute("aria-pressed", v==="112");
+    $("#fsMax").setAttribute("aria-pressed", v==="125");
+    render();
+  }
+  $("#fsDefault").addEventListener("click", ()=>setFs("100"));
+  $("#fsPlus").addEventListener("click", ()=>setFs("112"));
+  $("#fsMax").addEventListener("click", ()=>setFs("125"));
+
+  // Account dialog
+  const accountDlg = $("#accountDlg"); const nlDlg = $("#nlDlg");
+  $("#manage").addEventListener("click", ()=>accountDlg.showModal());
+  $("#openPrefs").addEventListener("click", ()=>nlDlg.showModal());
+  $("#savePrefs").addEventListener("click", (e)=>{ e.preventDefault(); accountDlg.close(); alert(state.lang==="en"?"Preferences saved":"Preferencias guardadas"); });
+  $("#saveNl").addEventListener("click", (e)=>{ e.preventDefault(); nlDlg.close(); alert(state.lang==="en"?"Newsletters updated":"Boletines actualizados"); });
+
+  // Social share
+  async function shareArticle(a, ev){
+    const url = location.href.split("#")[0] + "#"+a.id;
+    const title = (state.lang==="es"&&a.esTitle ? a.esTitle : a.title) + " — Metro Daily News";
+    try{
+      if(navigator.share){ await navigator.share({ title, text:a.summary, url }); }
+      else{
+        await navigator.clipboard.writeText(url);
+        toast(state.lang==="en"?"Link copied":"Enlace copiado");
+      }
+    } catch(e){ /* user cancelled */ }
+  }
+
+  function saveArticle(a, ev){
+    toast(state.lang==="en"?"Saved for later":"Guardado para después");
+  }
+
+  function toast(msg){
+    const t = document.createElement("div");
+    t.textContent = msg; t.style.position="fixed"; t.style.bottom="16px"; t.style.left="50%";
+    t.style.transform="translateX(-50%)"; t.style.background="var(--text)"; t.style.color="var(--bg)";
+    t.style.padding="10px 14px"; t.style.borderRadius="10px"; t.style.boxShadow="var(--shadow)"; t.style.zIndex="9999";
+    document.body.appendChild(t); setTimeout(()=>t.remove(), 1800);
+  }
+
+  /* ===================== Init ===================== */
+  // Reduced motion respect: keep it static (no animations added here)
+  document.addEventListener("DOMContentLoaded", ()=>{
+    $("#year").textContent = new Date().getFullYear();
+    // initialize ARIA pressed states
+    $("#toggleView").setAttribute("aria-pressed", state.view==="compact");
+    $("#lang").textContent = state.lang.toUpperCase();
+    $("#contrast").setAttribute("aria-pressed", state.contrast);
+    $("#fsDefault").setAttribute("aria-pressed", state.fs==="100");
+    $("#fsPlus").setAttribute("aria-pressed", state.fs==="112");
+    $("#fsMax").setAttribute("aria-pressed", state.fs==="125");
+
+    render();
+  });
+
+  </script>
+</body>
+</html>

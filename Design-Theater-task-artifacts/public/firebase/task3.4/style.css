@@ -1,0 +1,120 @@
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    background-color: #f8f9fa;
+    color: #4A4A4A;
+}
+
+header {
+    background-color: #FFFFFF;
+    padding: 20px;
+    border-bottom: 1px solid #e7e7e7;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #4A90E2;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #4A4A4A;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #4A90E2;
+}
+
+.hero {
+    text-align: center;
+    padding: 100px 20px;
+    background-color: #4A90E2;
+    color: #FFFFFF;
+}
+
+.hero h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+#how-it-works, #why-choose-us, #testimonials {
+    padding: 80px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h2 {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 36px;
+    margin-bottom: 60px;
+}
+
+.process-steps, .features, .testimonial-cards {
+    display: flex;
+    justify-content: space-around;
+    gap: 40px;
+}
+
+.step, .feature, .card {
+    text-align: center;
+    max-width: 300px;
+}
+
+.card {
+    background-color: #FFFFFF;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #4A4A4A;
+    color: #FFFFFF;
+}
+
+@media (max-width: 768px) {
+    nav ul {
+        display: none;
+    }
+
+    .process-steps, .features, .testimonial-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero h1 {
+        font-size: 36px;
+    }
+
+    h2 {
+        font-size: 28px;
+    }
+}

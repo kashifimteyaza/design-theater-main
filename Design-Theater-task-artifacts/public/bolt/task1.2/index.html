@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FitCore Studio — Yoga, Pilates & Strength Training</title>
+    <meta name="description" content="A boutique fitness studio in a non-intimidating environment. Certified trainers, small group classes, and personal training for all fitness levels." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/style.css" />
+    <meta property="og:image" content="https://bolt.new/static/og_default.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
+</head>
+  <body>
+
+    <!-- NAV -->
+    <header class="nav" id="nav">
+      <div class="nav__inner container">
+        <a href="#" class="nav__logo">
+          <span class="nav__logo-mark">FC</span>
+          <span class="nav__logo-text">FitCore Studio</span>
+        </a>
+        <nav class="nav__links" id="navLinks">
+          <a href="#classes">Classes</a>
+          <a href="#schedule">Schedule</a>
+          <a href="#trainers">Trainers</a>
+          <a href="#philosophy">Our Story</a>
+          <a href="#pricing" class="nav__cta-link">Try Free</a>
+        </nav>
+        <button class="nav__hamburger" id="hamburger" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero__bg">
+        <img
+          src="https://images.pexels.com/photos/3822622/pexels-photo-3822622.jpeg?auto=compress&cs=tinysrgb&w=1600"
+          alt="Group yoga class in warm studio"
+          class="hero__img"
+        />
+        <div class="hero__overlay"></div>
+      </div>
+      <div class="hero__content container">
+        <span class="hero__eyebrow">Boutique Fitness in the Heart of the City</span>
+        <h1 class="hero__headline">Movement for<br /><em>every</em> body.</h1>
+        <p class="hero__sub">Yoga, pilates, and strength training led by 6 certified trainers — in a welcoming studio where first-timers and veterans feel equally at home.</p>
+        <div class="hero__actions">
+          <a href="#pricing" class="btn btn--primary">Claim Your Free Class</a>
+          <a href="#schedule" class="btn btn--ghost">View Schedule</a>
+        </div>
+      </div>
+      <div class="hero__scroll-hint">
+        <span>Scroll to explore</span>
+        <div class="hero__scroll-arrow"></div>
+      </div>
+    </section>
+
+    <!-- STATS STRIP -->
+    <section class="stats">
+      <div class="container stats__grid">
+        <div class="stat">
+          <span class="stat__num" data-target="6">0</span>
+          <span class="stat__label">Certified Trainers</span>
+        </div>
+        <div class="stat">
+          <span class="stat__num" data-target="18">0</span>
+          <span class="stat__label">Weekly Classes</span>
+        </div>
+        <div class="stat">
+          <span class="stat__num" data-target="3">0</span>
+          <span class="stat__label">Disciplines</span>
+        </div>
+        <div class="stat">
+          <span class="stat__num" data-target="500">0</span>
+          <span class="stat__label">Active Members</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHILOSOPHY / DIFFERENTIATOR -->
+    <section class="philosophy" id="philosophy">
+      <div class="container philosophy__inner">
+        <div class="philosophy__media">
+          <img
+            src="https://images.pexels.com/photos/4056535/pexels-photo-4056535.jpeg?auto=compress&cs=tinysrgb&w=800"
+            alt="Trainer working one-on-one with a member"
+            class="philosophy__img philosophy__img--main"
+          />
+          <img
+            src="https://images.pexels.com/photos/3768916/pexels-photo-3768916.jpeg?auto=compress&cs=tinysrgb&w=600"
+            alt="Small group pilates class"
+            class="philosophy__img philosophy__img--accent"
+          />
+          <div class="philosophy__badge">
+            <span>Est.</span>
+            <strong>2018</strong>
+          </div>
+        </div>
+        <div class="philosophy__copy">
+          <span class="label">Our Philosophy</span>
+          <h2>Not your average gym.</h2>
+          <p class="philosophy__lead">Big gym chains sell floor space. We sell transformation — one small class at a time.</p>
+          <p>At FitCore Studio, you're never just a membership number. Our certified trainers know your name, your goals, and your limits — and they know exactly how to push past them safely. With intentionally small class sizes, every session feels personal.</p>
+          <ul class="philosophy__values">
+            <li>
+              <div class="philosophy__icon">&#9679;</div>
+              <div>
+                <strong>Inclusive by design</strong>
+                <span>Classes are scaled for all fitness levels — beginners always welcome.</span>
+              </div>
+            </li>
+            <li>
+              <div class="philosophy__icon">&#9679;</div>
+              <div>
+                <strong>Expert guidance every session</strong>
+                <span>Certified trainers in every class, not just on the floor.</span>
+              </div>
+            </li>
+            <li>
+              <div class="philosophy__icon">&#9679;</div>
+              <div>
+                <strong>Community first</strong>
+                <span>A studio where members motivate each other and friendships form.</span>
+              </div>
+            </li>
+          </ul>
+          <a href="#pricing" class="btn btn--primary">Start Your Journey</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLASSES -->
+    <section class="classes" id="classes">
+      <div class="container">
+        <div class="section-header">
+          <span class="label">What We Offer</span>
+          <h2>Three disciplines.<br />Infinite progress.</h2>
+          <p>Choose the practice that calls to you — or try them all. Each discipline complements the others, and our trainers will help you build a balanced routine.</p>
+        </div>
+        <div class="classes__grid">
+          <div class="class-card" data-index="0">
+            <div class="class-card__img-wrap">
+              <img
+                src="https://images.pexels.com/photos/3822864/pexels-photo-3822864.jpeg?auto=compress&cs=tinysrgb&w=800"
+                alt="Yoga class"
+                loading="lazy"
+              />
+              <span class="class-card__tag">Beginner Friendly</span>
+            </div>
+            <div class="class-card__body">
+              <h3>Yoga</h3>
+              <p>Flow through breath and movement to build flexibility, mental clarity, and a centered calm you'll carry into everyday life.</p>
+              <ul class="class-card__details">
+                <li><span class="detail-icon">&#128337;</span> 45 – 60 min sessions</li>
+                <li><span class="detail-icon">&#128101;</span> Up to 12 students per class</li>
+                <li><span class="detail-icon">&#127775;</span> All levels welcome</li>
+              </ul>
+              <a href="#schedule" class="btn btn--outline">See Yoga Schedule</a>
+            </div>
+          </div>
+
+          <div class="class-card" data-index="1">
+            <div class="class-card__img-wrap">
+              <img
+                src="https://images.pexels.com/photos/3076516/pexels-photo-3076516.jpeg?auto=compress&cs=tinysrgb&w=800"
+                alt="Pilates class"
+                loading="lazy"
+              />
+              <span class="class-card__tag">Core &amp; Posture</span>
+            </div>
+            <div class="class-card__body">
+              <h3>Pilates</h3>
+              <p>Develop deep core strength, improve alignment, and rehabilitate your body with precise, controlled movements on mat and reformer.</p>
+              <ul class="class-card__details">
+                <li><span class="detail-icon">&#128337;</span> 50 min sessions</li>
+                <li><span class="detail-icon">&#128101;</span> Up to 10 students per class</li>
+                <li><span class="detail-icon">&#127919;</span> Focus on precision</li>
+              </ul>
+              <a href="#schedule" class="btn btn--outline">See Pilates Schedule</a>
+            </div>
+          </div>
+
+          <div class="class-card" data-index="2">
+            <div class="class-card__img-wrap">
+              <img
+                src="https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress&cs=tinysrgb&w=800"
+                alt="Strength training"
+                loading="lazy"
+              />
+              <span class="class-card__tag">Build &amp; Tone</span>
+            </div>
+            <div class="class-card__body">
+              <h3>Strength Training</h3>
+              <p>Guided resistance training that builds functional strength, boosts metabolism, and sculpts lean muscle — without the intimidating big-box gym vibe.</p>
+              <ul class="class-card__details">
+                <li><span class="detail-icon">&#128337;</span> 55 min sessions</li>
+                <li><span class="detail-icon">&#128101;</span> Up to 8 students per class</li>
+                <li><span class="detail-icon">&#127947;</span> Scaled for all levels</li>
+              </ul>
+              <a href="#schedule" class="btn btn--outline">See Strength Schedule</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCHEDULE -->
+    <section class="schedule" id="schedule">
+      <div class="container">
+        <div class="section-header section-header--light">
+          <span class="label label--light">Weekly Schedule</span>
+          <h2>Find your class.</h2>
+          <p>All classes are 45–60 minutes. Book online or drop in — we keep spots open for walk-ins.</p>
+        </div>
+        <div class="schedule__filters">
+          <button class="filter-btn active" data-day="all">All Days</button>
+          <button class="filter-btn" data-day="mon">Mon</button>
+          <button class="filter-btn" data-day="tue">Tue</button>
+          <button class="filter-btn" data-day="wed">Wed</button>
+          <button class="filter-btn" data-day="thu">Thu</button>
+          <button class="filter-btn" data-day="fri">Fri</button>
+          <button class="filter-btn" data-day="sat">Sat</button>
+          <button class="filter-btn" data-day="sun">Sun</button>
+        </div>
+        <div class="schedule__table" id="scheduleTable"></div>
+        <div class="schedule__cta">
+          <a href="#pricing" class="btn btn--primary">Book a Class</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRAINERS -->
+    <section class="trainers" id="trainers">
+      <div class="container">
+        <div class="section-header">
+          <span class="label">Meet the Team</span>
+          <h2>Your trainers.<br />Your partners.</h2>
+          <p>Our 6 certified trainers are more than instructors — they're invested in your long-term progress and will be with you every step of the way.</p>
+        </div>
+        <div class="trainers__grid">
+          <div class="trainer-card">
+            <div class="trainer-card__img-wrap">
+              <img src="https://images.pexels.com/photos/3768722/pexels-photo-3768722.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Maya Chen" loading="lazy" />
+            </div>
+            <div class="trainer-card__body">
+              <h4>Maya Chen</h4>
+              <span class="trainer-card__role">Head Trainer · Yoga</span>
+              <p>RYT-500 certified with 8 years of teaching. Maya's vinyasa flows are challenging yet accessible, blending breathwork with mindful movement.</p>
+              <div class="trainer-card__certs">
+                <span>RYT-500</span>
+                <span>Meditation</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="trainer-card">
+            <div class="trainer-card__img-wrap">
+              <img src="https://images.pexels.com/photos/1552106/pexels-photo-1552106.jpeg?auto=compress&cs=tinysrgb&w=400" alt="James Rivera" loading="lazy" />
+            </div>
+            <div class="trainer-card__body">
+              <h4>James Rivera</h4>
+              <span class="trainer-card__role">Strength Coach</span>
+              <p>CSCS-certified strength coach and former collegiate athlete. James specializes in functional movement patterns and injury-prevention programming.</p>
+              <div class="trainer-card__certs">
+                <span>CSCS</span>
+                <span>FMS Level 2</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="trainer-card">
+            <div class="trainer-card__img-wrap">
+              <img src="https://images.pexels.com/photos/3822621/pexels-photo-3822621.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Sofia Andersen" loading="lazy" />
+            </div>
+            <div class="trainer-card__body">
+              <h4>Sofia Andersen</h4>
+              <span class="trainer-card__role">Pilates Specialist</span>
+              <p>Comprehensively certified in STOTT Pilates, Sofia's background in physical therapy makes her the go-to trainer for recovery and postural correction.</p>
+              <div class="trainer-card__certs">
+                <span>STOTT Pilates</span>
+                <span>PT-Assisted</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="trainer-card">
+            <div class="trainer-card__img-wrap">
+              <img src="https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Marcus Bell" loading="lazy" />
+            </div>
+            <div class="trainer-card__body">
+              <h4>Marcus Bell</h4>
+              <span class="trainer-card__role">Strength · HIIT</span>
+              <p>ACE-certified personal trainer with expertise in high-intensity conditioning. Marcus makes every session feel achievable yet genuinely challenging.</p>
+              <div class="trainer-card__certs">
+                <span>ACE-CPT</span>
+                <span>TRX</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="trainer-card">
+            <div class="trainer-card__img-wrap">
+              <img src="https://images.pexels.com/photos/3822629/pexels-photo-3822629.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Priya Nair" loading="lazy" />
+            </div>
+            <div class="trainer-card__body">
+              <h4>Priya Nair</h4>
+              <span class="trainer-card__role">Yoga · Pilates Fusion</span>
+              <p>A practitioner of both yoga and pilates for over 10 years, Priya leads signature fusion classes that develop strength and suppleness simultaneously.</p>
+              <div class="trainer-card__certs">
+                <span>RYT-200</span>
+                <span>PMA-CPT</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="trainer-card">
+            <div class="trainer-card__img-wrap">
+              <img src="https://images.pexels.com/photos/4498606/pexels-photo-4498606.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Leo Tanaka" loading="lazy" />
+            </div>
+            <div class="trainer-card__body">
+              <h4>Leo Tanaka</h4>
+              <span class="trainer-card__role">Strength · Mobility</span>
+              <p>CrossFit Level 2 coach and mobility specialist. Leo's classes bridge the gap between raw strength and fluid, pain-free movement.</p>
+              <div class="trainer-card__certs">
+                <span>CF-L2</span>
+                <span>Mobility Cert</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials">
+      <div class="container">
+        <div class="section-header">
+          <span class="label">Member Stories</span>
+          <h2>Real results. Real people.</h2>
+        </div>
+        <div class="testimonials__track" id="testimonialsTrack">
+          <div class="testimonial">
+            <div class="testimonial__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <blockquote>"I'd been scared of gyms my whole life. FitCore was the first place that made me feel genuinely welcome from day one. Three months in and I'm stronger than I've ever been."</blockquote>
+            <div class="testimonial__author">
+              <img src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=100" alt="Rachel M." />
+              <div>
+                <strong>Rachel M.</strong>
+                <span>Member since 2023</span>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial">
+            <div class="testimonial__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <blockquote>"The trainers actually learn your name and your goals. After my knee surgery I was nervous about working out — Sofia designed a whole recovery-focused program for me."</blockquote>
+            <div class="testimonial__author">
+              <img src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=100" alt="Derek T." />
+              <div>
+                <strong>Derek T.</strong>
+                <span>Member since 2022</span>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial">
+            <div class="testimonial__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <blockquote>"I tried three big chain gyms before this. The difference is night and day. Small classes mean you actually get coached, not just watched."</blockquote>
+            <div class="testimonial__author">
+              <img src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=100" alt="Alicia K." />
+              <div>
+                <strong>Alicia K.</strong>
+                <span>Member since 2024</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonials__dots" id="testimonialDots"></div>
+      </div>
+    </section>
+
+    <!-- PRICING / CTA -->
+    <section class="pricing" id="pricing">
+      <div class="container">
+        <div class="section-header">
+          <span class="label">Membership</span>
+          <h2>Choose your path.</h2>
+          <p>All memberships include unlimited class access. No hidden fees, no long-term contracts required.</p>
+        </div>
+        <div class="pricing__grid">
+          <div class="pricing-card">
+            <div class="pricing-card__header">
+              <h3>Drop-In</h3>
+              <div class="pricing-card__price">
+                <span class="price-amount">$22</span>
+                <span class="price-period">per class</span>
+              </div>
+            </div>
+            <ul class="pricing-card__features">
+              <li>&#10003; Single class access</li>
+              <li>&#10003; All disciplines</li>
+              <li>&#10003; Mat &amp; equipment included</li>
+              <li>&#10003; No commitment</li>
+            </ul>
+            <a href="#" class="btn btn--outline">Book a Drop-In</a>
+          </div>
+
+          <div class="pricing-card pricing-card--featured">
+            <div class="pricing-card__badge">Most Popular</div>
+            <div class="pricing-card__header">
+              <h3>Monthly Unlimited</h3>
+              <div class="pricing-card__price">
+                <span class="price-amount">$89</span>
+                <span class="price-period">per month</span>
+              </div>
+            </div>
+            <ul class="pricing-card__features">
+              <li>&#10003; Unlimited group classes</li>
+              <li>&#10003; All 3 disciplines</li>
+              <li>&#10003; 10% off personal training</li>
+              <li>&#10003; Guest pass (1/month)</li>
+              <li>&#10003; Cancel anytime</li>
+            </ul>
+            <a href="#" class="btn btn--primary">Get Started</a>
+          </div>
+
+          <div class="pricing-card">
+            <div class="pricing-card__header">
+              <h3>Personal Training</h3>
+              <div class="pricing-card__price">
+                <span class="price-amount">$75</span>
+                <span class="price-period">per session</span>
+              </div>
+            </div>
+            <ul class="pricing-card__features">
+              <li>&#10003; 1-on-1 with a certified trainer</li>
+              <li>&#10003; Custom programming</li>
+              <li>&#10003; Progress tracking</li>
+              <li>&#10003; Nutrition guidance</li>
+            </ul>
+            <a href="#" class="btn btn--outline">Book PT Session</a>
+          </div>
+        </div>
+
+        <div class="free-trial">
+          <div class="free-trial__inner">
+            <div class="free-trial__copy">
+              <h3>Not ready to commit?</h3>
+              <p>Try your first class completely free — no credit card required. Come see what the FitCore difference feels like in person.</p>
+            </div>
+            <a href="#" class="btn btn--accent btn--large">Claim Your Free Class</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="container footer__inner">
+        <div class="footer__brand">
+          <a href="#" class="nav__logo">
+            <span class="nav__logo-mark">FC</span>
+            <span class="nav__logo-text">FitCore Studio</span>
+          </a>
+          <p>A boutique fitness studio committed to making movement accessible, joyful, and sustainable for everyone.</p>
+          <div class="footer__social">
+            <a href="#" aria-label="Instagram">&#9679;</a>
+            <a href="#" aria-label="Facebook">&#9679;</a>
+            <a href="#" aria-label="YouTube">&#9679;</a>
+          </div>
+        </div>
+        <div class="footer__col">
+          <h5>Studio</h5>
+          <a href="#classes">Classes</a>
+          <a href="#schedule">Schedule</a>
+          <a href="#trainers">Trainers</a>
+          <a href="#pricing">Membership</a>
+        </div>
+        <div class="footer__col">
+          <h5>Hours</h5>
+          <p>Mon – Fri: 6am – 9pm</p>
+          <p>Saturday: 7am – 7pm</p>
+          <p>Sunday: 8am – 5pm</p>
+        </div>
+        <div class="footer__col">
+          <h5>Contact</h5>
+          <p>123 Main Street<br />Suite 200<br />Your City, ST 00000</p>
+          <a href="tel:+15550001234">(555) 000-1234</a>
+          <a href="mailto:hello@fitcorestudio.com">hello@fitcorestudio.com</a>
+        </div>
+      </div>
+      <div class="footer__bottom container">
+        <p>&copy; 2026 FitCore Studio. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

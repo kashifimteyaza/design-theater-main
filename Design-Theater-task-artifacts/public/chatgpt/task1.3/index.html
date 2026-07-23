@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Thompson &amp; Associates | Corporate, Family, Personal Injury, Estate Planning</title>
+  <meta name="description" content="Trusted mid-sized law firm serving individuals and businesses for 20 years. Corporate law, family law, personal injury, and estate planning. Free resources, case results, and attorney finder." />
+  <meta name="theme-color" content="#0c2540" />
+  <style>
+    :root{
+      --bg: #0c2540;            /* deep navy */
+      --bg-2: #102b4c;          /* slightly lighter */
+      --text: #0d1b2a;          /* dark text */
+      --muted: #526277;         /* muted text */
+      --brand: #1f7a8c;         /* teal */
+      --brand-2: #3aafa9;       /* accent */
+      --accent: #e0b04e;        /* gold */
+      --surface: #ffffff;       /* cards */
+      --surface-2: #f6f8fb;     /* subtle background */
+      --success: #1b8a5a;
+      --danger: #b23b3b;
+      --radius: 14px;
+      --shadow: 0 10px 30px rgba(0,0,0,.08);
+      --shadow-sm: 0 6px 18px rgba(0,0,0,.06);
+      --maxw: 1200px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"; color:var(--text); line-height:1.55; background:linear-gradient(180deg,var(--surface) 0%, var(--surface-2) 100%)}
+    a{color:var(--brand)} a:hover{color:var(--brand-2)}
+
+    /* Accessibility helpers */
+    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip-link:focus{left:16px;top:16px;width:auto;height:auto;background:#fff;color:#000;padding:.6rem 1rem;border-radius:10px;z-index:1000}
+
+    /* Layout */
+    header{position:sticky; top:0; z-index:999; backdrop-filter:saturate(180%) blur(8px); background:rgba(255,255,255,.85); border-bottom:1px solid #e6eef7}
+    .nav{max-width:var(--maxw); margin:0 auto; display:flex; align-items:center; gap:20px; padding:10px 16px}
+    .brand{display:flex; align-items:center; gap:12px; text-decoration:none}
+    .logo{width:38px;height:38px;border-radius:11px; background:conic-gradient(from 210deg at 50% 50%, var(--brand) 0 40%, var(--accent) 40% 55%, var(--bg) 55% 100%); box-shadow:var(--shadow-sm)}
+    .brand h1{font-size:1.05rem; margin:0; letter-spacing:.3px; color:var(--bg)}
+    nav ul{list-style:none; display:flex; margin:0; padding:0; gap:14px; flex-wrap:wrap}
+    nav a{display:block; padding:.55rem .8rem; text-decoration:none; color:#1a2b3c; border-radius:10px}
+    nav a:hover, nav a:focus{background:#f0f4fa}
+    .cta{margin-left:auto; display:flex; align-items:center; gap:10px}
+    .btn{border:none; border-radius:12px; padding:.75rem 1rem; cursor:pointer; font-weight:600; box-shadow:var(--shadow-sm)}
+    .btn-primary{background:var(--brand); color:#fff}
+    .btn-primary:hover{filter:brightness(1.05)}
+    .btn-ghost{background:transparent; color:var(--bg); border:1px solid #d8e2ee}
+    .btn-ghost:hover{background:#f3f6fb}
+
+    /* Hero */
+    .hero{background:linear-gradient(180deg,var(--bg) 0%, var(--bg-2) 100%); color:#fff}
+    .hero-inner{max-width:var(--maxw); margin:0 auto; padding:46px 16px 28px; display:grid; grid-template-columns: 1.2fr .8fr; gap:24px}
+    .hero h2{font-size:2.2rem; line-height:1.15; margin:.2rem 0 1rem}
+    .hero p{color:#d7e2ee; margin:0 0 1.1rem}
+    .hero .badges{display:flex; gap:12px; flex-wrap:wrap; margin:.6rem 0 1.2rem}
+    .badge{background:rgba(255,255,255,.1); color:#fff; padding:.45rem .7rem; border:1px solid rgba(255,255,255,.25); border-radius:999px; font-size:.85rem}
+    .hero-card{background:#fff; color:var(--text); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow)}
+    .finder{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+    .finder select, .finder input{padding:.8rem; border:1px solid #d7e3f0; border-radius:12px; width:100%}
+    .finder .btn{grid-column:1/-1}
+    .hero .audience{display:flex; gap:12px; flex-wrap:wrap}
+    .aud-card{flex:1 1 220px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.25); padding:14px; border-radius:14px}
+    .aud-card button{width:100%}
+
+    /* Sections */
+    section{max-width:var(--maxw); margin:0 auto; padding:30px 16px}
+    .section-head{display:flex; align-items:end; justify-content:space-between; gap:12px; margin-bottom:14px}
+    .section-head h3{margin:0; font-size:1.4rem; color:#0c2540}
+    .grid{display:grid; gap:14px}
+    .grid-3{grid-template-columns: repeat(3, 1fr)}
+    .grid-4{grid-template-columns: repeat(4, 1fr)}
+    .card{background:#fff; border-radius:var(--radius); box-shadow:var(--shadow); padding:16px}
+    .card h4{margin:.2rem 0 .35rem; font-size:1.05rem}
+    .meta{font-size:.88rem; color:var(--muted)}
+
+    /* Practice tiles */
+    .practice-tile{display:grid; grid-template-columns:auto 1fr; gap:12px; align-items:center; border:1px solid #e1e9f4}
+    .icon{width:42px;height:42px;border-radius:10px; display:grid;place-items:center; background:linear-gradient(180deg,#e7f4ff,#eef6ff); border:1px solid #dbe8f6}
+
+    /* Case carousel */
+    .carousel{position:relative}
+    .carousel-track{display:flex; gap:14px; overflow:auto; scroll-snap-type:x mandatory; padding-bottom:6px}
+    .carousel .card{min-width:280px; scroll-snap-align:start}
+    .carousel button{position:absolute; top:50%; transform:translateY(-50%); border:none; background:rgba(12,37,64,.9); color:#fff; padding:.6rem .7rem; border-radius:50%; cursor:pointer}
+    .carousel .prev{left:-6px}
+    .carousel .next{right:-6px}
+
+    /* Resources */
+    .chips{display:flex; flex-wrap:wrap; gap:8px}
+    .chip{border:1px solid #d9e5f3; padding:.45rem .7rem; border-radius:999px; background:#fff; cursor:pointer}
+    .chip[aria-pressed="true"]{background:var(--brand); color:#fff; border-color:transparent}
+
+    /* FAQ */
+    .faq details{border:1px solid #dfe8f4; border-radius:12px; padding:12px 14px; background:#fff}
+    .faq details summary{cursor:pointer; font-weight:600}
+
+    /* Footer */
+    footer{background:#07182d; color:#cfe0f5; margin-top:20px}
+    .foot{max-width:var(--maxw); margin:0 auto; padding:28px 16px; display:grid; grid-template-columns:2fr 1fr 1fr; gap:18px}
+    .foot a{color:#cfe0f5}
+    .subfoot{border-top:1px solid #1a3355; padding:12px 16px; font-size:.9rem; text-align:center}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero-inner{grid-template-columns:1fr}
+      .grid-3{grid-template-columns:1fr 1fr}
+      .grid-4{grid-template-columns:1fr 1fr}
+      .foot{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width: 640px){
+      nav ul{display:none}
+      .grid-3,.grid-4{grid-template-columns:1fr}
+      .foot{grid-template-columns:1fr}
+    }
+
+    /* Print styles */
+    @media print{
+      header,.carousel button,.cta,.aud-card button{display:none !important}
+      .card, .practice-tile{break-inside:avoid}
+      body{background:#fff}
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <header aria-label="Primary">
+    <div class="nav" role="navigation">
+      <a href="#" class="brand" aria-label="Thompson &amp; Associates home">
+        <div class="logo" aria-hidden="true"></div>
+        <h1>Thompson &amp; Associates</h1>
+      </a>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="#practice-areas">Practice Areas</a></li>
+          <li><a href="#attorney-finder">Find an Attorney</a></li>
+          <li><a href="#case-results">Case Results</a></li>
+          <li><a href="#resources">Resources</a></li>
+          <li><a href="#faq">FAQs</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="cta">
+        <button class="btn btn-ghost" onclick="openConsult()" aria-label="Client portal">Client Portal</button>
+        <button class="btn btn-primary" onclick="openConsult()">Free Consultation</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="hero" role="banner">
+    <div class="hero-inner">
+      <div>
+        <p class="badge" aria-label="Experience">20+ Years Serving Clients</p>
+        <h2>Business-smart. People-first.<br>Legal counsel you can count on.</h2>
+        <p>Mid-sized firepower with boutique attention. From simple wills to complex corporate mergers, we help individuals and businesses move forward with confidence.</p>
+        <div class="badges" aria-label="Key facts">
+          <span class="badge">15 Attorneys</span>
+          <span class="badge">4 Practice Areas</span>
+          <span class="badge">Thousands of Matters Resolved</span>
+        </div>
+        <div class="audience" aria-label="Choose your path">
+          <div class="aud-card">
+            <h3 style="margin:.2rem 0">I’m an Individual</h3>
+            <p class="meta">Family Law • Personal Injury • Estate Planning</p>
+            <button class="btn btn-primary" onclick="chooseAudience('individual')">Start here</button>
+          </div>
+          <div class="aud-card">
+            <h3 style="margin:.2rem 0">I’m a Business</h3>
+            <p class="meta">Corporate Law • General Counsel • Transactions</p>
+            <button class="btn btn-primary" onclick="chooseAudience('business')">Start here</button>
+          </div>
+        </div>
+      </div>
+      <div class="hero-card" id="attorney-finder">
+        <h3 style="margin:.2rem 0 8px">Find the right attorney</h3>
+        <p class="meta">Match by practice area and situation. No signup required.</p>
+        <form class="finder" onsubmit="event.preventDefault(); runFinder();" aria-label="Attorney finder form">
+          <label class="sr" for="need">Your need</label>
+          <select id="need" aria-label="Select legal need">
+            <option value="">Select a legal need…</option>
+            <option>Corporate Law</option>
+            <option>Family Law</option>
+            <option>Personal Injury</option>
+            <option>Estate Planning</option>
+          </select>
+          <label class="sr" for="context">Context</label>
+          <input id="context" type="text" placeholder="e.g., custody dispute, LLC formation" aria-label="Describe your context" />
+          <button type="submit" class="btn btn-primary">Show Matches</button>
+        </form>
+        <div id="finder-results" aria-live="polite" style="margin-top:10px"></div>
+      </div>
+    </div>
+  </div>
+
+  <main id="main" tabindex="-1">
+    <!-- Practice areas -->
+    <section id="practice-areas" aria-labelledby="pa-h">
+      <div class="section-head">
+        <h3 id="pa-h">Practice Areas</h3>
+        <a href="#contact" class="btn btn-ghost">Not sure? Ask us</a>
+      </div>
+      <div class="grid grid-4" id="practice-grid"></div>
+    </section>
+
+    <!-- Case results -->
+    <section id="case-results" aria-labelledby="cr-h">
+      <div class="section-head">
+        <h3 id="cr-h">Representative Results</h3>
+        <div class="meta">Past results do not guarantee a similar outcome.</div>
+      </div>
+      <div class="carousel">
+        <button class="prev" aria-label="Previous" onclick="scrollCarousel(-1)">◀</button>
+        <div class="carousel-track" id="results-track"></div>
+        <button class="next" aria-label="Next" onclick="scrollCarousel(1)">▶</button>
+      </div>
+    </section>
+
+    <!-- Resource hub -->
+    <section id="resources" aria-labelledby="res-h">
+      <div class="section-head">
+        <h3 id="res-h">Guides &amp; Resources</h3>
+        <div class="chips" role="tablist" aria-label="Resource filters">
+          <button class="chip" role="tab" aria-pressed="true" onclick="filterResources('all', this)">All</button>
+          <button class="chip" role="tab" onclick="filterResources('Corporate Law', this)">Corporate</button>
+          <button class="chip" role="tab" onclick="filterResources('Family Law', this)">Family</button>
+          <button class="chip" role="tab" onclick="filterResources('Personal Injury', this)">Injury</button>
+          <button class="chip" role="tab" onclick="filterResources('Estate Planning', this)">Estate</button>
+          <button class="chip" role="tab" onclick="filterResources('Client', this)">Client Forms</button>
+        </div>
+      </div>
+      <div class="grid grid-3" id="res-grid"></div>
+    </section>
+
+    <!-- Testimonials -->
+    <section aria-labelledby="test-h">
+      <div class="section-head">
+        <h3 id="test-h">What Clients Say</h3>
+      </div>
+      <div class="grid grid-3" id="testimonials"></div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="faq" aria-labelledby="faq-h">
+      <div class="section-head">
+        <h3 id="faq-h">Frequently Asked Questions</h3>
+      </div>
+      <div class="grid" id="faq-grid"></div>
+    </section>
+
+    <!-- Contact / CTA strip -->
+    <section id="contact" aria-labelledby="contact-h">
+      <div class="section-head">
+        <h3 id="contact-h">Ready to talk?</h3>
+      </div>
+      <div class="card">
+        <p><strong>Free, confidential consultation.</strong> Call <a href="tel:+15551234567" aria-label="Phone">(555) 123-4567</a> or email <a href="mailto:intake@thompsonlaw.example">intake@thompsonlaw.example</a>. Same-day appointments often available.</p>
+        <form onsubmit="event.preventDefault(); alert('Thanks! We\'ll be in touch shortly.');" aria-label="Quick contact form" class="grid" style="grid-template-columns:1fr 1fr 1fr; gap:10px">
+          <input required aria-label="Your name" placeholder="Full name" />
+          <input required aria-label="Your email" type="email" placeholder="Email" />
+          <input aria-label="Phone" placeholder="Phone (optional)" />
+          <select aria-label="Practice area of interest">
+            <option>Corporate Law</option><option>Family Law</option><option>Personal Injury</option><option>Estate Planning</option>
+          </select>
+          <input aria-label="City or county" placeholder="City / County" />
+          <button class="btn btn-primary" type="submit">Request Consult</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="foot">
+      <div>
+        <h4>Thompson &amp; Associates</h4>
+        <p class="meta">123 Main Street, Suite 400, Anytown, ST 12345<br/>Mon–Fri 8:30–5:30 • (555) 123-4567</p>
+        <p class="meta">Disclaimer: This site is for informational purposes only and does not constitute legal advice. Past results do not guarantee future outcomes. Do not send confidential information until an attorney-client relationship is established.</p>
+      </div>
+      <div>
+        <h4>For Individuals</h4>
+        <ul>
+          <li><a href="#resources" onclick="filterResources('Family Law')">Divorce &amp; Custody Guides</a></li>
+          <li><a href="#resources" onclick="filterResources('Personal Injury')">Injury Checklist</a></li>
+          <li><a href="#resources" onclick="filterResources('Estate Planning')">Will &amp; Trust Basics</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>For Businesses</h4>
+        <ul>
+          <li><a href="#resources" onclick="filterResources('Corporate Law')">Entity Formation</a></li>
+          <li><a href="#resources" onclick="filterResources('Corporate Law')">M&amp;A Primer</a></li>
+          <li><a href="#resources" onclick="filterResources('Corporate Law')">General Counsel Program</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="subfoot">© <span id="year"></span> Thompson &amp; Associates • All rights reserved</div>
+  </footer>
+
+  <!-- Structured data -->
+  <script type="application/ld+json" id="schema">
+  {
+    "@context": "https://schema.org",
+    "@type": "LegalService",
+    "name": "Thompson & Associates",
+    "url": "https://example.com/",
+    "logo": "https://example.com/logo.png",
+    "areaServed": "Statewide",
+    "priceRange": "$$$",
+    "legalName": "Thompson & Associates, LLP",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "123 Main Street, Suite 400",
+      "addressLocality": "Anytown",
+      "addressRegion": "ST",
+      "postalCode": "12345",
+      "addressCountry": "US"
+    },
+    "telephone": "+15551234567",
+    "sameAs": ["https://www.linkedin.com/company/example"],
+    "foundingDate": "2005",
+    "founders": [{"@type": "Person", "name": "Jane Thompson"}],
+    "department": [
+      {"@type": "LegalService", "name": "Corporate Law"},
+      {"@type": "LegalService", "name": "Family Law"},
+      {"@type": "LegalService", "name": "Personal Injury"},
+      {"@type": "LegalService", "name": "Estate Planning"}
+    ]
+  }
+  </script>
+
+  <script>
+    // Data (placeholder content; replace with CMS later)
+    const practiceAreas = [
+      {name:"Corporate Law", blurb:"M&amp;A, contracts, governance, and outside general counsel.", icon:svg('briefcase'), link:"#"},
+      {name:"Family Law", blurb:"Divorce, custody, support, and adoption with compassion.", icon:svg('family'), link:"#"},
+      {name:"Personal Injury", blurb:"Serious injury litigation with client-first advocacy.", icon:svg('shield'), link:"#"},
+      {name:"Estate Planning", blurb:"Wills, trusts, probate, and estate administration.", icon:svg('estate'), link:"#"}
+    ];
+
+    const attorneys = [
+      {name:"Jane Thompson", area:"Corporate Law", years:18, bio:"M&amp;A and strategic transactions.", audience:['business']},
+      {name:"Marcus Lee", area:"Corporate Law", years:10, bio:"Venture financings and contracts.", audience:['business']},
+      {name:"Priya Patel", area:"Family Law", years:12, bio:"Custody, parenting plans, mediation.", audience:['individual']},
+      {name:"Daniel Ortiz", area:"Personal Injury", years:15, bio:"Catastrophic injury litigation.", audience:['individual']},
+      {name:"Sofia Nguyen", area:"Estate Planning", years:9, bio:"Wills, trusts, and probate navigation.", audience:['individual']},
+      {name:"Avery Brooks", area:"Corporate Law", years:7, bio:"Outside GC for mid-market firms.", audience:['business']}
+    ];
+
+    const results = [
+      {title:"$12.4M Corporate Acquisition", area:"Corporate Law", summary:"Counseled a mid-market client through a complex cross-border acquisition.", meta:"Confidential client"},
+      {title:"Favorable Custody Agreement", area:"Family Law", summary:"Achieved a parenting plan aligned with child’s best interests.", meta:"County Court"},
+      {title:"Seven-Figure Injury Settlement", area:"Personal Injury", summary:"Recovered damages for spinal injury after commercial collision.", meta:"Settlement"},
+      {title:"Estate Tax Savings Plan", area:"Estate Planning", summary:"Implemented trusts reducing projected taxes significantly.", meta:"Advisory"}
+    ];
+
+    const resources = [
+      {title:"LLC vs. Corporation: Choosing Your Entity", tag:"Corporate Law", type:"Guide"},
+      {title:"M&amp;A Timeline: From LOI to Close", tag:"Corporate Law", type:"Article"},
+      {title:"Divorce 101: Process &amp; Checklist", tag:"Family Law", type:"Guide"},
+      {title:"Child Custody: What Courts Consider", tag:"Family Law", type:"Article"},
+      {title:"After an Accident: 10 Steps", tag:"Personal Injury", type:"Checklist"},
+      {title:"How Contingency Fees Work", tag:"Personal Injury", type:"Article"},
+      {title:"Will vs. Trust: Which is Right?", tag:"Estate Planning", type:"Guide"},
+      {title:"Probate: A Plain-English Walkthrough", tag:"Estate Planning", type:"Article"},
+      {title:"Client Intake Form (PDF)", tag:"Client", type:"Form"}
+    ];
+
+    const testimonials = [
+      {quote:"Professional, responsive, and genuinely caring.", name:"A.R.", area:"Family Law"},
+      {quote:"Instrumental during our acquisition—true partners.", name:"CFO, TechCo", area:"Corporate Law"},
+      {quote:"They fought for me like family.", name:"J.M.", area:"Personal Injury"}
+    ];
+
+    const faqs = [
+      {q:"Do you offer free consultations?", a:"Yes—initial consultations are complimentary so we can learn about your matter and outline next steps."},
+      {q:"How are fees structured?", a:"We offer hourly, flat-fee, and contingency arrangements depending on the practice area and case specifics."},
+      {q:"Do you handle cases outside the city?", a:"Yes, we represent clients statewide and in select federal matters."}
+    ];
+
+    // Utility: inline SVG icons
+    function svg(name){
+      const map = {
+        briefcase:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M9 6V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1" stroke="currentColor" stroke-width="1.7"/><rect x="3" y="7" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M3 12h18" stroke="currentColor" stroke-width="1.7"/></svg>',
+        family:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="7" cy="7" r="3" stroke="currentColor" stroke-width="1.7"/><circle cx="17" cy="7" r="3" stroke="currentColor" stroke-width="1.7"/><path d="M2 20c0-3 2-6 5-6s5 3 5 6" stroke="currentColor" stroke-width="1.7"/><path d="M12 20c0-3 2-6 5-6s5 3 5 6" stroke="currentColor" stroke-width="1.7"/></svg>',
+        shield:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V6l8-3z" stroke="currentColor" stroke-width="1.7" fill="none"/></svg>',
+        estate:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 10l9-7 9 7" stroke="currentColor" stroke-width="1.7"/><rect x="6" y="10" width="12" height="10" rx="2" stroke="currentColor" stroke-width="1.7"/></svg>'
+      };
+      return map[name] || '';
+    }
+
+    // Populate Practice Areas
+    const grid = document.getElementById('practice-grid');
+    practiceAreas.forEach(p => {
+      const el = document.createElement('article');
+      el.className = 'card practice-tile';
+      el.innerHTML = `<div class="icon">${p.icon}</div>
+        <div><h4>${p.name}</h4><p class="meta">${p.blurb}</p>
+        <a href="#contact" class="btn btn-ghost" aria-label="Consult about ${p.name}">Talk to ${p.name}</a></div>`;
+      grid.appendChild(el);
+    });
+
+    // Populate Case Results
+    const track = document.getElementById('results-track');
+    results.forEach(r => {
+      const el = document.createElement('article');
+      el.className = 'card';
+      el.innerHTML = `<h4>${r.title}</h4><p class="meta">${r.area} • ${r.meta}</p><p>${r.summary}</p>`;
+      track.appendChild(el);
+    });
+
+    // Populate Resources
+    const resGrid = document.getElementById('res-grid');
+    function drawResources(list){
+      resGrid.innerHTML = '';
+      list.forEach(r => {
+        const el = document.createElement('article');
+        el.className = 'card';
+        el.innerHTML = `<h4>${r.title}</h4><p class="meta">${r.type} • ${r.tag}</p><a href="#contact" class="btn btn-ghost">Read</a>`;
+        resGrid.appendChild(el);
+      });
+    }
+    drawResources(resources);
+
+    // Populate Testimonials
+    const tgrid = document.getElementById('testimonials');
+    testimonials.forEach(t => {
+      const el = document.createElement('article');
+      el.className = 'card';
+      el.innerHTML = `<p style="font-size:1.05rem">“${t.quote}”</p><p class="meta">— ${t.name} • ${t.area}</p>`;
+      tgrid.appendChild(el);
+    });
+
+    // Populate FAQ
+    const fgrid = document.getElementById('faq-grid');
+    faqs.forEach(f => {
+      const el = document.createElement('details');
+      el.innerHTML = `<summary>${f.q}</summary><div class="meta" style="margin-top:6px">${f.a}</div>`;
+      fgrid.appendChild(el);
+    });
+
+    // Finder logic
+    function runFinder(){
+      const need = document.getElementById('need').value;
+      const audiencePref = localStorage.getItem('audience');
+      const matches = attorneys.filter(a => (!need || a.area===need) && (!audiencePref || a.audience.includes(audiencePref)));
+      const box = document.getElementById('finder-results');
+      if(!matches.length){ box.innerHTML = `<div class="card" role="status">No exact matches. Please <a href="#contact">contact us</a> and we’ll route you within minutes.</div>`; return; }
+      box.innerHTML = matches.map(a => `<div class="card"><h4>${a.name}</h4><p class="meta">${a.area} • ${a.years} years</p><p>${a.bio}</p><a class="btn btn-ghost" href="#contact">Request ${a.name}</a></div>`).join('');
+    }
+
+    // Audience shortcuts
+    function chooseAudience(type){
+      localStorage.setItem('audience', type);
+      const chipMap = {individual: ['Family Law','Personal Injury','Estate Planning'], business: ['Corporate Law']};
+      // Scroll to resources and filter
+      document.querySelector('a[href="#resources"]').focus();
+      filterResources(chipMap[type][0]);
+      document.getElementById('need').value = chipMap[type][0];
+      runFinder();
+    }
+
+    // Carousel logic
+    function scrollCarousel(dir){
+      const el = document.querySelector('.carousel-track');
+      el.scrollBy({left: dir * 320, behavior:'smooth'});
+    }
+
+    // Resource filtering
+    function filterResources(tag, btn){
+      document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed','false'));
+      if(btn) btn.setAttribute('aria-pressed','true');
+      const filtered = tag==='all' ? resources : resources.filter(r => r.tag===tag);
+      drawResources(filtered);
+    }
+
+    // Misc
+    function openConsult(){ alert('Thanks for reaching out—please use the contact form below or call (555) 123-4567.'); }
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Expose for inline handlers
+    window.runFinder = runFinder;
+    window.chooseAudience = chooseAudience;
+    window.filterResources = filterResources;
+    window.scrollCarousel = scrollCarousel;
+    window.openConsult = openConsult;
+  </script>
+</body>
+</html>

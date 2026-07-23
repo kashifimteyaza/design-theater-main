@@ -1,0 +1,196 @@
+:root {
+    --electric-green: #00FF00;
+    --punk-pink: #FF007F;
+    --bright-yellow: #FFFF00;
+    --deep-charcoal: #1E1E1E;
+    --white: #FFFFFF;
+    --headline-font: 'Montserrat', sans-serif;
+    --body-font: 'Lato', sans-serif;
+}
+
+body {
+    font-family: var(--body-font);
+    background-color: var(--deep-charcoal);
+    color: var(--white);
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    background-color: rgba(30, 30, 30, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+}
+
+.logo {
+    font-family: var(--headline-font);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--electric-green);
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    margin-left: 2rem;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: var(--white);
+    font-weight: 700;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: var(--punk-pink);
+}
+
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 100vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://storage.googleapis.com/aai-web-samples/rebel-roots/burger-hero.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-content h1 {
+    font-family: var(--headline-font);
+    font-size: 4rem;
+    color: var(--electric-green);
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.cta-button {
+    font-family: var(--headline-font);
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--deep-charcoal);
+    background-color: var(--electric-green);
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: var(--punk-pink);
+    color: var(--white);
+}
+
+.product-showcase {
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.product-showcase h2 {
+    font-family: var(--headline-font);
+    font-size: 3rem;
+    color: var(--bright-yellow);
+    margin-bottom: 3rem;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.product-card {
+    background-color: #2a2a2a;
+    border: 2px solid var(--punk-pink);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(255, 0, 127, 0.5);
+}
+
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.product-card h3 {
+    font-family: var(--headline-font);
+    font-size: 1.8rem;
+    color: var(--electric-green);
+    margin: 1.5rem 0 1rem;
+}
+
+.product-card p {
+    font-size: 1.1rem;
+    padding: 0 1.5rem 1.5rem;
+}
+
+.our-mission {
+    padding: 4rem 2rem;
+    background-color: var(--punk-pink);
+    text-align: center;
+}
+
+.mission-content h2 {
+    font-family: var(--headline-font);
+    font-size: 3rem;
+    color: var(--deep-charcoal);
+    margin-bottom: 1rem;
+}
+
+.mission-content p {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    color: var(--white);
+}
+
+footer {
+    padding: 2rem;
+    text-align: center;
+    background-color: #111;
+}
+
+.social-links a {
+    color: var(--bright-yellow);
+    text-decoration: none;
+    margin: 0 1rem;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--electric-green);
+}
+
+footer p {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}

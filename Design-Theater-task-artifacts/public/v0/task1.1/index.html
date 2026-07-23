@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morning Brew - Artisanal Coffee & Fresh Pastries</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --coffee-dark: #3e2723;
+            --coffee-medium: #5d4037;
+            --cream: #f5f1ed;
+            --accent-warm: #c17a5a;
+            --text-dark: #2c2c2c;
+            --text-light: #666;
+            --border-light: #e8dfd9;
+        }
+
+        body {
+            font-family: 'Georgia', 'Segoe UI', serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: #fff;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--coffee-dark);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            max-width: 1200px;
+            margin: 0 auto;
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--cream);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: var(--accent-warm);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--coffee-dark) 0%, var(--coffee-medium) 100%);
+            color: var(--cream);
+            padding: 6rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(193, 122, 90, 0.1);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: #e8dfd9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent-warm);
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background-color: #d4915a;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(193, 122, 90, 0.3);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Sections */
+        section {
+            padding: 4rem 2rem;
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--coffee-dark);
+            text-align: center;
+        }
+
+        section p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        /* About Section */
+        .about {
+            background-color: var(--cream);
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-highlight {
+            background-color: white;
+            padding: 2rem;
+            border-left: 4px solid var(--accent-warm);
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .about-highlight strong {
+            color: var(--accent-warm);
+        }
+
+        /* Menu Section */
+        .menu {
+            background-color: white;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .menu-item {
+            background: var(--cream);
+            padding: 2rem;
+            border-radius: 4px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .menu-item:hover {
+            border-color: var(--accent-warm);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-item h3 {
+            color: var(--coffee-dark);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .menu-item p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .menu-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Info Section */
+        .info {
+            background-color: var(--cream);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .info-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .info-card h3 {
+            color: var(--coffee-dark);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .info-card p {
+            margin: 0.5rem 0;
+            color: var(--text-dark);
+        }
+
+        .info-card a {
+            color: var(--accent-warm);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .info-card a:hover {
+            color: var(--coffee-dark);
+        }
+
+        /* Atmosphere Section */
+        .atmosphere {
+            background: linear-gradient(135deg, var(--coffee-dark) 0%, var(--coffee-medium) 100%);
+            color: var(--cream);
+            text-align: center;
+        }
+
+        .atmosphere h2 {
+            color: var(--cream);
+        }
+
+        .atmosphere-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature {
+            padding: 1.5rem;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature p {
+            color: #e8dfd9;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--coffee-dark);
+            color: var(--cream);
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+            color: #e8dfd9;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1rem;
+                flex-direction: column;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            section h2 {
+                font-size: 1.8rem;
+            }
+
+            .menu-grid,
+            .info-grid,
+            .atmosphere-features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#hours">Hours & Location</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>☕ Morning Brew</h1>
+            <p>Artisanal espresso drinks & fresh pastries in a cozy neighborhood atmosphere</p>
+            <button class="cta-button" onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })">Visit Us Today</button>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2>Our Story</h2>
+            <div class="about-content">
+                <p>For the past 3 years, Morning Brew has been the heart of our neighborhood—a welcoming space where coffee lovers, students, and remote workers gather to connect, create, and recharge.</p>
+                
+                <div class="about-highlight">
+                    <p><strong>Founded with passion for great coffee,</strong> we roast our own beans and craft each drink with precision. From the moment you step through our door, you'll feel the warmth of community that defines who we are.</p>
+                </div>
+
+                <p>We believe that the perfect espresso drink starts with perfect beans, fresh pastries deserve attention to detail, and every customer deserves a genuine smile. That's the Morning Brew promise.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu" id="menu">
+        <div class="container">
+            <h2>What We're Known For</h2>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="menu-icon">☕</div>
+                    <h3>Artisanal Espresso Drinks</h3>
+                    <p>House-roasted beans crafted into smooth lattes, bold espressos, creamy cappuccinos, and seasonal specialty drinks.</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-icon">🥐</div>
+                    <h3>Fresh Pastries</h3>
+                    <p>Baked fresh daily: croissants, scones, almond croissants, and seasonal favorites that pair perfectly with your coffee.</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-icon">🍪</div>
+                    <h3>House Specials</h3>
+                    <p>Try our signature drinks like the "Neighborhood Blend" or "Local Love" macchiato—customer favorites since day one.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hours & Location -->
+    <section class="info" id="hours">
+        <div class="container">
+            <h2>Hours & Location</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>⏰ Hours</h3>
+                    <p><strong>Monday - Friday:</strong> 6:30 AM - 6:00 PM</p>
+                    <p><strong>Saturday:</strong> 7:00 AM - 7:00 PM</p>
+                    <p><strong>Sunday:</strong> 8:00 AM - 5:00 PM</p>
+                </div>
+                <div class="info-card">
+                    <h3>📍 Location</h3>
+                    <p>123 Main Street<br>Your Neighborhood, ST 12345</p>
+                    <p><a href="tel:+15551234567">(555) 123-4567</a></p>
+                </div>
+                <div class="info-card">
+                    <h3>🚗 Easy to Find</h3>
+                    <p>Street parking available<br>Just off Main Street<br><a href="#contact">Get Directions</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Atmosphere Section -->
+    <section class="atmosphere">
+        <div class="container">
+            <h2>The Perfect Spot For...</h2>
+            <div class="atmosphere-features">
+                <div class="feature">
+                    <div class="feature-icon">💼</div>
+                    <h4>Remote Work</h4>
+                    <p>Fast WiFi, plenty of outlets, and a quiet atmosphere perfect for getting things done.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📚</div>
+                    <h4>Studying</h4>
+                    <p>A focused environment where students find the peace and fuel they need to succeed.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">👥</div>
+                    <h4>Meeting Friends</h4>
+                    <p>Cozy corners and a welcoming vibe that makes every coffee date feel special.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📖</div>
+                    <h4>Relaxing</h4>
+                    <p>Slow down, enjoy a great cup, and soak in the warm, inviting neighborhood atmosphere.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="info" id="contact">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <div style="max-width: 600px; margin: 2rem auto; text-align: center;">
+                <p style="font-size: 1.1rem; margin-bottom: 2rem;">We'd love to see you at Morning Brew! Whether you're stopping by for your daily brew or discovering us for the first time, we're here to make your visit memorable.</p>
+                
+                <div style="background: var(--cream); padding: 2rem; border-radius: 4px;">
+                    <p style="margin: 1rem 0;"><strong>📍 Address:</strong><br>123 Main Street, Your Neighborhood, ST 12345</p>
+                    <p style="margin: 1rem 0;"><strong>☎️ Phone:</strong><br><a href="tel:+15551234567" style="color: var(--accent-warm); text-decoration: none; font-weight: 600;">(555) 123-4567</a></p>
+                    <p style="margin: 1rem 0;"><strong>⏰ Hours:</strong><br>Mon-Fri 6:30 AM - 6:00 PM | Sat 7:00 AM - 7:00 PM | Sun 8:00 AM - 5:00 PM</p>
+                </div>
+
+                <button class="cta-button" style="margin-top: 2rem;" onclick="openDirections()">Get Directions</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Morning Brew. Brewing great coffee for the neighborhood since 2021.</p>
+        <p>Made with ☕ and love for our community.</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && document.querySelector(href)) {
+                    e.preventDefault();
+                    document.querySelector(href).scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Function to open directions (you'd replace this with actual Google Maps or similar)
+        function openDirections() {
+            const address = "123 Main Street, Your Neighborhood, ST 12345";
+            const mapsUrl = `https://www.google.com/maps/search/${encodeURIComponent(address)}`;
+            window.open(mapsUrl, '_blank');
+        }
+
+        // Add scroll effect to navigation
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', function() {
+            let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+            // Optional: add any scroll-based effects here
+            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+        });
+    </script>
+</body>
+</html>

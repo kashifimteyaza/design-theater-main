@@ -1,0 +1,1976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metro Daily News - Local Journalism for Your Community</title>
+    <style>
+        /* ============================================
+           INFORMATION ARCHITECTURE STRATEGY
+           ============================================
+           
+           1. NAVIGATION HIERARCHY
+           - Sticky top bar: Primary categories, search, personalization
+           - Breadcrumb trail for deep content
+           - Section anchors for quick scanning
+           
+           2. CONTENT ORGANIZATION
+           - Breaking news marquee (high visibility)
+           - Featured story (hero)
+           - Category-based sections (Politics, Business, Sports, Community)
+           - Trending sidebar (algorithm + manual curation)
+           - Archive access by date
+           - Topic tags for cross-section discovery
+           
+           3. READER MODES
+           - Compact view: Morning scanners (mobile optimized)
+           - Standard view: Balanced reading
+           - Detailed view: Deep readers (desktop)
+           - Toggle via user preference (saved to localStorage)
+           
+           4. PERSONALIZATION
+           - Category filters (non-intrusive)
+           - "My Topics" saved preferences
+           - Reading history (local, privacy-first)
+           - No overwhelming customization
+           
+           5. ACCESSIBILITY STRATEGY
+           - ARIA landmarks and labels
+           - Keyboard navigation (tab order optimized)
+           - Font size controls (3 levels)
+           - High contrast mode toggle
+           - Screen reader optimized headings
+           - Skip links for main content
+           - Spanish toggle (30% market)
+           
+           6. PERFORMANCE OPTIMIZATION
+           - Critical CSS inline
+           - Lazy load images below fold
+           - Intersection Observer for progressive loading
+           - Debounced scroll handlers
+           - CSS-only animations (no JS overhead)
+           - Mobile-first (3 second load target)
+           
+        ============================================ */
+
+        :root {
+            /* Professional Editorial Palette */
+            --color-primary: #1a1a1a;
+            --color-primary-light: #2d2d2d;
+            --color-background: #ffffff;
+            --color-surface: #f8f8f8;
+            --color-border: #e0e0e0;
+            --color-text: #1a1a1a;
+            --color-text-secondary: #666666;
+            --color-accent: #c41e3a;
+            --color-accent-hover: #a01830;
+            
+            /* Category colors */
+            --color-politics: #2563eb;
+            --color-business: #059669;
+            --color-sports: #dc2626;
+            --color-community: #7c3aed;
+            --color-breaking: #ea580c;
+            
+            /* Typography scale */
+            --font-display: Georgia, 'Times New Roman', serif;
+            --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            --font-mono: 'Courier New', monospace;
+            
+            --size-xs: 0.75rem;
+            --size-sm: 0.875rem;
+            --size-base: 1rem;
+            --size-lg: 1.125rem;
+            --size-xl: 1.25rem;
+            --size-2xl: 1.5rem;
+            --size-3xl: 2rem;
+            --size-4xl: 2.5rem;
+            --size-5xl: 3rem;
+            
+            /* Spacing scale */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
+            
+            /* Layout */
+            --max-width: 1400px;
+            --sidebar-width: 320px;
+            --header-height: 60px;
+            
+            /* Animation */
+            --transition-fast: 150ms ease;
+            --transition-base: 250ms ease;
+            --transition-slow: 400ms ease;
+        }
+        
+        /* High contrast mode */
+        [data-contrast="high"] {
+            --color-background: #ffffff;
+            --color-text: #000000;
+            --color-border: #000000;
+            --color-surface: #f0f0f0;
+        }
+        
+        /* Font size modes */
+        [data-font-size="large"] {
+            --size-base: 1.125rem;
+            --size-lg: 1.25rem;
+            --size-xl: 1.5rem;
+        }
+        
+        [data-font-size="x-large"] {
+            --size-base: 1.25rem;
+            --size-lg: 1.5rem;
+            --size-xl: 1.75rem;
+        }
+        
+        /* Spanish language adjustments */
+        :lang(es) {
+            --font-body: system-ui, -apple-system, sans-serif;
+        }
+        
+        /* ============================================
+           BASE STYLES
+        ============================================ */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            font-size: var(--size-base);
+            line-height: 1.6;
+            color: var(--color-text);
+            background: var(--color-background);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Skip to main content for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--color-accent);
+            color: white;
+            padding: var(--space-sm) var(--space-md);
+            text-decoration: none;
+            z-index: 10000;
+        }
+        
+        .skip-link:focus {
+            top: 0;
+        }
+        
+        /* ============================================
+           HEADER & NAVIGATION
+        ============================================ */
+        
+        .site-header {
+            position: sticky;
+            top: 0;
+            background: var(--color-background);
+            border-bottom: 2px solid var(--color-primary);
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .breaking-banner {
+            background: var(--color-breaking);
+            color: white;
+            padding: var(--space-sm) var(--space-md);
+            font-size: var(--size-sm);
+            font-weight: 600;
+            overflow: hidden;
+        }
+        
+        .breaking-content {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            animation: marquee 30s linear infinite;
+        }
+        
+        .breaking-label {
+            background: white;
+            color: var(--color-breaking);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 2px;
+            font-size: var(--size-xs);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            flex-shrink: 0;
+        }
+        
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .header-main {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: var(--space-md);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--space-lg);
+        }
+        
+        .site-logo {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+        
+        .logo-title {
+            font-family: var(--font-display);
+            font-size: var(--size-3xl);
+            font-weight: 700;
+            color: var(--color-primary);
+            line-height: 1;
+            letter-spacing: -0.5px;
+        }
+        
+        .logo-tagline {
+            font-size: var(--size-xs);
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+        
+        .search-box {
+            position: relative;
+        }
+        
+        .search-input {
+            padding: var(--space-sm) var(--space-md);
+            padding-right: 2.5rem;
+            border: 1px solid var(--color-border);
+            border-radius: 4px;
+            font-size: var(--size-sm);
+            width: 250px;
+            transition: all var(--transition-base);
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px rgba(196, 30, 58, 0.1);
+        }
+        
+        .search-btn {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            padding: 0 var(--space-sm);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--color-text-secondary);
+        }
+        
+        .accessibility-controls {
+            display: flex;
+            gap: var(--space-sm);
+        }
+        
+        .control-btn {
+            padding: var(--space-sm);
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: var(--size-sm);
+            transition: all var(--transition-fast);
+            color: var(--color-text);
+        }
+        
+        .control-btn:hover {
+            background: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+        }
+        
+        .control-btn:focus {
+            outline: 2px solid var(--color-accent);
+            outline-offset: 2px;
+        }
+        
+        .control-btn.active {
+            background: var(--color-accent);
+            color: white;
+            border-color: var(--color-accent);
+        }
+        
+        .nav-primary {
+            background: var(--color-primary);
+            color: white;
+        }
+        
+        .nav-container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 var(--space-md);
+            display: flex;
+            align-items: center;
+            gap: var(--space-lg);
+            overflow-x: auto;
+            scrollbar-width: thin;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: var(--space-xs);
+        }
+        
+        .nav-link {
+            padding: var(--space-md) var(--space-lg);
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: var(--size-sm);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: background var(--transition-fast);
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .nav-link:hover,
+        .nav-link:focus {
+            background: var(--color-primary-light);
+            outline: none;
+        }
+        
+        .nav-link.active {
+            border-bottom-color: var(--color-accent);
+        }
+        
+        .user-actions {
+            margin-left: auto;
+            display: flex;
+            gap: var(--space-md);
+        }
+        
+        .btn-primary {
+            padding: var(--space-sm) var(--space-lg);
+            background: var(--color-accent);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: var(--size-sm);
+            cursor: pointer;
+            transition: background var(--transition-fast);
+            white-space: nowrap;
+        }
+        
+        .btn-primary:hover {
+            background: var(--color-accent-hover);
+        }
+        
+        .btn-secondary {
+            padding: var(--space-sm) var(--space-lg);
+            background: transparent;
+            color: white;
+            border: 1px solid white;
+            border-radius: 4px;
+            font-weight: 500;
+            font-size: var(--size-sm);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            white-space: nowrap;
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: var(--color-primary);
+        }
+        
+        /* ============================================
+           MAIN LAYOUT
+        ============================================ */
+        
+        .main-container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-md);
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-xl);
+        }
+        
+        @media (min-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr var(--sidebar-width);
+            }
+        }
+        
+        /* ============================================
+           HERO SECTION
+        ============================================ */
+        
+        .hero-section {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-2xl);
+        }
+        
+        @media (min-width: 768px) {
+            .hero-section {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+        
+        .hero-main {
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+            background: var(--color-surface);
+        }
+        
+        .hero-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform var(--transition-slow);
+        }
+        
+        .hero-main:hover .hero-image {
+            transform: scale(1.05);
+        }
+        
+        .hero-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: var(--space-xl);
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 70%, transparent 100%);
+            color: white;
+        }
+        
+        .hero-category {
+            display: inline-block;
+            padding: var(--space-xs) var(--space-sm);
+            background: var(--color-accent);
+            color: white;
+            font-size: var(--size-xs);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: var(--size-4xl);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .hero-excerpt {
+            font-size: var(--size-lg);
+            line-height: 1.5;
+            margin-bottom: var(--space-md);
+            opacity: 0.95;
+        }
+        
+        .hero-meta {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            font-size: var(--size-sm);
+            opacity: 0.9;
+        }
+        
+        .secondary-stories {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+        
+        .story-card-small {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: var(--space-md);
+            padding: var(--space-md);
+            background: var(--color-surface);
+            border-radius: 4px;
+            transition: all var(--transition-base);
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--color-text);
+        }
+        
+        .story-card-small:hover {
+            background: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        
+        .story-thumbnail {
+            width: 100px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        
+        .story-info h3 {
+            font-family: var(--font-display);
+            font-size: var(--size-lg);
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .story-time {
+            font-size: var(--size-xs);
+            color: var(--color-text-secondary);
+        }
+        
+        /* ============================================
+           VIEW MODE CONTROLS
+        ============================================ */
+        
+        .view-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+            padding: var(--space-md);
+            background: var(--color-surface);
+            border-radius: 4px;
+        }
+        
+        .view-mode-btns {
+            display: flex;
+            gap: var(--space-sm);
+        }
+        
+        .view-btn {
+            padding: var(--space-sm) var(--space-md);
+            background: white;
+            border: 1px solid var(--color-border);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: var(--size-sm);
+            transition: all var(--transition-fast);
+        }
+        
+        .view-btn.active {
+            background: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+        }
+        
+        .filter-controls {
+            display: flex;
+            gap: var(--space-sm);
+        }
+        
+        .filter-btn {
+            padding: var(--space-sm) var(--space-md);
+            background: white;
+            border: 1px solid var(--color-border);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: var(--size-sm);
+            transition: all var(--transition-fast);
+        }
+        
+        .filter-btn:hover {
+            border-color: var(--color-accent);
+        }
+        
+        .filter-btn.active {
+            background: var(--color-accent);
+            color: white;
+            border-color: var(--color-accent);
+        }
+        
+        /* ============================================
+           CATEGORY SECTIONS
+        ============================================ */
+        
+        .category-section {
+            margin-bottom: var(--space-3xl);
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-md);
+            border-bottom: 3px solid var(--color-primary);
+        }
+        
+        .section-title {
+            font-family: var(--font-display);
+            font-size: var(--size-2xl);
+            font-weight: 700;
+            color: var(--color-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        
+        .category-badge {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .category-badge.politics { background: var(--color-politics); }
+        .category-badge.business { background: var(--color-business); }
+        .category-badge.sports { background: var(--color-sports); }
+        .category-badge.community { background: var(--color-community); }
+        
+        .section-link {
+            color: var(--color-accent);
+            text-decoration: none;
+            font-size: var(--size-sm);
+            font-weight: 600;
+            transition: color var(--transition-fast);
+        }
+        
+        .section-link:hover {
+            color: var(--color-accent-hover);
+            text-decoration: underline;
+        }
+        
+        /* Article Grid - Responsive */
+        .article-grid {
+            display: grid;
+            gap: var(--space-lg);
+        }
+        
+        /* Compact view for mobile/morning scanners */
+        .article-grid.view-compact {
+            grid-template-columns: 1fr;
+        }
+        
+        .article-grid.view-compact .article-card {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: var(--space-md);
+        }
+        
+        /* Standard view */
+        .article-grid.view-standard {
+            grid-template-columns: 1fr;
+        }
+        
+        @media (min-width: 640px) {
+            .article-grid.view-standard {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* Detailed view for desktop deep readers */
+        .article-grid.view-detailed {
+            grid-template-columns: 1fr;
+        }
+        
+        .article-card {
+            background: white;
+            border: 1px solid var(--color-border);
+            border-radius: 4px;
+            overflow: hidden;
+            transition: all var(--transition-base);
+            cursor: pointer;
+        }
+        
+        .article-card:hover {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            transform: translateY(-4px);
+            border-color: var(--color-accent);
+        }
+        
+        .article-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform var(--transition-slow);
+        }
+        
+        .article-card:hover .article-image {
+            transform: scale(1.1);
+        }
+        
+        .article-body {
+            padding: var(--space-lg);
+        }
+        
+        .article-category {
+            display: inline-block;
+            padding: var(--space-xs) var(--space-sm);
+            font-size: var(--size-xs);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: var(--space-sm);
+            border-radius: 2px;
+        }
+        
+        .article-category.politics {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--color-politics);
+        }
+        
+        .article-category.business {
+            background: rgba(5, 150, 105, 0.1);
+            color: var(--color-business);
+        }
+        
+        .article-category.sports {
+            background: rgba(220, 38, 38, 0.1);
+            color: var(--color-sports);
+        }
+        
+        .article-category.community {
+            background: rgba(124, 58, 237, 0.1);
+            color: var(--color-community);
+        }
+        
+        .article-title {
+            font-family: var(--font-display);
+            font-size: var(--size-xl);
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: var(--space-sm);
+            color: var(--color-text);
+        }
+        
+        .article-excerpt {
+            font-size: var(--size-sm);
+            line-height: 1.6;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-md);
+        }
+        
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            font-size: var(--size-xs);
+            color: var(--color-text-secondary);
+            padding-top: var(--space-sm);
+            border-top: 1px solid var(--color-border);
+        }
+        
+        .article-author {
+            font-weight: 600;
+            color: var(--color-text);
+        }
+        
+        /* Compact view specific styles */
+        .view-compact .article-image {
+            height: 100%;
+            min-height: 80px;
+        }
+        
+        .view-compact .article-body {
+            padding: 0;
+        }
+        
+        .view-compact .article-excerpt {
+            display: none;
+        }
+        
+        /* Detailed view specific styles */
+        .view-detailed .article-image {
+            height: 300px;
+        }
+        
+        .view-detailed .article-body {
+            padding: var(--space-xl);
+        }
+        
+        .view-detailed .article-title {
+            font-size: var(--size-2xl);
+        }
+        
+        .view-detailed .article-excerpt {
+            font-size: var(--size-base);
+        }
+        
+        /* ============================================
+           SIDEBAR
+        ============================================ */
+        
+        .sidebar {
+            position: sticky;
+            top: calc(var(--header-height) + var(--space-lg));
+            height: fit-content;
+        }
+        
+        .sidebar-section {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 4px;
+            padding: var(--space-lg);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .sidebar-title {
+            font-family: var(--font-display);
+            font-size: var(--size-xl);
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-sm);
+            border-bottom: 2px solid var(--color-primary);
+        }
+        
+        .trending-list {
+            list-style: none;
+        }
+        
+        .trending-item {
+            padding: var(--space-md) 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+        
+        .trending-item:last-child {
+            border-bottom: none;
+        }
+        
+        .trending-number {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background: var(--color-accent);
+            color: white;
+            text-align: center;
+            line-height: 24px;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: var(--size-xs);
+            margin-right: var(--space-sm);
+        }
+        
+        .trending-link {
+            color: var(--color-text);
+            text-decoration: none;
+            font-weight: 500;
+            line-height: 1.4;
+            transition: color var(--transition-fast);
+        }
+        
+        .trending-link:hover {
+            color: var(--color-accent);
+        }
+        
+        .topic-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+        
+        .topic-tag {
+            padding: var(--space-xs) var(--space-md);
+            background: white;
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            font-size: var(--size-sm);
+            text-decoration: none;
+            color: var(--color-text);
+            transition: all var(--transition-fast);
+        }
+        
+        .topic-tag:hover {
+            background: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+        }
+        
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+        
+        .newsletter-input {
+            padding: var(--space-md);
+            border: 1px solid var(--color-border);
+            border-radius: 4px;
+            font-size: var(--size-base);
+        }
+        
+        .newsletter-input:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px rgba(196, 30, 58, 0.1);
+        }
+        
+        .newsletter-btn {
+            padding: var(--space-md);
+            background: var(--color-accent);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background var(--transition-fast);
+        }
+        
+        .newsletter-btn:hover {
+            background: var(--color-accent-hover);
+        }
+        
+        /* ============================================
+           FOOTER
+        ============================================ */
+        
+        .site-footer {
+            background: var(--color-primary);
+            color: white;
+            padding: var(--space-3xl) var(--space-md) var(--space-xl);
+            margin-top: var(--space-3xl);
+        }
+        
+        .footer-container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-xl);
+        }
+        
+        @media (min-width: 768px) {
+            .footer-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        .footer-section h3 {
+            font-family: var(--font-display);
+            font-size: var(--size-lg);
+            margin-bottom: var(--space-md);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: var(--space-sm);
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        .footer-bottom {
+            max-width: var(--max-width);
+            margin: var(--space-xl) auto 0;
+            padding-top: var(--space-lg);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            font-size: var(--size-sm);
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* ============================================
+           LOADING & LAZY LOAD
+        ============================================ */
+        
+        .lazy-load {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity var(--transition-slow), transform var(--transition-slow);
+        }
+        
+        .lazy-load.loaded {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* ============================================
+           MOBILE OPTIMIZATIONS
+        ============================================ */
+        
+        @media (max-width: 768px) {
+            .logo-title {
+                font-size: var(--size-2xl);
+            }
+            
+            .search-input {
+                width: 150px;
+            }
+            
+            .accessibility-controls {
+                display: none;
+            }
+            
+            .header-controls {
+                gap: var(--space-sm);
+            }
+            
+            .nav-container {
+                padding: 0;
+            }
+            
+            .nav-links {
+                width: 100%;
+                overflow-x: auto;
+                scrollbar-width: none;
+            }
+            
+            .nav-links::-webkit-scrollbar {
+                display: none;
+            }
+            
+            .nav-link {
+                padding: var(--space-md);
+            }
+            
+            .user-actions {
+                display: none;
+            }
+            
+            .hero-title {
+                font-size: var(--size-2xl);
+            }
+            
+            .hero-content {
+                padding: var(--space-lg);
+            }
+            
+            .view-controls {
+                flex-direction: column;
+                gap: var(--space-md);
+            }
+            
+            .filter-controls {
+                width: 100%;
+                overflow-x: auto;
+            }
+            
+            .sidebar {
+                position: static;
+                margin-top: var(--space-2xl);
+            }
+        }
+        
+        /* ============================================
+           PRINT STYLES
+        ============================================ */
+        
+        @media print {
+            .site-header,
+            .nav-primary,
+            .sidebar,
+            .site-footer,
+            .view-controls {
+                display: none;
+            }
+            
+            body {
+                font-size: 12pt;
+            }
+            
+            .article-card {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to main content for screen readers -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- HEADER -->
+    <header class="site-header" role="banner">
+        <!-- Breaking news banner -->
+        <div class="breaking-banner" role="alert" aria-live="polite">
+            <div class="breaking-content">
+                <span class="breaking-label">Breaking</span>
+                <span>City Council approves new affordable housing initiative • Mayor announces infrastructure funding • Local school wins state championship</span>
+                <span class="breaking-label">Breaking</span>
+                <span>City Council approves new affordable housing initiative • Mayor announces infrastructure funding • Local school wins state championship</span>
+            </div>
+        </div>
+        
+        <!-- Main header -->
+        <div class="header-main">
+            <div class="site-logo">
+                <h1 class="logo-title">Metro Daily News</h1>
+                <p class="logo-tagline">Local Journalism for Your Community</p>
+            </div>
+            
+            <div class="header-controls">
+                <!-- Search -->
+                <div class="search-box" role="search">
+                    <input 
+                        type="search" 
+                        class="search-input" 
+                        placeholder="Search articles..."
+                        aria-label="Search articles"
+                    >
+                    <button class="search-btn" aria-label="Submit search">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="m21 21-4.35-4.35"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Accessibility controls -->
+                <div class="accessibility-controls">
+                    <button class="control-btn" id="font-size-btn" aria-label="Increase font size" title="Font Size">
+                        A+
+                    </button>
+                    <button class="control-btn" id="contrast-btn" aria-label="Toggle high contrast" title="High Contrast">
+                        ◐
+                    </button>
+                    <button class="control-btn" id="lang-btn" aria-label="Switch to Spanish" title="Español">
+                        ES
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Primary navigation -->
+        <nav class="nav-primary" role="navigation" aria-label="Main navigation">
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="#" class="nav-link active">Home</a></li>
+                    <li><a href="#politics" class="nav-link">Politics</a></li>
+                    <li><a href="#business" class="nav-link">Business</a></li>
+                    <li><a href="#sports" class="nav-link">Sports</a></li>
+                    <li><a href="#community" class="nav-link">Community</a></li>
+                    <li><a href="#" class="nav-link">Podcasts</a></li>
+                    <li><a href="#" class="nav-link">Investigations</a></li>
+                    <li><a href="#" class="nav-link">Archives</a></li>
+                </ul>
+                
+                <div class="user-actions">
+                    <button class="btn-secondary">Sign In</button>
+                    <button class="btn-primary">Subscribe</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- MAIN CONTENT -->
+    <main id="main-content" class="main-container">
+        <!-- Primary content area -->
+        <div class="content-area">
+            <!-- Hero section -->
+            <section class="hero-section" aria-labelledby="hero-title">
+                <article class="hero-main">
+                    <img 
+                        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400'%3E%3Crect fill='%23333' width='800' height='400'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='24' fill='%23fff'%3ECity Council Meeting%3C/text%3E%3C/svg%3E" 
+                        alt="City council members voting on new housing initiative"
+                        class="hero-image"
+                    >
+                    <div class="hero-content">
+                        <span class="hero-category">Politics</span>
+                        <h2 id="hero-title" class="hero-title">City Council Approves Landmark Affordable Housing Initiative</h2>
+                        <p class="hero-excerpt">After months of debate, council votes 7-2 in favor of $500M plan to create 3,000 affordable units across three metro areas</p>
+                        <div class="hero-meta">
+                            <span>By Sarah Martinez</span>
+                            <span>•</span>
+                            <time datetime="2024-04-19">2 hours ago</time>
+                            <span>•</span>
+                            <span>5 min read</span>
+                        </div>
+                    </div>
+                </article>
+                
+                <aside class="secondary-stories" aria-label="Featured stories">
+                    <a href="#" class="story-card-small">
+                        <img 
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='70'%3E%3Crect fill='%23059669' width='100' height='70'/%3E%3C/svg%3E"
+                            alt="Business district"
+                            class="story-thumbnail"
+                        >
+                        <div class="story-info">
+                            <h3>Tech Startup Announces Downtown Expansion</h3>
+                            <time class="story-time" datetime="2024-04-19">3 hours ago</time>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="story-card-small">
+                        <img 
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='70'%3E%3Crect fill='%23dc2626' width='100' height='70'/%3E%3C/svg%3E"
+                            alt="Basketball game"
+                            class="story-thumbnail"
+                        >
+                        <div class="story-info">
+                            <h3>Metro Thunder Win Conference Championship</h3>
+                            <time class="story-time" datetime="2024-04-19">4 hours ago</time>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="story-card-small">
+                        <img 
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='70'%3E%3Crect fill='%237c3aed' width='100' height='70'/%3E%3C/svg%3E"
+                            alt="Community event"
+                            class="story-thumbnail"
+                        >
+                        <div class="story-info">
+                            <h3>Annual Arts Festival Returns This Weekend</h3>
+                            <time class="story-time" datetime="2024-04-19">5 hours ago</time>
+                        </div>
+                    </a>
+                </aside>
+            </section>
+            
+            <!-- View controls -->
+            <div class="view-controls" role="toolbar" aria-label="Content view options">
+                <div>
+                    <strong>View:</strong>
+                    <div class="view-mode-btns">
+                        <button class="view-btn" data-view="compact" aria-pressed="false">Compact</button>
+                        <button class="view-btn active" data-view="standard" aria-pressed="true">Standard</button>
+                        <button class="view-btn" data-view="detailed" aria-pressed="false">Detailed</button>
+                    </div>
+                </div>
+                
+                <div>
+                    <strong>Filter:</strong>
+                    <div class="filter-controls">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="today">Today</button>
+                        <button class="filter-btn" data-filter="saved">Saved</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Politics Section -->
+            <section class="category-section" id="politics" aria-labelledby="politics-title">
+                <div class="section-header">
+                    <h2 id="politics-title" class="section-title">
+                        <span class="category-badge politics" aria-hidden="true"></span>
+                        Politics
+                    </h2>
+                    <a href="#" class="section-link">View all Politics →</a>
+                </div>
+                
+                <div class="article-grid view-standard">
+                    <article class="article-card">
+                        <img 
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect fill='%232563eb' width='400' height='200'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='18' fill='%23fff'%3EState Budget%3C/text%3E%3C/svg%3E"
+                            alt="State capitol building"
+                            class="article-image lazy-load"
+                            loading="lazy"
+                        >
+                        <div class="article-body">
+                            <span class="article-category politics">Politics</span>
+                            <h3 class="article-title">Governor Proposes Record Education Budget</h3>
+                            <p class="article-excerpt">New state budget includes $2B increase for public schools, teacher salary boosts, and infrastructure improvements</p>
+                            <div class="article-meta">
+                                <span class="article-author">James Chen</span>
+                                <time datetime="2024-04-19">6 hours ago</time>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="article-card">
+                        <img 
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect fill='%232563eb' width='400' height='200'/%3E%3C/svg%3E"
+                            alt="Voting booth"
+                            class="article-image lazy-load"
+                            loading="lazy"
+                        >
+                        <div class="article-body">
+                            <span class="article-category politics">Politics</span>
+                            <h3 class="article-title">Election Commission Announces Early Voting Dates</h3>
+                            <p class="article-excerpt">Early voting begins next month for primary elections, with expanded polling locations across all three metro areas</p>
+                            <div class="article-meta">
+                                <span class="article-author">Maria Rodriguez</span>
+                                <time datetime="2024-04-19">8 hours ago</time>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="article-card">
+                        <img 
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect fill='%232563eb' width='400' height='200'/%3E%3C/svg%3E"
+                            alt="Transportation"
+                            class="article-image lazy-load"
+                            loading="lazy"
+                        >
+                        <div class="article-body">
+                            <span class="article-category politics">Politics</span>
+                            <h3 class="article-title">Transit Authority Unveils New Route Expansion Plan</h3>
+                            <p class="article-excerpt">Public transit expansion will connect underserved neighborhoods with job centers and reduce commute times by 30%</p>
+                            <div class="article-meta">
+                                <span class="article-author">David Park</span>
+                                <time datetime="2024-04-19">10 hours ago</time>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="article-card">
+                        <img 
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect fill='%232563eb' width='400' height='200'/%3E%3C/svg%3E"
+                            alt="Public hearing"
+                            class="article-image lazy-load"
+                            loading="lazy"
+                        >
+                        <div class="article-body">
+                            <span class="article-category politics">Politics</span>
+                            <h3 class="article-title">Residents Voice Concerns at Zoning Hearing</h3>
+                            <p class="article-excerpt">Hundreds attend public hearing on proposed development, raising questions about traffic and neighborhood character</p>
+                            <div class="article-meta">
+                                <span class="article-author">Sarah Martinez</span>
+                                <time datetime="2024-04-19">12 hours ago</time>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+            
+            <!-- Business Section -->
+            <section class="category-section" id="business" aria-labelledby="business-title">
+                <div class="section-header">
+                    <h2 id="business-title" class="section-title">
+                        <span class="category-badge business" aria-hidden="true"></span>
+                        Business
+                    </h2>
+                    <a href="#" class="section-link">View all Business →</a>
+                </div>
+                
+                <div class="article-grid view-standard">
+                    <article class="article-card">
+                        <img 
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect fill='%23059669' width='400' height='200'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='18' fill='%23fff'%3EDowntown Development%3C/text%3E%3C/svg%3E"
+                            alt="Construction site"
+                            class="article-image lazy-load"
+                            loading="lazy"
+                        >
+                        <div class="article-body">
+                            <span class="article-category business">Business</span>
+                            <h3 class="article-title">Major Retail Chain Opens Flagship Store Downtown</h3>
+                            <p class="article-excerpt">National retailer creates 200 jobs with new location, anchoring revitalized shopping district</p>
+                            <div class="article-meta">
+                                <span class="article-author">Jennifer Wu</span>
+                                <time datetime="2024-04-19">7 hours ago</time>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="article-card">
+                        <img 
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect fill='%23059669' width='400' height='200'/%3E%3C/svg%3E"
+                            alt="Stock market"
+                            class="article-image lazy-load"
+                            loading="lazy"
+                        >
+                        <div class="article-body">
+                            <span class="article-category business">Business</span>
+                            <h3 class="article-title">Local Manufacturing Company Reports Strong Quarter</h3>
+                            <p class="article-excerpt">Regional manufacturer exceeds earnings expectations, plans to expand workforce and production capacity</p>
+                            <div class="article-meta">
+                                <span class="article-author">Michael Thompson</span>
+                                <time datetime="2024-04-19">9 hours ago</time>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="article-card">
+                        <img 
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect fill='%23059669' width='400' height='200'/%3E%3C/svg%3E"
+                            alt="Restaurant opening"
+                            class="article-image lazy-load"
+                            loading="lazy"
+                        >
+                        <div class="article-body">
+                            <span class="article-category business">Business</span>
+                            <h3 class="article-title">Restaurant Scene Bounces Back With New Openings</h3>
+                            <p class="article-excerpt">Five new restaurants announce openings this month as dining industry shows strong recovery from pandemic</p>
+                            <div class="article-meta">
+                                <span class="article-author">Lisa Anderson</span>
+                                <time datetime="2024-04-19">11 hours ago</time>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="article-card">
+                        <img 
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect fill='%23059669' width='400' height='200'/%3E%3C/svg%3E"
+                            alt="Office building"
+                            class="article-image lazy-load"
+                            loading="lazy"
+                        >
+                        <div class="article-body">
+                            <span class="article-category business">Business</span>
+                            <h3 class="article-title">Commercial Real Estate Market Shows Signs of Recovery</h3>
+                            <p class="article-excerpt">Office vacancy rates decline as companies embrace hybrid work models and modernize downtown spaces</p>
+                            <div class="article-meta">
+                                <span class="article-author">Robert Kim</span>
+                                <time datetime="2024-04-19">Yesterday</time>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+            
+            <!-- Sports Section -->
+            <section class="category-section" id="sports" aria-labelledby="sports-title">
+                <div class="section-header">
+                    <h2 id="sports-title" class="section-title">
+                        <span class="category-badge sports" aria-hidden="true"></span>
+                        Sports
+                    </h2>
+                    <a href="#" class="section-link">View all Sports →</a>
+                </div>
+                
+                <div class="article-grid view-standard">
+                    <article class="article-card">
+                        <img 
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect fill='%23dc2626' width='400' height='200'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='18' fill='%23fff'%3EChampionship Game%3C/text%3E%3C/svg%3E"
+                            alt="Basketball championship"
+                            class="article-image lazy-load"
+                            loading="lazy"
+                        >
+                        <div class="article-body">
+                            <span class="article-category sports">Sports</span>
+                            <h3 class="article-title">Thunder Complete Perfect Season With Championship Win</h3>
+                            <p class="article-excerpt">Metro Thunder caps undefeated season with dramatic overtime victory in conference finals</p>
+                            <div class="article-meta">
+                                <span class="article-author">Tom Brady</span>
+                                <time datetime="2024-04-19">4 hours ago</time>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="article-card">
+                        <img 
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect fill='%23dc2626' width='400' height='200'/%3E%3C/svg%3E"
+                            alt="Soccer match"
+                            class="article-image lazy-load"
+                            loading="lazy"
+                        >
+                        <div class="article-body">
+                            <span class="article-category sports">Sports</span>
+                            <h3 class="article-title">United FC Signs International Star Player</h3>
+                            <p class="article-excerpt">Local soccer club makes biggest signing in franchise history, bringing World Cup veteran to metro area</p>
+                            <div class="article-meta">
+                                <span class="article-author">Emma Johnson</span>
+                                <time datetime="2024-04-19">8 hours ago</time>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="article-card">
+                        <img 
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect fill='%23dc2626' width='400' height='200'/%3E%3C/svg%3E"
+                            alt="High school sports"
+                            class="article-image lazy-load"
+                            loading="lazy"
+                        >
+                        <div class="article-body">
+                            <span class="article-category sports">Sports</span>
+                            <h3 class="article-title">Local High School Team Advances to State Finals</h3>
+                            <p class="article-excerpt">Metro High defeats rival in semifinals, will compete for state championship next week</p>
+                            <div class="article-meta">
+                                <span class="article-author">Chris Martinez</span>
+                                <time datetime="2024-04-19">Yesterday</time>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="article-card">
+                        <img 
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect fill='%23dc2626' width='400' height='200'/%3E%3C/svg%3E"
+                            alt="Marathon"
+                            class="article-image lazy-load"
+                            loading="lazy"
+                        >
+                        <div class="article-body">
+                            <span class="article-category sports">Sports</span>
+                            <h3 class="article-title">Annual Marathon Draws Record Participation</h3>
+                            <p class="article-excerpt">15,000 runners registered for this weekend's Metro Marathon, largest field in event's 20-year history</p>
+                            <div class="article-meta">
+                                <span class="article-author">Alex Turner</span>
+                                <time datetime="2024-04-19">Yesterday</time>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+            
+            <!-- Community Section -->
+            <section class="category-section" id="community" aria-labelledby="community-title">
+                <div class="section-header">
+                    <h2 id="community-title" class="section-title">
+                        <span class="category-badge community" aria-hidden="true"></span>
+                        Community
+                    </h2>
+                    <a href="#" class="section-link">View all Community →</a>
+                </div>
+                
+                <div class="article-grid view-standard">
+                    <article class="article-card">
+                        <img 
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect fill='%237c3aed' width='400' height='200'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='18' fill='%23fff'%3EArts Festival%3C/text%3E%3C/svg%3E"
+                            alt="Arts festival"
+                            class="article-image lazy-load"
+                            loading="lazy"
+                        >
+                        <div class="article-body">
+                            <span class="article-category community">Community</span>
+                            <h3 class="article-title">Arts Festival Returns With 200+ Exhibitors</h3>
+                            <p class="article-excerpt">Annual celebration of local artists features live music, food vendors, and hands-on workshops for all ages</p>
+                            <div class="article-meta">
+                                <span class="article-author">Patricia Green</span>
+                                <time datetime="2024-04-19">5 hours ago</time>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="article-card">
+                        <img 
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect fill='%237c3aed' width='400' height='200'/%3E%3C/svg%3E"
+                            alt="Library"
+                            class="article-image lazy-load"
+                            loading="lazy"
+                        >
+                        <div class="article-body">
+                            <span class="article-category community">Community</span>
+                            <h3 class="article-title">New Library Branch Opens in South Metro</h3>
+                            <p class="article-excerpt">Modern facility includes maker space, teen center, and expanded digital resources for underserved neighborhood</p>
+                            <div class="article-meta">
+                                <span class="article-author">Linda Hayes</span>
+                                <time datetime="2024-04-19">10 hours ago</time>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="article-card">
+                        <img 
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect fill='%237c3aed' width='400' height='200'/%3E%3C/svg%3E"
+                            alt="Food bank"
+                            class="article-image lazy-load"
+                            loading="lazy"
+                        >
+                        <div class="article-body">
+                            <span class="article-category community">Community</span>
+                            <h3 class="article-title">Community Food Bank Launches Mobile Service</h3>
+                            <p class="article-excerpt">New truck will bring fresh food to neighborhoods with limited grocery access three times per week</p>
+                            <div class="article-meta">
+                                <span class="article-author">Carlos Rivera</span>
+                                <time datetime="2024-04-19">Yesterday</time>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="article-card">
+                        <img 
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect fill='%237c3aed' width='400' height='200'/%3E%3C/svg%3E"
+                            alt="Volunteers"
+                            class="article-image lazy-load"
+                            loading="lazy"
+                        >
+                        <div class="article-body">
+                            <span class="article-category community">Community</span>
+                            <h3 class="article-title">Volunteers Plant 1,000 Trees in City Parks</h3>
+                            <p class="article-excerpt">Community group completes ambitious urban forestry project to improve air quality and provide shade</p>
+                            <div class="article-meta">
+                                <span class="article-author">Nicole Foster</span>
+                                <time datetime="2024-04-19">Yesterday</time>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </div>
+        
+        <!-- SIDEBAR -->
+        <aside class="sidebar" aria-label="Sidebar content">
+            <!-- Trending -->
+            <div class="sidebar-section">
+                <h2 class="sidebar-title">Trending Now</h2>
+                <ol class="trending-list">
+                    <li class="trending-item">
+                        <a href="#" class="trending-link">
+                            <span class="trending-number">1</span>
+                            City Council approves affordable housing initiative
+                        </a>
+                    </li>
+                    <li class="trending-item">
+                        <a href="#" class="trending-link">
+                            <span class="trending-number">2</span>
+                            Thunder win conference championship in overtime
+                        </a>
+                    </li>
+                    <li class="trending-item">
+                        <a href="#" class="trending-link">
+                            <span class="trending-number">3</span>
+                            Governor proposes record education budget
+                        </a>
+                    </li>
+                    <li class="trending-item">
+                        <a href="#" class="trending-link">
+                            <span class="trending-number">4</span>
+                            Arts festival returns with 200+ exhibitors
+                        </a>
+                    </li>
+                    <li class="trending-item">
+                        <a href="#" class="trending-link">
+                            <span class="trending-number">5</span>
+                            Tech startup announces downtown expansion
+                        </a>
+                    </li>
+                </ol>
+            </div>
+            
+            <!-- Topics -->
+            <div class="sidebar-section">
+                <h2 class="sidebar-title">Popular Topics</h2>
+                <div class="topic-tags">
+                    <a href="#" class="topic-tag">Housing</a>
+                    <a href="#" class="topic-tag">Education</a>
+                    <a href="#" class="topic-tag">Transportation</a>
+                    <a href="#" class="topic-tag">Environment</a>
+                    <a href="#" class="topic-tag">Health</a>
+                    <a href="#" class="topic-tag">Economy</a>
+                    <a href="#" class="topic-tag">Crime</a>
+                    <a href="#" class="topic-tag">Development</a>
+                </div>
+            </div>
+            
+            <!-- Newsletter -->
+            <div class="sidebar-section">
+                <h2 class="sidebar-title">Daily Newsletter</h2>
+                <p style="margin-bottom: var(--space-md); color: var(--color-text-secondary); font-size: var(--size-sm);">
+                    Get the top local stories delivered to your inbox every morning
+                </p>
+                <form class="newsletter-form" aria-label="Newsletter signup">
+                    <input 
+                        type="email" 
+                        class="newsletter-input" 
+                        placeholder="Enter your email"
+                        aria-label="Email address"
+                        required
+                    >
+                    <button type="submit" class="newsletter-btn">Subscribe</button>
+                </form>
+            </div>
+        </aside>
+    </main>
+    
+    <!-- FOOTER -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Our Mission</a></li>
+                    <li><a href="#">Editorial Standards</a></li>
+                    <li><a href="#">Our Team</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Subscribe</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Digital Access</a></li>
+                    <li><a href="#">Print Edition</a></li>
+                    <li><a href="#">Gift Subscriptions</a></li>
+                    <li><a href="#">Manage Account</a></li>
+                    <li><a href="#">Newsletters</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Archives</h3>
+                <ul class="footer-links">
+                    <li><a href="#">This Week</a></li>
+                    <li><a href="#">This Month</a></li>
+                    <li><a href="#">Search Archives</a></li>
+                    <li><a href="#">Photo Gallery</a></li>
+                    <li><a href="#">Obituaries</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Accessibility</a></li>
+                    <li><a href="#">Ad Choices</a></li>
+                    <li><a href="#">Sitemap</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Metro Daily News. All rights reserved. Local journalism for your community.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // ============================================
+        // PERFORMANCE: Lazy Loading
+        // ============================================
+        
+        // Intersection Observer for lazy loading
+        const lazyLoadObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('loaded');
+                    lazyLoadObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            rootMargin: '50px'
+        });
+        
+        // Observe all lazy-load elements
+        document.querySelectorAll('.lazy-load').forEach(el => {
+            lazyLoadObserver.observe(el);
+        });
+        
+        // ============================================
+        // ACCESSIBILITY CONTROLS
+        // ============================================
+        
+        // Font size control
+        let fontSizeIndex = 0;
+        const fontSizes = ['normal', 'large', 'x-large'];
+        const fontSizeBtn = document.getElementById('font-size-btn');
+        
+        fontSizeBtn.addEventListener('click', () => {
+            fontSizeIndex = (fontSizeIndex + 1) % fontSizes.length;
+            document.documentElement.setAttribute('data-font-size', fontSizes[fontSizeIndex]);
+            
+            // Save preference
+            localStorage.setItem('fontSize', fontSizes[fontSizeIndex]);
+        });
+        
+        // High contrast control
+        const contrastBtn = document.getElementById('contrast-btn');
+        let highContrast = localStorage.getItem('highContrast') === 'true';
+        
+        if (highContrast) {
+            document.documentElement.setAttribute('data-contrast', 'high');
+            contrastBtn.classList.add('active');
+        }
+        
+        contrastBtn.addEventListener('click', () => {
+            highContrast = !highContrast;
+            if (highContrast) {
+                document.documentElement.setAttribute('data-contrast', 'high');
+                contrastBtn.classList.add('active');
+            } else {
+                document.documentElement.removeAttribute('data-contrast');
+                contrastBtn.classList.remove('active');
+            }
+            localStorage.setItem('highContrast', highContrast);
+        });
+        
+        // Language toggle
+        const langBtn = document.getElementById('lang-btn');
+        let currentLang = localStorage.getItem('language') || 'en';
+        
+        if (currentLang === 'es') {
+            document.documentElement.setAttribute('lang', 'es');
+            langBtn.textContent = 'EN';
+            langBtn.classList.add('active');
+        }
+        
+        langBtn.addEventListener('click', () => {
+            currentLang = currentLang === 'en' ? 'es' : 'en';
+            document.documentElement.setAttribute('lang', currentLang);
+            langBtn.textContent = currentLang === 'en' ? 'ES' : 'EN';
+            langBtn.classList.toggle('active');
+            localStorage.setItem('language', currentLang);
+            
+            // In production, this would trigger translation
+            if (currentLang === 'es') {
+                alert('Spanish translation would be loaded here');
+            }
+        });
+        
+        // Restore saved preferences on page load
+        const savedFontSize = localStorage.getItem('fontSize');
+        if (savedFontSize && savedFontSize !== 'normal') {
+            document.documentElement.setAttribute('data-font-size', savedFontSize);
+            fontSizeIndex = fontSizes.indexOf(savedFontSize);
+        }
+        
+        // ============================================
+        // VIEW MODE CONTROLS
+        // ============================================
+        
+        const viewBtns = document.querySelectorAll('.view-btn');
+        const articleGrids = document.querySelectorAll('.article-grid');
+        
+        // Restore saved view preference
+        const savedView = localStorage.getItem('viewMode') || 'standard';
+        articleGrids.forEach(grid => {
+            grid.className = `article-grid view-${savedView}`;
+        });
+        viewBtns.forEach(btn => {
+            if (btn.dataset.view === savedView) {
+                btn.classList.add('active');
+                btn.setAttribute('aria-pressed', 'true');
+            } else {
+                btn.classList.remove('active');
+                btn.setAttribute('aria-pressed', 'false');
+            }
+        });
+        
+        viewBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const viewMode = btn.dataset.view;
+                
+                // Update button states
+                viewBtns.forEach(b => {
+                    b.classList.remove('active');
+                    b.setAttribute('aria-pressed', 'false');
+                });
+                btn.classList.add('active');
+                btn.setAttribute('aria-pressed', 'true');
+                
+                // Update grids
+                articleGrids.forEach(grid => {
+                    grid.className = `article-grid view-${viewMode}`;
+                });
+                
+                // Save preference
+                localStorage.setItem('viewMode', viewMode);
+            });
+        });
+        
+        // ============================================
+        // FILTER CONTROLS
+        // ============================================
+        
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.dataset.filter;
+                
+                // Update button states
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // In production, this would filter articles
+                console.log('Filter by:', filter);
+            });
+        });
+        
+        // ============================================
+        // NAVIGATION ACTIVE STATE
+        // ============================================
+        
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('.category-section');
+        
+        // Update active nav link on scroll
+        const updateActiveNav = () => {
+            const scrollPos = window.scrollY + 100;
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                
+                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${sectionId}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        };
+        
+        // Debounce scroll handler for performance
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            if (scrollTimeout) {
+                clearTimeout(scrollTimeout);
+            }
+            scrollTimeout = setTimeout(updateActiveNav, 50);
+        });
+        
+        // ============================================
+        // SEARCH FUNCTIONALITY
+        // ============================================
+        
+        const searchInput = document.querySelector('.search-input');
+        const searchBtn = document.querySelector('.search-btn');
+        
+        searchBtn.addEventListener('click', () => {
+            const query = searchInput.value.trim();
+            if (query) {
+                // In production, this would perform search
+                console.log('Searching for:', query);
+                alert(`Searching for: ${query}`);
+            }
+        });
+        
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchBtn.click();
+            }
+        });
+        
+        // ============================================
+        // ANALYTICS & PERFORMANCE
+        // ============================================
+        
+        // Track page load time
+        window.addEventListener('load', () => {
+            const loadTime = performance.now();
+            console.log(`Page loaded in ${loadTime.toFixed(2)}ms`);
+            
+            // In production, send to analytics
+            if (loadTime > 3000) {
+                console.warn('Page load exceeded 3 second target');
+            }
+        });
+        
+        // Track user interactions
+        document.addEventListener('click', (e) => {
+            const target = e.target.closest('a, button');
+            if (target) {
+                // In production, track clicks for analytics
+                console.log('User clicked:', target.textContent?.trim() || target.getAttribute('aria-label'));
+            }
+        });
+    </script>
+</body>
+</html>

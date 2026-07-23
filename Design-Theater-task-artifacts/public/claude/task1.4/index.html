@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riverside University - Liberal Arts Excellence</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Brand Colors */
+            --riverside-navy: #1a2840;
+            --riverside-gold: #c9a961;
+            --riverside-blue: #2a5f8f;
+            --riverside-cream: #f5f1e8;
+            --riverside-sage: #7a9a7e;
+            
+            /* Semantic Colors */
+            --text-primary: #1a1a1a;
+            --text-secondary: #5a5a5a;
+            --bg-primary: #ffffff;
+            --bg-secondary: var(--riverside-cream);
+            --accent: var(--riverside-gold);
+            
+            /* Audience Colors */
+            --prospective: #e67e22;
+            --current: #2a5f8f;
+            --faculty: #7a3e9d;
+            --alumni: #c9a961;
+            --parents: #27ae60;
+        }
+
+        body {
+            font-family: 'Crimson Text', 'Georgia', serif;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .sans {
+            font-family: 'Helvetica Neue', 'Arial', sans-serif;
+        }
+
+        /* Header */
+        .header {
+            background: var(--riverside-navy);
+            color: white;
+            padding: 0.75rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-accent {
+            color: var(--riverside-gold);
+        }
+
+        .utility-nav {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            font-size: 0.9rem;
+            font-family: 'Helvetica Neue', sans-serif;
+        }
+
+        .utility-nav a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.9;
+            transition: opacity 0.3s;
+        }
+
+        .utility-nav a:hover {
+            opacity: 1;
+        }
+
+        .search-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .search-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* Audience Selector */
+        .audience-selector {
+            background: linear-gradient(135deg, var(--riverside-blue) 0%, var(--riverside-navy) 100%);
+            padding: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .audience-selector::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="none"/><circle cx="50" cy="50" r="1" fill="white" opacity="0.05"/></svg>');
+            opacity: 0.3;
+        }
+
+        .selector-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+        }
+
+        .selector-title {
+            color: white;
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+            font-family: 'Helvetica Neue', sans-serif;
+            letter-spacing: 0.5px;
+        }
+
+        .audience-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .audience-btn {
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-family: 'Helvetica Neue', sans-serif;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .audience-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .audience-btn:hover::before {
+            left: 100%;
+        }
+
+        .audience-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            border-color: rgba(255,255,255,0.6);
+        }
+
+        .audience-btn.active {
+            background: white;
+            color: var(--riverside-navy);
+            border-color: white;
+            transform: scale(1.05);
+        }
+
+        .audience-btn.active[data-audience="prospective"] {
+            background: var(--prospective);
+            color: white;
+            border-color: var(--prospective);
+        }
+
+        .audience-btn.active[data-audience="current"] {
+            background: var(--current);
+            color: white;
+            border-color: var(--current);
+        }
+
+        .audience-btn.active[data-audience="faculty"] {
+            background: var(--faculty);
+            color: white;
+            border-color: var(--faculty);
+        }
+
+        .audience-btn.active[data-audience="alumni"] {
+            background: var(--alumni);
+            color: white;
+            border-color: var(--alumni);
+        }
+
+        .audience-btn.active[data-audience="parents"] {
+            background: var(--parents);
+            color: white;
+            border-color: var(--parents);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 500px;
+            background: linear-gradient(135deg, var(--riverside-navy) 0%, var(--riverside-blue) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.15;
+            background-image: 
+                linear-gradient(45deg, transparent 45%, rgba(255,255,255,0.05) 50%, transparent 55%),
+                linear-gradient(-45deg, transparent 45%, rgba(255,255,255,0.05) 50%, transparent 55%);
+            background-size: 60px 60px;
+            animation: slideBackground 20s linear infinite;
+        }
+
+        @keyframes slideBackground {
+            0% { background-position: 0 0; }
+            100% { background-position: 60px 60px; }
+        }
+
+        .hero-content {
+            position: relative;
+            text-align: center;
+            color: white;
+            max-width: 900px;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+            font-family: 'Helvetica Neue', sans-serif;
+            font-weight: 300;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-primary, .cta-secondary {
+            padding: 1rem 2.5rem;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-family: 'Helvetica Neue', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+
+        .cta-primary {
+            background: var(--riverside-gold);
+            color: var(--riverside-navy);
+        }
+
+        .cta-primary:hover {
+            background: #d4b46d;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(201, 169, 97, 0.4);
+        }
+
+        .cta-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .cta-secondary:hover {
+            background: white;
+            color: var(--riverside-navy);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        /* Audience Content Areas */
+        .audience-content {
+            display: none;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .audience-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .content-header h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--riverside-navy);
+        }
+
+        .content-header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Quick Links Grid */
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .link-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            border: 1px solid rgba(0,0,0,0.05);
+            cursor: pointer;
+        }
+
+        .link-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .link-card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .link-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--riverside-navy);
+        }
+
+        .link-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Featured Section */
+        .featured-section {
+            background: var(--bg-secondary);
+            padding: 4rem 2rem;
+            margin: 4rem -2rem;
+        }
+
+        .featured-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        .feature-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--riverside-blue), var(--riverside-sage));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .feature-body {
+            padding: 1.5rem;
+        }
+
+        .feature-body h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+            color: var(--riverside-navy);
+        }
+
+        .feature-body p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+            padding: 3rem 0;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--riverside-gold);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-family: 'Helvetica Neue', sans-serif;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--riverside-navy);
+            color: white;
+            padding: 3rem 2rem 1.5rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--riverside-gold);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .content-header h2 {
+                font-size: 2rem;
+            }
+            
+            .audience-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .audience-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                Riverside <span class="logo-accent">University</span>
+            </div>
+            <nav class="utility-nav">
+                <a href="#apply">Apply</a>
+                <a href="#visit">Visit</a>
+                <a href="#give">Give</a>
+                <button class="search-btn">🔍 Search</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Audience Selector -->
+    <section class="audience-selector">
+        <div class="selector-content">
+            <div class="selector-title">I AM A...</div>
+            <div class="audience-buttons">
+                <button class="audience-btn" data-audience="prospective">
+                    📚 Prospective Student
+                </button>
+                <button class="audience-btn" data-audience="current">
+                    🎓 Current Student
+                </button>
+                <button class="audience-btn" data-audience="faculty">
+                    👨‍🏫 Faculty & Staff
+                </button>
+                <button class="audience-btn" data-audience="alumni">
+                    🌟 Alumni
+                </button>
+                <button class="audience-btn" data-audience="parents">
+                    👨‍👩‍👧 Parents & Families
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background"></div>
+        <div class="hero-content">
+            <h1>Think Critically. Act Boldly.</h1>
+            <p>A liberal arts education that transforms minds and changes lives</p>
+            <div class="cta-buttons">
+                <button class="cta-primary">Explore Programs</button>
+                <button class="cta-secondary">Schedule a Visit</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Default/Welcome Content -->
+        <div class="audience-content active" id="welcome">
+            <div class="content-header">
+                <h2>Welcome to Riverside</h2>
+                <p>Select your audience above for personalized content and quick access to the resources you need.</p>
+            </div>
+
+            <div class="stats-section">
+                <div class="stat">
+                    <span class="stat-number">8,000</span>
+                    <span class="stat-label">Students</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">40+</span>
+                    <span class="stat-label">Majors & Programs</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">13:1</span>
+                    <span class="stat-label">Student-Faculty Ratio</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">95%</span>
+                    <span class="stat-label">Graduation Rate</span>
+                </div>
+            </div>
+
+            <div class="featured-section">
+                <div class="featured-content">
+                    <h2 style="text-align: center; color: var(--riverside-navy); margin-bottom: 1rem;">Latest News & Events</h2>
+                    <div class="featured-grid">
+                        <div class="feature-card">
+                            <div class="feature-image">📰</div>
+                            <div class="feature-body">
+                                <h3>Research Breakthrough</h3>
+                                <p>Biology professor receives NSF grant for climate research collaboration</p>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-image">🎭</div>
+                            <div class="feature-body">
+                                <h3>Arts & Culture</h3>
+                                <p>Spring theater production opens next week featuring student performers</p>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-image">🏆</div>
+                            <div class="feature-body">
+                                <h3>Student Success</h3>
+                                <p>Riverside debate team wins national championship for third year</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Prospective Students -->
+        <div class="audience-content" id="prospective">
+            <div class="content-header">
+                <h2 style="color: var(--prospective);">Explore Riverside</h2>
+                <p>Discover what makes our liberal arts community the perfect place to launch your academic journey</p>
+            </div>
+
+            <div class="quick-links">
+                <div class="link-card">
+                    <div class="link-card-icon" style="background: rgba(230, 126, 34, 0.1); color: var(--prospective);">📖</div>
+                    <h3>Academic Programs</h3>
+                    <p>Browse 40+ majors and minors across arts, sciences, and humanities</p>
+                </div>
+                <div class="link-card">
+                    <div class="link-card-icon" style="background: rgba(230, 126, 34, 0.1); color: var(--prospective);">🎯</div>
+                    <h3>Admissions Process</h3>
+                    <p>Learn about requirements, deadlines, and application tips</p>
+                </div>
+                <div class="link-card">
+                    <div class="link-card-icon" style="background: rgba(230, 126, 34, 0.1); color: var(--prospective);">💰</div>
+                    <h3>Financial Aid</h3>
+                    <p>Discover scholarships, grants, and financial planning resources</p>
+                </div>
+                <div class="link-card">
+                    <div class="link-card-icon" style="background: rgba(230, 126, 34, 0.1); color: var(--prospective);">🏛️</div>
+                    <h3>Campus Tours</h3>
+                    <p>Schedule an in-person or virtual visit to experience campus life</p>
+                </div>
+                <div class="link-card">
+                    <div class="link-card-icon" style="background: rgba(230, 126, 34, 0.1); color: var(--prospective);">🏠</div>
+                    <h3>Student Life</h3>
+                    <p>Explore housing, clubs, athletics, and campus activities</p>
+                </div>
+                <div class="link-card">
+                    <div class="link-card-icon" style="background: rgba(230, 126, 34, 0.1); color: var(--prospective);">📊</div>
+                    <h3>Student Outcomes</h3>
+                    <p>See where our graduates go and what they achieve</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Current Students -->
+        <div class="audience-content" id="current">
+            <div class="content-header">
+                <h2 style="color: var(--current);">Student Resources</h2>
+                <p>Quick access to the tools and services you need every day</p>
+            </div>
+
+            <div class="quick-links">
+                <div class="link-card">
+                    <div class="link-card-icon" style="background: rgba(42, 95, 143, 0.1); color: var(--current);">📅</div>
+                    <h3>Class Schedule</h3>
+                    <p>View your courses, times, and locations for the semester</p>
+                </div>
+                <div class="link-card">
+                    <div class="link-card-icon" style="background: rgba(42, 95, 143, 0.1); color: var(--current);">📝</div>
+                    <h3>Canvas LMS</h3>
+                    <p>Access course materials, assignments, and grades</p>
+                </div>
+                <div class="link-card">
+                    <div class="link-card-icon" style="background: rgba(42, 95, 143, 0.1); color: var(--current);">📧</div>
+                    <h3>Student Email</h3>
+                    <p>Check your @riverside.edu inbox and university communications</p>
+                </div>
+                <div class="link-card">
+                    <div class="link-card-icon" style="background: rgba(42, 95, 143, 0.1); color: var(--current);">📚</div>
+                    <h3>Library Resources</h3>
+                    <p>Search databases, reserve study rooms, and access digital collections</p>
+                </div>
+                <div class="link-card">
+                    <div class="link-card-icon" style="background: rgba(42, 95, 143, 0.1); color: var(--current);">🎓</div>
+                    <h3>Academic Advising</h3>
+                    <p>Schedule appointments and view your degree progress</p>
+                </div>
+                <div class="link-card">
+                    <div class="link-card-icon" style="background: rgba(42, 95, 143, 0.1); color: var(--current);">💼</div>
+                    <h3>Career Services</h3>
+                    <p>Find internships, jobs, and career counseling support</p>
+                </div>
+                <div class="link-card">
+                    <div class="link-card-icon" style="background: rgba(42, 95, 143, 0.1); color: var(--current);">💳</div>
+                    <h3>Student Account</h3>
+                    <p>View bills, make payments, and manage financial aid</p>
+                </div>
+                <div class="link-card">
+                    <div class="link-card-icon" style="background: rgba(42, 95, 143, 0.1); color: var(--current);">🏥</div>
+                    <h3>Health & Wellness</h3>
+                    <p>Access counseling services, health center, and wellness programs</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Faculty & Staff -->
+        <div class="audience-content" id="faculty">
+            <div class="content-header">
+                <h2 style="color: var(--faculty);">Faculty & Staff Portal</h2>
+                <p>Tools and resources to support teaching, research, and administration</p>
+            </div>
+
+            <div class="quick-links">
+                <div class="link-card">
+                    <div class="link-card-icon" style="background: rgba(122, 62, 157, 0.1); color: var(--faculty);">👥</div>
+                    <h3>Faculty Portal</h3>
+                    <p>Access course rosters, grade submission, and academic records</p>
+                </div>
+                <div class="link-card">
+                    <div class="link-card-icon" style="background: rgba(122, 62, 157, 0.1); color: var(--faculty);">📊</div>
+                    <h3>Canvas Admin</h3>
+                    <p>Manage your courses, create content, and track student progress</p>
+                </div>
+                <div class="link-card">
+                    <div class="link-card-icon" style="background: rgba(122, 62, 157, 0.1); color: var(--faculty);">🔬</div>
+                    <h3>Research Support</h3>
+                    <p>Grant opportunities, IRB submissions, and research resources</p>
+                </div>
+                <div class="link-card">
+                    <div class="link-card-icon" style="background: rgba(122, 62, 157, 0.1); color: var(--faculty);">📅</div>
+                    <h3>Room Reservations</h3>
+                    <p>Book classrooms, conference rooms, and event spaces</p>
+                </div>
+                <div class="link-card">
+                    <div class="link-card-icon" style="background: rgba(122, 62, 157, 0.1); color: var(--faculty);">💻</div>
+                    <h3>IT Services</h3>
+                    <p>Technical support, software access, and computing resources</p>
+                </div>
+                <div class="link-card">
+                    <div class="link-card-icon" style="background: rgba(122, 62, 157, 0.1); color: var(--faculty);">👔</div>
+                    <h3>HR & Benefits</h3>
+                    <p>Payroll, benefits enrollment, and professional development</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alumni -->
+        <div class="audience-content" id="alumni">
+            <div class="content-header">
+                <h2 style="color: var(--alumni);">Alumni Community</h2>
+                <p>Stay connected with Riverside and fellow graduates around the world</p>
+            </div>
+
+            <div class="quick-links">
+                <div class="link-card">
+                    <div class="link-card-icon" style="background: rgba(201, 169, 97, 0.1); color: var(--alumni);">🌐</div>
+                    <h3>Alumni Network</h3>
+                    <p>Connect with 50,000+ alumni through our online community</p>
+                </div>
+                <div class="link-card">
+                    <div class="link-card-icon" style="background: rgba(201, 169, 97, 0.1); color: var(--alumni);">📰</div>
+                    <h3>Alumni Magazine</h3>
+                    <p>Read the latest news, stories, and updates from campus</p>
+                </div>
+                <div class="link-card">
+                    <div class="link-card-icon" style="background: rgba(201, 169, 97, 0.1); color: var(--alumni);">🎉</div>
+                    <h3>Events & Reunions</h3>
+                    <p>Find local chapters, homecoming, and reunion information</p>
+                </div>
+                <div class="link-card">
+                    <div class="link-card-icon" style="background: rgba(201, 169, 97, 0.1); color: var(--alumni);">💝</div>
+                    <h3>Give Back</h3>
+                    <p>Support scholarships, programs, and the next generation</p>
+                </div>
+                <div class="link-card">
+                    <div class="link-card-icon" style="background: rgba(201, 169, 97, 0.1); color: var(--alumni);">💼</div>
+                    <h3>Career Resources</h3>
+                    <p>Access job boards, networking events, and career counseling</p>
+                </div>
+                <div class="link-card">
+                    <div class="link-card-icon" style="background: rgba(201, 169, 97, 0.1); color: var(--alumni);">🎓</div>
+                    <h3>Volunteer</h3>
+                    <p>Mentor students, speak at events, or join alumni committees</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Parents & Families -->
+        <div class="audience-content" id="parents">
+            <div class="content-header">
+                <h2 style="color: var(--parents);">Parents & Families</h2>
+                <p>Resources and information to support your student's success</p>
+            </div>
+
+            <div class="quick-links">
+                <div class="link-card">
+                    <div class="link-card-icon" style="background: rgba(39, 174, 96, 0.1); color: var(--parents);">💰</div>
+                    <h3>Financial Information</h3>
+                    <p>Tuition, payment plans, billing, and financial aid details</p>
+                </div>
+                <div class="link-card">
+                    <div class="link-card-icon" style="background: rgba(39, 174, 96, 0.1); color: var(--parents);">🛡️</div>
+                    <h3>Campus Safety</h3>
+                    <p>Security resources, emergency protocols, and safety statistics</p>
+                </div>
+                <div class="link-card">
+                    <div class="link-card-icon" style="background: rgba(39, 174, 96, 0.1); color: var(--parents);">📅</div>
+                    <h3>Academic Calendar</h3>
+                    <p>Important dates, breaks, exams, and university closures</p>
+                </div>
+                <div class="link-card">
+                    <div class="link-card-icon" style="background: rgba(39, 174, 96, 0.1); color: var(--parents);">🏠</div>
+                    <h3>Housing & Dining</h3>
+                    <p>Residence halls, meal plans, and campus dining options</p>
+                </div>
+                <div class="link-card">
+                    <div class="link-card-icon" style="background: rgba(39, 174, 96, 0.1); color: var(--parents);">💬</div>
+                    <h3>Parent Resources</h3>
+                    <p>FAQs, parent handbook, and FERPA information</p>
+                </div>
+                <div class="link-card">
+                    <div class="link-card-icon" style="background: rgba(39, 174, 96, 0.1); color: var(--parents);">👨‍👩‍👧</div>
+                    <h3>Family Weekend</h3>
+                    <p>Plan your visit for our annual family celebration event</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>About Riverside</h4>
+                    <ul class="footer-links">
+                        <li><a href="#mission">Mission & Values</a></li>
+                        <li><a href="#history">History</a></li>
+                        <li><a href="#leadership">Leadership</a></li>
+                        <li><a href="#accreditation">Accreditation</a></li>
+                        <li><a href="#diversity">Diversity & Inclusion</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Academics</h4>
+                    <ul class="footer-links">
+                        <li><a href="#programs">Programs</a></li>
+                        <li><a href="#faculty">Faculty</a></li>
+                        <li><a href="#research">Research</a></li>
+                        <li><a href="#library">Library</a></li>
+                        <li><a href="#calendar">Academic Calendar</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Campus Life</h4>
+                    <ul class="footer-links">
+                        <li><a href="#housing">Housing</a></li>
+                        <li><a href="#dining">Dining</a></li>
+                        <li><a href="#athletics">Athletics</a></li>
+                        <li><a href="#arts">Arts & Culture</a></li>
+                        <li><a href="#wellness">Health & Wellness</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#directory">Directory</a></li>
+                        <li><a href="#map">Campus Map</a></li>
+                        <li><a href="#news">News</a></li>
+                        <li><a href="#events">Events</a></li>
+                        <li><a href="#jobs">Employment</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li>123 University Drive</li>
+                        <li>Riverside, CA 92521</li>
+                        <li>Phone: (951) 555-1000</li>
+                        <li><a href="mailto:info@riverside.edu">info@riverside.edu</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Riverside University. All rights reserved. | <a href="#privacy" style="color: inherit;">Privacy Policy</a> | <a href="#terms" style="color: inherit;">Terms of Use</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Audience selector functionality
+        const audienceButtons = document.querySelectorAll('.audience-btn');
+        const contentSections = document.querySelectorAll('.audience-content');
+
+        audienceButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const audience = button.getAttribute('data-audience');
+                
+                // Update button states
+                audienceButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Update content sections
+                contentSections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                const targetSection = document.getElementById(audience);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                }
+                
+                // Smooth scroll to content
+                document.querySelector('.main-content').scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+
+        // Add click handlers to link cards for demonstration
+        const linkCards = document.querySelectorAll('.link-card');
+        linkCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const title = card.querySelector('h3').textContent;
+                alert(`Navigating to: ${title}\n\n(In production, this would link to the actual resource)`);
+            });
+        });
+
+        // Smooth scroll for CTA buttons
+        document.querySelectorAll('.cta-primary, .cta-secondary').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const text = btn.textContent;
+                alert(`Action: ${text}\n\n(In production, this would open the respective page or modal)`);
+            });
+        });
+    </script>
+</body>
+</html>

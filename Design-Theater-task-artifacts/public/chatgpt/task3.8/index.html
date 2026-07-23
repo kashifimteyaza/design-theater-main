@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark">
+  <title>EventSpace — Virtual events that feel easy</title>
+  <style>
+    :root{
+      --bg: #0b0c10;
+      --panel: #111216;
+      --text: #e8e8ea;
+      --muted: #b7bac2;
+      --brand: #6ae3ff;
+      --brand-2: #8cff9f;
+      --accent: #ffb86c;
+      --ok: #3fd87e;
+      --warn: #ffcc66;
+      --danger: #ff6b6b;
+      --border: #2a2c34;
+      --focus: #b3ecff;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 14px;
+      --gap: 16px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      --size: 16px;
+      --line: 1.55;
+    }
+    .theme-light{ /* optional manual light mode */ }
+    .theme-dark{ /* optional manual dark mode */ }
+
+    html,body{height:100%}
+    body{
+      margin:0; font-family:var(--font); color:var(--text); background:radial-gradient(1200px 600px at 20% -10%, rgba(106,227,255,.12), transparent), radial-gradient(1000px 700px at 100% 0, rgba(140,255,159,.08), transparent), var(--bg);
+      line-height:var(--line); font-size:var(--size);
+    }
+    *{box-sizing:border-box}
+    a{color:inherit}
+    .container{max-width:1200px; margin:0 auto; padding:24px;}
+
+    /* Accessibility helpers */
+    .skip{position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden}
+    .skip:focus{left:16px; top:16px; width:auto; height:auto; background:#000; color:#fff; padding:8px 12px; border-radius:10px; z-index:9999}
+    :focus-visible{outline:3px solid var(--focus); outline-offset:2px; border-radius:12px}
+
+    header{position:sticky; top:0; z-index:50; backdrop-filter:saturate(150%) blur(8px); background:linear-gradient(180deg, rgba(17,18,22,.9), rgba(17,18,22,.65)); border-bottom:1px solid var(--border)}
+    .nav{display:flex; align-items:center; justify-content:space-between; gap:12px}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.3px}
+    .brand svg{flex:0 0 28px}
+    .navlinks{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+    .navlinks a{padding:8px 12px; border-radius:10px; border:1px solid transparent}
+    .navlinks a:hover{background:#1a1c22}
+    .nav .cta{background:linear-gradient(135deg, var(--brand), var(--brand-2)); color:#0b0c10; font-weight:700; border:none}
+
+    .hero{display:grid; grid-template-columns:1.2fr .8fr; gap:28px; align-items:center; padding:56px 0}
+    @media (max-width:900px){.hero{grid-template-columns:1fr}}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02)); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow)}
+    .card.pad{padding:24px}
+    h1{font-size:clamp(28px, 4vw, 48px); line-height:1.08; margin:0 0 12px}
+    h2{font-size:clamp(22px, 2.8vw, 32px); margin:24px 0 8px}
+    h3{font-size:20px; margin:18px 0 6px}
+    .muted{color:var(--muted)}
+    .badges{display:flex; gap:8px; flex-wrap:wrap}
+    .badge{border:1px solid var(--border); padding:6px 10px; border-radius:999px; font-size:13px; background:#111216}
+    .actions{display:flex; gap:12px; flex-wrap:wrap}
+    .btn{display:inline-flex; align-items:center; gap:8px; padding:12px 16px; border-radius:12px; border:1px solid var(--border); background:#14161b; color:var(--text); text-decoration:none; font-weight:600}
+    .btn.primary{background:linear-gradient(135deg, var(--brand), var(--brand-2)); color:#0b0c10; border-color:transparent}
+    .btn.ghost{background:transparent}
+
+    .pillars{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+    @media (max-width:900px){.pillars{grid-template-columns:1fr}}
+
+    .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+    @media (max-width:1000px){.grid-3{grid-template-columns:1fr}}
+
+    .kpis{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:18px}
+    @media (max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}}
+    .kpi{padding:16px; border:1px dashed var(--border); border-radius:12px; text-align:center}
+    .kpi strong{font-size:20px}
+
+    .section{padding:36px 0}
+
+    .trust{display:flex; gap:12px; flex-wrap:wrap; opacity:.9}
+    .trust .t{padding:8px 12px; border:1px solid var(--border); border-radius:999px}
+
+    .module{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+    @media (max-width:1000px){.module{grid-template-columns:1fr}}
+
+    .table{width:100%; border-collapse:collapse}
+    .table th, .table td{padding:10px 12px; border-bottom:1px solid var(--border); text-align:left}
+    .table tr:hover{background:#16181f}
+
+    .controls{display:flex; gap:8px; flex-wrap:wrap; align-items:center}
+    .control{display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border:1px solid var(--border); border-radius:10px; background:#14161b}
+    .control input[type="range"]{width:140px}
+    select, input[type="checkbox"], input[type="radio"], input[type="range"], button{accent-color:var(--brand)}
+
+    .chip{display:inline-flex; align-items:center; gap:8px; padding:8px 10px; border:1px solid var(--border); border-radius:999px; font-size:13px}
+
+    .notice{padding:12px; border-radius:12px; border:1px solid var(--border); background:#12131a}
+    .notice.ok{border-color:rgba(63,216,126,.5);}
+    .notice.warn{border-color:rgba(255,204,102,.5)}
+    .notice.danger{border-color:rgba(255,107,107,.5)}
+
+    details{border:1px solid var(--border); border-radius:12px; padding:10px 12px; background:#12131a}
+    details+details{margin-top:8px}
+
+    footer{border-top:1px solid var(--border); padding:24px 0; color:var(--muted)}
+
+    /* Utility */
+    .row{display:flex; gap:10px; flex-wrap:wrap}
+    .grow{flex:1}
+    .right{margin-left:auto}
+    .center{text-align:center}
+    .tag{font-size:12px; text-transform:uppercase; letter-spacing:.12em; color:var(--muted)}
+
+    /* Toggles & states applied by JS */
+    .high-contrast{filter:contrast(1.2) saturate(1.05)}
+    .reduce-motion *{animation:none !important; transition:none !important}
+
+    .modal-backdrop{position:fixed; inset:0; background:rgba(0,0,0,.5); display:none; align-items:center; justify-content:center; z-index:100}
+    .modal{max-width:520px; background:#0f1117; border:1px solid var(--border); border-radius:14px; padding:16px; box-shadow:var(--shadow)}
+    .modal h3{margin-top:0}
+    .modal-backdrop.show{display:flex}
+
+    .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+
+  <header>
+    <div class="container nav" role="navigation" aria-label="Main">
+      <div class="brand" aria-label="EventSpace home">
+        <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 12a9 9 0 1018 0 9 9 0 10-18 0Z" stroke="url(#g)" stroke-width="2"/>
+          <path d="M7 12a5 5 0 1010 0 5 5 0 10-10 0Z" stroke="url(#g2)" stroke-width="2"/>
+          <circle cx="12" cy="12" r="1.8" fill="#6ae3ff"/>
+          <defs>
+            <linearGradient id="g" x1="0" y1="0" x2="24" y2="24">
+              <stop stop-color="#6ae3ff"/><stop offset="1" stop-color="#8cff9f"/>
+            </linearGradient>
+            <linearGradient id="g2" x1="0" y1="0" x2="24" y2="24">
+              <stop stop-color="#8cff9f"/><stop offset="1" stop-color="#6ae3ff"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span>EventSpace</span>
+      </div>
+      <nav class="navlinks" aria-label="Primary">
+        <a href="#approach">Approach</a>
+        <a href="#organizers">Organizers</a>
+        <a href="#speakers">Speakers</a>
+        <a href="#attendees">Attendees</a>
+        <a href="#accessibility">Accessibility</a>
+        <a href="#faq">FAQ</a>
+        <a href="#demo" class="btn cta">Book a demo</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container" tabindex="-1">
+
+    <section class="hero">
+      <div>
+        <div class="badges" aria-label="Event sizes supported">
+          <span class="badge">50-person workshops</span>
+          <span class="badge">5,000‑attendee summits</span>
+          <span class="badge">Nonprofits • Enterprises • Communities</span>
+        </div>
+        <h1>Virtual events that feel smooth, inclusive, and actually engaging.</h1>
+        <p class="muted">EventSpace unifies registration, live streaming, breakouts, networking, and exhibits into one calming interface. We give organizers professional control without overwhelm, speakers confidence on stage, and attendees easy paths to connect—no awkward forcing, just options that respect comfort and access needs.</p>
+        <div class="actions" role="group" aria-label="Primary actions">
+          <a class="btn primary" href="#demo" id="cta-demo">
+            <span aria-hidden="true">🚀</span> Book a live demo
+          </a>
+          <a class="btn" href="#schedule-module"><span aria-hidden="true">🕒</span> See local schedule</a>
+          <button class="btn ghost" id="rejoinBtn" aria-live="polite" aria-describedby="rejoinTip" title="Rejoin your last session">↩︎ Rejoin last session</button>
+          <span id="rejoinTip" class="sr-only">If you accidentally left a session, this button brings you back.</span>
+        </div>
+        <div class="kpis" aria-label="Key platform traits">
+          <div class="kpi"><strong>Clarity-first</strong><br><span class="muted">Time zones auto‑localized</span></div>
+          <div class="kpi"><strong>Built‑in access</strong><br><span class="muted">Captions, keyboard, contrast</span></div>
+          <div class="kpi"><strong>Resilient</strong><br><span class="muted">Rejoin, undo, guardrails</span></div>
+          <div class="kpi"><strong>Scalable</strong><br><span class="muted">From 50 → 5,000</span></div>
+        </div>
+      </div>
+      <div class="card pad" aria-labelledby="setup-check-title">
+        <h2 id="setup-check-title">Quick setup check</h2>
+        <p class="muted">Two clicks to remove day‑of stress. We won’t take your camera live—this just checks your browser is ready.</p>
+        <div class="row">
+          <button class="btn" id="runChecks">Run test</button>
+          <span class="chip" id="localTime">Local time: …</span>
+          <span class="chip" id="netInfo">Network: …</span>
+        </div>
+        <ul id="checkResults" class="muted" aria-live="polite" style="margin-top:10px"></ul>
+        <div class="notice warn" style="margin-top:10px">
+          Tip: On slow connections, our Player auto‑shifts to low‑latency audio with slides—so content stays clear even when video can’t.
+        </div>
+      </div>
+    </section>
+
+    <section id="approach" class="section">
+      <h2>Our approach: calm power</h2>
+      <div class="pillars">
+        <div class="card pad">
+          <h3>Clarity by default</h3>
+          <p class="muted">A single, obvious next step everywhere—<em>Join</em>, <em>Watch</em>, or <em>Explore</em>. Localized times reduce missed sessions; a join‑guard stops wrong rooms.</p>
+        </div>
+        <div class="card pad">
+          <h3>Zero‑stress speaking</h3>
+          <p class="muted">Backstage green room, device checks, and a freeze‑proof presenter feed. If something blips, our <em>Rejoin</em> puts speakers back exactly where they were.</p>
+        </div>
+        <div class="card pad">
+          <h3>Respectful networking</h3>
+          <p class="muted">Text‑first intros, optional audio‑only, or full video. Attendees choose comfort level—no forced roulette. Smart matching aligns interests and availability.</p>
+        </div>
+        <div class="card pad">
+          <h3>Accessible for all</h3>
+          <p class="muted">Live captions, keyboard‑first navigation, screen‑reader labels, color‑contrast and motion controls. Built‑in—not add‑ons.</p>
+        </div>
+        <div class="card pad">
+          <h3>Scale without chaos</h3>
+          <p class="muted">5 parallel tracks? 100 breakouts? Our agenda templates and role‑based controls keep complexity from leaking into the attendee view.</p>
+        </div>
+        <div class="card pad">
+          <h3>Friendly power for organizers</h3>
+          <p class="muted">Granular settings without clutter. You can publish defaults, then override per‑session only when needed—like recording rules or chat modes.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="organizers" class="section">
+      <div class="module">
+        <div class="card pad">
+          <h2>For organizers: professional results, gentle controls</h2>
+          <ul class="muted">
+            <li><strong>Registration to recap:</strong> branded pages, ticketing, and post‑event analytics in one place.</li>
+            <li><strong>Agenda builder:</strong> drag‑and‑drop tracks, time zone aware, guardrails stop overlaps & room capacity issues.</li>
+            <li><strong>Roles & permissions:</strong> hosts, producers, speakers, exhibitors—each sees the tools they need, nothing more.</li>
+            <li><strong>Error recovery:</strong> undo unpublish, re‑open rooms, restore accidentally ended sessions.</li>
+            <li><strong>Sponsor love:</strong> exhibit halls with lead capture that respects attendee privacy.</li>
+          </ul>
+          <div class="notice ok">You stay in control without babysitting every screen.</div>
+        </div>
+        <div class="card pad" id="joinGuard">
+          <h3>Join‑guard demo</h3>
+          <p class="muted">Attendees sometimes click the wrong session. Our guard compares their plan to the button they hit and offers a one‑click fix.</p>
+          <div class="controls" aria-label="Your plan">
+            <label class="control">Your next session:
+              <select id="plannedSession" aria-label="Your planned session"></select>
+            </label>
+          </div>
+          <table class="table" aria-label="Sessions list">
+            <thead><tr><th>When (local)</th><th>Title</th><th>Track</th><th>Action</th></tr></thead>
+            <tbody id="sessionRows"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="speakers" class="section">
+      <div class="module">
+        <div class="card pad">
+          <h2>For speakers: confidence built‑in</h2>
+          <ul class="muted">
+            <li><strong>Green room:</strong> meet your producer, check slides, and test mic/camera without the audience.</li>
+            <li><strong>Safe slides:</strong> if bandwidth dips, we stream slides first so narration never stalls.</li>
+            <li><strong>Recording permissions:</strong> speaker‑aware prompts prevent missed consent; organizers can resend with context.</li>
+            <li><strong>Rejoin exactly:</strong> if disconnected, return to the same layout and slide.</li>
+          </ul>
+          <div class="notice">Tip: Use the <em>Test my setup</em> button anytime before going live.</div>
+        </div>
+        <div class="card pad" id="consentDemo">
+          <h3>Recording consent helper</h3>
+          <p class="muted">Simulate how a speaker is nudged for the right permission at the right time.</p>
+          <div class="row">
+            <label class="control"><input type="checkbox" id="needsConsent" checked> This session requires consent</label>
+            <button class="btn" id="promptConsentBtn">Prompt speaker</button>
+          </div>
+          <p id="consentStatus" class="muted" aria-live="polite">Waiting…</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="attendees" class="section">
+      <div class="module">
+        <div class="card pad" id="schedule-module">
+          <h2>Never miss a session again</h2>
+          <p class="muted">All times below update to your selected time zone. We detect your local zone, but you can change it anytime.</p>
+          <div class="controls">
+            <label class="control">Time zone
+              <select id="tzSelect" aria-label="Select time zone"></select>
+            </label>
+            <label class="control">Format
+              <select id="timeFmt"><option value="12">12‑hour</option><option value="24">24‑hour</option></select>
+            </label>
+          </div>
+          <table class="table" aria-describedby="tzHelp">
+            <thead><tr><th>Local time</th><th>Session</th><th>Track</th><th>Join</th></tr></thead>
+            <tbody id="schedBody"></tbody>
+          </table>
+          <p id="tzHelp" class="muted">Showing times in <span id="tzLabel">your time</span>. We’ll warn you before you enter the wrong room.</p>
+        </div>
+        <div class="card pad" id="networking">
+          <h2>Networking without the awkward</h2>
+          <p class="muted">Choose how you prefer to meet. We’ll match you with attendees who chose similarly.</p>
+          <div class="controls" role="group" aria-label="Networking preferences">
+            <label class="control"><input type="radio" name="net" value="text" checked> Text‑first intro</label>
+            <label class="control"><input type="radio" name="net" value="audio"> Audio‑only</label>
+            <label class="control"><input type="radio" name="net" value="video"> Video‑ready</label>
+            <label class="control"><input type="checkbox" id="icebreakers"> Skip icebreakers</label>
+          </div>
+          <div class="notice" id="netSummary" aria-live="polite">We’ll start you with a gentle text chat, then offer to upgrade.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="accessibility" class="section">
+      <div class="grid-3">
+        <div class="card pad">
+          <h2>Accessibility controls</h2>
+          <div class="controls">
+            <button class="btn" id="bigger">A+</button>
+            <button class="btn" id="smaller">A‑</button>
+            <label class="control"><input type="checkbox" id="contrastToggle"> High contrast</label>
+            <label class="control"><input type="checkbox" id="motionToggle"> Reduce motion</label>
+            <button class="btn" id="themeToggle" aria-pressed="false" aria-label="Toggle color theme">Toggle theme</button>
+          </div>
+          <p class="muted">We follow WCAG‑aligned patterns: labeled controls, visible focus, keyboard‑first flows, semantic HTML, and ARIA only where necessary.</p>
+        </div>
+        <div class="card pad">
+          <h2>Keyboard & screen reader</h2>
+          <ul class="muted">
+            <li><strong>Skip links</strong> jump past navigation.</li>
+            <li><strong>Logical headings</strong> and landmarks for quick navigation.</li>
+            <li><strong>Live regions</strong> announce status changes without stealing focus.</li>
+          </ul>
+          <div class="notice">Press <kbd>Tab</kbd> to explore—every action is reachable without a mouse.</div>
+        </div>
+        <div class="card pad">
+          <h2>Connectivity assist</h2>
+          <p class="muted">Our player adapts to your connection. If bandwidth drops, we prioritize audio & slides automatically so you never miss the core content.</p>
+          <div class="row"><span class="chip">Auto‑fallbacks</span><span class="chip">Slide‑first</span><span class="chip">Replay ready</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <h2>FAQ</h2>
+      <details>
+        <summary>How do you prevent time zone confusion?</summary>
+        <p class="muted">We store event times in UTC and render them in each attendee’s chosen zone with clear labels. The schedule and notifications always agree to the same zone.</p>
+      </details>
+      <details>
+        <summary>What if someone clicks the wrong session?</summary>
+        <p class="muted">Join‑guard compares intent to action and offers a redirect. We also surface a <em>Rejoin</em> button across the app.</p>
+      </details>
+      <details>
+        <summary>Do introverts have to do video networking?</summary>
+        <p class="muted">Never. Text‑only and audio‑only options are first‑class. We match based on preferences.</p>
+      </details>
+      <details>
+        <summary>How do sponsors see ROI without spam?</summary>
+        <p class="muted">Exhibit booths collect opt‑in leads and contextual engagement—no surprise DMs.</p>
+      </details>
+    </section>
+
+    <section id="demo" class="section center">
+      <div class="card pad">
+        <h2>Ready to make virtual feel natural?</h2>
+        <p class="muted">Book a walkthrough. We’ll map your goals to the right setup—workshop, summit, fundraiser, or community day.</p>
+        <div class="actions center">
+          <a class="btn primary" href="#" onclick="alert('Thanks! We\'ll reach out.'); return false;">Get a personalized demo</a>
+          <a class="btn" href="#" onclick="alert('We\'ll send sandbox access.'); return false;">Try a sandbox</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="container">
+    <div class="row">
+      <div>© <span id="year"></span> EventSpace</div>
+      <div class="right">Inclusive • Reliable • Human</div>
+    </div>
+  </footer>
+
+  <!-- Live region for announcements -->
+  <div id="announcer" class="sr-only" role="status" aria-live="polite"></div>
+
+  <!-- Modal -->
+  <div class="modal-backdrop" id="modal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <h3 id="modalTitle">It looks like you meant a different session</h3>
+      <p id="modalBody" class="muted"></p>
+      <div class="row" style="margin-top:10px">
+        <button class="btn" id="goPlanned">Go to my planned session</button>
+        <button class="btn ghost" id="joinAnyway">Join anyway</button>
+        <button class="btn right" id="closeModal">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* --- Utilities --- */
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+    const announce = (msg) => { const el = $('#announcer'); el.textContent = msg; }
+    const LSKEY = 'eventspace:prefs';
+    const LSLAST = 'eventspace:lastSession';
+
+    const Prefs = {
+      get(){ try{ return JSON.parse(localStorage.getItem(LSKEY))||{} }catch{ return {} } },
+      set(k,v){ const p=this.get(); p[k]=v; localStorage.setItem(LSKEY, JSON.stringify(p)) }
+    };
+
+    /* --- Time zone & schedule --- */
+    const schedule = [
+      { id:'keynote', title:'Opening Keynote: The Future of Remote Events', start:'2025-11-12T14:00:00Z', duration:60, track:'Main Stage' },
+      { id:'workshop', title:'Hands‑on Workshop: Interactive Breakouts at Scale', start:'2025-11-12T15:30:00Z', duration:45, track:'Workshop A' },
+      { id:'expo', title:'Exhibit Hall Live Demos', start:'2025-11-12T17:00:00Z', duration:90, track:'Expo' }
+    ];
+
+    function supportedTimeZones(){
+      if (Intl.supportedValuesOf){
+        try{ return Intl.supportedValuesOf('timeZone'); }catch{ /* fallthrough */ }
+      }
+      return ['UTC','America/New_York','Europe/London','Europe/Paris','Asia/Kolkata','Asia/Singapore','Australia/Sydney'];
+    }
+
+    function fmtTime(dateISO, tz, fmt24){
+      const d = new Date(dateISO);
+      const opts = { timeZone: tz, hour:'numeric', minute:'2-digit', month:'short', day:'numeric'};
+      if(fmt24===true){ opts.hour12=false };
+      return new Intl.DateTimeFormat(undefined, opts).format(d);
+    }
+
+    function addMinutes(iso, mins){ return new Date(new Date(iso).getTime() + mins*60000).toISOString(); }
+
+    function renderSchedule(){
+      const tz = $('#tzSelect').value;
+      const fmt24 = $('#timeFmt').value === '24';
+      const body = $('#schedBody'); body.innerHTML='';
+      schedule.forEach(s => {
+        const when = fmtTime(s.start, tz, fmt24) + ' – ' + fmtTime(addMinutes(s.start, s.duration), tz, fmt24);
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${when}</td><td>${s.title}</td><td>${s.track}</td>
+          <td><button class="btn" data-join="${s.id}">Join</button></td>`;
+        body.appendChild(tr);
+      });
+      $('#tzLabel').textContent = tz;
+      fillJoinGuard(tz, fmt24);
+    }
+
+    function populateTimeZones(){
+      const tzs = supportedTimeZones();
+      const sel = $('#tzSelect'); sel.innerHTML='';
+      const local = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+      tzs.slice(0,200).forEach(z => { // keep it sane
+        const opt = document.createElement('option'); opt.value=z; opt.textContent=z; if(z===local) opt.selected=true; sel.appendChild(opt);
+      });
+      $('#tzLabel').textContent = sel.value;
+    }
+
+    /* --- Join-guard demo --- */
+    function fillJoinGuard(tz, fmt24){
+      const planSel = $('#plannedSession'); planSel.innerHTML='';
+      schedule.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value=s.id; opt.textContent = `${fmtTime(s.start, tz, fmt24)} • ${s.title}`; planSel.appendChild(opt);
+      });
+      // keep previous selection
+      const keep = planSel.getAttribute('data-keep');
+      if(keep){ planSel.value = keep; planSel.removeAttribute('data-keep'); }
+
+      const rows = $('#sessionRows'); rows.innerHTML='';
+      schedule.forEach(s => {
+        const tr = document.createElement('tr');
+        const when = fmtTime(s.start, tz, fmt24);
+        tr.innerHTML = `<td>${when}</td><td>${s.title}</td><td>${s.track}</td>
+        <td><button class="btn" data-guard="${s.id}">Join</button></td>`;
+        rows.appendChild(tr);
+      });
+    }
+
+    function openModal(text, plannedId, clickedId){
+      $('#modalBody').textContent = text;
+      const m = $('#modal');
+      m.classList.add('show');
+      $('#goPlanned').onclick = () => { m.classList.remove('show'); directJoin(plannedId); };
+      $('#joinAnyway').onclick = () => { m.classList.remove('show'); directJoin(clickedId); };
+    }
+
+    function directJoin(id){
+      localStorage.setItem(LSLAST, id);
+      announce('Joining ' + id);
+      alert('Joining session: ' + id + '\n(Prototype)');
+      refreshRejoin();
+    }
+
+    function refreshRejoin(){
+      const last = localStorage.getItem(LSLAST);
+      const btn = $('#rejoinBtn');
+      if(last){ btn.disabled=false; btn.textContent = '↩︎ Rejoin last: ' + last; }
+      else{ btn.disabled=true; btn.textContent = '↩︎ Rejoin last session'; }
+    }
+
+    /* --- Networking preferences --- */
+    function updateNetworking(){
+      const choice = $('input[name="net"]:checked').value;
+      const skip = $('#icebreakers').checked;
+      let msg = '';
+      if(choice==='text') msg = 'We’ll start you with a gentle text chat, then offer to upgrade.';
+      if(choice==='audio') msg = 'You’ll meet in audio first, with slides if needed—video is optional.';
+      if(choice==='video') msg = 'We’ll pair you into short video rooms with easy opt‑outs.';
+      if(skip) msg += ' Icebreakers are skipped.';
+      $('#netSummary').textContent = msg;
+      announce('Networking preference updated');
+    }
+
+    /* --- Setup check --- */
+    async function runChecks(){
+      const out = $('#checkResults'); out.innerHTML='';
+      const items = [];
+      const push = (ok, label, hint='') => items.push({ok,label,hint});
+
+      // Local time & network
+      const now = new Date();
+      $('#localTime').textContent = 'Local: ' + now.toLocaleString();
+      try{
+        const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        $('#netInfo').textContent = 'Network: ' + (conn ? (conn.effectiveType||'unknown') : 'unknown');
+      }catch{ $('#netInfo').textContent = 'Network: unknown' }
+
+      // Permissions API checks (non‑blocking)
+      const hasMedia = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+      push(hasMedia, 'Camera/Mic API available', hasMedia ? '' : 'Browser blocked or insecure context');
+
+      const hasRTC = 'RTCPeerConnection' in window;
+      push(hasRTC, 'WebRTC supported', hasRTC ? '' : 'Update browser or use desktop app');
+
+      try{
+        if (navigator.permissions && navigator.permissions.query){
+          for (const name of ['camera','microphone']){
+            try{ const p = await navigator.permissions.query({name}); push(true, name+': '+p.state, ''); }
+            catch{ /* some browsers throw here */ }
+          }
+        }
+      }catch{}
+
+      // Render results
+      items.forEach(it => {
+        const li = document.createElement('li');
+        li.textContent = (it.ok?'✅ ':'⚠️ ') + it.label + (it.hint?(' — '+it.hint):'');
+        out.appendChild(li);
+      });
+      announce('Setup check completed');
+    }
+
+    /* --- Consent demo --- */
+    function promptConsent(){
+      const needs = $('#needsConsent').checked;
+      if(!needs){ $('#consentStatus').textContent = 'No consent required for this session.'; return; }
+      $('#consentStatus').textContent = 'Prompting speaker…';
+      setTimeout(() => {
+        const granted = Math.random() > 0.2; // simulate
+        $('#consentStatus').textContent = granted ? '✅ Consent captured and stored.' : '⚠️ No response—auto‑reminding in 5 minutes.';
+        announce('Consent status updated');
+      }, 600);
+    }
+
+    /* --- Accessibility controls --- */
+    function applyPrefs(){
+      const p = Prefs.get();
+      if(p.size) document.documentElement.style.setProperty('--size', p.size+'px');
+      document.documentElement.classList.toggle('high-contrast', !!p.contrast);
+      document.documentElement.classList.toggle('reduce-motion', !!p.motion);
+      if(p.theme==='dark') document.documentElement.classList.add('theme-dark');
+      if(p.theme==='light') document.documentElement.classList.add('theme-light');
+      $('#contrastToggle').checked = !!p.contrast;
+      $('#motionToggle').checked = !!p.motion;
+    }
+
+    function bind(){
+      $('#year').textContent = new Date().getFullYear();
+      populateTimeZones();
+      renderSchedule();
+      refreshRejoin();
+
+      $('#timeFmt').addEventListener('change', renderSchedule);
+      $('#tzSelect').addEventListener('change', renderSchedule);
+
+      document.body.addEventListener('click', (e) => {
+        const btn = e.target.closest('button'); if(!btn) return;
+        if(btn.id==='runChecks') runChecks();
+        if(btn.id==='promptConsentBtn') promptConsent();
+        if(btn.dataset.join){ localStorage.setItem(LSLAST, btn.dataset.join); refreshRejoin(); alert('Joining '+btn.dataset.join+' (Prototype)'); }
+        if(btn.dataset.guard){
+          const planned = $('#plannedSession').value;
+          const clicked = btn.dataset.guard;
+          if(planned !== clicked){
+            const tPlanned = schedule.find(s=>s.id===planned).title;
+            const tClicked = schedule.find(s=>s.id===clicked).title;
+            openModal(`You clicked “${tClicked}”, but your plan shows “${tPlanned}”.`, planned, clicked);
+          }else{ directJoin(clicked); }
+        }
+        if(btn.id==='rejoinBtn'){ const id = localStorage.getItem(LSLAST); if(id) directJoin(id); }
+        if(btn.id==='closeModal'){ $('#modal').classList.remove('show'); }
+      });
+
+      $('#plannedSession').addEventListener('change', () => announce('Planned session updated'));
+
+      $$('#networking input').forEach(el => el.addEventListener('change', updateNetworking));
+      updateNetworking();
+
+      // Accessibility controls
+      $('#bigger').addEventListener('click', () => { const cur=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--size'))||16; const v=Math.min(cur+1, 22); Prefs.set('size', v); applyPrefs(); });
+      $('#smaller').addEventListener('click', () => { const cur=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--size'))||16; const v=Math.max(cur-1, 12); Prefs.set('size', v); applyPrefs(); });
+      $('#contrastToggle').addEventListener('change', e => { Prefs.set('contrast', e.target.checked); applyPrefs(); });
+      $('#motionToggle').addEventListener('change', e => { Prefs.set('motion', e.target.checked); applyPrefs(); });
+      $('#themeToggle').addEventListener('click', e => {
+        const html = document.documentElement; html.classList.toggle('theme-dark'); html.classList.toggle('theme-light');
+        const theme = html.classList.contains('theme-dark') ? 'dark' : (html.classList.contains('theme-light') ? 'light' : undefined);
+        Prefs.set('theme', theme); e.currentTarget.setAttribute('aria-pressed', theme==='dark');
+      });
+
+      // Close modal with ESC
+      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') $('#modal').classList.remove('show'); });
+    }
+
+    // init
+    document.addEventListener('DOMContentLoaded', () => { applyPrefs(); bind(); });
+  </script>
+</body>
+</html>

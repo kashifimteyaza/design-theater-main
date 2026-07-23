@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <title>CreditBuilder — Your Path Forward</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/style.css" />
+    <meta property="og:image" content="https://bolt.new/static/og_default.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
+</head>
+  <body>
+    <div id="app">
+
+      <!-- Top Navigation -->
+      <header class="header">
+        <div class="header-inner">
+          <div class="logo-mark">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+              <circle cx="14" cy="14" r="13" stroke="#1a8c6e" stroke-width="2"/>
+              <path d="M8 16 L11 19 L20 10" stroke="#1a8c6e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="logo-text">CreditBuilder</span>
+          </div>
+          <div class="header-actions">
+            <button class="icon-btn" aria-label="Notifications" id="notif-btn">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+              </svg>
+              <span class="notif-dot" aria-hidden="true"></span>
+            </button>
+            <button class="avatar-btn" aria-label="Your account">
+              <span class="avatar-initials">MR</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <main class="main">
+
+        <!-- Greeting -->
+        <section class="greeting-section">
+          <p class="greeting-sub">Good morning, Marcus</p>
+          <h1 class="greeting-main">You're making progress.</h1>
+        </section>
+
+        <!-- Credit Score Card -->
+        <section class="score-card" aria-labelledby="score-heading">
+          <div class="score-card-header">
+            <span id="score-heading" class="score-label">Your Credit Score</span>
+            <button class="privacy-toggle" id="privacy-btn" aria-pressed="false" aria-label="Hide sensitive information">
+              <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+              <svg class="eye-off-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                <line x1="1" y1="1" x2="23" y2="23"/>
+              </svg>
+              <span class="privacy-label">Hide</span>
+            </button>
+          </div>
+
+          <div class="score-gauge-wrap" id="score-display">
+            <!-- SVG Arc Gauge -->
+            <svg class="gauge-svg" viewBox="0 0 200 120" aria-hidden="true">
+              <!-- Track -->
+              <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#e8e4de" stroke-width="14" stroke-linecap="round"/>
+              <!-- Colored fill segments -->
+              <path class="gauge-segment seg-red"    d="M 20 100 A 80 80 0 0 1 60 30"     fill="none" stroke="#e05252" stroke-width="14" stroke-linecap="round"/>
+              <path class="gauge-segment seg-orange" d="M 60 30 A 80 80 0 0 1 100 20"     fill="none" stroke="#e08c30" stroke-width="14"/>
+              <path class="gauge-segment seg-yellow" d="M 100 20 A 80 80 0 0 1 140 30"   fill="none" stroke="#c9b83a" stroke-width="14"/>
+              <path class="gauge-segment seg-green"  d="M 140 30 A 80 80 0 0 1 172 65"   fill="none" stroke="#2fa87e" stroke-width="14"/>
+              <path class="gauge-segment seg-teal"   d="M 172 65 A 80 80 0 0 1 180 100"  fill="none" stroke="#1a8c6e" stroke-width="14" stroke-linecap="round"/>
+              <!-- Needle indicator -->
+              <circle class="gauge-needle" cx="100" cy="100" r="0" fill="transparent"/>
+              <!-- Needle line (rotates around center 100,100) -->
+              <g id="needle-group" transform="rotate(-72, 100, 100)">
+                <line x1="100" y1="100" x2="100" y2="28" stroke="#1a2e24" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="100" cy="100" r="6" fill="#1a2e24"/>
+                <circle cx="100" cy="100" r="3" fill="#faf9f7"/>
+              </g>
+            </svg>
+
+            <!-- Score number -->
+            <div class="score-number-wrap">
+              <span class="score-number private-data" id="score-value">612</span>
+              <span class="score-rating private-data" id="score-rating">Fair</span>
+            </div>
+
+            <!-- Score range labels -->
+            <div class="score-range-labels private-data">
+              <span class="range-label bad">Poor</span>
+              <span class="range-label fair">Fair</span>
+              <span class="range-label good">Good</span>
+            </div>
+          </div>
+
+          <!-- Change indicator -->
+          <div class="score-change private-data">
+            <div class="change-badge up">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <polyline points="18 15 12 9 6 15"/>
+              </svg>
+              <span>+14 pts this month</span>
+            </div>
+            <span class="score-updated">Updated today</span>
+          </div>
+        </section>
+
+        <!-- Privacy overlay message -->
+        <div class="privacy-notice" id="privacy-notice" style="display:none" role="status" aria-live="polite">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+          <span>Score hidden for privacy</span>
+        </div>
+
+        <!-- Quick Stats Row -->
+        <section class="quick-stats" aria-label="Key credit factors">
+          <div class="stat-pill">
+            <span class="stat-pill-label">On-time payments</span>
+            <span class="stat-pill-value private-data">87%</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-pill-label">Credit used</span>
+            <span class="stat-pill-value private-data">64%</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-pill-label">Accounts open</span>
+            <span class="stat-pill-value private-data">3</span>
+          </div>
+        </section>
+
+        <!-- Next Best Action -->
+        <section class="action-banner" aria-labelledby="action-heading">
+          <div class="action-icon-wrap" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1a8c6e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="8" x2="12" y2="12"/>
+              <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </div>
+          <div class="action-content">
+            <p id="action-heading" class="action-title">Your biggest opportunity</p>
+            <p class="action-desc">Lower your credit card usage to below 30%. This alone could add <strong>+40 pts</strong> to your score.</p>
+          </div>
+          <button class="action-cta" aria-label="Learn how to lower credit usage">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </button>
+        </section>
+
+        <!-- Progress Timeline -->
+        <section class="progress-section" aria-labelledby="progress-heading">
+          <div class="section-header">
+            <h2 id="progress-heading" class="section-title">Your 6-month journey</h2>
+          </div>
+          <div class="progress-chart" aria-label="Score history chart" role="img">
+            <div class="chart-area">
+              <svg class="sparkline" viewBox="0 0 300 80" preserveAspectRatio="none" aria-hidden="true">
+                <defs>
+                  <linearGradient id="spark-fill" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#1a8c6e" stop-opacity="0.25"/>
+                    <stop offset="100%" stop-color="#1a8c6e" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <path class="spark-fill" d="M0,68 L50,62 L100,58 L150,54 L200,46 L250,38 L300,22 L300,80 L0,80 Z" fill="url(#spark-fill)"/>
+                <path class="spark-line" d="M0,68 L50,62 L100,58 L150,54 L200,46 L250,38 L300,22" fill="none" stroke="#1a8c6e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <!-- Data points -->
+                <circle cx="0"   cy="68" r="4" fill="#fff" stroke="#1a8c6e" stroke-width="2"/>
+                <circle cx="50"  cy="62" r="4" fill="#fff" stroke="#1a8c6e" stroke-width="2"/>
+                <circle cx="100" cy="58" r="4" fill="#fff" stroke="#1a8c6e" stroke-width="2"/>
+                <circle cx="150" cy="54" r="4" fill="#fff" stroke="#1a8c6e" stroke-width="2"/>
+                <circle cx="200" cy="46" r="4" fill="#fff" stroke="#1a8c6e" stroke-width="2"/>
+                <circle cx="250" cy="38" r="4" fill="#fff" stroke="#1a8c6e" stroke-width="2"/>
+                <circle cx="300" cy="22" r="5" fill="#1a8c6e" stroke="#fff" stroke-width="2.5"/>
+              </svg>
+              <div class="chart-months" aria-hidden="true">
+                <span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span>
+              </div>
+            </div>
+            <div class="chart-scores private-data" aria-label="Score range from 578 to 612">
+              <span class="chart-score-now">612 now</span>
+              <span class="chart-score-start">578 then</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Steps to Improve -->
+        <section class="steps-section" aria-labelledby="steps-heading">
+          <h2 id="steps-heading" class="section-title">Your improvement plan</h2>
+          <ul class="steps-list" role="list">
+            <li class="step-item completed" aria-label="Completed: Link your bank account">
+              <div class="step-check" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </div>
+              <div class="step-content">
+                <p class="step-title">Link your bank account</p>
+                <p class="step-sub">Done — this unlocked your score tracking</p>
+              </div>
+            </li>
+            <li class="step-item completed" aria-label="Completed: Set up autopay for minimum payments">
+              <div class="step-check" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </div>
+              <div class="step-content">
+                <p class="step-title">Set up autopay</p>
+                <p class="step-sub">Never miss a payment — great work</p>
+              </div>
+            </li>
+            <li class="step-item active" aria-label="In progress: Lower your credit utilization">
+              <div class="step-number" aria-hidden="true">3</div>
+              <div class="step-content">
+                <p class="step-title">Lower your credit usage</p>
+                <p class="step-sub">Pay down cards to below 30% — biggest impact</p>
+              </div>
+              <button class="step-action-btn">How</button>
+            </li>
+            <li class="step-item" aria-label="Next: Dispute an old collection">
+              <div class="step-number" aria-hidden="true">4</div>
+              <div class="step-content">
+                <p class="step-title">Dispute the old collection</p>
+                <p class="step-sub">We found 1 item you can challenge</p>
+              </div>
+              <button class="step-action-btn step-action-muted">Start</button>
+            </li>
+            <li class="step-item" aria-label="Next: Open a secured credit card">
+              <div class="step-number" aria-hidden="true">5</div>
+              <div class="step-content">
+                <p class="step-title">Open a secured card</p>
+                <p class="step-sub">Build credit with a $200 deposit — no hard pull</p>
+              </div>
+              <button class="step-action-btn step-action-muted">Learn</button>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Milestone Banner -->
+        <section class="milestone-card" aria-label="Your next milestone">
+          <div class="milestone-left">
+            <div class="milestone-icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1a8c6e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="6"/>
+                <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>
+              </svg>
+            </div>
+            <div>
+              <p class="milestone-label">Next milestone</p>
+              <p class="milestone-title">Good Credit — 670</p>
+              <p class="milestone-sub">You need <strong class="private-data">58 more points</strong></p>
+            </div>
+          </div>
+          <div class="milestone-progress-wrap" aria-hidden="true">
+            <div class="milestone-ring">
+              <svg viewBox="0 0 56 56" width="56" height="56">
+                <circle cx="28" cy="28" r="22" fill="none" stroke="#e8e4de" stroke-width="5"/>
+                <circle cx="28" cy="28" r="22" fill="none" stroke="#1a8c6e" stroke-width="5"
+                  stroke-dasharray="138.2" stroke-dashoffset="44" stroke-linecap="round"
+                  transform="rotate(-90 28 28)"/>
+              </svg>
+              <span class="milestone-pct">68%</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Educational Tip -->
+        <section class="tip-card" aria-labelledby="tip-heading">
+          <div class="tip-tag">Did you know?</div>
+          <p id="tip-heading" class="tip-text">Checking your own credit score <strong>never lowers it.</strong> That's called a soft inquiry — only lenders checking your credit can affect it.</p>
+        </section>
+
+        <!-- Bottom Nav -->
+        <nav class="bottom-nav" aria-label="Main navigation">
+          <a href="#" class="nav-item active" aria-current="page">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+            <span>Home</span>
+          </a>
+          <a href="#" class="nav-item">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="18" y1="20" x2="18" y2="10"/>
+              <line x1="12" y1="20" x2="12" y2="4"/>
+              <line x1="6" y1="20" x2="6" y2="14"/>
+            </svg>
+            <span>Progress</span>
+          </a>
+          <a href="#" class="nav-item">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+            </svg>
+            <span>Report</span>
+          </a>
+          <a href="#" class="nav-item">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M19.07 4.93l-1.41 1.41"/>
+              <path d="M4.93 4.93l1.41 1.41"/>
+              <path d="M4.93 19.07l1.41-1.41"/>
+              <path d="M19.07 19.07l-1.41-1.41"/>
+              <path d="M12 2v2"/>
+              <path d="M12 20v2"/>
+              <path d="M2 12h2"/>
+              <path d="M20 12h2"/>
+            </svg>
+            <span>Learn</span>
+          </a>
+          <a href="#" class="nav-item">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+            <span>Profile</span>
+          </a>
+        </nav>
+
+      </main>
+    </div>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

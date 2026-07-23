@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+      <style>
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
+        :root {
+          --primary: #2B8A8A;
+          --primary-light: #4A9F9F;
+          --accent: #E8D4B8;
+          --success: #6BA589;
+          --text-dark: #1A1A1A;
+          --text-light: #666666;
+          --bg-light: #FAFAF8;
+          --bg-white: #FFFFFF;
+          --border: #E8E6E1;
+          --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+          --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.12);
+          --radius: 12px;
+        }
+
+        html, body {
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+          background: var(--bg-light);
+          color: var(--text-dark);
+          line-height: 1.6;
+          font-size: 16px;
+        }
+
+        body {
+          min-height: 100vh;
+        }
+
+        .hidden-sensitive {
+          filter: blur(8px);
+          user-select: none;
+          pointer-events: none;
+        }
+
+        /* Header & Privacy Toggle */
+        .header {
+          background: var(--bg-white);
+          padding: 16px;
+          border-bottom: 1px solid var(--border);
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          position: sticky;
+          top: 0;
+          z-index: 100;
+          box-shadow: var(--shadow);
+        }
+
+        .logo {
+          font-size: 20px;
+          font-weight: 700;
+          color: var(--primary);
+          letter-spacing: -0.5px;
+        }
+
+        .privacy-toggle {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          background: var(--accent);
+          border: none;
+          padding: 8px 12px;
+          border-radius: 20px;
+          cursor: pointer;
+          font-size: 14px;
+          color: var(--text-dark);
+          transition: all 0.3s ease;
+          font-weight: 500;
+        }
+
+        .privacy-toggle:hover {
+          background: #DCC3A5;
+          transform: scale(1.02);
+        }
+
+        .privacy-icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 20px;
+          height: 20px;
+          font-size: 12px;
+        }
+
+        /* Main Content */
+        .container {
+          max-width: 500px;
+          margin: 0 auto;
+          padding: 0 16px;
+        }
+
+        /* Hero Section */
+        .hero {
+          padding: 32px 0 24px;
+          text-align: center;
+        }
+
+        .hero-emoji {
+          font-size: 48px;
+          margin-bottom: 16px;
+          display: block;
+        }
+
+        .hero h1 {
+          font-size: 28px;
+          font-weight: 700;
+          margin-bottom: 12px;
+          color: var(--primary);
+          line-height: 1.3;
+        }
+
+        .hero p {
+          font-size: 16px;
+          color: var(--text-light);
+          margin-bottom: 8px;
+          line-height: 1.5;
+        }
+
+        .hero p:last-child {
+          margin-bottom: 0;
+          font-weight: 500;
+          color: var(--text-dark);
+        }
+
+        /* Credit Score Card */
+        .score-card {
+          background: var(--bg-white);
+          border-radius: var(--radius);
+          padding: 24px;
+          margin: 32px 0;
+          box-shadow: var(--shadow);
+          border: 2px solid var(--accent);
+        }
+
+        .score-card-label {
+          font-size: 14px;
+          color: var(--text-light);
+          font-weight: 500;
+          margin-bottom: 12px;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        .score-container {
+          display: flex;
+          align-items: flex-end;
+          justify-content: center;
+          gap: 16px;
+          margin-bottom: 20px;
+        }
+
+        .score-main {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .score-number {
+          font-size: 56px;
+          font-weight: 700;
+          color: var(--primary);
+          line-height: 1;
+        }
+
+        .score-range {
+          font-size: 12px;
+          color: var(--text-light);
+          margin-top: 4px;
+        }
+
+        .score-change {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          background: var(--accent);
+          padding: 12px 16px;
+          border-radius: 8px;
+          text-align: center;
+        }
+
+        .score-change-label {
+          font-size: 12px;
+          color: var(--text-light);
+          margin-bottom: 4px;
+        }
+
+        .score-change-value {
+          font-size: 24px;
+          font-weight: 700;
+          color: var(--success);
+        }
+
+        .score-update {
+          font-size: 12px;
+          color: var(--text-light);
+          margin-top: 12px;
+          text-align: center;
+        }
+
+        /* Progress Bars */
+        .progress-section {
+          margin: 24px 0;
+        }
+
+        .progress-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 12px;
+        }
+
+        .progress-label {
+          font-size: 14px;
+          font-weight: 500;
+          color: var(--text-dark);
+        }
+
+        .progress-value {
+          font-size: 14px;
+          font-weight: 700;
+          color: var(--primary);
+        }
+
+        .progress-bar {
+          height: 8px;
+          background: var(--border);
+          border-radius: 4px;
+          overflow: hidden;
+        }
+
+        .progress-fill {
+          height: 100%;
+          background: var(--primary);
+          border-radius: 4px;
+          transition: width 0.6s ease;
+        }
+
+        /* Action Steps */
+        .action-section {
+          margin: 32px 0;
+        }
+
+        .section-title {
+          font-size: 18px;
+          font-weight: 700;
+          color: var(--text-dark);
+          margin-bottom: 16px;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .steps {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .step {
+          background: var(--bg-white);
+          border-left: 4px solid var(--primary);
+          padding: 16px;
+          border-radius: 8px;
+          box-shadow: var(--shadow);
+          transition: all 0.3s ease;
+          cursor: pointer;
+        }
+
+        .step:active {
+          transform: scale(0.98);
+          box-shadow: var(--shadow-hover);
+        }
+
+        .step-number {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 28px;
+          height: 28px;
+          background: var(--accent);
+          border-radius: 50%;
+          font-weight: 700;
+          color: var(--text-dark);
+          margin-bottom: 8px;
+          font-size: 14px;
+        }
+
+        .step-title {
+          font-size: 16px;
+          font-weight: 600;
+          color: var(--text-dark);
+          margin-bottom: 4px;
+        }
+
+        .step-description {
+          font-size: 14px;
+          color: var(--text-light);
+          line-height: 1.5;
+        }
+
+        /* Features Grid */
+        .features {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
+          margin: 32px 0;
+        }
+
+        .feature {
+          background: var(--bg-white);
+          padding: 16px;
+          border-radius: var(--radius);
+          text-align: center;
+          box-shadow: var(--shadow);
+          border: 1px solid var(--border);
+        }
+
+        .feature-emoji {
+          font-size: 32px;
+          margin-bottom: 8px;
+        }
+
+        .feature-title {
+          font-size: 14px;
+          font-weight: 600;
+          color: var(--text-dark);
+          line-height: 1.4;
+        }
+
+        /* Call to Action */
+        .cta-section {
+          margin: 32px 0 48px;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .btn {
+          padding: 16px 24px;
+          border: none;
+          border-radius: var(--radius);
+          font-size: 16px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          width: 100%;
+        }
+
+        .btn-primary {
+          background: var(--primary);
+          color: white;
+          box-shadow: var(--shadow);
+        }
+
+        .btn-primary:active {
+          transform: scale(0.98);
+          box-shadow: var(--shadow-hover);
+        }
+
+        .btn-secondary {
+          background: var(--bg-white);
+          color: var(--primary);
+          border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:active {
+          background: var(--bg-light);
+        }
+
+        /* Trust Section */
+        .trust-section {
+          background: var(--accent);
+          padding: 20px 16px;
+          border-radius: var(--radius);
+          margin: 32px 0;
+          text-align: center;
+        }
+
+        .trust-icon {
+          font-size: 40px;
+          margin-bottom: 12px;
+        }
+
+        .trust-text {
+          font-size: 14px;
+          color: var(--text-dark);
+          line-height: 1.6;
+        }
+
+        .trust-text strong {
+          color: var(--primary);
+          font-weight: 600;
+        }
+
+        /* Footer */
+        .footer {
+          background: var(--bg-white);
+          padding: 24px 16px;
+          text-align: center;
+          border-top: 1px solid var(--border);
+          margin-top: 48px;
+        }
+
+        .footer-text {
+          font-size: 12px;
+          color: var(--text-light);
+          line-height: 1.6;
+        }
+
+        .footer-link {
+          color: var(--primary);
+          text-decoration: none;
+          font-weight: 500;
+        }
+
+        /* Animations */
+        @keyframes slideUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .hero, .score-card, .action-section, .features, .cta-section {
+          animation: slideUp 0.6s ease-out;
+        }
+
+        .score-card {
+          animation-delay: 0.1s;
+        }
+
+        .action-section {
+          animation-delay: 0.2s;
+        }
+
+        .features {
+          animation-delay: 0.3s;
+        }
+
+        .cta-section {
+          animation-delay: 0.4s;
+        }
+
+        /* Responsive */
+        @media (max-width: 360px) {
+          .score-container {
+            flex-direction: column;
+            gap: 12px;
+          }
+
+          .features {
+            grid-template-columns: 1fr;
+          }
+
+          .hero h1 {
+            font-size: 24px;
+          }
+
+          .score-number {
+            font-size: 48px;
+          }
+        }
+      </style>
+</head>
+<body>
+      <header class="header">
+        <div class="logo">CreditBuilder</div>
+        <button 
+          class="privacy-toggle" 
+          onclick="togglePrivacy()"
+        >
+          <span class="privacy-icon">👁️</span>
+          <span>Hide</span>
+        </button>
+      </header>
+
+      <main class="container">
+        <section class="hero">
+          <span class="hero-emoji">📈</span>
+          <h1>Your credit journey matters</h1>
+          <p>Every good credit score starts with a single step.</p>
+          <p>We're here to help you get there.</p>
+        </section>
+
+        <section class="score-card">
+          <div class="score-card-label">Your Current Score</div>
+          <div class="score-container">
+            <div class="score-main">
+              <div class="score-number">642</div>
+              <div class="score-range">Fair Range</div>
+            </div>
+            <div class="score-change">
+              <div class="score-change-label">This Month</div>
+              <div class="score-change-value">+18</div>
+            </div>
+          </div>
+          <div class="score-update">Updated Today</div>
+        </section>
+
+        <section data-private>
+          <div class="progress-section">
+            <div class="progress-header">
+              <span class="progress-label">Payment History</span>
+              <span class="progress-value">75%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 75%"></div>
+            </div>
+          </div>
+
+          <div class="progress-section">
+            <div class="progress-header">
+              <span class="progress-label">Credit Utilization</span>
+              <span class="progress-value">42%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 58%"></div>
+            </div>
+          </div>
+
+          <div class="progress-section">
+            <div class="progress-header">
+              <span class="progress-label">Account Age</span>
+              <span class="progress-value">Good</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 65%"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="trust-section">
+          <div class="trust-icon">🔒</div>
+          <div class="trust-text">
+            Your information is <strong>secure and private</strong>. We only show you data from verified sources.
+          </div>
+        </section>
+
+        <section class="action-section">
+          <h2 class="section-title">
+            <span>⭐</span>
+            Quick Actions
+          </h2>
+          <div class="steps">
+            <div class="step">
+              <div class="step-number">1</div>
+              <div class="step-title">Check Your Report</div>
+              <div class="step-description">See where you stand with a free, detailed credit report</div>
+            </div>
+            <div class="step">
+              <div class="step-number">2</div>
+              <div class="step-title">Fix Mistakes</div>
+              <div class="step-description">We'll help you dispute errors you find</div>
+            </div>
+            <div class="step">
+              <div class="step-number">3</div>
+              <div class="step-title">Get Personalized Tips</div>
+              <div class="step-description">Actionable advice based on your specific situation</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="features">
+          <div class="feature">
+            <div class="feature-emoji">📱</div>
+            <div class="feature-title">Works on any phone</div>
+          </div>
+          <div class="feature">
+            <div class="feature-emoji">🚫</div>
+            <div class="feature-title">No hidden fees</div>
+          </div>
+          <div class="feature">
+            <div class="feature-emoji">💬</div>
+            <div class="feature-title">Real support</div>
+          </div>
+          <div class="feature">
+            <div class="feature-emoji">✅</div>
+            <div class="feature-title">Track progress</div>
+          </div>
+        </section>
+
+        <section class="cta-section">
+          <button class="btn btn-primary">Start Building Your Credit</button>
+          <button class="btn btn-secondary">Learn More</button>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="footer-text">
+          CreditBuilder is a financial wellness tool, not a lender. <a href="#" class="footer-link">Questions?</a>
+        </div>
+      </footer>
+
+      <script>
+        function togglePrivacy() {
+          const toggleButton = document.querySelector('.privacy-toggle');
+          const isHidden = toggleButton.textContent.includes('Show');
+          const scoreCard = document.querySelector('.score-card');
+          const progressSection = document.querySelector('[data-private]');
+          
+          if (scoreCard) scoreCard.classList.toggle('hidden-sensitive');
+          if (progressSection) progressSection.classList.toggle('hidden-sensitive');
+          
+          const privacyIcon = toggleButton.querySelector('.privacy-icon');
+          const textSpan = toggleButton.querySelector('span:last-child');
+          
+          if (isHidden) {
+            privacyIcon.textContent = '👁️';
+            textSpan.textContent = 'Hide';
+          } else {
+            privacyIcon.textContent = '👁️‍🗨️';
+            textSpan.textContent = 'Show';
+          }
+        }
+      </script>
+</body>
+</html>

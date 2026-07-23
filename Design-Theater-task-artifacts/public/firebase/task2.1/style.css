@@ -1,0 +1,136 @@
+:root {
+    --background-color: #FAF9F6;
+    --text-color: #2d2d2d;
+    --accent-color: #C0B283;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    font-family: Georgia, serif;
+    letter-spacing: 1.5px;
+    font-weight: 100;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+p {
+    margin-bottom: 1.5rem;
+}
+
+a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.main-header {
+    padding: 1.5rem 5%;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main-nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.main-nav ul li {
+    margin: 0 1.5rem;
+}
+
+.logo {
+    font-weight: bold;
+    font-family: Georgia, serif;
+    font-size: 1.5rem;
+}
+
+.cta-button {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #a89a6f;
+}
+
+.hero {
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 5%;
+}
+
+.featured-products {
+    padding: 4rem 5%;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.product-card {
+    text-align: center;
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+}
+
+.about-us {
+    background-color: #f1f1f1;
+    padding: 4rem 5%;
+    text-align: center;
+}
+
+.about-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.main-footer {
+    text-align: center;
+    padding: 2rem 5%;
+    border-top: 1px solid #e0e0e0;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    .main-nav ul {
+        display: none; /* Simplified navigation for mobile */
+    }
+}

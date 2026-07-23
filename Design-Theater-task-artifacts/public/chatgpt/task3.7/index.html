@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MoneyWise – Clarity without judgment</title>
+  <meta name="description" content="MoneyWise helps individuals and families manage their complete financial picture with approachable design, strong security, and inclusive features." />
+  <style>
+    /* ---------- Design Tokens ---------- */
+    :root {
+      --bg: #0b0c10;
+      --surface: #111318;
+      --card: #151922;
+      --text: #f6f7fb;
+      --muted: #c9ced6;
+      --brand: #5dd39e; /* mint */
+      --brand-600: #3fb781;
+      --accent: #7aa2f7; /* blue */
+      --warn: #f7b267;
+      --error: #ff6b6b;
+      --ok: #6ee7b7;
+      --focus: #ffe182;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius-sm: 12px;
+      --maxw: 1200px;
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root { --bg: #f7f8fb; --surface: #ffffff; --card: #ffffff; --text: #0b0c10; --muted: #4b5563; --shadow: 0 10px 30px rgba(0,0,0,.08);}  
+      body { background: var(--bg); }
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      background: radial-gradient(1200px 800px at 20% -10%, rgba(125, 214, 171, 0.08), transparent 60%),
+                  radial-gradient(900px 600px at 100% 10%, rgba(120, 162, 247, 0.09), transparent 60%),
+                  var(--bg);
+      line-height: 1.5;
+    }
+
+    .container { max-width: var(--maxw); margin: 0 auto; padding: 20px; }
+    header { position: sticky; top: 0; z-index: 50; backdrop-filter: saturate(140%) blur(6px); background: color-mix(in srgb, var(--bg) 85%, transparent); border-bottom: 1px solid color-mix(in srgb, var(--text) 10%, transparent); }
+    header .container { display:flex; align-items:center; gap: 16px; }
+    nav { margin-left: auto; display:flex; gap: 16px; align-items:center; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .logo { display:flex; align-items:center; gap: 10px; font-weight: 800; letter-spacing: .2px; }
+    .logo svg { width: 28px; height: 28px; }
+
+    .btn { appearance: none; border: 0; border-radius: var(--radius-sm); padding: 10px 14px; font-weight: 700; cursor: pointer; background: var(--brand); color: #0b0c10; box-shadow: var(--shadow); }
+    .btn.secondary { background: color-mix(in srgb, var(--brand) 12%, transparent); color: var(--text); border: 1px solid color-mix(in srgb, var(--brand) 45%, transparent); box-shadow: none; }
+    .btn.ghost { background: transparent; border: 1px solid color-mix(in srgb, var(--text) 14%, transparent); color: var(--text); box-shadow: none; }
+    .btn:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+    /* ---------- Hero ---------- */
+    .hero { padding: 48px 0 24px; display:grid; grid-template-columns: 1.1fr .9fr; gap: 24px; align-items:center; }
+    .hero h1 { font-size: clamp(28px, 4vw, 48px); line-height: 1.1; margin: 0 0 12px; }
+    .hero p { color: var(--muted); margin: 0 0 18px; }
+    .pill { display:inline-flex; gap:8px; align-items:center; background: color-mix(in srgb, var(--accent) 14%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent); color: var(--text); border-radius: 999px; padding: 6px 10px; font-size: 12px; font-weight: 700; }
+
+    .panel { background: var(--surface); border: 1px solid color-mix(in srgb, var(--text) 10%, transparent); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); }
+    .grid { display:grid; gap: 18px; }
+    .grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+
+    .cards { display:grid; gap:18px; grid-template-columns: repeat(12, 1fr); }
+    .card { background: var(--card); border: 1px solid color-mix(in srgb, var(--text) 10%, transparent); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); }
+
+    .span-4 { grid-column: span 4; }
+    .span-6 { grid-column: span 6; }
+    .span-8 { grid-column: span 8; }
+    .span-12 { grid-column: 1 / -1; }
+
+    h2 { margin: 6px 0 10px; font-size: 18px; }
+    h3 { margin: 8px 0; font-size: 16px; }
+    .muted { color: var(--muted); }
+    .subtle { color: color-mix(in srgb, var(--text) 70%, transparent); font-size: 13px; }
+
+    /* ---------- Toggle Row ---------- */
+    .toolbar { display:flex; flex-wrap: wrap; gap: 10px; align-items:center; }
+    .toggle { display:inline-flex; border: 1px solid color-mix(in srgb, var(--text) 14%, transparent); border-radius: 999px; padding: 4px; background: linear-gradient(180deg, color-mix(in srgb, var(--text) 4%, transparent), transparent); }
+    .toggle button { border: 0; background: transparent; padding: 8px 12px; border-radius: 999px; color: var(--muted); font-weight: 700; cursor: pointer; }
+    .toggle button[aria-pressed="true"] { background: var(--brand); color: #0b0c10; }
+
+    /* ---------- Accessibility helpers ---------- */
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+    .kbd { font: 12px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; background: color-mix(in srgb, var(--text) 12%, transparent); padding: 2px 6px; border-radius: 6px; }
+
+    /* ---------- Interactive cards ---------- */
+    .txn-list { display:grid; gap: 8px; }
+    .txn { display:grid; grid-template-columns: 1fr auto; gap: 8px; align-items:center; padding: 10px; border: 1px solid color-mix(in srgb, var(--text) 10%, transparent); border-radius: 12px; background: color-mix(in srgb, var(--text) 4%, transparent); }
+    .category { display:inline-flex; align-items:center; gap:6px; padding: 6px 10px; border-radius: 999px; border: 1px dashed color-mix(in srgb, var(--accent) 30%, transparent); background: color-mix(in srgb, var(--accent) 10%, transparent); font-weight:700; cursor: pointer; }
+    .category:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+    .category .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+    .chips { display:flex; gap: 8px; flex-wrap: wrap; }
+    .explain { display:none; padding: 10px; border-left: 3px solid var(--accent); background: color-mix(in srgb, var(--accent) 8%, transparent); border-radius: 6px; }
+    .explain[aria-hidden="false"] { display:block; }
+
+    .progress { height: 12px; border-radius: 999px; background: color-mix(in srgb, var(--text) 8%, transparent); position: relative; overflow: hidden; }
+    .progress > i { position: absolute; left: 0; top: 0; bottom: 0; background: linear-gradient(90deg, var(--brand), var(--accent)); width: var(--value, 40%); }
+
+    .matrix { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .matrix th, .matrix td { border:1px solid color-mix(in srgb, var(--text) 14%, transparent); padding: 8px; text-align:center; }
+    .matrix th { background: color-mix(in srgb, var(--text) 6%, transparent); }
+    .matrix caption { text-align:left; margin-bottom:6px; }
+
+    .badge { font-size: 12px; padding: 4px 8px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--text) 14%, transparent); }
+
+    .callout { display:flex; gap: 12px; align-items:flex-start; padding: 12px; border: 1px solid color-mix(in srgb, var(--text) 12%, transparent); border-radius: 12px; background: color-mix(in srgb, var(--ok) 10%, transparent); }
+
+    /* ---------- Responsive & modes ---------- */
+    .mode-glance .detail-only { display:none !important; }
+    .mode-depth .glance-only { display:none !important; }
+
+    @media (max-width: 960px) {
+      .hero { grid-template-columns: 1fr; }
+      .cards { grid-template-columns: 1fr; }
+      .span-4, .span-6, .span-8, .span-12 { grid-column: 1 / -1; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+    }
+  </style>
+</head>
+<body class="mode-glance">
+  <a class="sr-only" href="#main">Skip to content</a>
+  <header role="banner">
+    <div class="container">
+      <div class="logo" aria-label="MoneyWise">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M3 7a4 4 0 014-4h10a4 4 0 014 4v10a4 4 0 01-4 4H7a4 4 0 01-4-4V7zm4-2a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2H7z"/><path fill="currentColor" d="M7 9h10v2H7zM7 13h7v2H7z"/></svg>
+        <span>MoneyWise</span>
+        <span class="pill" title="We prioritize safety & clarity">Security • Accessibility • Clarity</span>
+      </div>
+      <nav aria-label="Primary navigation">
+        <a href="#trust">Trust</a>
+        <a href="#features">Features</a>
+        <a href="#accessibility">Accessibility</a>
+        <button class="btn secondary" id="toggleMode" aria-pressed="false" aria-label="Switch between Glance and Deep modes">Switch to Deep Mode</button>
+        <button class="btn" aria-label="Get started">Get Started</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container" tabindex="-1">
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div>
+        <h1 id="hero-title">Financial clarity without judgment</h1>
+        <p>From a quick morning balance check to a weekend deep dive, MoneyWise adapts to your goals, literacy, and device. We explain decisions in plain language and keep your data safe by design.</p>
+        <div class="toolbar" role="group" aria-label="Audience modes">
+          <div class="toggle" role="tablist" aria-label="Choose a perspective">
+            <button role="tab" aria-selected="true" class="persona" data-persona="student">Student</button>
+            <button role="tab" aria-selected="false" class="persona" data-persona="family">Family</button>
+            <button role="tab" aria-selected="false" class="persona" data-persona="rebuild">Rebuilding</button>
+            <button role="tab" aria-selected="false" class="persona" data-persona="investor">Investor</button>
+          </div>
+          <span class="subtle">Tip: press <span class="kbd">[</span> and <span class="kbd">]</span> to switch personas</span>
+        </div>
+        <div id="personaCopy" class="muted" style="margin-top:10px">Fast balance glances, gentle nudges before due dates, and easy categorization you can correct in one tap.</div>
+        <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap">
+          <button class="btn">Create your private vault</button>
+          <button class="btn ghost" onclick="document.getElementById('trust').scrollIntoView({behavior:'smooth'})">See how we protect you</button>
+        </div>
+      </div>
+      <aside class="panel" aria-label="Design strategy summary">
+        <h2>Our functional strategy</h2>
+        <ul class="muted" style="margin:0 0 10px 18px">
+          <li><strong>Two modes</strong>: <em>Glance</em> for phones (essentials only) and <em>Deep</em> for desktop (planning tools).</li>
+          <li><strong>Explainable automation</strong>: every category, alert, and suggestion has a <em>Why?</em> link in plain language.</li>
+          <li><strong>Kind coaching</strong>: alerts guide next steps; never shame.</li>
+          <li><strong>Adaptive goals</strong>: setbacks auto-adjust timelines and offer catch‑up options.</li>
+          <li><strong>Role‑based sharing</strong>: you control what each family member sees.</li>
+          <li><strong>Inclusive by default</strong>: dyscalculia aids, number‑free summaries, high contrast.</li>
+        </ul>
+        <div class="callout" role="note" aria-live="polite">
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+          <div><strong>Privacy stance:</strong> You decide what we import. We default to the least amount of data and ask for consent you can revoke anytime.</div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- FEATURES GRID -->
+    <section id="features" aria-labelledby="features-title" style="margin: 10px 0 24px">
+      <h2 id="features-title">Features designed for trust & accessibility</h2>
+      <div class="cards">
+        <!-- Transactions & categorization -->
+        <article class="card span-8" aria-labelledby="txn-title">
+          <h3 id="txn-title">Categorization you can correct (with receipts)</h3>
+          <p class="muted">We pre‑tag transactions and show our reasoning. Change a tag once; we’ll suggest updates moving forward and ask before bulk edits.</p>
+          <div class="toolbar" style="margin-bottom:10px">
+            <button class="btn secondary" id="toggleWhy" aria-pressed="false">Show “Why?” Explanations</button>
+            <button class="btn secondary" id="toggleFriendly" aria-pressed="false">Friendly Numbers</button>
+          </div>
+          <div class="txn-list" role="list">
+            <div class="txn" role="listitem">
+              <div>
+                <div><strong>Fresh Farms Market</strong> <span class="badge">Card • 12 Oct</span></div>
+                <div class="subtle">Suggested category → Groceries</div>
+                <div class="explain" aria-hidden="true">Pattern match: weekly purchase at food merchant. Similar to 18 past grocery transactions. You previously confirmed “Groceries”.</div>
+              </div>
+              <div class="chips">
+                <button class="category" data-categories='["Groceries","Household","Dining","Uncategorized"]' aria-label="Change category for Fresh Farms Market"><span class="dot"></span> <span class="label">Groceries</span></button>
+                <button class="btn ghost undo" aria-label="Undo last change" disabled>Undo</button>
+              </div>
+            </div>
+            <div class="txn" role="listitem">
+              <div>
+                <div><strong>Metro Utilities</strong> <span class="badge">Auto‑pay • 07 Oct</span></div>
+                <div class="subtle">Suggested category → Utilities</div>
+                <div class="explain" aria-hidden="true">Recognized payee via verified merchant directory. Recurring pattern every month on the 7th.</div>
+              </div>
+              <div class="chips">
+                <button class="category" data-categories='["Utilities","Home","Bills","Uncategorized"]' aria-label="Change category for Metro Utilities"><span class="dot"></span> <span class="label">Utilities</span></button>
+                <button class="btn ghost undo" aria-label="Undo last change" disabled>Undo</button>
+              </div>
+            </div>
+            <div class="txn" role="listitem">
+              <div>
+                <div><strong>BlueBird Coffee</strong> <span class="badge">Tap • 06 Oct</span></div>
+                <div class="subtle">Suggested category → Dining</div>
+                <div class="explain" aria-hidden="true">Small merchant code matches cafés nearby. You set a rule: coffee → Dining on weekdays.</div>
+              </div>
+              <div class="chips">
+                <button class="category" data-categories='["Dining","Treats","Work","Uncategorized"]' aria-label="Change category for BlueBird Coffee"><span class="dot"></span> <span class="label">Dining</span></button>
+                <button class="btn ghost undo" aria-label="Undo last change" disabled>Undo</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Goals -->
+        <article class="card span-4" aria-labelledby="goal-title">
+          <h3 id="goal-title">Goals that adapt to setbacks</h3>
+          <p class="muted">Life happens. We adjust timelines and offer achievable next steps.</p>
+          <div style="display:grid; gap:10px">
+            <div><strong>Emergency Fund</strong> <span class="badge">Target ₹75,000</span></div>
+            <div class="progress" aria-label="Emergency fund progress"><i style="--value:60%"></i></div>
+            <label for="setback" class="subtle">Simulate a surprise expense</label>
+            <input id="setback" type="range" min="0" max="20000" step="500" value="0" aria-describedby="setbackHelp" />
+            <div id="setbackHelp" class="subtle">Drag to see how we adjust the plan.</div>
+            <div id="setbackMsg" class="callout" role="status" aria-live="polite">
+              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2 1 21h22L12 2zm1 15h-2v2h2v-2zm0-8h-2v6h2V9z"/></svg>
+              <div><strong>No setback simulated.</strong> Your plan completes in 7 weeks.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Investments -->
+        <article class="card span-6 detail-only" aria-labelledby="invest-title">
+          <h3 id="invest-title">Investment monitoring for any literacy level</h3>
+          <p class="muted">We translate risk into plain language and show gains/losses with context. Toggle numbers off if that’s easier.</p>
+          <label for="risk" class="subtle">Risk comfort</label>
+          <input id="risk" type="range" min="1" max="5" value="3" />
+          <div id="riskLabel"><strong>Balanced</strong> • A steady ride with some bumps.</div>
+          <ul class="muted" style="margin:8px 0 0 18px">
+            <li><strong>Number‑free view:</strong> “Up a little this month” + arrows and bars with accessible labels.</li>
+            <li><strong>Context guardrails:</strong> show long‑term trend next to short‑term noise.</li>
+          </ul>
+        </article>
+
+        <!-- Alerts tone -->
+        <article class="card span-6" aria-labelledby="alert-title">
+          <h3 id="alert-title">Helpful, not shameful alerts</h3>
+          <div class="grid cols-2">
+            <div>
+              <div class="subtle">Poor pattern (we avoid):</div>
+              <div class="panel" role="note">You overspent again. Reduce your spending immediately.</div>
+            </div>
+            <div>
+              <div class="subtle">MoneyWise coaching:</div>
+              <div class="panel" role="note">You’re ₹1,200 above your dining plan. Want to move ₹800 from “Treats” and lower next week’s coffee budget by ₹100? <button class="btn" style="margin-left:6px">Apply</button></div>
+            </div>
+          </div>
+          <p class="muted" style="margin-top:8px">Tone guide: specific → choice‑giving → small next step → celebratory follow‑up.</p>
+        </article>
+
+        <!-- Family sharing -->
+        <article class="card span-12" aria-labelledby="share-title">
+          <h3 id="share-title">Family & shared accounts: you control visibility</h3>
+          <p class="muted">Choose what each role can see or do. Defaults are privacy‑forward; you can always loosen later.</p>
+          <table class="matrix" role="table">
+            <caption class="sr-only">Permissions matrix</caption>
+            <thead>
+              <tr><th scope="col">Role</th><th scope="col">See balances</th><th scope="col">See transactions</th><th scope="col">Categorize</th><th scope="col">Transfer funds</th><th scope="col">Tax/Reports</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Owner</th><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+              <tr><th scope="row">Partner</th><td>✅</td><td>✅</td><td>✅</td><td>⛔</td><td>✅</td></tr>
+              <tr><th scope="row">Teen</th><td>✅ (own card)</td><td>⛔</td><td>⛔</td><td>⛔</td><td>⛔</td></tr>
+              <tr><th scope="row">Accountant</th><td>⛔</td><td>⛔</td><td>⛔</td><td>⛔</td><td>✅ (read‑only)</td></tr>
+              <tr><th scope="row">View‑only</th><td>✅</td><td>⛔</td><td>⛔</td><td>⛔</td><td>⛔</td></tr>
+            </tbody>
+          </table>
+          <p class="subtle">Changes create a <em>consent receipt</em> so everyone knows who can see what.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- TRUST -->
+    <section id="trust" aria-labelledby="trust-title" class="panel" style="margin: 0 0 24px 0">
+      <h2 id="trust-title">Security & trust, built in</h2>
+      <div class="grid cols-3">
+        <div>
+          <h3>Bank connections with consent</h3>
+          <p class="muted">Use OAuth where available; otherwise, we scope read‑only and store minimized tokens. You can disconnect anytime.</p>
+        </div>
+        <div>
+          <h3>Modern encryption</h3>
+          <p class="muted">Protect data in transit (TLS) and at rest (strong encryption). We also support device approvals and 2‑factor sign‑in.</p>
+        </div>
+        <div>
+          <h3>Transparent logs</h3>
+          <p class="muted">See when and why data was accessed. Export your data or delete your account from Settings → Privacy.</p>
+        </div>
+      </div>
+      <div class="callout" style="margin-top:12px">
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+        <div><strong>Plain‑language privacy:</strong> short summaries on every permission dialog with a “Learn more” that expands in place—no dark patterns.</div>
+      </div>
+    </section>
+
+    <!-- ACCESSIBILITY -->
+    <section id="accessibility" aria-labelledby="a11y-title">
+      <h2 id="a11y-title">Inclusive by default</h2>
+      <div class="cards">
+        <article class="card span-6">
+          <h3>Dyscalculia & number‑light mode</h3>
+          <ul class="muted" style="margin-left:18px">
+            <li>Toggle <em>Friendly Numbers</em> to see words & rounded values (e.g., “about seventy‑five thousand”).</li>
+            <li>Bars & labels always include text equivalents and units.</li>
+            <li>Digits are grouped (12 345 678) and decimals minimized.</li>
+          </ul>
+        </article>
+        <article class="card span-6">
+          <h3>Keyboard & screen reader support</h3>
+          <ul class="muted" style="margin-left:18px">
+            <li>All controls are buttons or links with <code>aria-</code> states.</li>
+            <li>Skip link, logical headings, and live regions for dynamic updates.</li>
+            <li>Respects <em>prefers‑reduced‑motion</em> & high‑contrast modes.</li>
+          </ul>
+        </article>
+        <article class="card span-12">
+          <h3>Glance vs Deep: responsive by intent</h3>
+          <p class="muted">On phones we prioritize balances, bills due, and quick actions. On desktop we add planning tools, exports, and detailed reports. Use the <strong>Switch to Deep Mode</strong> button above to see content shift.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- MICROCOPY GUIDE -->
+    <section aria-labelledby="copy-title" style="margin:24px 0">
+      <h2 id="copy-title">Tone & microcopy principles</h2>
+      <div class="grid cols-2">
+        <div class="panel">
+          <h3>Guidelines</h3>
+          <ul class="muted" style="margin-left:18px">
+            <li><strong>Neutral voice</strong>: describe facts, offer choices.</li>
+            <li><strong>Small steps</strong>: suggest one action, confirm, celebrate.</li>
+            <li><strong>Transparent automation</strong>: “We categorized this because…”</li>
+            <li><strong>Recovery‑first</strong>: “Behind this month? Let’s adjust together.”</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>Examples</h3>
+          <ul class="muted" style="margin-left:18px">
+            <li><em>Before:</em> “Balance too low.” → <em>After:</em> “Your cushion is ₹2,000 below your target. Move ₹2,000 from savings or snooze the target for 10 days?”</li>
+            <li><em>Before:</em> “Bad spending.” → <em>After:</em> “Dining is trending higher. Shift ₹1,000 from Treats or set a weekend limit?”</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container" style="margin-bottom:40px">
+    <div class="panel" style="display:flex; gap:14px; align-items:center; justify-content:space-between; flex-wrap:wrap">
+      <div>
+        <strong>MoneyWise</strong> — building financial tools that are <em>accessible, secure, and encouraging</em>.
+        <div class="subtle">© 2025 • Privacy • Terms • Contact</div>
+      </div>
+      <div class="toolbar" role="group" aria-label="Footer toggles">
+        <button class="btn secondary" id="glanceBtn">Glance</button>
+        <button class="btn secondary" id="deepBtn">Deep</button>
+      </div>
+    </div>
+  </footer>
+
+  <div id="live" class="sr-only" aria-live="polite"></div>
+
+  <script>
+    // Utility: announce for screen readers
+    const announce = (msg) => { const live = document.getElementById('live'); live.textContent = ''; setTimeout(() => live.textContent = msg, 20); };
+
+    // Persona switching
+    const personaTexts = {
+      student: 'Fast balance glances, gentle nudges before due dates, and easy categorization you can correct in one tap.',
+      family: 'Shared view with role‑based privacy. See bills due, childcare or mortgage at a glance, and plan together without oversharing.',
+      rebuild: 'Encouraging tone, credit rebuild tracking, and goals that adjust after setbacks—no judgment, just the next right step.',
+      investor: 'Plain‑language summaries (“up a little this month”) with optional detail. Track risk comfort and long‑term progress.'
+    };
+    let currentPersona = 'student';
+
+    function setPersona(name) {
+      currentPersona = name;
+      document.querySelectorAll('.persona').forEach(btn => btn.setAttribute('aria-selected', btn.dataset.persona === name ? 'true' : 'false'));
+      document.getElementById('personaCopy').textContent = personaTexts[name];
+      announce(`Persona set to ${name}`);
+    }
+
+    document.querySelectorAll('.persona').forEach(btn => {
+      btn.addEventListener('click', () => setPersona(btn.dataset.persona));
+    });
+
+    // Keyboard shortcuts [ and ] to switch personas
+    window.addEventListener('keydown', (e) => {
+      if (e.key === '[' || e.key === ']') {
+        const keys = Object.keys(personaTexts);
+        let idx = keys.indexOf(currentPersona);
+        idx = e.key === '[' ? (idx - 1 + keys.length) % keys.length : (idx + 1) % keys.length;
+        setPersona(keys[idx]);
+      }
+    });
+
+    // Glance / Deep mode toggle
+    const body = document.body;
+    const toggleMode = document.getElementById('toggleMode');
+    function updateMode(toDeep) {
+      body.classList.toggle('mode-depth', toDeep);
+      body.classList.toggle('mode-glance', !toDeep);
+      toggleMode.textContent = toDeep ? 'Switch to Glance Mode' : 'Switch to Deep Mode';
+      toggleMode.setAttribute('aria-pressed', toDeep ? 'true' : 'false');
+      announce(`Mode set to ${toDeep ? 'Deep' : 'Glance'}`);
+    }
+    toggleMode.addEventListener('click', () => updateMode(!body.classList.contains('mode-depth')));
+    document.getElementById('glanceBtn').addEventListener('click', () => updateMode(false));
+    document.getElementById('deepBtn').addEventListener('click', () => updateMode(true));
+
+    // Transaction categorization: cycle categories + undo + why
+    function attachTxnHandlers(txnEl) {
+      const catBtn = txnEl.querySelector('.category');
+      const undoBtn = txnEl.querySelector('.undo');
+      const explain = txnEl.querySelector('.explain');
+      const options = JSON.parse(catBtn.getAttribute('data-categories'));
+      let index = 0;
+      let prev = null;
+
+      catBtn.addEventListener('click', () => {
+        prev = catBtn.querySelector('.label').textContent;
+        index = (index + 1) % options.length;
+        catBtn.querySelector('.label').textContent = options[index];
+        announce(`Category changed to ${options[index]}`);
+        undoBtn.disabled = false;
+      });
+
+      undoBtn.addEventListener('click', () => {
+        if (!prev) return;
+        catBtn.querySelector('.label').textContent = prev;
+        announce(`Category reverted to ${prev}`);
+        prev = null;
+        undoBtn.disabled = true;
+      });
+
+      // Why? toggle is global; handled below by toggling aria-hidden on .explain
+      return { explain };
+    }
+
+    const txnEls = Array.from(document.querySelectorAll('.txn'));
+    const explains = txnEls.map(attachTxnHandlers).map(o => o.explain);
+    const whyBtn = document.getElementById('toggleWhy');
+    let whyOn = false;
+    whyBtn.addEventListener('click', () => {
+      whyOn = !whyOn;
+      explains.forEach(el => el.setAttribute('aria-hidden', (!whyOn).toString()));
+      whyBtn.setAttribute('aria-pressed', whyOn.toString());
+      whyBtn.textContent = whyOn ? 'Hide “Why?” Explanations' : 'Show “Why?” Explanations';
+      announce(`${whyOn ? 'Showing' : 'Hiding'} explanations`);
+    });
+
+    // Friendly Numbers toggle: convert amounts to wordy approximations
+    const friendlyBtn = document.getElementById('toggleFriendly');
+    let friendly = false;
+    function toFriendly(num) {
+      const abs = Math.abs(num);
+      if (abs >= 1_000_000) return (num < 0 ? '-' : '') + 'about ' + Math.round(abs/1000000) + ' million';
+      if (abs >= 10_000) return (num < 0 ? '-' : '') + 'about ' + Math.round(abs/1000) + ' thousand';
+      if (abs >= 1000) return (num < 0 ? '-' : '') + (abs/1000).toFixed(1) + ' thousand';
+      return (num < 0 ? '-' : '') + Math.round(abs).toString();
+    }
+    function toggleFriendlyNumbers(on) {
+      document.querySelectorAll('[data-amount]').forEach(el => {
+        const raw = Number(el.getAttribute('data-amount'));
+        const currency = el.getAttribute('data-currency') || '₹';
+        el.setAttribute('aria-label', `${currency}${raw.toLocaleString()} (${on ? toFriendly(raw) : 'exact'})`);
+        el.textContent = on ? toFriendly(raw) : currency + raw.toLocaleString();
+      });
+      friendlyBtn.setAttribute('aria-pressed', on.toString());
+      friendlyBtn.textContent = on ? 'Exact Numbers' : 'Friendly Numbers';
+      announce(`Numbers set to ${on ? 'friendly' : 'exact'}`);
+    }
+    friendlyBtn.addEventListener('click', () => { friendly = !friendly; toggleFriendlyNumbers(friendly); });
+
+    // Goal setbacks: update message and timeline shift
+    const setback = document.getElementById('setback');
+    const setbackMsg = document.getElementById('setbackMsg').querySelector('div');
+    setback.addEventListener('input', () => {
+      const v = Number(setback.value);
+      if (v <= 0) { setbackMsg.innerHTML = '<strong>No setback simulated.</strong> Your plan completes in 7 weeks.'; return; }
+      const extraWeeks = Math.ceil(v / 5000);
+      setbackMsg.innerHTML = `<strong>Setback of ₹${v.toLocaleString()}</strong>. We\'ll extend your timeline by ${extraWeeks} week${extraWeeks>1?'s':''} and suggest +₹${(Math.ceil(v/4/100)*100).toLocaleString()} / month to catch up.`;
+    });
+
+    // Risk slider label
+    const risk = document.getElementById('risk');
+    const riskLabel = document.getElementById('riskLabel');
+    const riskWords = {1:['Very cautious','A smooth, gentle ride.'],2:['Cautious','Small ups and downs.'],3:['Balanced','A steady ride with some bumps.'],4:['Adventurous','Bigger swings, higher potential.'],5:['Very adventurous','Large swings; best for long timelines.']};
+    risk.addEventListener('input', () => {
+      const v = Number(risk.value);
+      riskLabel.innerHTML = `<strong>${riskWords[v][0]}</strong> • ${riskWords[v][1]}`;
+    });
+
+    // Initialize example amounts for friendly numbers demo
+    // (We annotate a few amounts in the page so the toggle has visible effect.)
+    const annotate = () => {
+      const targets = [
+        { q: '#goal-title + p + div strong + span.badge', amt: 75000 },
+      ];
+      targets.forEach(t => {
+        const el = document.querySelector(t.q);
+        if (el && !el.hasAttribute('data-amount')) {
+          el.setAttribute('data-amount', t.amt);
+          el.setAttribute('data-currency', '₹');
+          el.classList.add('amount');
+          el.textContent = 'Target ' + '₹' + t.amt.toLocaleString();
+        }
+      });
+    };
+    annotate();
+
+    // Default set persona to student
+    setPersona('student');
+  </script>
+</body>
+</html>

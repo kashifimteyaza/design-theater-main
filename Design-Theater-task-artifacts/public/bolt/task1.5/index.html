@@ -1,0 +1,845 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Metro Health System — Serving 500,000 patients across 3 cities with 2 hospitals, 12 specialty clinics, urgent care, and emergency services." />
+    <title>Metro Health System | Compassionate Care Across the Region</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Merriweather:wght@700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/style.css" />
+    <meta property="og:image" content="https://bolt.new/static/og_default.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
+</head>
+  <body>
+
+    <!-- Skip navigation for screen readers -->
+    <a href="#main-content" class="skip-link" data-en="Skip to main content" data-es="Ir al contenido principal">Skip to main content</a>
+
+    <!-- ═══════════════════════════════════════════════════════
+         EMERGENCY ALERT BAR — always visible, highest z-index
+    ═══════════════════════════════════════════════════════ -->
+    <div class="emergency-bar" role="alert" aria-live="assertive" aria-label="Emergency Information">
+      <div class="emergency-bar__inner">
+        <span class="emergency-bar__icon" aria-hidden="true">⚕</span>
+        <span class="emergency-bar__text">
+          <strong data-en="Medical Emergency?" data-es="¿Emergencia médica?">Medical Emergency?</strong>
+          <span data-en="Call 911 immediately or go to your nearest ER" data-es="Llame al 911 de inmediato o vaya a la sala de emergencias más cercana">Call 911 immediately or go to your nearest ER</span>
+        </span>
+        <div class="emergency-bar__actions">
+          <a href="tel:911" class="btn btn--emergency" aria-label="Call 911 now">
+            <span class="btn__icon" aria-hidden="true">📞</span>
+            <span data-en="Call 911" data-es="Llamar al 911">Call 911</span>
+          </a>
+          <a href="#er-locations" class="btn btn--er-locations">
+            <span data-en="ER Locations" data-es="Ubicaciones de ER">ER Locations</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SITE HEADER
+    ═══════════════════════════════════════════════════════ -->
+    <header class="site-header" role="banner">
+      <div class="site-header__inner container">
+        <a href="/" class="site-logo" aria-label="Metro Health System — Home">
+          <span class="site-logo__mark" aria-hidden="true">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect width="36" height="36" rx="8" fill="#0d6e6e"/>
+              <path d="M18 7v22M7 18h22" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="site-logo__text">
+            <span class="site-logo__name">Metro Health</span>
+            <span class="site-logo__tagline" data-en="System" data-es="Sistema">System</span>
+          </span>
+        </a>
+
+        <nav class="main-nav" role="navigation" aria-label="Primary navigation" id="main-nav">
+          <ul class="main-nav__list" role="list">
+            <li><a href="#find-care" class="main-nav__link" data-en="Find Care" data-es="Encontrar atención">Find Care</a></li>
+            <li><a href="#services" class="main-nav__link" data-en="Services" data-es="Servicios">Services</a></li>
+            <li><a href="#locations" class="main-nav__link" data-en="Locations" data-es="Ubicaciones">Locations</a></li>
+            <li><a href="#patients" class="main-nav__link" data-en="Patients &amp; Visitors" data-es="Pacientes y visitantes">Patients &amp; Visitors</a></li>
+            <li><a href="#physicians" class="main-nav__link" data-en="For Physicians" data-es="Para médicos">For Physicians</a></li>
+            <li><a href="#careers" class="main-nav__link" data-en="Careers" data-es="Carreras">Careers</a></li>
+          </ul>
+        </nav>
+
+        <div class="site-header__controls">
+          <button class="lang-toggle" id="lang-toggle" aria-label="Switch language to Spanish" aria-pressed="false">
+            <span class="lang-toggle__en" aria-hidden="true">EN</span>
+            <span class="lang-toggle__divider" aria-hidden="true">|</span>
+            <span class="lang-toggle__es" aria-hidden="true">ES</span>
+          </button>
+          <a href="tel:18005551234" class="header-phone" aria-label="Call Metro Health: 1-800-555-1234">
+            <span class="header-phone__icon" aria-hidden="true">📞</span>
+            <span>1-800-555-1234</span>
+          </a>
+          <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-controls="main-nav" aria-expanded="false" aria-label="Open navigation menu">
+            <span class="hamburger" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════════════
+         MAIN CONTENT
+    ═══════════════════════════════════════════════════════ -->
+    <main id="main-content" role="main">
+
+      <!-- ─── HERO ─────────────────────────────────────────── -->
+      <section class="hero" aria-labelledby="hero-heading">
+        <div class="hero__bg" aria-hidden="true">
+          <img
+            src="https://images.pexels.com/photos/3844581/pexels-photo-3844581.jpeg?auto=compress&cs=tinysrgb&w=1600"
+            alt=""
+            class="hero__image"
+            loading="eager"
+          />
+          <div class="hero__overlay" aria-hidden="true"></div>
+        </div>
+
+        <div class="hero__content container">
+          <div class="hero__text">
+            <p class="hero__eyebrow" data-en="Serving 500,000 patients across 3 cities" data-es="Atendiendo a 500,000 pacientes en 3 ciudades">Serving 500,000 patients across 3 cities</p>
+            <h1 id="hero-heading" class="hero__heading">
+              <span data-en="Your Health," data-es="Tu salud,">Your Health,</span><br>
+              <span data-en="Our Mission." data-es="Nuestra misión.">Our Mission.</span>
+            </h1>
+            <p class="hero__sub" data-en="Expert care close to home — from routine checkups to complex cardiac surgery. 2 hospitals, 12 specialty clinics, 200+ physicians." data-es="Atención experta cerca de casa: desde chequeos de rutina hasta cirugía cardíaca compleja. 2 hospitales, 12 clínicas especializadas, más de 200 médicos.">
+              Expert care close to home — from routine checkups to complex cardiac surgery. 2 hospitals, 12 specialty clinics, 200+ physicians.
+            </p>
+            <div class="hero__cta-group">
+              <a href="#find-care" class="btn btn--primary btn--lg" data-en="Find a Doctor" data-es="Encontrar un médico">Find a Doctor</a>
+              <a href="#appointment" class="btn btn--outline btn--lg" data-en="Book Appointment" data-es="Reservar cita">Book Appointment</a>
+            </div>
+          </div>
+
+          <!-- Quick intent selector -->
+          <div class="hero__intent-cards" role="group" aria-label="Quick access by need">
+            <a href="tel:911" class="intent-card intent-card--emergency" aria-label="Medical Emergency — Call 911">
+              <span class="intent-card__icon" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              </span>
+              <span class="intent-card__label" data-en="Emergency" data-es="Emergencia">Emergency</span>
+              <span class="intent-card__desc" data-en="Call 911 now" data-es="Llame al 911">Call 911 now</span>
+            </a>
+            <a href="#find-care" class="intent-card" aria-label="Find a doctor or specialist">
+              <span class="intent-card__icon" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </span>
+              <span class="intent-card__label" data-en="Find a Doctor" data-es="Médico">Find a Doctor</span>
+              <span class="intent-card__desc" data-en="200+ physicians" data-es="200+ médicos">200+ physicians</span>
+            </a>
+            <a href="#appointment" class="intent-card" aria-label="Book an appointment">
+              <span class="intent-card__icon" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              </span>
+              <span class="intent-card__label" data-en="Appointment" data-es="Cita">Appointment</span>
+              <span class="intent-card__desc" data-en="Book online or call" data-es="Reservar en línea">Book online or call</span>
+            </a>
+            <a href="#patients" class="intent-card" aria-label="Billing and insurance information">
+              <span class="intent-card__icon" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+              </span>
+              <span class="intent-card__label" data-en="Billing" data-es="Facturación">Billing</span>
+              <span class="intent-card__desc" data-en="Insurance &amp; payments" data-es="Seguro y pagos">Insurance &amp; payments</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── STATS BAR ──────────────────────────────────────── -->
+      <section class="stats-bar" aria-label="Network at a glance">
+        <div class="container">
+          <ul class="stats-bar__list" role="list">
+            <li class="stat-item">
+              <span class="stat-item__number" data-count="500000" aria-label="500,000 patients served">500K+</span>
+              <span class="stat-item__label" data-en="Patients Served" data-es="Pacientes atendidos">Patients Served</span>
+            </li>
+            <li class="stat-item stat-item--divider" aria-hidden="true"></li>
+            <li class="stat-item">
+              <span class="stat-item__number">200+</span>
+              <span class="stat-item__label" data-en="Physicians" data-es="Médicos">Physicians</span>
+            </li>
+            <li class="stat-item stat-item--divider" aria-hidden="true"></li>
+            <li class="stat-item">
+              <span class="stat-item__number">30+</span>
+              <span class="stat-item__label" data-en="Specialties" data-es="Especialidades">Specialties</span>
+            </li>
+            <li class="stat-item stat-item--divider" aria-hidden="true"></li>
+            <li class="stat-item">
+              <span class="stat-item__number">14</span>
+              <span class="stat-item__label" data-en="Locations" data-es="Ubicaciones">Locations</span>
+            </li>
+            <li class="stat-item stat-item--divider" aria-hidden="true"></li>
+            <li class="stat-item">
+              <span class="stat-item__number">24/7</span>
+              <span class="stat-item__label" data-en="Emergency Care" data-es="Atención de emergencia">Emergency Care</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ─── FIND CARE ─────────────────────────────────────── -->
+      <section class="find-care section" id="find-care" aria-labelledby="find-care-heading">
+        <div class="container">
+          <div class="section__header">
+            <h2 id="find-care-heading" class="section__title" data-en="Find the Right Care" data-es="Encuentre la atención adecuada">Find the Right Care</h2>
+            <p class="section__sub" data-en="Search our network of 200+ physicians across 30+ specialties." data-es="Busque en nuestra red de más de 200 médicos en más de 30 especialidades.">Search our network of 200+ physicians across 30+ specialties.</p>
+          </div>
+
+          <!-- Doctor Search -->
+          <div class="doctor-search" role="search" aria-label="Find a physician">
+            <form class="doctor-search__form" id="doctor-search-form" action="#" novalidate>
+              <div class="doctor-search__fields">
+                <div class="field-group">
+                  <label for="search-name" class="field-label" data-en="Doctor name or specialty" data-es="Nombre del médico o especialidad">Doctor name or specialty</label>
+                  <input
+                    type="search"
+                    id="search-name"
+                    name="query"
+                    class="field-input"
+                    placeholder="e.g., Cardiology, Dr. Rivera"
+                    autocomplete="off"
+                    aria-describedby="search-hint"
+                  />
+                </div>
+                <div class="field-group">
+                  <label for="search-location" class="field-label" data-en="Location or city" data-es="Ubicación o ciudad">Location or city</label>
+                  <select id="search-location" name="location" class="field-select">
+                    <option value="" data-en="All locations" data-es="Todas las ubicaciones">All locations</option>
+                    <option value="westside" data-en="Westside Medical Center" data-es="Centro Médico Westside">Westside Medical Center</option>
+                    <option value="eastview" data-en="Eastview Hospital" data-es="Hospital Eastview">Eastview Hospital</option>
+                    <option value="northgate" data-en="Northgate Clinics" data-es="Clínicas Northgate">Northgate Clinics</option>
+                    <option value="urgent" data-en="Urgent Care" data-es="Cuidado urgente">Urgent Care</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label for="search-insurance" class="field-label" data-en="Insurance accepted" data-es="Seguro aceptado">Insurance accepted</label>
+                  <select id="search-insurance" name="insurance" class="field-select">
+                    <option value="" data-en="All insurance plans" data-es="Todos los planes">All insurance plans</option>
+                    <option value="medicare">Medicare</option>
+                    <option value="medicaid">Medicaid</option>
+                    <option value="bcbs" data-en="Blue Cross Blue Shield" data-es="Blue Cross Blue Shield">Blue Cross Blue Shield</option>
+                    <option value="aetna">Aetna</option>
+                    <option value="cigna">Cigna</option>
+                    <option value="united" data-en="UnitedHealthcare" data-es="UnitedHealthcare">UnitedHealthcare</option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn--primary btn--search" aria-label="Search for physicians">
+                  <span aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  </span>
+                  <span data-en="Search" data-es="Buscar">Search</span>
+                </button>
+              </div>
+              <p id="search-hint" class="field-hint" data-en="Or call us: 1-800-555-1234 to speak with a patient navigator" data-es="O llámenos: 1-800-555-1234 para hablar con un navegador de pacientes">Or call us: 1-800-555-1234 to speak with a patient navigator</p>
+            </form>
+          </div>
+
+          <!-- Specialty Grid -->
+          <div class="specialty-section">
+            <h3 class="specialty-section__title" data-en="Browse by Specialty" data-es="Explorar por especialidad">Browse by Specialty</h3>
+            <ul class="specialty-grid" role="list" aria-label="Medical specialties">
+              <li><a href="#" class="specialty-chip" data-en="Cardiology" data-es="Cardiología">Cardiology</a></li>
+              <li><a href="#" class="specialty-chip" data-en="Oncology" data-es="Oncología">Oncology</a></li>
+              <li><a href="#" class="specialty-chip" data-en="Orthopedics" data-es="Ortopedia">Orthopedics</a></li>
+              <li><a href="#" class="specialty-chip" data-en="Neurology" data-es="Neurología">Neurology</a></li>
+              <li><a href="#" class="specialty-chip" data-en="Pediatrics" data-es="Pediatría">Pediatrics</a></li>
+              <li><a href="#" class="specialty-chip" data-en="OB/GYN" data-es="Ginecología">OB/GYN</a></li>
+              <li><a href="#" class="specialty-chip" data-en="Dermatology" data-es="Dermatología">Dermatology</a></li>
+              <li><a href="#" class="specialty-chip" data-en="Gastroenterology" data-es="Gastroenterología">Gastroenterology</a></li>
+              <li><a href="#" class="specialty-chip" data-en="Pulmonology" data-es="Neumología">Pulmonology</a></li>
+              <li><a href="#" class="specialty-chip" data-en="Rheumatology" data-es="Reumatología">Rheumatology</a></li>
+              <li><a href="#" class="specialty-chip" data-en="Urology" data-es="Urología">Urology</a></li>
+              <li><a href="#" class="specialty-chip specialty-chip--more" data-en="+ 20 more specialties" data-es="+ 20 especialidades más">+ 20 more specialties</a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── SERVICES ───────────────────────────────────────── -->
+      <section class="services section section--alt" id="services" aria-labelledby="services-heading">
+        <div class="container">
+          <div class="section__header">
+            <h2 id="services-heading" class="section__title" data-en="Comprehensive Services" data-es="Servicios integrales">Comprehensive Services</h2>
+            <p class="section__sub" data-en="From preventive care to complex procedures — world-class medicine close to home." data-es="Desde atención preventiva hasta procedimientos complejos, medicina de clase mundial cerca de usted.">From preventive care to complex procedures — world-class medicine close to home.</p>
+          </div>
+
+          <div class="services-grid">
+            <article class="service-card" aria-labelledby="svc-emergency">
+              <div class="service-card__media">
+                <img src="https://images.pexels.com/photos/263402/pexels-photo-263402.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Emergency department entrance" loading="lazy" />
+              </div>
+              <div class="service-card__body">
+                <span class="service-card__badge service-card__badge--emergency" data-en="24/7 Available" data-es="Disponible 24/7">24/7 Available</span>
+                <h3 id="svc-emergency" class="service-card__title" data-en="Emergency &amp; Trauma" data-es="Emergencias y traumatología">Emergency &amp; Trauma</h3>
+                <p class="service-card__desc" data-en="Level II trauma center with board-certified emergency physicians, 24-hour imaging, and direct-to-specialist access." data-es="Centro de trauma Nivel II con médicos de urgencias certificados, imágenes las 24 horas y acceso directo a especialistas.">Level II trauma center with board-certified emergency physicians, 24-hour imaging, and direct-to-specialist access.</p>
+                <a href="#er-locations" class="service-card__link" data-en="ER locations &amp; wait times" data-es="Ubicaciones y tiempos de espera">ER locations &amp; wait times →</a>
+              </div>
+            </article>
+
+            <article class="service-card" aria-labelledby="svc-cardiac">
+              <div class="service-card__media">
+                <img src="https://images.pexels.com/photos/4386466/pexels-photo-4386466.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cardiac care specialist with patient" loading="lazy" />
+              </div>
+              <div class="service-card__body">
+                <span class="service-card__badge" data-en="Center of Excellence" data-es="Centro de excelencia">Center of Excellence</span>
+                <h3 id="svc-cardiac" class="service-card__title" data-en="Heart &amp; Vascular" data-es="Corazón y vascular">Heart &amp; Vascular</h3>
+                <p class="service-card__desc" data-en="Comprehensive cardiac care from prevention to complex open-heart surgery. Accredited chest pain center with 30-minute door-to-balloon protocols." data-es="Atención cardíaca integral desde la prevención hasta la cirugía cardíaca abierta compleja.">Comprehensive cardiac care from prevention to complex open-heart surgery. Accredited chest pain center with 30-minute door-to-balloon protocols.</p>
+                <a href="#" class="service-card__link" data-en="Cardiac services" data-es="Servicios cardíacos">Cardiac services →</a>
+              </div>
+            </article>
+
+            <article class="service-card" aria-labelledby="svc-cancer">
+              <div class="service-card__media">
+                <img src="https://images.pexels.com/photos/5668882/pexels-photo-5668882.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Oncology consultation" loading="lazy" />
+              </div>
+              <div class="service-card__body">
+                <span class="service-card__badge" data-en="NCI Designated" data-es="Designado por NCI">NCI Designated</span>
+                <h3 id="svc-cancer" class="service-card__title" data-en="Cancer Care" data-es="Oncología">Cancer Care</h3>
+                <p class="service-card__desc" data-en="Multidisciplinary tumor boards, radiation oncology, immunotherapy, clinical trials access, and survivorship programs." data-es="Juntas de tumor multidisciplinarias, oncología radioterápica, inmunoterapia, acceso a ensayos clínicos.">Multidisciplinary tumor boards, radiation oncology, immunotherapy, clinical trials access, and survivorship programs.</p>
+                <a href="#" class="service-card__link" data-en="Cancer programs" data-es="Programas oncológicos">Cancer programs →</a>
+              </div>
+            </article>
+
+            <article class="service-card" aria-labelledby="svc-maternity">
+              <div class="service-card__media">
+                <img src="https://images.pexels.com/photos/3807571/pexels-photo-3807571.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Maternity and newborn care" loading="lazy" />
+              </div>
+              <div class="service-card__body">
+                <span class="service-card__badge" data-en="Baby-Friendly Certified" data-es="Certificado Baby-Friendly">Baby-Friendly Certified</span>
+                <h3 id="svc-maternity" class="service-card__title" data-en="Maternity &amp; Newborn" data-es="Maternidad y recién nacidos">Maternity &amp; Newborn</h3>
+                <p class="service-card__desc" data-en="Birthing suites, Level III NICU, lactation consultants, and maternal-fetal medicine for high-risk pregnancies." data-es="Salas de parto, UCIN Nivel III, consultores de lactancia y medicina materno-fetal para embarazos de alto riesgo.">Birthing suites, Level III NICU, lactation consultants, and maternal-fetal medicine for high-risk pregnancies.</p>
+                <a href="#" class="service-card__link" data-en="Maternity services" data-es="Servicios de maternidad">Maternity services →</a>
+              </div>
+            </article>
+
+            <article class="service-card" aria-labelledby="svc-ortho">
+              <div class="service-card__media">
+                <img src="https://images.pexels.com/photos/5752282/pexels-photo-5752282.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Orthopedic physical therapy" loading="lazy" />
+              </div>
+              <div class="service-card__body">
+                <span class="service-card__badge" data-en="Joint Replacement Center" data-es="Centro de reemplazo de articulaciones">Joint Replacement Center</span>
+                <h3 id="svc-ortho" class="service-card__title" data-en="Orthopedics &amp; Spine" data-es="Ortopedia y columna">Orthopedics &amp; Spine</h3>
+                <p class="service-card__desc" data-en="Robotic-assisted joint replacement, sports medicine, complex spinal surgery, and comprehensive physical therapy." data-es="Reemplazo articular asistido por robot, medicina deportiva, cirugía espinal compleja y fisioterapia integral.">Robotic-assisted joint replacement, sports medicine, complex spinal surgery, and comprehensive physical therapy.</p>
+                <a href="#" class="service-card__link" data-en="Orthopedic care" data-es="Atención ortopédica">Orthopedic care →</a>
+              </div>
+            </article>
+
+            <article class="service-card" aria-labelledby="svc-urgent">
+              <div class="service-card__media">
+                <img src="https://images.pexels.com/photos/5407206/pexels-photo-5407206.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Urgent care clinic" loading="lazy" />
+              </div>
+              <div class="service-card__body">
+                <span class="service-card__badge service-card__badge--urgent" data-en="Walk-ins Welcome" data-es="Se aceptan sin cita">Walk-ins Welcome</span>
+                <h3 id="svc-urgent" class="service-card__title" data-en="Urgent Care" data-es="Cuidado urgente">Urgent Care</h3>
+                <p class="service-card__desc" data-en="For non-life-threatening illnesses and injuries — no appointment needed. Open 7 days, extended hours, online check-in available." data-es="Para enfermedades y lesiones que no ponen en peligro la vida. Abierto 7 días, horario extendido.">For non-life-threatening illnesses and injuries — no appointment needed. Open 7 days, extended hours, online check-in available.</p>
+                <a href="#" class="service-card__link" data-en="Urgent care locations" data-es="Ubicaciones de cuidado urgente">Urgent care locations →</a>
+              </div>
+            </article>
+          </div>
+
+          <div class="services-footer">
+            <a href="#" class="btn btn--outline" data-en="View all 30+ specialties" data-es="Ver todas las 30+ especialidades">View all 30+ specialties</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── ER LOCATIONS ───────────────────────────────────── -->
+      <section class="er-locations section" id="er-locations" aria-labelledby="er-locations-heading">
+        <div class="container">
+          <div class="section__header section__header--left">
+            <div class="er-locations__badge" aria-hidden="true">24 / 7</div>
+            <div>
+              <h2 id="er-locations-heading" class="section__title section__title--left" data-en="Emergency Room Locations" data-es="Salas de emergencias">Emergency Room Locations</h2>
+              <p class="section__sub section__sub--left" data-en="Both ERs are open 24 hours, 365 days a year. Always call 911 for life-threatening emergencies." data-es="Ambas salas de emergencias están abiertas las 24 horas, los 365 días del año. Siempre llame al 911 para emergencias que pongan en peligro la vida.">Both ERs are open 24 hours, 365 days a year. Always call 911 for life-threatening emergencies.</p>
+            </div>
+          </div>
+
+          <div class="er-grid">
+            <div class="er-card" aria-label="Westside Medical Center Emergency Room">
+              <div class="er-card__header">
+                <span class="er-card__badge er-card__badge--open" role="status" aria-label="Currently open">
+                  <span class="er-card__pulse" aria-hidden="true"></span>
+                  <span data-en="Open Now" data-es="Abierto ahora">Open Now</span>
+                </span>
+                <h3 class="er-card__name" data-en="Westside Medical Center" data-es="Centro Médico Westside">Westside Medical Center</h3>
+                <p class="er-card__address">1500 West Medical Drive, Springfield, CA 94102</p>
+              </div>
+              <div class="er-card__details">
+                <div class="er-detail">
+                  <span class="er-detail__icon" aria-hidden="true">🕐</span>
+                  <span>
+                    <span class="er-detail__label" data-en="Est. Wait Time" data-es="Tiempo de espera estimado">Est. Wait Time</span>
+                    <strong class="er-detail__value wait-time" id="wait-westside">~18 min</strong>
+                  </span>
+                </div>
+                <div class="er-detail">
+                  <span class="er-detail__icon" aria-hidden="true">🏥</span>
+                  <span>
+                    <span class="er-detail__label" data-en="Level" data-es="Nivel">Level</span>
+                    <strong class="er-detail__value" data-en="Level II Trauma Center" data-es="Centro de Trauma Nivel II">Level II Trauma Center</strong>
+                  </span>
+                </div>
+                <div class="er-detail">
+                  <span class="er-detail__icon" aria-hidden="true">🚗</span>
+                  <span class="er-detail__label" data-en="Free parking available" data-es="Estacionamiento gratuito disponible">Free parking available</span>
+                </div>
+              </div>
+              <div class="er-card__actions">
+                <a href="tel:15555550100" class="btn btn--primary btn--sm" data-en="Call ER Directly" data-es="Llamar directamente">Call ER Directly</a>
+                <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn btn--ghost btn--sm" data-en="Get Directions" data-es="Cómo llegar">Get Directions</a>
+              </div>
+            </div>
+
+            <div class="er-card" aria-label="Eastview Hospital Emergency Room">
+              <div class="er-card__header">
+                <span class="er-card__badge er-card__badge--open" role="status" aria-label="Currently open">
+                  <span class="er-card__pulse" aria-hidden="true"></span>
+                  <span data-en="Open Now" data-es="Abierto ahora">Open Now</span>
+                </span>
+                <h3 class="er-card__name" data-en="Eastview Hospital" data-es="Hospital Eastview">Eastview Hospital</h3>
+                <p class="er-card__address">800 Eastview Boulevard, Riverside, CA 92501</p>
+              </div>
+              <div class="er-card__details">
+                <div class="er-detail">
+                  <span class="er-detail__icon" aria-hidden="true">🕐</span>
+                  <span>
+                    <span class="er-detail__label" data-en="Est. Wait Time" data-es="Tiempo de espera estimado">Est. Wait Time</span>
+                    <strong class="er-detail__value wait-time" id="wait-eastview">~25 min</strong>
+                  </span>
+                </div>
+                <div class="er-detail">
+                  <span class="er-detail__icon" aria-hidden="true">🏥</span>
+                  <span>
+                    <span class="er-detail__label" data-en="Level" data-es="Nivel">Level</span>
+                    <strong class="er-detail__value" data-en="Level II Trauma Center" data-es="Centro de Trauma Nivel II">Level II Trauma Center</strong>
+                  </span>
+                </div>
+                <div class="er-detail">
+                  <span class="er-detail__icon" aria-hidden="true">🚌</span>
+                  <span class="er-detail__label" data-en="Bus lines 14, 22, 38 stop nearby" data-es="Líneas de autobús 14, 22, 38 paran cerca">Bus lines 14, 22, 38 stop nearby</span>
+                </div>
+              </div>
+              <div class="er-card__actions">
+                <a href="tel:15555550200" class="btn btn--primary btn--sm" data-en="Call ER Directly" data-es="Llamar directamente">Call ER Directly</a>
+                <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn btn--ghost btn--sm" data-en="Get Directions" data-es="Cómo llegar">Get Directions</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="er-notice" role="note">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <p data-en="Wait times are estimates and may change. For life-threatening emergencies — chest pain, stroke symptoms, difficulty breathing, severe bleeding — call 911. Do not drive yourself." data-es="Los tiempos de espera son estimaciones y pueden cambiar. Para emergencias que pongan en peligro la vida (dolor en el pecho, síntomas de derrame cerebral, dificultad para respirar, hemorragia grave), llame al 911. No conduzca usted mismo.">
+              Wait times are estimates and may change. For life-threatening emergencies — chest pain, stroke symptoms, difficulty breathing, severe bleeding — call 911. Do not drive yourself.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── APPOINTMENT ────────────────────────────────────── -->
+      <section class="appointment section section--alt" id="appointment" aria-labelledby="appt-heading">
+        <div class="container">
+          <div class="appointment-grid">
+            <div class="appointment-info">
+              <h2 id="appt-heading" class="section__title section__title--left" data-en="Book an Appointment" data-es="Reservar una cita">Book an Appointment</h2>
+              <p class="section__sub section__sub--left" data-en="Our patient navigators are available Monday–Friday 7am–8pm, Saturday 8am–5pm to help you find the right doctor, schedule appointments, and answer billing questions." data-es="Nuestros navegadores de pacientes están disponibles de lunes a viernes de 7am a 8pm para ayudarle a encontrar al médico adecuado.">Our patient navigators are available Monday–Friday 7am–8pm, Saturday 8am–5pm to help you find the right doctor, schedule appointments, and answer billing questions.</p>
+
+              <ul class="appt-options" role="list">
+                <li class="appt-option">
+                  <a href="tel:18005551234" class="appt-option__card" aria-label="Call to book: 1-800-555-1234">
+                    <span class="appt-option__icon" aria-hidden="true">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.56 3.42C1.53 2.51 2.16 1.72 3.07 1.5A2 2 0 0 1 5.07 1H8a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L9.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 23 16a2 2 0 0 1-.08.92z"/></svg>
+                    </span>
+                    <span>
+                      <strong data-en="Call to Book" data-es="Llamar para reservar">Call to Book</strong>
+                      <span>1-800-555-1234</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="appt-option">
+                  <a href="#" class="appt-option__card" aria-label="Book online — patient portal">
+                    <span class="appt-option__icon" aria-hidden="true">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+                    </span>
+                    <span>
+                      <strong data-en="MyChart Patient Portal" data-es="Portal de pacientes MyChart">MyChart Patient Portal</strong>
+                      <span data-en="Book &amp; manage appointments online" data-es="Reservar y gestionar citas en línea">Book &amp; manage appointments online</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="appt-option">
+                  <a href="#" class="appt-option__card" aria-label="Same-day appointments available">
+                    <span class="appt-option__icon" aria-hidden="true">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    </span>
+                    <span>
+                      <strong data-en="Same-Day Appointments" data-es="Citas el mismo día">Same-Day Appointments</strong>
+                      <span data-en="Available for primary care &amp; urgent needs" data-es="Disponible para atención primaria y necesidades urgentes">Available for primary care &amp; urgent needs</span>
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="appointment-form-wrap" aria-labelledby="appt-form-heading">
+              <h3 id="appt-form-heading" class="appointment-form-wrap__title" data-en="Request an Appointment" data-es="Solicitar una cita">Request an Appointment</h3>
+              <form class="appt-form" id="appointment-form" novalidate aria-describedby="appt-form-heading">
+                <div class="appt-form__row">
+                  <div class="field-group">
+                    <label for="appt-first" class="field-label" data-en="First name" data-es="Nombre">First name</label>
+                    <input type="text" id="appt-first" name="first_name" class="field-input" autocomplete="given-name" required aria-required="true" />
+                  </div>
+                  <div class="field-group">
+                    <label for="appt-last" class="field-label" data-en="Last name" data-es="Apellido">Last name</label>
+                    <input type="text" id="appt-last" name="last_name" class="field-input" autocomplete="family-name" required aria-required="true" />
+                  </div>
+                </div>
+                <div class="field-group">
+                  <label for="appt-phone" class="field-label" data-en="Phone number" data-es="Número de teléfono">Phone number</label>
+                  <input type="tel" id="appt-phone" name="phone" class="field-input" autocomplete="tel" required aria-required="true" />
+                </div>
+                <div class="field-group">
+                  <label for="appt-type" class="field-label" data-en="Type of care needed" data-es="Tipo de atención necesaria">Type of care needed</label>
+                  <select id="appt-type" name="care_type" class="field-select" required aria-required="true">
+                    <option value="" data-en="Select..." data-es="Seleccionar...">Select...</option>
+                    <option value="primary" data-en="Primary Care" data-es="Atención primaria">Primary Care</option>
+                    <option value="specialist" data-en="Specialist" data-es="Especialista">Specialist</option>
+                    <option value="urgent" data-en="Urgent (non-emergency)" data-es="Urgente (no emergencia)">Urgent (non-emergency)</option>
+                    <option value="followup" data-en="Follow-up" data-es="Seguimiento">Follow-up</option>
+                    <option value="preventive" data-en="Preventive / Wellness" data-es="Preventivo / Bienestar">Preventive / Wellness</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label for="appt-insurance" class="field-label" data-en="Insurance provider" data-es="Proveedor de seguro">Insurance provider</label>
+                  <input type="text" id="appt-insurance" name="insurance" class="field-input" placeholder="e.g., Blue Cross, Medicare" autocomplete="off" />
+                </div>
+                <div class="field-group">
+                  <label for="appt-preferred" class="field-label" data-en="Preferred contact time" data-es="Hora de contacto preferida">Preferred contact time</label>
+                  <select id="appt-preferred" name="preferred_time" class="field-select">
+                    <option value="morning" data-en="Morning (8am–12pm)" data-es="Mañana (8am–12pm)">Morning (8am–12pm)</option>
+                    <option value="afternoon" data-en="Afternoon (12pm–5pm)" data-es="Tarde (12pm–5pm)">Afternoon (12pm–5pm)</option>
+                    <option value="evening" data-en="Evening (5pm–8pm)" data-es="Noche (5pm–8pm)">Evening (5pm–8pm)</option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn--primary btn--full" id="appt-submit">
+                  <span data-en="Request Appointment" data-es="Solicitar cita">Request Appointment</span>
+                </button>
+                <p class="appt-form__disclaimer" data-en="A patient navigator will call you within 1 business day to confirm. For urgent needs, please call 1-800-555-1234 directly." data-es="Un navegador de pacientes le llamará dentro de 1 día hábil para confirmar. Para necesidades urgentes, llame directamente al 1-800-555-1234.">
+                  A patient navigator will call you within 1 business day to confirm. For urgent needs, please call 1-800-555-1234 directly.
+                </p>
+              </form>
+              <div class="appt-form-success" id="appt-success" hidden aria-live="polite">
+                <div class="success-icon" aria-hidden="true">✓</div>
+                <h4 data-en="Request Received!" data-es="¡Solicitud recibida!">Request Received!</h4>
+                <p data-en="We'll call you within 1 business day. If your need is urgent, call 1-800-555-1234." data-es="Le llamaremos dentro de 1 día hábil. Si su necesidad es urgente, llame al 1-800-555-1234.">We'll call you within 1 business day. If your need is urgent, call 1-800-555-1234.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── PATIENTS & VISITORS ────────────────────────────── -->
+      <section class="patients section" id="patients" aria-labelledby="patients-heading">
+        <div class="container">
+          <div class="section__header">
+            <h2 id="patients-heading" class="section__title" data-en="Patients &amp; Visitors" data-es="Pacientes y visitantes">Patients &amp; Visitors</h2>
+            <p class="section__sub" data-en="Everything you need before, during, and after your visit." data-es="Todo lo que necesita antes, durante y después de su visita.">Everything you need before, during, and after your visit.</p>
+          </div>
+
+          <div class="patients-grid">
+            <a href="#" class="patient-tile" aria-label="Billing and insurance information">
+              <div class="patient-tile__icon" aria-hidden="true">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+              </div>
+              <h3 class="patient-tile__title" data-en="Billing &amp; Insurance" data-es="Facturación y seguro">Billing &amp; Insurance</h3>
+              <p class="patient-tile__desc" data-en="Understand your bill, payment plans, and accepted insurance plans." data-es="Comprenda su factura, planes de pago y planes de seguro aceptados.">Understand your bill, payment plans, and accepted insurance plans.</p>
+            </a>
+            <a href="#" class="patient-tile" aria-label="Patient portal — MyChart">
+              <div class="patient-tile__icon" aria-hidden="true">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <h3 class="patient-tile__title" data-en="Patient Portal" data-es="Portal del paciente">Patient Portal</h3>
+              <p class="patient-tile__desc" data-en="Access test results, message your care team, and refill prescriptions." data-es="Acceda a resultados de pruebas, envíe mensajes a su equipo de atención y renueve recetas.">Access test results, message your care team, and refill prescriptions.</p>
+            </a>
+            <a href="#" class="patient-tile" aria-label="Visitor policies and information">
+              <div class="patient-tile__icon" aria-hidden="true">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              </div>
+              <h3 class="patient-tile__title" data-en="Visitor Information" data-es="Información para visitantes">Visitor Information</h3>
+              <p class="patient-tile__desc" data-en="Parking, visiting hours, maps, and amenities for families." data-es="Estacionamiento, horarios de visita, mapas y comodidades para familias.">Parking, visiting hours, maps, and amenities for families.</p>
+            </a>
+            <a href="#" class="patient-tile" aria-label="Health education and resources">
+              <div class="patient-tile__icon" aria-hidden="true">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              </div>
+              <h3 class="patient-tile__title" data-en="Health Library" data-es="Biblioteca de salud">Health Library</h3>
+              <p class="patient-tile__desc" data-en="Trusted health information, condition guides, and wellness resources." data-es="Información de salud confiable, guías de condiciones y recursos de bienestar.">Trusted health information, condition guides, and wellness resources.</p>
+            </a>
+            <a href="#" class="patient-tile" aria-label="Language and interpreter services">
+              <div class="patient-tile__icon" aria-hidden="true">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              </div>
+              <h3 class="patient-tile__title" data-en="Language Services" data-es="Servicios de idiomas">Language Services</h3>
+              <p class="patient-tile__desc" data-en="Free interpreter services in 40+ languages. Spanish-speaking staff available at all locations." data-es="Servicios de interpretación gratuitos en más de 40 idiomas. Personal de habla hispana disponible en todas las ubicaciones.">Free interpreter services in 40+ languages. Spanish-speaking staff at all locations.</p>
+            </a>
+            <a href="#" class="patient-tile" aria-label="Financial assistance programs">
+              <div class="patient-tile__icon" aria-hidden="true">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </div>
+              <h3 class="patient-tile__title" data-en="Financial Assistance" data-es="Asistencia financiera">Financial Assistance</h3>
+              <p class="patient-tile__desc" data-en="Charity care, sliding-scale fees, and assistance programs for qualifying patients." data-es="Atención benéfica, honorarios escalonados y programas de asistencia para pacientes que califiquen.">Charity care, sliding-scale fees, and assistance programs for qualifying patients.</p>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── FOR PHYSICIANS ─────────────────────────────────── -->
+      <section class="physicians section section--dark" id="physicians" aria-labelledby="physicians-heading">
+        <div class="container">
+          <div class="physicians-grid">
+            <div class="physicians-content">
+              <span class="section__eyebrow" data-en="For Referring Physicians" data-es="Para médicos que refieren">For Referring Physicians</span>
+              <h2 id="physicians-heading" class="section__title section__title--left section__title--light" data-en="Seamless Specialist Referrals" data-es="Referencias a especialistas sin complicaciones">Seamless Specialist Referrals</h2>
+              <p class="physicians-desc" data-en="Our 200+ specialists across 30+ disciplines accept referrals from all major payers. Dedicated physician liaison line, 24-hour consult support, and shared EMR access for your patients." data-es="Nuestros más de 200 especialistas en más de 30 disciplinas aceptan referencias de todos los pagadores principales. Línea de enlace médico dedicada, soporte de consulta las 24 horas y acceso EMR compartido.">
+                Our 200+ specialists across 30+ disciplines accept referrals from all major payers. Dedicated physician liaison line, 24-hour consult support, and shared EMR access for your patients.
+              </p>
+              <ul class="physicians-features" role="list">
+                <li data-en="Online referral portal — reports in 24 hours" data-es="Portal de referencias en línea: informes en 24 horas">Online referral portal — reports in 24 hours</li>
+                <li data-en="Dedicated physician liaison: (800) 555-7890" data-es="Enlace médico dedicado: (800) 555-7890">Dedicated physician liaison: (800) 555-7890</li>
+                <li data-en="Joint tumor board conferences (weekly)" data-es="Conferencias conjuntas de junta de tumor (semanal)">Joint tumor board conferences (weekly)</li>
+                <li data-en="Shared Epic EMR with community providers" data-es="Epic EMR compartido con proveedores comunitarios">Shared Epic EMR with community providers</li>
+                <li data-en="CME programs and grand rounds access" data-es="Programas de CME y acceso a grandes rondas">CME programs and grand rounds access</li>
+              </ul>
+              <div class="physicians-ctas">
+                <a href="#" class="btn btn--white" data-en="Submit a Referral" data-es="Enviar una referencia">Submit a Referral</a>
+                <a href="tel:18005557890" class="btn btn--outline-white" data-en="Physician Hotline" data-es="Línea directa médica">Physician Hotline</a>
+              </div>
+            </div>
+
+            <div class="physicians-image">
+              <img src="https://images.pexels.com/photos/5215024/pexels-photo-5215024.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Two physicians reviewing patient records together" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── LOCATIONS ─────────────────────────────────────── -->
+      <section class="locations section" id="locations" aria-labelledby="locations-heading">
+        <div class="container">
+          <div class="section__header">
+            <h2 id="locations-heading" class="section__title" data-en="Our Locations" data-es="Nuestras ubicaciones">Our Locations</h2>
+            <p class="section__sub" data-en="14 convenient care sites across 3 cities — with a location near you." data-es="14 sitios de atención convenientes en 3 ciudades.">14 convenient care sites across 3 cities — with a location near you.</p>
+          </div>
+
+          <div class="location-tabs" role="tablist" aria-label="Filter locations by city">
+            <button class="location-tab location-tab--active" role="tab" aria-selected="true" aria-controls="locs-all" id="tab-all" data-filter="all" data-en="All Cities" data-es="Todas las ciudades">All Cities</button>
+            <button class="location-tab" role="tab" aria-selected="false" aria-controls="locs-springfield" id="tab-springfield" data-filter="springfield" data-en="Springfield" data-es="Springfield">Springfield</button>
+            <button class="location-tab" role="tab" aria-selected="false" aria-controls="locs-riverside" id="tab-riverside" data-filter="riverside" data-en="Riverside" data-es="Riverside">Riverside</button>
+            <button class="location-tab" role="tab" aria-selected="false" aria-controls="locs-northgate" id="tab-northgate" data-filter="northgate" data-en="Northgate" data-es="Northgate">Northgate</button>
+          </div>
+
+          <div class="locations-grid" id="locations-grid" role="tabpanel" aria-labelledby="tab-all">
+            <div class="location-card" data-city="springfield" aria-label="Westside Medical Center, Springfield">
+              <div class="location-card__type location-card__type--hospital" data-en="Hospital" data-es="Hospital">Hospital</div>
+              <h3 class="location-card__name" data-en="Westside Medical Center" data-es="Centro Médico Westside">Westside Medical Center</h3>
+              <address class="location-card__address">1500 West Medical Drive<br>Springfield, CA 94102</address>
+              <p class="location-card__phone">📞 (555) 555-0100</p>
+              <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn btn--ghost btn--sm location-card__directions" data-en="Directions" data-es="Cómo llegar">Directions</a>
+            </div>
+            <div class="location-card" data-city="riverside" aria-label="Eastview Hospital, Riverside">
+              <div class="location-card__type location-card__type--hospital" data-en="Hospital" data-es="Hospital">Hospital</div>
+              <h3 class="location-card__name" data-en="Eastview Hospital" data-es="Hospital Eastview">Eastview Hospital</h3>
+              <address class="location-card__address">800 Eastview Boulevard<br>Riverside, CA 92501</address>
+              <p class="location-card__phone">📞 (555) 555-0200</p>
+              <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn btn--ghost btn--sm location-card__directions" data-en="Directions" data-es="Cómo llegar">Directions</a>
+            </div>
+            <div class="location-card" data-city="springfield" aria-label="Metro Cardiology Springfield">
+              <div class="location-card__type location-card__type--clinic" data-en="Specialty Clinic" data-es="Clínica especializada">Specialty Clinic</div>
+              <h3 class="location-card__name" data-en="Metro Cardiology — Springfield" data-es="Metro Cardiología — Springfield">Metro Cardiology — Springfield</h3>
+              <address class="location-card__address">220 Heart Center Way<br>Springfield, CA 94103</address>
+              <p class="location-card__phone">📞 (555) 555-0310</p>
+              <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn btn--ghost btn--sm location-card__directions" data-en="Directions" data-es="Cómo llegar">Directions</a>
+            </div>
+            <div class="location-card" data-city="riverside" aria-label="Metro Cancer Center Riverside">
+              <div class="location-card__type location-card__type--clinic" data-en="Specialty Clinic" data-es="Clínica especializada">Specialty Clinic</div>
+              <h3 class="location-card__name" data-en="Metro Cancer Center — Riverside" data-es="Centro Oncológico Metro — Riverside">Metro Cancer Center — Riverside</h3>
+              <address class="location-card__address">950 Oncology Pkwy<br>Riverside, CA 92502</address>
+              <p class="location-card__phone">📞 (555) 555-0420</p>
+              <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn btn--ghost btn--sm location-card__directions" data-en="Directions" data-es="Cómo llegar">Directions</a>
+            </div>
+            <div class="location-card" data-city="northgate" aria-label="Northgate Family Medicine Clinic">
+              <div class="location-card__type location-card__type--clinic" data-en="Specialty Clinic" data-es="Clínica especializada">Specialty Clinic</div>
+              <h3 class="location-card__name" data-en="Northgate Family Medicine" data-es="Medicina familiar Northgate">Northgate Family Medicine</h3>
+              <address class="location-card__address">77 Northgate Commons<br>Northgate, CA 91601</address>
+              <p class="location-card__phone">📞 (555) 555-0510</p>
+              <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn btn--ghost btn--sm location-card__directions" data-en="Directions" data-es="Cómo llegar">Directions</a>
+            </div>
+            <div class="location-card" data-city="springfield" aria-label="Metro Urgent Care — Downtown Springfield">
+              <div class="location-card__type location-card__type--urgent" data-en="Urgent Care" data-es="Cuidado urgente">Urgent Care</div>
+              <h3 class="location-card__name" data-en="Urgent Care — Downtown" data-es="Cuidado urgente — Centro">Urgent Care — Downtown</h3>
+              <address class="location-card__address">10 Main Street<br>Springfield, CA 94101</address>
+              <p class="location-card__phone">📞 (555) 555-0610</p>
+              <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn btn--ghost btn--sm location-card__directions" data-en="Directions" data-es="Cómo llegar">Directions</a>
+            </div>
+          </div>
+
+          <div class="locations-footer">
+            <a href="#" class="btn btn--outline" data-en="View all 14 locations" data-es="Ver las 14 ubicaciones">View all 14 locations</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── CAREERS ────────────────────────────────────────── -->
+      <section class="careers section section--alt" id="careers" aria-labelledby="careers-heading">
+        <div class="container">
+          <div class="careers-grid">
+            <div class="careers-image">
+              <img src="https://images.pexels.com/photos/4173251/pexels-photo-4173251.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Healthcare team collaborating in a modern hospital setting" loading="lazy" />
+            </div>
+            <div class="careers-content">
+              <span class="section__eyebrow" data-en="Join Our Team" data-es="Únase a nuestro equipo">Join Our Team</span>
+              <h2 id="careers-heading" class="section__title section__title--left" data-en="Grow Your Healthcare Career" data-es="Haga crecer su carrera en salud">Grow Your Healthcare Career</h2>
+              <p class="careers-desc" data-en="Metro Health System employs 4,500+ healthcare professionals dedicated to compassionate, evidence-based care. We offer competitive salaries, outstanding benefits, and a culture that invests in your growth." data-es="Metro Health System emplea a más de 4,500 profesionales de la salud dedicados a la atención compasiva basada en evidencia.">
+                Metro Health System employs 4,500+ healthcare professionals dedicated to compassionate, evidence-based care. We offer competitive salaries, outstanding benefits, and a culture that invests in your growth.
+              </p>
+              <div class="careers-roles">
+                <div class="career-chip" data-en="Physicians &amp; Surgeons" data-es="Médicos y cirujanos">Physicians &amp; Surgeons</div>
+                <div class="career-chip" data-en="Nursing" data-es="Enfermería">Nursing</div>
+                <div class="career-chip" data-en="Allied Health" data-es="Salud aliada">Allied Health</div>
+                <div class="career-chip" data-en="Research" data-es="Investigación">Research</div>
+                <div class="career-chip" data-en="Administration" data-es="Administración">Administration</div>
+                <div class="career-chip" data-en="Technology" data-es="Tecnología">Technology</div>
+              </div>
+              <a href="#" class="btn btn--primary" data-en="Explore Open Positions" data-es="Explorar puestos disponibles">Explore Open Positions</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── TRUST / ACCREDITATION ──────────────────────────── -->
+      <section class="trust section" aria-label="Accreditations and recognition">
+        <div class="container">
+          <h2 class="trust__title" data-en="Recognized for Excellence in Care" data-es="Reconocidos por la excelencia en la atención">Recognized for Excellence in Care</h2>
+          <ul class="trust-logos" role="list" aria-label="Accrediting organizations">
+            <li class="trust-logo-item">
+              <div class="trust-logo-box" aria-label="The Joint Commission Accredited">
+                <span class="trust-logo-box__abbr">TJC</span>
+                <span class="trust-logo-box__name" data-en="Joint Commission Accredited" data-es="Acreditado por Joint Commission">Joint Commission Accredited</span>
+              </div>
+            </li>
+            <li class="trust-logo-item">
+              <div class="trust-logo-box" aria-label="Magnet Recognition for Nursing Excellence">
+                <span class="trust-logo-box__abbr">Magnet</span>
+                <span class="trust-logo-box__name" data-en="Nursing Excellence" data-es="Excelencia en enfermería">Nursing Excellence</span>
+              </div>
+            </li>
+            <li class="trust-logo-item">
+              <div class="trust-logo-box" aria-label="U.S. News and World Report Best Hospital">
+                <span class="trust-logo-box__abbr">U.S. News</span>
+                <span class="trust-logo-box__name" data-en="Best Hospital 2024" data-es="Mejor hospital 2024">Best Hospital 2024</span>
+              </div>
+            </li>
+            <li class="trust-logo-item">
+              <div class="trust-logo-box" aria-label="NCQA Patient-Centered Medical Home certified">
+                <span class="trust-logo-box__abbr">NCQA</span>
+                <span class="trust-logo-box__name" data-en="PCMH Certified" data-es="Certificado PCMH">PCMH Certified</span>
+              </div>
+            </li>
+            <li class="trust-logo-item">
+              <div class="trust-logo-box" aria-label="DNV Healthcare Accredited">
+                <span class="trust-logo-box__abbr">DNV</span>
+                <span class="trust-logo-box__name" data-en="ISO 9001 Certified" data-es="Certificado ISO 9001">ISO 9001 Certified</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ═══════════════════════════════════════════════════════
+         FOOTER
+    ═══════════════════════════════════════════════════════ -->
+    <footer class="site-footer" role="contentinfo" aria-label="Site footer">
+      <div class="container">
+        <div class="site-footer__top">
+          <div class="footer-brand">
+            <a href="/" class="site-logo" aria-label="Metro Health System Home">
+              <span class="site-logo__mark" aria-hidden="true">
+                <svg width="30" height="30" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="36" height="36" rx="8" fill="#0d6e6e"/><path d="M18 7v22M7 18h22" stroke="white" stroke-width="3.5" stroke-linecap="round"/></svg>
+              </span>
+              <span class="site-logo__text">
+                <span class="site-logo__name">Metro Health</span>
+                <span class="site-logo__tagline" data-en="System" data-es="Sistema">System</span>
+              </span>
+            </a>
+            <p class="footer-brand__desc" data-en="Compassionate, expert care serving 500,000 patients across Springfield, Riverside, and Northgate." data-es="Atención compasiva y experta que atiende a 500,000 pacientes en Springfield, Riverside y Northgate.">Compassionate, expert care serving 500,000 patients across Springfield, Riverside, and Northgate.</p>
+            <p class="footer-brand__phone">
+              <a href="tel:18005551234" aria-label="Call Metro Health: 1-800-555-1234">1-800-555-1234</a>
+            </p>
+          </div>
+
+          <nav class="footer-nav" aria-label="Footer navigation">
+            <div class="footer-nav__col">
+              <h3 class="footer-nav__heading" data-en="Find Care" data-es="Encontrar atención">Find Care</h3>
+              <ul role="list">
+                <li><a href="#find-care" data-en="Find a Doctor" data-es="Encontrar un médico">Find a Doctor</a></li>
+                <li><a href="#" data-en="All Specialties" data-es="Todas las especialidades">All Specialties</a></li>
+                <li><a href="#appointment" data-en="Book Appointment" data-es="Reservar cita">Book Appointment</a></li>
+                <li><a href="#er-locations" data-en="ER Locations" data-es="Salas de emergencias">ER Locations</a></li>
+                <li><a href="#" data-en="Urgent Care" data-es="Cuidado urgente">Urgent Care</a></li>
+              </ul>
+            </div>
+            <div class="footer-nav__col">
+              <h3 class="footer-nav__heading" data-en="Patients" data-es="Pacientes">Patients</h3>
+              <ul role="list">
+                <li><a href="#" data-en="Patient Portal" data-es="Portal del paciente">Patient Portal</a></li>
+                <li><a href="#" data-en="Billing &amp; Insurance" data-es="Facturación y seguro">Billing &amp; Insurance</a></li>
+                <li><a href="#" data-en="Financial Assistance" data-es="Asistencia financiera">Financial Assistance</a></li>
+                <li><a href="#" data-en="Health Library" data-es="Biblioteca de salud">Health Library</a></li>
+                <li><a href="#" data-en="Language Services" data-es="Servicios de idiomas">Language Services</a></li>
+              </ul>
+            </div>
+            <div class="footer-nav__col">
+              <h3 class="footer-nav__heading" data-en="About" data-es="Acerca de">About</h3>
+              <ul role="list">
+                <li><a href="#" data-en="Our Mission" data-es="Nuestra misión">Our Mission</a></li>
+                <li><a href="#physicians" data-en="For Physicians" data-es="Para médicos">For Physicians</a></li>
+                <li><a href="#careers" data-en="Careers" data-es="Carreras">Careers</a></li>
+                <li><a href="#" data-en="News &amp; Events" data-es="Noticias y eventos">News &amp; Events</a></li>
+                <li><a href="#" data-en="Contact Us" data-es="Contáctenos">Contact Us</a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+
+        <div class="site-footer__bottom">
+          <p class="footer-legal" data-en="&copy; 2024 Metro Health System. All rights reserved. HIPAA Compliant. Accessibility: WCAG 2.1 AA." data-es="&copy; 2024 Metro Health System. Todos los derechos reservados. Conforme a HIPAA. Accesibilidad: WCAG 2.1 AA.">&copy; 2024 Metro Health System. All rights reserved. HIPAA Compliant. Accessibility: WCAG 2.1 AA.</p>
+          <ul class="footer-links" role="list">
+            <li><a href="#" data-en="Privacy Policy" data-es="Política de privacidad">Privacy Policy</a></li>
+            <li><a href="#" data-en="Terms of Use" data-es="Términos de uso">Terms of Use</a></li>
+            <li><a href="#" data-en="Non-Discrimination" data-es="No discriminación">Non-Discrimination</a></li>
+            <li><a href="#" data-en="Accessibility" data-es="Accesibilidad">Accessibility</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Appointment confirmation toast -->
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true" hidden>
+      <span class="toast__icon" aria-hidden="true">✓</span>
+      <span class="toast__text" id="toast-text"></span>
+    </div>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

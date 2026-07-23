@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CreditBuilder - Your Journey to Better Credit</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Warm, grounding color palette */
+            --primary-green: #6B8E6F;
+            --light-green: #A8C5A4;
+            --accent-warm: #D4A574;
+            --background-cream: #FAF7F2;
+            --background-white: #FFFFFF;
+            --text-dark: #2C3E2E;
+            --text-medium: #5A6B5C;
+            --text-light: #8C9D8E;
+            --border-soft: #E5DFD3;
+            --shadow-subtle: rgba(44, 62, 46, 0.08);
+            --blur-overlay: rgba(255, 255, 255, 0.92);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: var(--background-cream);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Subtle grain texture for warmth */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.5'/%3E%3C/svg%3E");
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Header with privacy control */
+        header {
+            background: var(--primary-green);
+            color: white;
+            padding: 20px 20px 24px;
+            border-radius: 0 0 32px 32px;
+            box-shadow: 0 4px 20px var(--shadow-subtle);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .logo {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        .privacy-toggle {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            font-weight: 500;
+        }
+
+        .privacy-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .privacy-icon {
+            width: 16px;
+            height: 16px;
+        }
+
+        .greeting {
+            font-size: 15px;
+            font-weight: 400;
+            opacity: 0.95;
+            margin-bottom: 4px;
+        }
+
+        .user-name {
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        /* Main content */
+        main {
+            padding: 24px 20px 80px;
+        }
+
+        .card {
+            background: var(--background-white);
+            border-radius: 24px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 12px var(--shadow-subtle);
+            border: 1px solid var(--border-soft);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Blur overlay for privacy */
+        .blur-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--blur-overlay);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            border-radius: 24px;
+        }
+
+        .blur-overlay.active {
+            display: flex;
+        }
+
+        .blur-message {
+            text-align: center;
+            color: var(--text-medium);
+            font-size: 14px;
+        }
+
+        .blur-icon {
+            width: 32px;
+            height: 32px;
+            margin-bottom: 8px;
+            opacity: 0.5;
+        }
+
+        /* Credit Score Card */
+        .score-card {
+            text-align: center;
+        }
+
+        .score-label {
+            font-size: 13px;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .score-display {
+            font-size: 64px;
+            font-weight: 700;
+            color: var(--primary-green);
+            line-height: 1;
+            margin-bottom: 8px;
+            letter-spacing: -2px;
+        }
+
+        .score-range {
+            font-size: 14px;
+            color: var(--text-medium);
+            margin-bottom: 20px;
+        }
+
+        .score-status {
+            display: inline-block;
+            background: rgba(107, 142, 111, 0.1);
+            color: var(--primary-green);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        /* Progress Card */
+        .progress-card {
+            position: relative;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .title-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .progress-stat {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 12px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-medium);
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary-green);
+        }
+
+        .progress-bar-container {
+            background: rgba(107, 142, 111, 0.1);
+            height: 10px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-green), var(--light-green));
+            border-radius: 10px;
+            transition: width 1s ease;
+            width: 0;
+        }
+
+        .milestone {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px;
+            background: rgba(212, 165, 116, 0.08);
+            border-radius: 16px;
+            border-left: 3px solid var(--accent-warm);
+        }
+
+        .milestone-icon {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .milestone-text {
+            flex: 1;
+        }
+
+        .milestone-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .milestone-description {
+            font-size: 13px;
+            color: var(--text-medium);
+            line-height: 1.5;
+        }
+
+        /* Action Buttons */
+        .actions {
+            display: grid;
+            gap: 12px;
+        }
+
+        .action-btn {
+            background: var(--background-white);
+            border: 2px solid var(--border-soft);
+            padding: 18px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .action-btn:hover {
+            border-color: var(--primary-green);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px var(--shadow-subtle);
+        }
+
+        .action-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(107, 142, 111, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .action-icon svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .action-content {
+            flex: 1;
+        }
+
+        .action-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .action-description {
+            font-size: 13px;
+            color: var(--text-medium);
+            line-height: 1.4;
+        }
+
+        /* Recent Activity */
+        .activity-item {
+            display: flex;
+            gap: 12px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(168, 197, 164, 0.15);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .activity-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-bottom: 2px;
+        }
+
+        .activity-date {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        /* Encouragement Banner */
+        .encouragement {
+            background: linear-gradient(135deg, rgba(107, 142, 111, 0.12), rgba(212, 165, 116, 0.12));
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(107, 142, 111, 0.2);
+        }
+
+        .encouragement-icon {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 12px;
+        }
+
+        .encouragement-text {
+            font-size: 15px;
+            color: var(--text-dark);
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            animation: fadeInUp 0.6s ease backwards;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+
+        /* Responsive adjustments */
+        @media (max-width: 360px) {
+            .score-display {
+                font-size: 56px;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            main {
+                padding: 20px 16px 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <div class="logo">CreditBuilder</div>
+                <button class="privacy-toggle" id="privacyToggle">
+                    <svg class="privacy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    <span id="privacyText">Hide</span>
+                </button>
+            </div>
+            <div class="greeting">Good afternoon,</div>
+            <div class="user-name">Maria</div>
+        </header>
+
+        <main>
+            <!-- Credit Score Card -->
+            <div class="card score-card" data-private="true">
+                <div class="blur-overlay">
+                    <div class="blur-message">
+                        <svg class="blur-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <path d="M17 17l5 5M12 12l-3 3"></path>
+                        </svg>
+                        <div>Information hidden for privacy</div>
+                    </div>
+                </div>
+                <div class="score-label">Your Credit Score</div>
+                <div class="score-display">612</div>
+                <div class="score-range">Fair (580-669)</div>
+                <div class="score-status">Building Momentum</div>
+            </div>
+
+            <!-- Progress Card -->
+            <div class="card progress-card" data-private="true">
+                <div class="blur-overlay">
+                    <div class="blur-message">
+                        <svg class="blur-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <path d="M17 17l5 5M12 12l-3 3"></path>
+                        </svg>
+                        <div>Information hidden for privacy</div>
+                    </div>
+                </div>
+                <div class="card-title">
+                    <svg class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                    </svg>
+                    Your Progress
+                </div>
+                <div class="progress-stat">
+                    <span class="stat-label">Since you started</span>
+                    <span class="stat-value">+47 points</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                <div class="milestone">
+                    <svg class="milestone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                    </svg>
+                    <div class="milestone-text">
+                        <div class="milestone-title">Almost there!</div>
+                        <div class="milestone-description">You're 38 points away from "Good" credit. Keep going - every on-time payment moves you forward.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="card">
+                <div class="card-title">
+                    <svg class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 11l3 3L22 4"></path>
+                        <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"></path>
+                    </svg>
+                    Next Steps
+                </div>
+                <div class="actions">
+                    <button class="action-btn">
+                        <div class="action-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                        </div>
+                        <div class="action-content">
+                            <div class="action-title">Track Your Payments</div>
+                            <div class="action-description">See which bills help build your score</div>
+                        </div>
+                    </button>
+                    <button class="action-btn">
+                        <div class="action-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                        </div>
+                        <div class="action-content">
+                            <div class="action-title">Report Rent Payments</div>
+                            <div class="action-description">Free way to boost your score this month</div>
+                        </div>
+                    </button>
+                    <button class="action-btn">
+                        <div class="action-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                                <path d="M2 17l10 5 10-5"></path>
+                                <path d="M2 12l10 5 10-5"></path>
+                            </svg>
+                        </div>
+                        <div class="action-content">
+                            <div class="action-title">Learn the Basics</div>
+                            <div class="action-description">5-minute lessons on what affects your score</div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="card" data-private="true">
+                <div class="blur-overlay">
+                    <div class="blur-message">
+                        <svg class="blur-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <path d="M17 17l5 5M12 12l-3 3"></path>
+                        </svg>
+                        <div>Information hidden for privacy</div>
+                    </div>
+                </div>
+                <div class="card-title">
+                    <svg class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    Recent Activity
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">Electric bill payment reported</div>
+                        <div class="activity-date">2 days ago</div>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                        </svg>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">Score increased by 5 points</div>
+                        <div class="activity-date">1 week ago</div>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                            <path d="M2 17l10 5 10-5"></path>
+                            <path d="M2 12l10 5 10-5"></path>
+                        </svg>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">Completed "Credit Mix" lesson</div>
+                        <div class="activity-date">2 weeks ago</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Encouragement -->
+            <div class="encouragement">
+                <svg class="encouragement-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                </svg>
+                <div class="encouragement-text">
+                    You've made 3 on-time payments this month. Small steps like these add up to real progress.
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Privacy toggle functionality
+        const privacyToggle = document.getElementById('privacyToggle');
+        const privacyText = document.getElementById('privacyText');
+        const privateCards = document.querySelectorAll('[data-private="true"]');
+        let privacyActive = false;
+
+        privacyToggle.addEventListener('click', function() {
+            privacyActive = !privacyActive;
+            
+            privateCards.forEach(card => {
+                const overlay = card.querySelector('.blur-overlay');
+                if (overlay) {
+                    if (privacyActive) {
+                        overlay.classList.add('active');
+                    } else {
+                        overlay.classList.remove('active');
+                    }
+                }
+            });
+            
+            privacyText.textContent = privacyActive ? 'Show' : 'Hide';
+        });
+
+        // Animate progress bar on load
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const progressBar = document.getElementById('progressBar');
+                progressBar.style.width = '72%';
+            }, 800);
+        });
+
+        // Add click handlers to action buttons
+        const actionButtons = document.querySelectorAll('.action-btn');
+        actionButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // In a real app, this would navigate to the appropriate section
+                console.log('Action clicked:', this.querySelector('.action-title').textContent);
+            });
+        });
+    </script>
+</body>
+</html>

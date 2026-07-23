@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxe Verde | Sustainable Luxury Fashion</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cream: #f9f7f4;
+            --charcoal: #2a2a2a;
+            --sage: #8b9d83;
+            --taupe: #a89878;
+            --gold: #c9a876;
+            --light-gray: #f0ebe6;
+            --text: #3a3a3a;
+            --border: #e8e3db;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            color: var(--text);
+            background-color: var(--cream);
+            line-height: 1.6;
+            letter-spacing: 0.3px;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            background: rgba(249, 247, 244, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 18px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: var(--charcoal);
+            text-decoration: none;
+        }
+
+        nav {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .cart-icon {
+            width: 24px;
+            height: 24px;
+            border: 1px solid var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cart-icon:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            margin-top: 80px;
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 60px;
+            padding: 80px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 300;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--charcoal);
+            letter-spacing: -0.5px;
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+            color: var(--text);
+            margin-bottom: 40px;
+            line-height: 1.8;
+            font-weight: 300;
+            max-width: 500px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 16px 48px;
+            background: var(--charcoal);
+            color: var(--cream);
+            text-decoration: none;
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            border: 1px solid var(--charcoal);
+        }
+
+        .cta-button:hover {
+            background: var(--cream);
+            color: var(--charcoal);
+        }
+
+        .hero-image {
+            position: relative;
+            height: 600px;
+            background: linear-gradient(135deg, var(--light-gray) 0%, var(--border) 100%);
+            border-radius: 8px;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: var(--text);
+            font-style: italic;
+        }
+
+        /* ===== FEATURED MATERIALS ===== */
+        .materials-section {
+            padding: 120px 40px;
+            background: white;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-header h2 {
+            font-size: 36px;
+            font-weight: 300;
+            margin-bottom: 16px;
+            color: var(--charcoal);
+            letter-spacing: -0.3px;
+        }
+
+        .section-header p {
+            font-size: 14px;
+            color: var(--text);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+            opacity: 0.8;
+        }
+
+        .materials-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 60px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .material-card {
+            background: var(--cream);
+            padding: 40px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            transition: all 0.4s ease;
+        }
+
+        .material-card:hover {
+            border-color: var(--gold);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+        }
+
+        .material-icon {
+            font-size: 32px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .material-card h3 {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 12px;
+            color: var(--charcoal);
+        }
+
+        .material-card p {
+            font-size: 14px;
+            color: var(--text);
+            line-height: 1.8;
+            opacity: 0.85;
+            margin-bottom: 16px;
+        }
+
+        .material-spec {
+            font-size: 12px;
+            color: var(--sage);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        /* ===== COLLECTION SHOWCASE ===== */
+        .collections-section {
+            padding: 120px 40px;
+            background: var(--cream);
+        }
+
+        .collections-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .collection-item {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 3/4;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--light-gray) 0%, var(--border) 100%);
+            cursor: pointer;
+            group: true;
+        }
+
+        .collection-item:hover .collection-overlay {
+            opacity: 1;
+        }
+
+        .collection-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(42, 42, 42, 0.7);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            backdrop-filter: blur(4px);
+        }
+
+        .collection-title {
+            color: var(--cream);
+            font-size: 20px;
+            font-weight: 400;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .collection-subtitle {
+            color: var(--cream);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        .collection-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to top, rgba(42, 42, 42, 0.5), transparent);
+            pointer-events: none;
+        }
+
+        /* ===== IMPACT SECTION ===== */
+        .impact-section {
+            padding: 120px 40px;
+            background: white;
+            border-top: 1px solid var(--border);
+        }
+
+        .impact-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .impact-content h2 {
+            font-size: 36px;
+            font-weight: 300;
+            margin-bottom: 40px;
+            color: var(--charcoal);
+            text-align: center;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .impact-stat {
+            text-align: center;
+        }
+
+        .impact-number {
+            font-size: 42px;
+            font-weight: 300;
+            color: var(--sage);
+            margin-bottom: 8px;
+        }
+
+        .impact-label {
+            font-size: 13px;
+            color: var(--text);
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+
+        .impact-story {
+            background: var(--light-gray);
+            padding: 40px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            line-height: 1.9;
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        /* ===== NEWSLETTER ===== */
+        .newsletter-section {
+            padding: 100px 40px;
+            background: var(--charcoal);
+            color: var(--cream);
+            text-align: center;
+        }
+
+        .newsletter-section h2 {
+            font-size: 36px;
+            font-weight: 300;
+            margin-bottom: 16px;
+            letter-spacing: -0.3px;
+        }
+
+        .newsletter-section p {
+            font-size: 14px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 8px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 14px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--cream);
+            font-size: 13px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-form input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--gold);
+        }
+
+        .newsletter-form button {
+            padding: 14px 32px;
+            background: var(--gold);
+            color: var(--charcoal);
+            border: none;
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .newsletter-form button:hover {
+            background: var(--cream);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--cream);
+            border-top: 1px solid var(--border);
+            padding: 60px 40px 40px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .footer-section h4 {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            color: var(--charcoal);
+            font-weight: 500;
+        }
+
+        .footer-section a {
+            display: block;
+            font-size: 13px;
+            color: var(--text);
+            text-decoration: none;
+            margin-bottom: 10px;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--gold);
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text);
+            opacity: 0.7;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-links a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--gold);
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            header {
+                padding: 16px 20px;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav {
+                gap: 20px;
+                font-size: 11px;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                margin-top: 120px;
+                padding: 40px 20px;
+                gap: 40px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero-image {
+                height: 400px;
+            }
+
+            .materials-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .collections-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .impact-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .section-header h2 {
+                font-size: 28px;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+
+        /* ===== SCROLL ANIMATIONS ===== */
+        .scroll-trigger {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .scroll-trigger.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a href="#" class="logo">LUXE VERDE</a>
+        <nav>
+            <a href="#collections">Collections</a>
+            <a href="#materials">Materials</a>
+            <a href="#impact">Impact</a>
+            <a href="#about">About</a>
+            <div class="cart-icon">🛍</div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Crafted from the ocean. Worn with purpose.</h1>
+            <p class="hero-subtitle">Luxury without compromise. Each piece is handcrafted from recycled ocean plastic and organic materials, designed for the discerning consumer who refuses to choose between beauty and responsibility.</p>
+            <button class="cta-button">Explore Collection</button>
+        </div>
+        <div class="hero-image">
+            <div class="image-placeholder">[Product Hero Image]</div>
+        </div>
+    </section>
+
+    <!-- Materials Section -->
+    <section class="materials-section" id="materials">
+        <div class="section-header">
+            <h2>Materials With a Purpose</h2>
+            <p>We source the finest sustainable materials, treating environmental responsibility as the foundation of luxury, not an afterthought.</p>
+        </div>
+        <div class="materials-grid">
+            <div class="material-card scroll-trigger">
+                <span class="material-icon">🌊</span>
+                <h3>Ocean Plastic Fiber</h3>
+                <p>Recovered from ocean cleanup initiatives, processed into a performance fabric that rivals virgin synthetics in durability and drape.</p>
+                <span class="material-spec">GOTS Certified • Recycled Content</span>
+            </div>
+            <div class="material-card scroll-trigger">
+                <span class="material-icon">🌾</span>
+                <h3>Organic Cotton</h3>
+                <p>Sourced from certified organic farms without synthetic pesticides. Softer, stronger, and traceable to its origin.</p>
+                <span class="material-spec">GOTS Certified • Zero Chemicals</span>
+            </div>
+            <div class="material-card scroll-trigger">
+                <span class="material-icon">♻️</span>
+                <h3>Recycled Silk Blend</h3>
+                <p>Deadstock silk from luxury ateliers transformed into fabric with the luminosity and feel of new, without the waste.</p>
+                <span class="material-spec">Deadstock • Artisanal Process</span>
+            </div>
+            <div class="material-card scroll-trigger">
+                <span class="material-icon">🍃</span>
+                <h3>Plant-Based Tanning</h3>
+                <p>Our leather alternatives use chrome-free, vegetable tanning methods that preserve craftsmanship while eliminating toxic runoff.</p>
+                <span class="material-spec">Chemical-Free • Biodegradable</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collections -->
+    <section class="collections-section" id="collections">
+        <div class="section-header">
+            <h2>The Current Collection</h2>
+            <p>Limited runs of essential pieces, designed to endure.</p>
+        </div>
+        <div class="collections-grid">
+            <div class="collection-item scroll-trigger">
+                <div class="collection-overlay">
+                    <div class="collection-title">Ocean Coat</div>
+                    <div class="collection-subtitle">Recycled Fiber Blend</div>
+                </div>
+                <div class="image-placeholder">[Coat Image]</div>
+            </div>
+            <div class="collection-item scroll-trigger">
+                <div class="collection-overlay">
+                    <div class="collection-title">Minimal Dress</div>
+                    <div class="collection-subtitle">Organic Cotton</div>
+                </div>
+                <div class="image-placeholder">[Dress Image]</div>
+            </div>
+            <div class="collection-item scroll-trigger">
+                <div class="collection-overlay">
+                    <div class="collection-title">Silk Essentials</div>
+                    <div class="collection-subtitle">Recycled Silk Blend</div>
+                </div>
+                <div class="image-placeholder">[Essentials Image]</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section class="impact-section" id="impact">
+        <div class="impact-content">
+            <h2>Our Impact</h2>
+            <div class="impact-grid">
+                <div class="impact-stat scroll-trigger">
+                    <div class="impact-number">847k</div>
+                    <div class="impact-label">Ocean plastic recovered and repurposed</div>
+                </div>
+                <div class="impact-stat scroll-trigger">
+                    <div class="impact-number">12</div>
+                    <div class="impact-label">Certified organic farms supported</div>
+                </div>
+                <div class="impact-stat scroll-trigger">
+                    <div class="impact-number">0</div>
+                    <div class="impact-label">Synthetic chemicals in production</div>
+                </div>
+            </div>
+            <div class="impact-story">
+                <p><strong>Our Story.</strong> Luxe Verde was founded on a simple belief: luxury and environmental responsibility aren't opposing forces—they're inseparable. Every piece is designed to last decades, not seasons. Every material is sourced with transparency. Every customer receives documentation of their garment's origin, from ocean to atelier. We don't apologize for our prices because the cost reflects true value—craftsmanship, durability, and impact that compounds over time.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter-section">
+        <h2>Join the Collective</h2>
+        <p>Receive early access to new collections, material innovations, and conservation insights.</p>
+        <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+            <input type="email" placeholder="Your email" required>
+            <button type="submit">Subscribe</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Shop</h4>
+                <a href="#">All Collections</a>
+                <a href="#">New Arrivals</a>
+                <a href="#">Sale</a>
+                <a href="#">Lookbook</a>
+            </div>
+            <div class="footer-section">
+                <h4>About</h4>
+                <a href="#">Our Story</a>
+                <a href="#">Craftsmanship</a>
+                <a href="#">Materials</a>
+                <a href="#">Impact Report</a>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <a href="#">FAQ</a>
+                <a href="#">Shipping</a>
+                <a href="#">Returns</a>
+                <a href="#">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Sustainability</a>
+                <a href="#">Accessibility</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2025 Luxe Verde. All rights reserved.</span>
+            <div class="social-links">
+                <a href="#">Instagram</a>
+                <a href="#">LinkedIn</a>
+                <a href="#">TikTok</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll animation observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-trigger').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Newsletter form
+        function handleNewsletter(e) {
+            e.preventDefault();
+            const email = e.target.querySelector('input[type="email"]').value;
+            alert(`Welcome to Luxe Verde! A confirmation has been sent to ${email}.`);
+            e.target.reset();
+        }
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('nav a[href^="#"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const href = link.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Header scroll effect
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.borderBottomColor = 'var(--border)';
+            }
+            lastScroll = window.scrollY;
+        });
+    </script>
+</body>
+</html>

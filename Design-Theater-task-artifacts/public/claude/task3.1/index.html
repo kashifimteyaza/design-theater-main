@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bella Vista - Upscale Italian Dining</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --burgundy: #6B2020;
+            --deep-burgundy: #4A1616;
+            --cream: #F5F1E8;
+            --warm-white: #FFFEF9;
+            --gold: #D4AF37;
+            --dark-green: #2C5530;
+            --soft-grey: #A69F94;
+            --text-dark: #2A2826;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background-color: var(--cream);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--deep-burgundy) 0%, var(--burgundy) 100%);
+            color: var(--warm-white);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.02) 10px,
+                rgba(255,255,255,0.02) 20px
+            );
+            pointer-events: none;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            position: relative;
+            font-family: 'Didot', 'Bodoni MT', 'Times New Roman', serif;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            font-style: italic;
+            opacity: 0.95;
+            letter-spacing: 0.05em;
+            position: relative;
+        }
+
+        .header-accent {
+            width: 60px;
+            height: 2px;
+            background: var(--gold);
+            margin: 1rem auto;
+            position: relative;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--warm-white);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: 2px solid var(--burgundy);
+            color: var(--burgundy);
+            padding: 0.75rem 2rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+            letter-spacing: 0.05em;
+            font-weight: 500;
+        }
+
+        .nav-btn:hover {
+            background: var(--burgundy);
+            color: var(--warm-white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(107, 32, 32, 0.3);
+        }
+
+        .nav-btn.active {
+            background: var(--burgundy);
+            color: var(--warm-white);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Home Page */
+        .hero {
+            background: var(--warm-white);
+            padding: 3rem;
+            border-radius: 2px;
+            box-shadow: 0 6px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            color: var(--burgundy);
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+        }
+
+        .cta-button {
+            background: var(--burgundy);
+            color: var(--warm-white);
+            border: none;
+            padding: 1.25rem 3rem;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+            letter-spacing: 0.08em;
+            box-shadow: 0 4px 15px rgba(107, 32, 32, 0.3);
+        }
+
+        .cta-button:hover {
+            background: var(--deep-burgundy);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(107, 32, 32, 0.4);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .info-card {
+            background: var(--warm-white);
+            padding: 2rem;
+            border-radius: 2px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-left: 4px solid var(--gold);
+        }
+
+        .info-card h3 {
+            color: var(--burgundy);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+        }
+
+        .info-card p {
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        /* Reservation System */
+        .reservation-container {
+            background: var(--warm-white);
+            padding: 3rem;
+            border-radius: 2px;
+            box-shadow: 0 6px 30px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 3rem;
+            position: relative;
+            padding: 0 1rem;
+        }
+
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 1rem;
+            right: 1rem;
+            height: 2px;
+            background: var(--soft-grey);
+            z-index: 0;
+        }
+
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .progress-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--cream);
+            border: 3px solid var(--soft-grey);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .progress-step.active .progress-circle {
+            background: var(--burgundy);
+            border-color: var(--burgundy);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .progress-step.completed .progress-circle {
+            background: var(--dark-green);
+            border-color: var(--dark-green);
+            color: white;
+        }
+
+        .progress-label {
+            font-size: 0.85rem;
+            color: var(--soft-grey);
+            text-align: center;
+        }
+
+        .progress-step.active .progress-label {
+            color: var(--burgundy);
+            font-weight: 600;
+        }
+
+        .step-content {
+            display: none;
+        }
+
+        .step-content.active {
+            display: block;
+            animation: slideIn 0.4s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .step-title {
+            font-size: 2rem;
+            color: var(--burgundy);
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+
+        /* Calendar */
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .calendar-header {
+            text-align: center;
+            padding: 1rem;
+            font-weight: 600;
+            color: var(--burgundy);
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            border: 2px solid var(--soft-grey);
+            background: var(--cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            position: relative;
+        }
+
+        .calendar-day:hover:not(.disabled):not(.unavailable) {
+            border-color: var(--burgundy);
+            background: var(--warm-white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(107, 32, 32, 0.2);
+        }
+
+        .calendar-day.selected {
+            background: var(--burgundy);
+            color: white;
+            border-color: var(--burgundy);
+        }
+
+        .calendar-day.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .calendar-day.unavailable {
+            background: #f0f0f0;
+            color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .month-selector {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: var(--cream);
+        }
+
+        .month-selector h3 {
+            font-size: 1.5rem;
+            color: var(--burgundy);
+            font-weight: 400;
+        }
+
+        .month-btn {
+            background: var(--burgundy);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .month-btn:hover {
+            background: var(--deep-burgundy);
+        }
+
+        .month-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* Time Slots */
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .time-slot {
+            padding: 1.25rem;
+            border: 2px solid var(--soft-grey);
+            background: var(--cream);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .time-slot:hover:not(.unavailable) {
+            border-color: var(--burgundy);
+            background: var(--warm-white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(107, 32, 32, 0.2);
+        }
+
+        .time-slot.selected {
+            background: var(--burgundy);
+            color: white;
+            border-color: var(--burgundy);
+        }
+
+        .time-slot.unavailable {
+            background: #f0f0f0;
+            color: #ccc;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        /* Party Size */
+        .party-size-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .party-size-btn {
+            padding: 2rem;
+            border: 3px solid var(--soft-grey);
+            background: var(--cream);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--burgundy);
+        }
+
+        .party-size-btn:hover {
+            border-color: var(--burgundy);
+            background: var(--warm-white);
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(107, 32, 32, 0.2);
+        }
+
+        .party-size-btn.selected {
+            background: var(--burgundy);
+            color: white;
+            border-color: var(--burgundy);
+        }
+
+        .party-size-label {
+            display: block;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            font-weight: 400;
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--burgundy);
+            font-weight: 500;
+            font-size: 1rem;
+            letter-spacing: 0.02em;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--soft-grey);
+            background: var(--cream);
+            font-family: 'Georgia', serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--burgundy);
+            background: var(--warm-white);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .required {
+            color: var(--burgundy);
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+            letter-spacing: 0.05em;
+        }
+
+        .btn-primary {
+            background: var(--burgundy);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: var(--deep-burgundy);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(107, 32, 32, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--burgundy);
+            border: 2px solid var(--burgundy);
+        }
+
+        .btn-secondary:hover {
+            background: var(--cream);
+        }
+
+        .btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* Confirmation */
+        .confirmation {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .confirmation-icon {
+            font-size: 4rem;
+            color: var(--dark-green);
+            margin-bottom: 1rem;
+        }
+
+        .confirmation h2 {
+            font-size: 2rem;
+            color: var(--dark-green);
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .reservation-summary {
+            background: var(--cream);
+            padding: 2rem;
+            margin: 2rem 0;
+            border-left: 4px solid var(--gold);
+            text-align: left;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--soft-grey);
+        }
+
+        .summary-row:last-child {
+            border-bottom: none;
+        }
+
+        .summary-label {
+            font-weight: 600;
+            color: var(--burgundy);
+        }
+
+        .summary-value {
+            color: var(--text-dark);
+        }
+
+        /* Admin Panel */
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--burgundy);
+        }
+
+        .admin-controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .admin-controls input,
+        .admin-controls select {
+            padding: 0.75rem;
+            border: 2px solid var(--soft-grey);
+            background: var(--warm-white);
+            font-family: 'Georgia', serif;
+        }
+
+        .reservations-table {
+            width: 100%;
+            background: var(--warm-white);
+            border-collapse: collapse;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .reservations-table th {
+            background: var(--burgundy);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+
+        .reservations-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--cream);
+        }
+
+        .reservations-table tr:hover {
+            background: var(--cream);
+        }
+
+        .action-btn {
+            padding: 0.5rem 1rem;
+            margin-right: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn.delete {
+            background: #c44;
+            color: white;
+        }
+
+        .action-btn.delete:hover {
+            background: #a33;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--warm-white);
+            padding: 1.5rem;
+            border-radius: 2px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-left: 4px solid var(--gold);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--burgundy);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--soft-grey);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--soft-grey);
+            font-style: italic;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .reservation-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .calendar {
+                gap: 0.25rem;
+            }
+
+            .party-size-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .reservations-table {
+                font-size: 0.85rem;
+            }
+
+            .reservations-table th,
+            .reservations-table td {
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Bella Vista</h1>
+        <div class="header-accent"></div>
+        <p class="tagline">Authentic Italian Cuisine in the Heart of Downtown</p>
+    </header>
+
+    <nav>
+        <div class="nav-buttons">
+            <button class="nav-btn active" onclick="showPage('home')">Home</button>
+            <button class="nav-btn" onclick="showPage('reservations')">Make a Reservation</button>
+            <button class="nav-btn" onclick="showPage('admin')">Admin Panel</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Home Page -->
+        <div id="home" class="page active">
+            <div class="hero">
+                <h2>Welcome to Bella Vista</h2>
+                <p>Experience the finest Italian cuisine crafted with passion and tradition. Our intimate downtown location offers an elegant atmosphere perfect for any occasion.</p>
+                <button class="cta-button" onclick="showPage('reservations')">Reserve Your Table</button>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>Hours</h3>
+                    <p>Tuesday - Sunday<br>5:00 PM - 10:00 PM<br><em>Closed Mondays</em></p>
+                </div>
+                <div class="info-card">
+                    <h3>Capacity</h3>
+                    <p>We seat up to 80 guests across 20 tables, including window seats and private corner tables for an intimate dining experience.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Online Reservations</h3>
+                    <p>Book your table online for parties of 1-8. For larger groups, please call us directly at (555) 123-4567.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reservations Page -->
+        <div id="reservations" class="page">
+            <div class="reservation-container">
+                <div class="progress-bar">
+                    <div class="progress-step active" data-step="1">
+                        <div class="progress-circle">1</div>
+                        <span class="progress-label">Date</span>
+                    </div>
+                    <div class="progress-step" data-step="2">
+                        <div class="progress-circle">2</div>
+                        <span class="progress-label">Time</span>
+                    </div>
+                    <div class="progress-step" data-step="3">
+                        <div class="progress-circle">3</div>
+                        <span class="progress-label">Party Size</span>
+                    </div>
+                    <div class="progress-step" data-step="4">
+                        <div class="progress-circle">4</div>
+                        <span class="progress-label">Your Info</span>
+                    </div>
+                    <div class="progress-step" data-step="5">
+                        <div class="progress-circle">✓</div>
+                        <span class="progress-label">Confirm</span>
+                    </div>
+                </div>
+
+                <!-- Step 1: Date Selection -->
+                <div id="step1" class="step-content active">
+                    <h2 class="step-title">Select Your Date</h2>
+                    <div class="month-selector">
+                        <button class="month-btn" onclick="changeMonth(-1)">← Previous</button>
+                        <h3 id="currentMonth"></h3>
+                        <button class="month-btn" onclick="changeMonth(1)">Next →</button>
+                    </div>
+                    <div class="calendar" id="calendar"></div>
+                    <div class="button-group">
+                        <button class="btn btn-secondary" onclick="showPage('home')">Cancel</button>
+                        <button class="btn btn-primary" id="dateNextBtn" onclick="nextStep()" disabled>Continue</button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Time Selection -->
+                <div id="step2" class="step-content">
+                    <h2 class="step-title">Choose Your Time</h2>
+                    <div class="time-slots" id="timeSlots"></div>
+                    <div class="button-group">
+                        <button class="btn btn-secondary" onclick="prevStep()">← Back</button>
+                        <button class="btn btn-primary" id="timeNextBtn" onclick="nextStep()" disabled>Continue</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Party Size -->
+                <div id="step3" class="step-content">
+                    <h2 class="step-title">How Many Guests?</h2>
+                    <div class="party-size-grid" id="partySizeGrid"></div>
+                    <div class="button-group">
+                        <button class="btn btn-secondary" onclick="prevStep()">← Back</button>
+                        <button class="btn btn-primary" id="sizeNextBtn" onclick="nextStep()" disabled>Continue</button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Guest Information -->
+                <div id="step4" class="step-content">
+                    <h2 class="step-title">Your Information</h2>
+                    <form id="guestForm">
+                        <div class="form-group">
+                            <label for="guestName">Full Name <span class="required">*</span></label>
+                            <input type="text" id="guestName" required placeholder="John Smith">
+                        </div>
+                        <div class="form-group">
+                            <label for="guestPhone">Phone Number <span class="required">*</span></label>
+                            <input type="tel" id="guestPhone" required placeholder="(555) 123-4567">
+                        </div>
+                        <div class="form-group">
+                            <label for="guestEmail">Email Address <span class="required">*</span></label>
+                            <input type="email" id="guestEmail" required placeholder="john@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="specialRequests">Special Requests (Optional)</label>
+                            <textarea id="specialRequests" placeholder="Dietary restrictions, allergies, special occasions, seating preferences..."></textarea>
+                        </div>
+                    </form>
+                    <div class="button-group">
+                        <button class="btn btn-secondary" onclick="prevStep()">← Back</button>
+                        <button class="btn btn-primary" onclick="submitReservation()">Complete Reservation</button>
+                    </div>
+                </div>
+
+                <!-- Step 5: Confirmation -->
+                <div id="step5" class="step-content">
+                    <div class="confirmation">
+                        <div class="confirmation-icon">✓</div>
+                        <h2>Reservation Confirmed!</h2>
+                        <p style="font-size: 1.1rem; margin: 1rem 0;">Thank you for choosing Bella Vista</p>
+                        
+                        <div class="reservation-summary" id="confirmationSummary"></div>
+                        
+                        <p style="margin: 2rem 0; line-height: 1.8;">
+                            A confirmation email has been sent to your email address.<br>
+                            We look forward to serving you!<br><br>
+                            <strong>Please arrive 10 minutes before your reservation time.</strong><br>
+                            For any changes, please call us at (555) 123-4567.
+                        </p>
+                        
+                        <button class="btn btn-primary" onclick="resetReservation(); showPage('home')">Return to Home</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Page -->
+        <div id="admin" class="page">
+            <div class="reservation-container">
+                <div class="admin-header">
+                    <h2 style="color: var(--burgundy); font-size: 2rem; font-weight: 300;">Reservation Management</h2>
+                    <button class="btn btn-secondary" onclick="exportReservations()">Export Data</button>
+                </div>
+
+                <div class="stats-grid" id="statsGrid"></div>
+
+                <div class="admin-controls">
+                    <input type="date" id="filterDate" onchange="loadReservations()">
+                    <select id="filterStatus" onchange="loadReservations()">
+                        <option value="all">All Reservations</option>
+                        <option value="upcoming">Upcoming</option>
+                        <option value="past">Past</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="loadReservations()">Refresh</button>
+                </div>
+
+                <div style="overflow-x: auto;">
+                    <table class="reservations-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Name</th>
+                                <th>Party Size</th>
+                                <th>Phone</th>
+                                <th>Email</th>
+                                <th>Table</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reservationsTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State Management
+        let currentStep = 1;
+        let currentMonthOffset = 0;
+        let reservationData = {
+            date: null,
+            time: null,
+            partySize: null,
+            name: '',
+            phone: '',
+            email: '',
+            specialRequests: '',
+            table: null
+        };
+
+        // Table Configuration
+        const tables = [
+            // 2-top tables (8 total, 2 are window seats)
+            { id: 1, capacity: 2, type: 'window' },
+            { id: 2, capacity: 2, type: 'window' },
+            { id: 3, capacity: 2, type: 'standard' },
+            { id: 4, capacity: 2, type: 'standard' },
+            { id: 5, capacity: 2, type: 'standard' },
+            { id: 6, capacity: 2, type: 'standard' },
+            { id: 7, capacity: 2, type: 'standard' },
+            { id: 8, capacity: 2, type: 'standard' },
+            // 4-top tables (8 total, 2 are private corners)
+            { id: 9, capacity: 4, type: 'private' },
+            { id: 10, capacity: 4, type: 'private' },
+            { id: 11, capacity: 4, type: 'standard' },
+            { id: 12, capacity: 4, type: 'standard' },
+            { id: 13, capacity: 4, type: 'standard' },
+            { id: 14, capacity: 4, type: 'standard' },
+            { id: 15, capacity: 4, type: 'standard' },
+            { id: 16, capacity: 4, type: 'standard' },
+            // 6-top tables (3 total)
+            { id: 17, capacity: 6, type: 'standard' },
+            { id: 18, capacity: 6, type: 'standard' },
+            { id: 19, capacity: 6, type: 'standard' },
+            // 8-top table (1 total)
+            { id: 20, capacity: 8, type: 'standard' }
+        ];
+
+        // Time slots (5pm to 10pm, 30-min intervals)
+        const timeSlots = [
+            '5:00 PM', '5:30 PM', '6:00 PM', '6:30 PM', '7:00 PM', 
+            '7:30 PM', '8:00 PM', '8:30 PM', '9:00 PM', '9:30 PM'
+        ];
+
+        // Initialize
+        function init() {
+            if (!localStorage.getItem('reservations')) {
+                localStorage.setItem('reservations', JSON.stringify([]));
+            }
+            renderCalendar();
+            renderPartySizeOptions();
+            loadReservations();
+        }
+
+        // Navigation
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(pageId).classList.add('active');
+            event.target.classList.add('active');
+
+            if (pageId === 'admin') {
+                updateStats();
+                loadReservations();
+            }
+        }
+
+        // Step Navigation
+        function nextStep() {
+            if (currentStep === 1 && !reservationData.date) return;
+            if (currentStep === 2 && !reservationData.time) return;
+            if (currentStep === 3 && !reservationData.partySize) return;
+
+            document.getElementById(`step${currentStep}`).classList.remove('active');
+            document.querySelector(`.progress-step[data-step="${currentStep}"]`).classList.remove('active');
+            document.querySelector(`.progress-step[data-step="${currentStep}"]`).classList.add('completed');
+            
+            currentStep++;
+            
+            document.getElementById(`step${currentStep}`).classList.add('active');
+            document.querySelector(`.progress-step[data-step="${currentStep}"]`).classList.add('active');
+
+            if (currentStep === 2) {
+                renderTimeSlots();
+            }
+        }
+
+        function prevStep() {
+            document.getElementById(`step${currentStep}`).classList.remove('active');
+            document.querySelector(`.progress-step[data-step="${currentStep}"]`).classList.remove('active');
+            
+            currentStep--;
+            
+            document.getElementById(`step${currentStep}`).classList.add('active');
+            document.querySelector(`.progress-step[data-step="${currentStep}"]`).classList.remove('completed');
+            document.querySelector(`.progress-step[data-step="${currentStep}"]`).classList.add('active');
+        }
+
+        // Calendar
+        function renderCalendar() {
+            const calendar = document.getElementById('calendar');
+            const today = new Date();
+            const currentDate = new Date(today.getFullYear(), today.getMonth() + currentMonthOffset, 1);
+            
+            // Update month display
+            document.getElementById('currentMonth').textContent = currentDate.toLocaleDateString('en-US', { 
+                month: 'long', 
+                year: 'numeric' 
+            });
+
+            // Clear calendar
+            calendar.innerHTML = '';
+
+            // Add day headers
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            days.forEach(day => {
+                const header = document.createElement('div');
+                header.className = 'calendar-header';
+                header.textContent = day;
+                calendar.appendChild(header);
+            });
+
+            // Get first day of month and number of days
+            const firstDay = currentDate.getDay();
+            const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
+
+            // Add empty cells for days before month starts
+            for (let i = 0; i < firstDay; i++) {
+                const empty = document.createElement('div');
+                calendar.appendChild(empty);
+            }
+
+            // Add day cells
+            for (let day = 1; day <= daysInMonth; day++) {
+                const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+                const dayCell = document.createElement('div');
+                dayCell.className = 'calendar-day';
+                dayCell.textContent = day;
+
+                // Check if day is in the past
+                const isPast = date < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+                
+                // Check if day is Monday (closed)
+                const isMonday = date.getDay() === 1;
+
+                if (isPast) {
+                    dayCell.classList.add('disabled');
+                } else if (isMonday) {
+                    dayCell.classList.add('unavailable');
+                    dayCell.title = 'Closed on Mondays';
+                } else {
+                    dayCell.onclick = () => selectDate(date);
+                    
+                    // Check if this date is selected
+                    if (reservationData.date && 
+                        date.toDateString() === new Date(reservationData.date).toDateString()) {
+                        dayCell.classList.add('selected');
+                    }
+                }
+
+                calendar.appendChild(dayCell);
+            }
+        }
+
+        function changeMonth(offset) {
+            currentMonthOffset += offset;
+            renderCalendar();
+        }
+
+        function selectDate(date) {
+            reservationData.date = date.toISOString().split('T')[0];
+            renderCalendar();
+            document.getElementById('dateNextBtn').disabled = false;
+        }
+
+        // Time Slots
+        function renderTimeSlots() {
+            const container = document.getElementById('timeSlots');
+            container.innerHTML = '';
+
+            timeSlots.forEach(time => {
+                const slot = document.createElement('div');
+                slot.className = 'time-slot';
+                slot.textContent = time;
+
+                // Check availability
+                const available = checkAvailability(reservationData.date, time, reservationData.partySize);
+                
+                if (!available) {
+                    slot.classList.add('unavailable');
+                } else {
+                    slot.onclick = () => selectTime(time);
+                    
+                    if (reservationData.time === time) {
+                        slot.classList.add('selected');
+                    }
+                }
+
+                container.appendChild(slot);
+            });
+        }
+
+        function selectTime(time) {
+            reservationData.time = time;
+            renderTimeSlots();
+            document.getElementById('timeNextBtn').disabled = false;
+        }
+
+        // Party Size
+        function renderPartySizeOptions() {
+            const container = document.getElementById('partySizeGrid');
+            container.innerHTML = '';
+
+            for (let size = 1; size <= 8; size++) {
+                const btn = document.createElement('div');
+                btn.className = 'party-size-btn';
+                btn.innerHTML = `${size}<span class="party-size-label">${size === 1 ? 'Guest' : 'Guests'}</span>`;
+                btn.onclick = () => selectPartySize(size);
+                container.appendChild(btn);
+            }
+        }
+
+        function selectPartySize(size) {
+            reservationData.partySize = size;
+            document.querySelectorAll('.party-size-btn').forEach((btn, idx) => {
+                if (idx === size - 1) {
+                    btn.classList.add('selected');
+                } else {
+                    btn.classList.remove('selected');
+                }
+            });
+            document.getElementById('sizeNextBtn').disabled = false;
+        }
+
+        // Availability Check
+        function checkAvailability(date, time, partySize) {
+            const reservations = JSON.parse(localStorage.getItem('reservations') || '[]');
+            
+            // Find suitable tables
+            const suitableTables = tables.filter(t => t.capacity >= partySize);
+            
+            // Check which tables are booked at this time
+            const bookedTables = reservations
+                .filter(r => r.date === date && r.time === time)
+                .map(r => r.table);
+            
+            // Check if any suitable table is available
+            const availableTables = suitableTables.filter(t => !bookedTables.includes(t.id));
+            
+            return availableTables.length > 0;
+        }
+
+        // Find best available table
+        function findBestTable(date, time, partySize) {
+            const reservations = JSON.parse(localStorage.getItem('reservations') || '[]');
+            
+            // Find suitable tables (exact match preferred, then larger)
+            let suitableTables = tables.filter(t => t.capacity === partySize);
+            if (suitableTables.length === 0) {
+                suitableTables = tables.filter(t => t.capacity > partySize);
+            }
+            
+            // Sort by preference: window/private seats first
+            suitableTables.sort((a, b) => {
+                if (a.type !== 'standard' && b.type === 'standard') return -1;
+                if (a.type === 'standard' && b.type !== 'standard') return 1;
+                return 0;
+            });
+            
+            // Check which tables are booked
+            const bookedTables = reservations
+                .filter(r => r.date === date && r.time === time)
+                .map(r => r.table);
+            
+            // Find first available table
+            const availableTable = suitableTables.find(t => !bookedTables.includes(t.id));
+            
+            return availableTable;
+        }
+
+        // Submit Reservation
+        function submitReservation() {
+            const form = document.getElementById('guestForm');
+            
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            reservationData.name = document.getElementById('guestName').value;
+            reservationData.phone = document.getElementById('guestPhone').value;
+            reservationData.email = document.getElementById('guestEmail').value;
+            reservationData.specialRequests = document.getElementById('specialRequests').value;
+
+            // Find and assign table
+            const table = findBestTable(reservationData.date, reservationData.time, reservationData.partySize);
+            
+            if (!table) {
+                alert('Sorry, no tables available for this time. Please try another time slot.');
+                return;
+            }
+
+            reservationData.table = table.id;
+            reservationData.tableType = table.type;
+            reservationData.id = Date.now();
+            reservationData.createdAt = new Date().toISOString();
+
+            // Save to localStorage
+            const reservations = JSON.parse(localStorage.getItem('reservations') || '[]');
+            reservations.push({...reservationData});
+            localStorage.setItem('reservations', JSON.stringify(reservations));
+
+            // Show confirmation
+            showConfirmation();
+            
+            // Move to confirmation step
+            document.getElementById(`step${currentStep}`).classList.remove('active');
+            document.querySelector(`.progress-step[data-step="${currentStep}"]`).classList.add('completed');
+            currentStep = 5;
+            document.getElementById('step5').classList.add('active');
+            document.querySelector(`.progress-step[data-step="5"]`).classList.add('active');
+        }
+
+        function showConfirmation() {
+            const summary = document.getElementById('confirmationSummary');
+            const date = new Date(reservationData.date);
+            const tableInfo = tables.find(t => t.id === reservationData.table);
+            const tableDesc = tableInfo.type === 'window' ? 'Window Seat' : 
+                            tableInfo.type === 'private' ? 'Private Corner Table' : 
+                            'Standard Table';
+
+            summary.innerHTML = `
+                <div class="summary-row">
+                    <span class="summary-label">Date:</span>
+                    <span class="summary-value">${date.toLocaleDateString('en-US', { 
+                        weekday: 'long', 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric' 
+                    })}</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Time:</span>
+                    <span class="summary-value">${reservationData.time}</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Party Size:</span>
+                    <span class="summary-value">${reservationData.partySize} ${reservationData.partySize === 1 ? 'Guest' : 'Guests'}</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Table:</span>
+                    <span class="summary-value">Table ${reservationData.table} (${tableDesc})</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Name:</span>
+                    <span class="summary-value">${reservationData.name}</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Phone:</span>
+                    <span class="summary-value">${reservationData.phone}</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Email:</span>
+                    <span class="summary-value">${reservationData.email}</span>
+                </div>
+                ${reservationData.specialRequests ? `
+                <div class="summary-row">
+                    <span class="summary-label">Special Requests:</span>
+                    <span class="summary-value">${reservationData.specialRequests}</span>
+                </div>
+                ` : ''}
+            `;
+        }
+
+        function resetReservation() {
+            currentStep = 1;
+            currentMonthOffset = 0;
+            reservationData = {
+                date: null,
+                time: null,
+                partySize: null,
+                name: '',
+                phone: '',
+                email: '',
+                specialRequests: '',
+                table: null
+            };
+
+            // Reset form
+            document.getElementById('guestForm').reset();
+            
+            // Reset buttons
+            document.getElementById('dateNextBtn').disabled = true;
+            document.getElementById('timeNextBtn').disabled = true;
+            document.getElementById('sizeNextBtn').disabled = true;
+
+            // Reset progress
+            document.querySelectorAll('.progress-step').forEach(step => {
+                step.classList.remove('active', 'completed');
+            });
+            document.querySelector('.progress-step[data-step="1"]').classList.add('active');
+
+            // Reset steps
+            document.querySelectorAll('.step-content').forEach(step => {
+                step.classList.remove('active');
+            });
+            document.getElementById('step1').classList.add('active');
+
+            renderCalendar();
+            renderPartySizeOptions();
+        }
+
+        // Admin Functions
+        function updateStats() {
+            const reservations = JSON.parse(localStorage.getItem('reservations') || '[]');
+            const today = new Date().toISOString().split('T')[0];
+            
+            const todayReservations = reservations.filter(r => r.date === today);
+            const upcomingReservations = reservations.filter(r => r.date >= today);
+            
+            const totalGuests = upcomingReservations.reduce((sum, r) => sum + r.partySize, 0);
+
+            const statsGrid = document.getElementById('statsGrid');
+            statsGrid.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-number">${todayReservations.length}</div>
+                    <div class="stat-label">Today's Reservations</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${upcomingReservations.length}</div>
+                    <div class="stat-label">Upcoming Reservations</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${totalGuests}</div>
+                    <div class="stat-label">Total Guests Booked</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${reservations.length}</div>
+                    <div class="stat-label">Total Reservations</div>
+                </div>
+            `;
+        }
+
+        function loadReservations() {
+            const reservations = JSON.parse(localStorage.getItem('reservations') || '[]');
+            const filterDate = document.getElementById('filterDate').value;
+            const filterStatus = document.getElementById('filterStatus').value;
+            const today = new Date().toISOString().split('T')[0];
+
+            let filtered = reservations;
+
+            if (filterDate) {
+                filtered = filtered.filter(r => r.date === filterDate);
+            }
+
+            if (filterStatus === 'upcoming') {
+                filtered = filtered.filter(r => r.date >= today);
+            } else if (filterStatus === 'past') {
+                filtered = filtered.filter(r => r.date < today);
+            }
+
+            // Sort by date and time
+            filtered.sort((a, b) => {
+                if (a.date !== b.date) return a.date.localeCompare(b.date);
+                return a.time.localeCompare(b.time);
+            });
+
+            const tbody = document.getElementById('reservationsTableBody');
+            
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" class="empty-state">No reservations found</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = filtered.map(r => {
+                const date = new Date(r.date);
+                const tableInfo = tables.find(t => t.id === r.table);
+                const tableDesc = tableInfo ? 
+                    (tableInfo.type === 'window' ? '🪟 Window' : 
+                     tableInfo.type === 'private' ? '🔒 Private' : 
+                     '📍 Standard') : 'N/A';
+
+                return `
+                    <tr>
+                        <td>${date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</td>
+                        <td><strong>${r.time}</strong></td>
+                        <td>${r.name}</td>
+                        <td>${r.partySize} guests</td>
+                        <td>${r.phone}</td>
+                        <td>${r.email}</td>
+                        <td>Table ${r.table}<br><small>${tableDesc}</small></td>
+                        <td>
+                            <button class="action-btn delete" onclick="deleteReservation(${r.id})">Cancel</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function deleteReservation(id) {
+            if (!confirm('Are you sure you want to cancel this reservation?')) return;
+
+            const reservations = JSON.parse(localStorage.getItem('reservations') || '[]');
+            const updated = reservations.filter(r => r.id !== id);
+            localStorage.setItem('reservations', JSON.stringify(updated));
+            
+            loadReservations();
+            updateStats();
+        }
+
+        function exportReservations() {
+            const reservations = JSON.parse(localStorage.getItem('reservations') || '[]');
+            const dataStr = JSON.stringify(reservations, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `bella-vista-reservations-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+        }
+
+        // Initialize on load
+        init();
+    </script>
+</body>
+</html>

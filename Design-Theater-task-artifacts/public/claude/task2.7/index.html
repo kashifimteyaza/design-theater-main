@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamVault - Curated Cinema for the Culturally Curious</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;600&family=Work+Sans:wght@300;400;500;600&display=swap');
+        
+        :root {
+            /* Color Palette - Cinematic & Refined */
+            --vault-black: #0a0a0a;
+            --vault-charcoal: #1a1a1a;
+            --vault-warm-grey: #2a2a2a;
+            --vault-cream: #f5f3f0;
+            --vault-amber: #d4a574;
+            --vault-gold: #c89f6f;
+            --vault-burgundy: #6b3039;
+            --vault-teal: #2c5f5f;
+            --vault-muted-white: #e8e6e3;
+            
+            /* Typography */
+            --font-display: 'Crimson Pro', serif;
+            --font-body: 'Work Sans', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background-color: var(--vault-black);
+            color: var(--vault-cream);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Film grain texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,.02) 2px, rgba(255,255,255,.02) 4px),
+                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,.02) 2px, rgba(255,255,255,.02) 4px);
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem 4%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to bottom, rgba(10,10,10,0.95), transparent);
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            color: var(--vault-amber);
+        }
+        
+        .logo span {
+            font-weight: 600;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--vault-cream);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--vault-amber);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--vault-amber);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 85vh;
+            display: flex;
+            align-items: center;
+            margin-top: 4rem;
+            padding: 0 4%;
+            overflow: hidden;
+        }
+        
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--vault-charcoal) 0%, var(--vault-warm-grey) 100%);
+            opacity: 0.4;
+        }
+        
+        .hero-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(212, 165, 116, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(44, 95, 95, 0.1) 0%, transparent 50%);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .hero-text {
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .featured-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--vault-amber);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            font-weight: 600;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--vault-cream);
+        }
+        
+        .hero-meta {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--vault-muted-white);
+        }
+        
+        .hero-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .hero-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--vault-muted-white);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+        
+        .accessibility-badges {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+        
+        .badge {
+            padding: 0.4rem 1rem;
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            background: rgba(212, 165, 116, 0.1);
+            color: var(--vault-amber);
+            letter-spacing: 0.05em;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn-primary, .btn-secondary {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 4px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: var(--vault-amber);
+            color: var(--vault-black);
+        }
+        
+        .btn-primary:hover {
+            background: var(--vault-gold);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 165, 116, 0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--vault-cream);
+            border: 1px solid var(--vault-cream);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--vault-cream);
+            color: var(--vault-black);
+        }
+        
+        .hero-poster {
+            position: relative;
+            animation: fadeIn 1.2s ease-out 0.3s both;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .poster-frame {
+            position: relative;
+            aspect-ratio: 2/3;
+            background: linear-gradient(135deg, var(--vault-warm-grey), var(--vault-charcoal));
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        
+        .poster-frame::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            border: 2px solid rgba(212, 165, 116, 0.2);
+            border-radius: 4px;
+        }
+        
+        /* Collections Section */
+        .collections {
+            padding: 6rem 4%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            color: var(--vault-cream);
+        }
+        
+        .section-subtitle {
+            font-size: 1rem;
+            color: var(--vault-muted-white);
+            font-weight: 300;
+        }
+        
+        /* Collection Grid */
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .film-card {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .film-card:hover {
+            transform: translateY(-8px);
+        }
+        
+        .film-poster {
+            aspect-ratio: 2/3;
+            background: linear-gradient(135deg, var(--vault-warm-grey), var(--vault-charcoal));
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .film-poster::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 60%, rgba(10,10,10,0.8));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .film-card:hover .film-poster::after {
+            opacity: 1;
+        }
+        
+        .film-badges {
+            position: absolute;
+            top: 0.75rem;
+            left: 0.75rem;
+            right: 0.75rem;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            z-index: 2;
+        }
+        
+        .film-badge {
+            padding: 0.3rem 0.6rem;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 3px;
+            font-size: 0.7rem;
+            letter-spacing: 0.05em;
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            color: var(--vault-amber);
+        }
+        
+        .film-info {
+            padding: 0 0.5rem;
+        }
+        
+        .film-title {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: var(--vault-cream);
+        }
+        
+        .film-meta {
+            font-size: 0.85rem;
+            color: var(--vault-muted-white);
+            margin-bottom: 0.5rem;
+            font-weight: 300;
+        }
+        
+        .film-director {
+            font-size: 0.9rem;
+            color: var(--vault-amber);
+            font-style: italic;
+        }
+        
+        /* Category Sections */
+        .category-section {
+            margin-bottom: 5rem;
+        }
+        
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(212, 165, 116, 0.2);
+        }
+        
+        .category-title {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: var(--vault-cream);
+        }
+        
+        .category-link {
+            color: var(--vault-amber);
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            transition: opacity 0.3s ease;
+        }
+        
+        .category-link:hover {
+            opacity: 0.7;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .hero-poster {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .nav-links {
+                gap: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 4%;
+            }
+            
+            .logo {
+                font-size: 1.4rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero {
+                height: auto;
+                padding: 4rem 4% 3rem;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .hero-description {
+                font-size: 1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+            }
+            
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .collection-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 1.5rem;
+            }
+            
+            .collections {
+                padding: 4rem 4%;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        /* Accessibility Focus Styles */
+        *:focus-visible {
+            outline: 2px solid var(--vault-amber);
+            outline-offset: 4px;
+        }
+        
+        /* Loading Animation */
+        .fade-in-stagger > * {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        .fade-in-stagger > *:nth-child(1) { animation-delay: 0.1s; }
+        .fade-in-stagger > *:nth-child(2) { animation-delay: 0.2s; }
+        .fade-in-stagger > *:nth-child(3) { animation-delay: 0.3s; }
+        .fade-in-stagger > *:nth-child(4) { animation-delay: 0.4s; }
+        .fade-in-stagger > *:nth-child(5) { animation-delay: 0.5s; }
+        .fade-in-stagger > *:nth-child(6) { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">Stream<span>Vault</span></div>
+        <ul class="nav-links">
+            <li><a href="#browse">Browse</a></li>
+            <li><a href="#collections">Collections</a></li>
+            <li><a href="#discover">Discover</a></li>
+            <li><a href="#my-vault">My Vault</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background"></div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="featured-label">Featured This Week</div>
+                <h1 class="hero-title">Cinema Paradiso</h1>
+                <div class="hero-meta">
+                    <span>🇮🇹 Italy</span>
+                    <span>1988</span>
+                    <span>⭐ Cannes Grand Jury Prize</span>
+                </div>
+                <p class="hero-description">
+                    Giuseppe Tornatore's exquisite meditation on memory and cinema follows a filmmaker's nostalgic journey back to his Sicilian childhood, where a friendship with a projectionist ignited a lifelong passion for the moving image.
+                </p>
+                <div class="accessibility-badges">
+                    <span class="badge">Subtitles: 18 Languages</span>
+                    <span class="badge">Audio Description</span>
+                </div>
+                <div class="hero-buttons">
+                    <button class="btn-primary">Watch Now</button>
+                    <button class="btn-secondary">Add to My Vault</button>
+                </div>
+            </div>
+            <div class="hero-poster">
+                <div class="poster-frame"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collections -->
+    <section class="collections">
+        <!-- New Arrivals -->
+        <div class="category-section">
+            <div class="category-header">
+                <h2 class="category-title">New Arrivals</h2>
+                <a href="#" class="category-link">View All →</a>
+            </div>
+            <div class="collection-grid fade-in-stagger">
+                <div class="film-card">
+                    <div class="film-poster">
+                        <div class="film-badges">
+                            <span class="film-badge">CC</span>
+                            <span class="film-badge">AD</span>
+                        </div>
+                    </div>
+                    <div class="film-info">
+                        <h3 class="film-title">The Taste of Things</h3>
+                        <p class="film-meta">🇫🇷 France • 2023 • 135min</p>
+                        <p class="film-director">Dir. Trần Anh Hùng</p>
+                    </div>
+                </div>
+
+                <div class="film-card">
+                    <div class="film-poster">
+                        <div class="film-badges">
+                            <span class="film-badge">CC</span>
+                            <span class="film-badge">AD</span>
+                        </div>
+                    </div>
+                    <div class="film-info">
+                        <h3 class="film-title">Past Lives</h3>
+                        <p class="film-meta">🇺🇸 USA • 2023 • 106min</p>
+                        <p class="film-director">Dir. Celine Song</p>
+                    </div>
+                </div>
+
+                <div class="film-card">
+                    <div class="film-poster">
+                        <div class="film-badges">
+                            <span class="film-badge">CC</span>
+                        </div>
+                    </div>
+                    <div class="film-info">
+                        <h3 class="film-title">Anatomy of a Fall</h3>
+                        <p class="film-meta">🇫🇷 France • 2023 • 151min</p>
+                        <p class="film-director">Dir. Justine Triet</p>
+                    </div>
+                </div>
+
+                <div class="film-card">
+                    <div class="film-poster">
+                        <div class="film-badges">
+                            <span class="film-badge">CC</span>
+                            <span class="film-badge">AD</span>
+                        </div>
+                    </div>
+                    <div class="film-info">
+                        <h3 class="film-title">Fallen Leaves</h3>
+                        <p class="film-meta">🇫🇮 Finland • 2023 • 81min</p>
+                        <p class="film-director">Dir. Aki Kaurismäki</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Essential Cinema -->
+        <div class="category-section">
+            <div class="category-header">
+                <h2 class="category-title">Essential Cinema</h2>
+                <a href="#" class="category-link">Explore Collection →</a>
+            </div>
+            <div class="collection-grid fade-in-stagger">
+                <div class="film-card">
+                    <div class="film-poster">
+                        <div class="film-badges">
+                            <span class="film-badge">CC</span>
+                            <span class="film-badge">AD</span>
+                        </div>
+                    </div>
+                    <div class="film-info">
+                        <h3 class="film-title">Tokyo Story</h3>
+                        <p class="film-meta">🇯🇵 Japan • 1953 • 136min</p>
+                        <p class="film-director">Dir. Yasujirō Ozu</p>
+                    </div>
+                </div>
+
+                <div class="film-card">
+                    <div class="film-poster">
+                        <div class="film-badges">
+                            <span class="film-badge">CC</span>
+                        </div>
+                    </div>
+                    <div class="film-info">
+                        <h3 class="film-title">8½</h3>
+                        <p class="film-meta">🇮🇹 Italy • 1963 • 138min</p>
+                        <p class="film-director">Dir. Federico Fellini</p>
+                    </div>
+                </div>
+
+                <div class="film-card">
+                    <div class="film-poster">
+                        <div class="film-badges">
+                            <span class="film-badge">CC</span>
+                            <span class="film-badge">AD</span>
+                        </div>
+                    </div>
+                    <div class="film-info">
+                        <h3 class="film-title">Bicycle Thieves</h3>
+                        <p class="film-meta">🇮🇹 Italy • 1948 • 89min</p>
+                        <p class="film-director">Dir. Vittorio De Sica</p>
+                    </div>
+                </div>
+
+                <div class="film-card">
+                    <div class="film-poster">
+                        <div class="film-badges">
+                            <span class="film-badge">CC</span>
+                        </div>
+                    </div>
+                    <div class="film-info">
+                        <h3 class="film-title">Au Hasard Balthazar</h3>
+                        <p class="film-meta">🇫🇷 France • 1966 • 95min</p>
+                        <p class="film-director">Dir. Robert Bresson</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Documentary Showcase -->
+        <div class="category-section">
+            <div class="category-header">
+                <h2 class="category-title">Documentary Showcase</h2>
+                <a href="#" class="category-link">See More →</a>
+            </div>
+            <div class="collection-grid fade-in-stagger">
+                <div class="film-card">
+                    <div class="film-poster">
+                        <div class="film-badges">
+                            <span class="film-badge">CC</span>
+                            <span class="film-badge">AD</span>
+                        </div>
+                    </div>
+                    <div class="film-info">
+                        <h3 class="film-title">20 Days in Mariupol</h3>
+                        <p class="film-meta">🇺🇦 Ukraine • 2023 • 95min</p>
+                        <p class="film-director">Dir. Mstyslav Chernov</p>
+                    </div>
+                </div>
+
+                <div class="film-card">
+                    <div class="film-poster">
+                        <div class="film-badges">
+                            <span class="film-badge">CC</span>
+                            <span class="film-badge">AD</span>
+                        </div>
+                    </div>
+                    <div class="film-info">
+                        <h3 class="film-title">Senna</h3>
+                        <p class="film-meta">🇬🇧 UK • 2010 • 106min</p>
+                        <p class="film-director">Dir. Asif Kapadia</p>
+                    </div>
+                </div>
+
+                <div class="film-card">
+                    <div class="film-poster">
+                        <div class="film-badges">
+                            <span class="film-badge">CC</span>
+                        </div>
+                    </div>
+                    <div class="film-info">
+                        <h3 class="film-title">The Act of Killing</h3>
+                        <p class="film-meta">🇩🇰 Denmark • 2012 • 159min</p>
+                        <p class="film-director">Dir. Joshua Oppenheimer</p>
+                    </div>
+                </div>
+
+                <div class="film-card">
+                    <div class="film-poster">
+                        <div class="film-badges">
+                            <span class="film-badge">CC</span>
+                            <span class="film-badge">AD</span>
+                        </div>
+                    </div>
+                    <div class="film-info">
+                        <h3 class="film-title">Honeyland</h3>
+                        <p class="film-meta">🇲🇰 North Macedonia • 2019 • 87min</p>
+                        <p class="film-director">Dir. Tamara Kotevska</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Intersection Observer for stagger animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-stagger');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.collection-grid').forEach(grid => {
+            observer.observe(grid);
+        });
+
+        // Film card interactions
+        document.querySelectorAll('.film-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const title = this.querySelector('.film-title').textContent;
+                console.log(`Selected: ${title}`);
+                // In production, this would navigate to film detail page
+            });
+        });
+
+        // Accessibility: keyboard navigation enhancement
+        document.querySelectorAll('.film-card').forEach(card => {
+            card.setAttribute('tabindex', '0');
+            card.setAttribute('role', 'button');
+            
+            card.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

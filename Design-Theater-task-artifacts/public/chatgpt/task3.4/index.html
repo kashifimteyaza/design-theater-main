@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FreelanceFlow — Quality, Long‑Term Freelance Partnerships</title>
+  <meta name="description" content="FreelanceFlow connects businesses with vetted designers, developers, writers, and marketers for long‑term success. Managed workflow, milestones, escrow payments, approvals, and dispute support."/>
+  <style>
+    :root {
+      --bg: #0b0c10;
+      --panel: #111318;
+      --muted: #262b36;
+      --card: #141722;
+      --fg: #f3f6ff;
+      --subtle: #b8c0d9;
+      --accent: #7c9cff;
+      --accent-2: #29d391;
+      --danger: #ff6b6b;
+      --warn: #ffc857;
+      --ok: #34d399;
+      --border: #1f2430;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+    }
+    @media (prefers-color-scheme: light) {
+      :root{
+        --bg:#f7f8fb; --panel:#ffffff; --card:#ffffff; --muted:#eef1f7; --fg:#0b0c10; --subtle:#4b556b; --border:#e6e9f2; --shadow:0 8px 24px rgba(16,24,40,.08)
+      }
+    }
+    * { box-sizing: border-box }
+    html, body { height: 100% }
+    body {
+      margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; background: linear-gradient(180deg, var(--bg), #0e111a 60%, var(--bg)); color: var(--fg);
+    }
+    a { color: inherit; text-decoration: none }
+    .container { width: min(1200px, 92%); margin: 0 auto }
+    header {
+      position: sticky; top: 0; z-index: 40; backdrop-filter: saturate(140%) blur(10px);
+      background: color-mix(in oklab, var(--bg) 85%, transparent); border-bottom: 1px solid var(--border);
+    }
+    .nav { display:flex; align-items:center; justify-content:space-between; padding: 14px 0 }
+    .brand { display:flex; gap:12px; align-items:center; font-weight:700; letter-spacing:.2px }
+    .logo { width: 34px; height: 34px; display:grid; place-items:center; border-radius:10px; background: conic-gradient(from 120deg, var(--accent), var(--accent-2)); box-shadow: var(--shadow) }
+    .logo svg { filter: drop-shadow(0 2px 10px rgba(0,0,0,.2)) }
+    .nav-links { display:flex; gap: 18px; align-items:center }
+    .chip { border:1px solid var(--border); padding:8px 12px; border-radius: 999px; background: color-mix(in oklab, var(--panel) 70%, transparent) }
+    .btn { border:none; background: var(--accent); color:#0b1020; font-weight:700; padding:10px 14px; border-radius:12px; cursor:pointer; box-shadow: var(--shadow) }
+    .btn.secondary { background: var(--panel); color: var(--fg); border:1px solid var(--border); box-shadow: none }
+    .btn.ghost { background: transparent; border:1px dashed var(--border); color: var(--subtle) }
+    .btn.warn { background: var(--warn); color:#231c00 }
+    .btn.ok { background: var(--ok); color:#05200f }
+    .btn.danger { background: var(--danger); color: #2b0a0a }
+    .btn:disabled { opacity:.5; cursor:not-allowed }
+
+    /* Hero */
+    .hero { display:grid; grid-template-columns: 1.2fr .8fr; gap: 30px; align-items:center; padding: 48px 0 }
+    .hero h1 { font-size: clamp(28px, 4vw, 48px); line-height:1.05; margin: 8px 0 }
+    .subtitle { color: var(--subtle); max-width: 60ch }
+    .hero-cta { display:flex; gap:12px; flex-wrap:wrap; margin-top: 18px }
+    .searchbar { margin-top: 24px; display:flex; gap:10px; background: var(--panel); border:1px solid var(--border); border-radius:14px; padding: 10px; align-items:center }
+    .searchbar input { all: unset; padding: 10px 12px; flex:1; background: var(--card); border-radius:10px; border:1px solid var(--border) }
+    .role-toggle { display:flex; gap:6px; margin-top: 10px }
+    .role-toggle button { padding: 8px 10px }
+
+    .glass { background: linear-gradient(180deg, color-mix(in oklab, var(--panel) 75%, transparent), color-mix(in oklab, var(--panel) 92%, transparent)); border:1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow) }
+    .card { background: var(--card); border:1px solid var(--border); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow) }
+
+    /* Trust bar */
+    .trust { display:grid; grid-template-columns:repeat(6,1fr); gap: 12px; align-items:center; padding: 18px; margin-top: 10px }
+    .trust .logo-lite { height: 40px; border-radius:12px; display:grid; place-items:center; border:1px solid var(--border); background: var(--panel) }
+
+    /* Sections */
+    section { padding: 40px 0 }
+    h2 { font-size: clamp(22px, 3vw, 28px); margin: 0 0 14px 0 }
+    p.section-sub { color: var(--subtle); margin-top: -4px }
+
+    .grid-3 { display:grid; grid-template-columns: repeat(3, 1fr); gap: 16px }
+    .grid-4 { display:grid; grid-template-columns: repeat(4, 1fr); gap: 16px }
+    .grid-2 { display:grid; grid-template-columns: repeat(2, 1fr); gap: 16px }
+    @media (max-width: 920px){
+      .hero { grid-template-columns: 1fr; }
+      .grid-4 { grid-template-columns: repeat(2, 1fr) }
+      .grid-3 { grid-template-columns: repeat(2, 1fr) }
+      .grid-2 { grid-template-columns: 1fr }
+    }
+    @media (max-width: 560px){
+      .grid-4, .grid-3 { grid-template-columns: 1fr }
+    }
+
+    .how-step { display:flex; gap:12px; align-items:flex-start }
+    .how-step .num { width: 34px; height:34px; border-radius:10px; background: var(--muted); display:grid; place-items:center; font-weight:700; color: var(--subtle) }
+    .how-step h3 { margin: 4px 0 4px 0; font-size: 16px }
+    .how-step p { margin: 0; color: var(--subtle) }
+
+    .talent-card { display:flex; flex-direction:column; gap:10px }
+    .tag { display:inline-flex; align-items:center; gap:6px; border:1px solid var(--border); padding:6px 10px; border-radius:999px; color: var(--subtle); background: var(--panel) }
+    .tags { display:flex; flex-wrap:wrap; gap:8px }
+
+    /* Workspace (Project Dashboard) */
+    .workspace { display:none; gap: 16px }
+    .cols { display:grid; grid-template-columns: 2fr 1fr; gap: 16px }
+    .milestone { border:1px solid var(--border); border-radius:12px; padding: 12px; background: var(--panel); display:grid; gap: 8px }
+    .status { font-size: 12px; padding: 4px 8px; border-radius: 999px; border:1px solid var(--border); display:inline-block }
+    .status.draft{ background:#192030; color:#8aa1ff }
+    .status.awaiting{ background:#221f0f; color:#e7b400 }
+    .status.active{ background:#0f2214; color:#35d399 }
+    .status.review{ background:#22121a; color:#ff86b2 }
+    .status.paid{ background:#11221f; color:#29d391 }
+
+    .files ul { list-style: none; padding:0; margin:0 }
+    .files li { display:flex; justify-content:space-between; border-bottom:1px dashed var(--border); padding: 8px 0 }
+
+    .chat { display:flex; flex-direction:column; gap:8px; height: 260px; overflow:auto; padding-right: 6px }
+    .bubble { padding:10px 12px; border-radius:12px; max-width: 80% }
+    .bubble.you { background: var(--muted); align-self:flex-end }
+    .bubble.them { background: var(--card); align-self:flex-start }
+
+    footer { border-top:1px solid var(--border); padding: 30px 0; margin-top: 40px; color: var(--subtle) }
+
+    /* Modals */
+    dialog { border:1px solid var(--border); border-radius: 16px; background: var(--panel); color: var(--fg); width: min(760px, 92%); box-shadow: var(--shadow) }
+    dialog::backdrop { background: rgba(10,12,18,.6); backdrop-filter: blur(2px) }
+    .modal-head { display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px }
+    .modal-foot { display:flex; gap:8px; justify-content:flex-end; margin-top: 12px }
+
+    .steps { display:flex; gap:6px; margin: 8px 0 16px 0 }
+    .steps .dot { width: 10px; height:10px; border-radius: 999px; background: var(--muted); opacity:.7 }
+    .steps .dot.active { background: var(--accent) }
+
+    .two { display:grid; grid-template-columns: 1fr 1fr; gap: 12px }
+    .input, textarea, select { width: 100%; padding: 10px 12px; border-radius:12px; border:1px solid var(--border); background: var(--card); color: var(--fg) }
+    label { font-size: 12px; color: var(--subtle) }
+
+    .toast { position: fixed; right: 16px; bottom: 16px; background: var(--panel); border:1px solid var(--border); padding: 10px 14px; border-radius: 12px; box-shadow: var(--shadow); display:none }
+
+    .pillbar { display:flex; gap:6px; flex-wrap:wrap }
+    .pill { padding:6px 10px; border-radius:999px; border:1px solid var(--border); background: var(--panel); color: var(--subtle) }
+
+    .kv { display:flex; justify-content:space-between; border-bottom:1px dashed var(--border); padding: 6px 0 }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#" aria-label="FreelanceFlow homepage">
+        <span class="logo" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 12c0-4.418 3.582-8 8-8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <path d="M4 12c0 4.418 3.582 8 8 8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <path d="M12 4c4.418 0 8 3.582 8 8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span>FreelanceFlow</span>
+      </a>
+      <nav class="nav-links">
+        <a class="chip" href="#how">How it works</a>
+        <a class="chip" href="#talent">Find talent</a>
+        <a class="chip" href="#enterprise">Enterprise</a>
+        <button id="btnLogin" class="btn secondary" aria-label="Log in">Log in</button>
+        <button id="btnPost" class="btn" aria-label="Post a project">Post a project</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- HERO -->
+    <section class="hero">
+      <div>
+        <div class="chip" style="display:inline-flex;gap:8px;align-items:center">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l3.09 6.26L22 10.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 15.14l-5-4.87 6.91-1.01L12 3z" stroke="currentColor"/></svg>
+          Vetted designers • developers • writers • marketers
+        </div>
+        <h1>Quality matches for long‑term freelance partnerships</h1>
+        <p class="subtitle">Unlike generic gig platforms, FreelanceFlow focuses on relationships and outcomes. We structure briefs, guide interviews, lock scope with contracts and milestones, track time and files, and protect both sides with escrow, approvals, and dispute support.</p>
+        <div class="hero-cta">
+          <button class="btn" id="ctaPost">Start your project</button>
+          <button class="btn secondary" id="ctaBrowse">Browse vetted talent</button>
+        </div>
+        <div class="searchbar">
+          <input id="search" placeholder="Search roles, skills, or case studies (e.g., React, brand identity, SEO)…" aria-label="Search"/>
+          <button class="btn" id="btnSearch">Search</button>
+        </div>
+        <div class="role-toggle" role="group" aria-label="Choose your view">
+          <button class="btn ghost" id="viewClient">Client view</button>
+          <button class="btn ghost" id="viewFreelancer">Freelancer view</button>
+        </div>
+        <div class="trust glass">
+          <div class="logo-lite">Acme</div>
+          <div class="logo-lite">Globex</div>
+          <div class="logo-lite">Umbrella</div>
+          <div class="logo-lite">Wayne</div>
+          <div class="logo-lite">Stark</div>
+          <div class="logo-lite">Initech</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3 style="margin:0 0 10px 0">Project Health Snapshot</h3>
+        <div class="kv"><span>On‑time milestones</span><strong id="kpiOnTime">—</strong></div>
+        <div class="kv"><span>Avg. approval time</span><strong id="kpiApproval">—</strong></div>
+        <div class="kv"><span>Rehire rate</span><strong id="kpiRehire">—</strong></div>
+        <div class="kv"><span>Dispute rate</span><strong id="kpiDispute">—</strong></div>
+        <p class="section-sub">KPIs update as you create projects and log work. Designed for both Fortune 500 procurement and small business owners.</p>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how">
+      <h2>How it works — built to prevent scope creep and enforce quality</h2>
+      <p class="section-sub">From $500 logos to $50,000 website builds, we manage the entire lifecycle.</p>
+      <div class="grid-3">
+        <div class="card how-step">
+          <div class="num">1</div>
+          <div><h3>Structured Briefs</h3><p>Project wizard captures deliverables, acceptance criteria, timeline, revision policy, and budget with currency.</p></div>
+        </div>
+        <div class="card how-step">
+          <div class="num">2</div>
+          <div><h3>Custom Proposals</h3><p>Freelancers submit milestone plans, assumptions, and QA approach — not just bids.</p></div>
+        </div>
+        <div class="card how-step">
+          <div class="num">3</div>
+          <div><h3>Interviews</h3><p>Schedule calls, share files, and decide on trial tasks. Everything lives in one thread.</p></div>
+        </div>
+        <div class="card how-step">
+          <div class="num">4</div>
+          <div><h3>Contracts & Escrow</h3><p>Lock scope with SOW & milestones. Escrow funds per milestone. Change requests create tracked deltas.</p></div>
+        </div>
+        <div class="card how-step">
+          <div class="num">5</div>
+          <div><h3>Delivery & Approvals</h3><p>Versioned files, time tracking, checklists, and two‑button approvals with audit trail.</p></div>
+        </div>
+        <div class="card how-step">
+          <div class="num">6</div>
+          <div><h3>Payments & Support</h3><p>Auto invoices on approval. Global payouts. Dispute workflow with evidence timeline.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TALENT -->
+    <section id="talent">
+      <h2>Featured talent</h2>
+      <div class="grid-4" id="talentGrid"></div>
+    </section>
+
+    <!-- ENTERPRISE / SMB VALUE -->
+    <section id="enterprise">
+      <div class="grid-2">
+        <div class="card">
+          <h3>Enterprise‑ready</h3>
+          <ul>
+            <li>Multi‑user accounts, approvals, POs, cost centers</li>
+            <li>MSA/SOW templates, audit logs</li>
+            <li>Vendor onboarding, KYC/KYB placeholders</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Small business friendly</h3>
+          <ul>
+            <li>Guided briefs and milestone presets</li>
+            <li>Simple invoices & receipts</li>
+            <li>Support for fixed‑price and hourly work</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECT WORKSPACE / DASHBOARD (appears after posting) -->
+    <section class="workspace" id="workspace">
+      <h2>Project Workspace</h2>
+      <div class="cols">
+        <div class="col-left">
+          <div class="card" id="sowCard">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <h3 style="margin:0">Statement of Work</h3>
+              <div class="pillbar" id="sowPills"></div>
+            </div>
+            <div id="sowBody"></div>
+            <div class="modal-foot" style="justify-content:flex-start;margin-top:14px">
+              <button class="btn" id="btnProposeChange">Propose change</button>
+              <button class="btn secondary" id="btnViewContract">View contract</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 style="margin-top:0">Milestones</h3>
+            <div id="milestoneList" style="display:grid; gap:12px"></div>
+          </div>
+
+          <div class="grid-2">
+            <div class="card files">
+              <h3 style="margin-top:0">Files</h3>
+              <ul id="fileList"></ul>
+              <div class="modal-foot" style="justify-content:flex-start"><input id="fileName" class="input" placeholder="Add filename (e.g., homepage_v1.fig)"/><button class="btn secondary" id="btnAddFile">Upload</button></div>
+            </div>
+            <div class="card">
+              <h3 style="margin-top:0">Time tracking</h3>
+              <div style="display:flex; gap:10px; align-items:center">
+                <div id="timerDisplay" style="font: 700 24px/1 ui-sans-serif">00:00:00</div>
+                <button class="btn" id="btnStart">Start</button>
+                <button class="btn secondary" id="btnStop">Stop</button>
+              </div>
+              <div id="timeLogs" style="margin-top:10px"></div>
+            </div>
+          </div>
+        </div>
+        <aside class="col-right">
+          <div class="card">
+            <h3 style="margin-top:0">Messages</h3>
+            <div class="chat" id="chat"></div>
+            <div style="display:flex; gap:6px; margin-top: 8px">
+              <input id="chatInput" class="input" placeholder="Send a message"/>
+              <button class="btn" id="btnSend">Send</button>
+            </div>
+          </div>
+          <div class="card">
+            <h3 style="margin-top:0">Payments</h3>
+            <div id="paymentPanel"></div>
+            <div class="modal-foot" style="justify-content:flex-start">
+              <button class="btn" id="btnCreateInvoice">Create invoice</button>
+              <button class="btn ok" id="btnReleaseFunds" disabled>Release funds</button>
+              <button class="btn warn" id="btnStartDispute">Start dispute</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex; justify-content:space-between; gap: 12px; flex-wrap:wrap">
+      <div>© <span id="year"></span> FreelanceFlow</div>
+      <div class="pillbar">
+        <span class="pill">Scope control</span>
+        <span class="pill">Quality gates</span>
+        <span class="pill">Escrow & invoices</span>
+        <span class="pill">Dispute support</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Post Project Wizard -->
+  <dialog id="modalPost">
+    <form method="dialog" id="postForm">
+      <div class="modal-head">
+        <h3 style="margin:0">Post a project</h3>
+        <button class="btn secondary" value="cancel" aria-label="Close">Close</button>
+      </div>
+      <div class="steps"><span class="dot active" data-step-dot="1"></span><span class="dot" data-step-dot="2"></span><span class="dot" data-step-dot="3"></span><span class="dot" data-step-dot="4"></span></div>
+
+      <div data-step="1">
+        <div class="two">
+          <div>
+            <label>Project title</label>
+            <input class="input" name="title" placeholder="e.g., Marketing website redesign" required />
+          </div>
+          <div>
+            <label>Category</label>
+            <select class="input" name="category">
+              <option>Design</option><option>Development</option><option>Writing</option><option>Marketing</option>
+            </select>
+          </div>
+          <div>
+            <label>Budget (USD)</label>
+            <input class="input" name="budget" type="number" min="100" step="50" placeholder="5000" required />
+          </div>
+          <div>
+            <label>Expected duration (weeks)</label>
+            <input class="input" name="weeks" type="number" min="1" step="1" value="6" />
+          </div>
+        </div>
+        <div style="margin-top:10px">
+          <label>Summary</label>
+          <textarea class="input" name="summary" rows="3" placeholder="Briefly describe your goals, audience, constraints…" required></textarea>
+        </div>
+      </div>
+      <div data-step="2" hidden>
+        <div class="two">
+          <div>
+            <label>Deliverables</label>
+            <textarea class="input" name="deliverables" rows="4" placeholder="Homepage, 6 feature pages, CMS setup, design system components…" required></textarea>
+          </div>
+          <div>
+            <label>Acceptance criteria</label>
+            <textarea class="input" name="criteria" rows="4" placeholder="Lighthouse 90+; responsive; WCAG AA; analytics events; content editable; performance budget…" required></textarea>
+          </div>
+        </div>
+        <div class="two" style="margin-top:10px">
+          <div>
+            <label>Revision policy</label>
+            <select class="input" name="revisions">
+              <option value="1">1 round</option>
+              <option value="2" selected>2 rounds</option>
+              <option value="3">3 rounds</option>
+            </select>
+          </div>
+          <div>
+            <label>Risk notes / assumptions</label>
+            <input class="input" name="assumptions" placeholder="e.g., copy provided by client; no legacy browser support"/>
+          </div>
+        </div>
+      </div>
+      <div data-step="3" hidden>
+        <div class="two">
+          <div>
+            <label>Milestones (count)</label>
+            <input class="input" name="mscount" type="number" min="1" max="6" value="3" />
+          </div>
+          <div>
+            <label>Payment model</label>
+            <select class="input" name="paymodel"><option>Fixed‑price</option><option>Hourly + cap</option></select>
+          </div>
+        </div>
+        <p class="section-sub" style="margin-top:10px">We’ll split your budget evenly across milestones (customizable later).</p>
+      </div>
+      <div data-step="4" hidden>
+        <div class="card" style="margin:6px 0;">
+          <strong>Review & confirm</strong>
+          <div id="postReview" style="font-size:14px;color:var(--subtle);margin-top:6px"></div>
+        </div>
+        <label style="display:flex; gap:10px; align-items:center"><input type="checkbox" required/> I agree this brief will lock scope; changes will require a change request.</label>
+      </div>
+
+      <div class="modal-foot">
+        <button class="btn secondary" type="button" id="prevStep">Back</button>
+        <button class="btn" type="button" id="nextStep">Next</button>
+        <button class="btn ok" type="submit" id="publishBtn" value="default" hidden>Publish project</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Change Request Modal -->
+  <dialog id="modalChange">
+    <form method="dialog" id="changeForm">
+      <div class="modal-head"><h3 style="margin:0">Change request</h3><button class="btn secondary" value="cancel">Close</button></div>
+      <div class="two">
+        <div><label>Description</label><textarea class="input" name="desc" rows="3" placeholder="Add a blog section, new signup flow…"></textarea></div>
+        <div><label>Impact</label><textarea class="input" name="impact" rows="3" placeholder="+2 weeks; +$2,000; affects milestones 2 & 3"></textarea></div>
+      </div>
+      <div class="two" style="margin-top:10px">
+        <div><label>Proposed cost delta (USD)</label><input class="input" type="number" name="delta" value="1000"/></div>
+        <div><label>Who approves?</label><select class="input" name="approver"><option>Client & Freelancer</option><option>Client only</option><option>Freelancer only</option></select></div>
+      </div>
+      <div class="modal-foot"><button class="btn" value="default">Send for approval</button></div>
+    </form>
+  </dialog>
+
+  <!-- Contract Modal (read‑only preview) -->
+  <dialog id="modalContract">
+    <div class="modal-head"><h3 style="margin:0">Contract preview</h3><button class="btn secondary" onclick="closeModal('modalContract')">Close</button></div>
+    <div id="contractText" style="max-height:50vh; overflow:auto"></div>
+    <div class="modal-foot"><button class="btn ok" onclick="alert('Contract signed ✔️ (demo)')">Sign</button></div>
+  </dialog>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // --- Utilities & App State ---
+    const $ = sel => document.querySelector(sel);
+    const $$ = sel => Array.from(document.querySelectorAll(sel));
+
+    const state = {
+      userRole: 'client',
+      metrics: { onTime: 0.96, approvalHours: 18, rehire: 0.42, dispute: 0.013 },
+      users: {
+        client: { id: 'c1', name: 'Ava (Client)' },
+        freelancer: { id: 'f1', name: 'River (Freelancer)' }
+      },
+      projects: [],
+      activeProjectId: null,
+      talent: [
+        { name:'Jamie Lee', role:'Brand + Web Designer', rate:85, rating:4.9, tags:['Figma','Design systems','WCAG AA'] },
+        { name:'Devon Park', role:'Full‑stack Developer', rate:120, rating:4.8, tags:['React','Node','Postgres'] },
+        { name:'Riya Kapoor', role:'Content Strategist', rate:75, rating:5.0, tags:['SaaS','SEO','Tone of voice'] },
+        { name:'Mateo Silva', role:'Performance Marketer', rate:95, rating:4.7, tags:['Paid search','CRO','Analytics'] }
+      ]
+    };
+    function save(){ localStorage.setItem('fflow', JSON.stringify(state)) }
+    function load(){ const s = localStorage.getItem('fflow'); if(s){ const parsed = JSON.parse(s); Object.assign(state, parsed) } }
+
+    // --- Toast ---
+    function toast(msg){ const t = $('#toast'); t.textContent = msg; t.style.display='block'; setTimeout(()=> t.style.display='none', 2600) }
+
+    // --- KPIs ---
+    function renderKPIs(){
+      $('#kpiOnTime').textContent = Math.round(state.metrics.onTime*100) + '%';
+      $('#kpiApproval').textContent = state.metrics.approvalHours + ' hrs';
+      $('#kpiRehire').textContent = Math.round(state.metrics.rehire*100) + '%';
+      $('#kpiDispute').textContent = (state.metrics.dispute*100).toFixed(1) + '%';
+    }
+
+    // --- Talent ---
+    function renderTalent(){
+      const grid = $('#talentGrid'); grid.innerHTML = '';
+      state.talent.forEach(t => {
+        const el = document.createElement('div'); el.className='card talent-card';
+        el.innerHTML = `
+          <div style="display:flex; gap:10px; align-items:center">
+            <div style="width:44px;height:44px;border-radius:12px;background:var(--muted);"></div>
+            <div><strong>${t.name}</strong><div class="section-sub">${t.role}</div></div>
+          </div>
+          <div class="tags">${t.tags.map(x=>`<span class="tag">${x}</span>`).join('')}</div>
+          <div class="kv"><span>Rate</span><strong>$${t.rate}/hr</strong></div>
+          <div class="kv"><span>Rating</span><strong>${t.rating}★</strong></div>
+          <button class="btn secondary" aria-label="View profile">View profile</button>
+          <button class="btn" aria-label="Invite to project">Invite to project</button>
+        `;
+        grid.appendChild(el);
+      })
+    }
+
+    // --- Modals ---
+    function openModal(id){ const d = document.getElementById(id); d.showModal() }
+    function closeModal(id){ const d = document.getElementById(id); d.close() }
+
+    // --- Post Project Wizard ---
+    const post = {
+      step: 1,
+      data: {},
+      next(){ if(this.step<4){ this.step++; this.sync() } },
+      prev(){ if(this.step>1){ this.step--; this.sync() } },
+      sync(){
+        $$("[data-step]").forEach(s => s.hidden = Number(s.dataset.step) !== this.step);
+        $$("[data-step-dot]").forEach(d => d.classList.toggle('active', Number(d.dataset.stepDot) <= this.step));
+        $('#nextStep').hidden = this.step===4; $('#prevStep').disabled = this.step===1; $('#publishBtn').hidden = this.step!==4;
+        if(this.step===4){
+          const f = document.forms.postForm; this.data = Object.fromEntries(new FormData(f).entries());
+          const mscount = Number(this.data.mscount||3); const budget = Number(this.data.budget||0);
+          const per = Math.round((budget/mscount) * 100)/100;
+          $('#postReview').innerHTML = `
+            <div class="grid-2">
+              <div>
+                <div class="kv"><span>Title</span><strong>${this.data.title}</strong></div>
+                <div class="kv"><span>Category</span><strong>${this.data.category}</strong></div>
+                <div class="kv"><span>Budget</span><strong>$${budget.toLocaleString()}</strong></div>
+                <div class="kv"><span>Duration</span><strong>${this.data.weeks} weeks</strong></div>
+              </div>
+              <div>
+                <div class="kv"><span>Revisions</span><strong>${this.data.revisions} rounds</strong></div>
+                <div class="kv"><span>Milestones</span><strong>${mscount} × $${per.toLocaleString()}</strong></div>
+                <div class="kv"><span>Payment model</span><strong>${this.data.paymodel}</strong></div>
+              </div>
+            </div>
+            <p><strong>Deliverables:</strong> ${this.data.deliverables || '—'}</p>
+            <p><strong>Acceptance criteria:</strong> ${this.data.criteria || '—'}</p>
+            <p class="section-sub"><em>Changes after publishing require a change request with documented impact on time/cost.</em></p>
+          `
+        }
+      },
+      publish(){
+        const d = this.data; const id = 'p'+Date.now();
+        const mscount = Number(d.mscount||3); const budget = Number(d.budget||0);
+        const per = Math.round((budget/mscount) * 100)/100;
+        const milestones = Array.from({length: mscount}, (_,i) => ({
+          id: `${id}-m${i+1}`,
+          name: `Milestone ${i+1}`,
+          amount: per,
+          status: i===0 ? 'awaiting escrow' : 'draft',
+          revisionsAllowed: Number(d.revisions||2),
+          revisionsUsed: 0,
+          timeLogs: [],
+          approvals: { client:false, freelancer:false }
+        }));
+        const project = {
+          id, title: d.title, category: d.category, budget, weeks: Number(d.weeks||6),
+          summary: d.summary, deliverables: d.deliverables, criteria: d.criteria,
+          revisions: Number(d.revisions||2), assumptions: d.assumptions||'',
+          paymodel: d.paymodel || 'Fixed‑price',
+          milestones,
+          files: [],
+          chat: [ {who:'them', text:'Welcome! Use this thread to coordinate. Both sides are protected by approvals and escrow.'} ],
+          escrow: { funded: 0, required: per },
+          changes: [],
+          contract: contractTemplate(d)
+        };
+        state.projects.push(project); state.activeProjectId = id; save();
+        closeModal('modalPost');
+        toast('Project published. Next: fund the first milestone and invite talent.');
+        showWorkspace();
+      }
+    }
+
+    function contractTemplate(d){
+      return `
+        <div class="card"><strong>MSA Highlights</strong><ul>
+          <li>Scope locked per SOW; changes require written change request</li>
+          <li>Milestone‑based approvals; funds held in escrow until client approval</li>
+          <li>Revision policy: ${d.revisions || 2} round(s) per milestone</li>
+          <li>Intellectual property assigned upon final payment</li>
+        </ul></div>
+        <div class="card"><strong>SOW Summary</strong><p><b>Title:</b> ${d.title} • <b>Category:</b> ${d.category} • <b>Budget:</b> $${Number(d.budget).toLocaleString()} • <b>Duration:</b> ${d.weeks} weeks</p>
+        <p><b>Deliverables:</b> ${d.deliverables || '—'}</p>
+        <p><b>Acceptance criteria:</b> ${d.criteria || '—'}</p>
+        <p><b>Assumptions:</b> ${d.assumptions || '—'}</p></div>
+      `
+    }
+
+    // --- Workspace Rendering ---
+    function activeProject(){ return state.projects.find(p => p.id===state.activeProjectId) }
+
+    function showWorkspace(){
+      const p = activeProject(); if(!p){ return }
+      $('#workspace').style.display = 'grid';
+      // SOW
+      $('#sowBody').innerHTML = `
+        <div class="grid-2">
+          <div class="card">
+            <strong>Deliverables</strong>
+            <p class="section-sub">${escapeHtml(p.deliverables||'—')}</p>
+          </div>
+          <div class="card">
+            <strong>Acceptance criteria</strong>
+            <p class="section-sub">${escapeHtml(p.criteria||'—')}</p>
+          </div>
+        </div>
+        <div class="grid-2" style="margin-top:10px">
+          <div class="card"><strong>Revision policy</strong><p class="section-sub">${p.revisions} round(s) per milestone</p></div>
+          <div class="card"><strong>Assumptions</strong><p class="section-sub">${escapeHtml(p.assumptions||'—')}</p></div>
+        </div>
+      `;
+      $('#sowPills').innerHTML = `<span class="pill">${p.category}</span><span class="pill">$${p.budget.toLocaleString()}</span><span class="pill">${p.weeks} weeks</span>`;
+
+      // Milestones
+      const list = $('#milestoneList'); list.innerHTML='';
+      p.milestones.forEach((m, idx) => {
+        const el = document.createElement('div'); el.className='milestone';
+        const escrowed = p.escrow.funded >= m.amount;
+        const canApprove = m.approvals.client && m.approvals.freelancer;
+        el.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center">
+            <div><strong>${m.name}</strong> <span class="status ${statusClass(m.status)}">${m.status}</span></div>
+            <div><strong>$${m.amount.toLocaleString()}</strong></div>
+          </div>
+          <div class="tags"><span class="tag">Revisions: ${m.revisionsUsed}/${m.revisionsAllowed}</span>${escrowed ? '<span class="tag">Escrowed ✔️</span>' : '<span class="tag">Awaiting escrow</span>'}</div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap">
+            <button class="btn ${escrowed? 'secondary':''}" data-action="escrow" data-mid="${m.id}">${escrowed?'Top‑up escrow':'Fund escrow'}</button>
+            <button class="btn" data-action="submit" data-mid="${m.id}">Submit deliverable</button>
+            <button class="btn secondary" data-action="approve" data-mid="${m.id}">Client approve</button>
+            <button class="btn warn" data-action="requestChanges" data-mid="${m.id}">Request changes</button>
+          </div>
+          <div class="kv"><span>Approvals</span><strong>${m.approvals.client?'Client ✔️':'Client ⏳'} • ${m.approvals.freelancer?'Freelancer ✔️':'Freelancer ⏳'}</strong></div>
+          <div class="kv"><span>Time logged</span><strong>${formatSeconds(totalSeconds(m.timeLogs))}</strong></div>
+        `;
+        list.appendChild(el);
+      })
+
+      // Files
+      renderFiles(p);
+
+      // Payments
+      renderPayments(p);
+
+      // Chat
+      renderChat(p);
+    }
+
+    function statusClass(s){
+      if(s.includes('awaiting')) return 'awaiting';
+      if(s==='active') return 'active';
+      if(s==='in review') return 'review';
+      if(s==='paid') return 'paid';
+      return 'draft';
+    }
+
+    function renderFiles(p){
+      const ul = $('#fileList'); ul.innerHTML = '';
+      p.files.forEach((f,i)=>{
+        const li = document.createElement('li');
+        li.innerHTML = `<span>📄 ${f}</span><button class="btn secondary" data-del-file="${i}">Remove</button>`;
+        ul.appendChild(li);
+      })
+    }
+
+    function renderPayments(p){
+      const due = p.milestones.find(m=>m.status==='awaiting escrow');
+      const panel = $('#paymentPanel');
+      panel.innerHTML = `
+        <div class="kv"><span>Escrow funded</span><strong>$${p.escrow.funded.toLocaleString()}</strong></div>
+        <div class="kv"><span>Next required</span><strong>${due? '$'+due.amount.toLocaleString(): '—'}</strong></div>
+        <div class="kv"><span>Total budget</span><strong>$${p.budget.toLocaleString()}</strong></div>
+      `;
+      $('#btnReleaseFunds').disabled = !p.milestones.some(m => m.status==='in review' && m.approvals.client);
+    }
+
+    function renderChat(p){
+      const c = $('#chat'); c.innerHTML='';
+      p.chat.forEach(msg => {
+        const b = document.createElement('div'); b.className = 'bubble ' + (msg.who==='you'?'you':'them'); b.textContent = msg.text; c.appendChild(b);
+      });
+      c.scrollTop = c.scrollHeight;
+    }
+
+    // --- Time Tracking ---
+    const timer = { startTs: null, tickId:null };
+    function formatSeconds(s){ const h=Math.floor(s/3600), m=Math.floor((s%3600)/60), sec=s%60; return [h,m,sec].map(n=>String(n).padStart(2,'0')).join(':') }
+    function totalSeconds(logs){ return logs.reduce((sum,l)=> sum + (l.end? Math.floor((l.end-l.start)/1000) : 0), 0) }
+    function updateTimerUI(){
+      const p = activeProject(); if(!p) return;
+      const m = p.milestones[0]; // demo: log against first milestone
+      const secs = totalSeconds(m.timeLogs) + (timer.startTs? Math.floor((Date.now()-timer.startTs)/1000) : 0);
+      $('#timerDisplay').textContent = formatSeconds(secs);
+      const list = m.timeLogs.map(l=>`<div class="kv"><span>${new Date(l.start).toLocaleString()}</span><strong>${l.end? formatSeconds(Math.floor((l.end-l.start)/1000)) : 'running…'}</strong></div>`).join('');
+      $('#timeLogs').innerHTML = list || '<p class="section-sub">No time logs yet.</p>';
+    }
+
+    // --- Helpers ---
+    function escapeHtml(str){ return String(str).replace(/[&<>"]+/g, s=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[s])) }
+
+    // --- Event Handling ---
+    function bindEvents(){
+      $('#btnPost').onclick = ()=> openModal('modalPost');
+      $('#ctaPost').onclick = ()=> openModal('modalPost');
+      $('#ctaBrowse').onclick = () => window.location.hash = '#talent';
+
+      // Wizard controls
+      $('#nextStep').onclick = ()=> post.next();
+      $('#prevStep').onclick = ()=> post.prev();
+      $('#postForm').onsubmit = (e)=> { e.preventDefault(); post.publish() };
+
+      // Workspace actions (event delegation)
+      $('#milestoneList').addEventListener('click', (e)=>{
+        const btn = e.target.closest('button'); if(!btn) return; const mid = btn.dataset.mid; const action = btn.dataset.action; const p = activeProject(); if(!p) return;
+        const ms = p.milestones.find(m=>m.id===mid);
+        if(action==='escrow'){
+          p.escrow.funded += ms.amount; ms.status = 'active'; toast('Escrow funded for '+ms.name);
+        }
+        if(action==='submit'){
+          ms.status = 'in review'; ms.approvals.freelancer = true; toast('Deliverable submitted. Awaiting client approval.');
+        }
+        if(action==='approve'){
+          ms.approvals.client = true; toast('Client approved. You may release funds.');
+        }
+        if(action==='requestChanges'){
+          ms.revisionsUsed++; ms.status = 'active'; ms.approvals.client = false; ms.approvals.freelancer = false; toast('Changes requested. Revisions used: '+ms.revisionsUsed);
+        }
+        renderPayments(p); showWorkspace(); save();
+      });
+
+      // Files
+      $('#btnAddFile').onclick = ()=>{ const p = activeProject(); if(!p) return; const name = $('#fileName').value.trim(); if(!name) return; p.files.push(name); $('#fileName').value=''; renderFiles(p); toast('File uploaded (demo)'); save() };
+      $('#fileList').onclick = (e)=>{ const btn = e.target.closest('button'); if(!btn) return; const idx = Number(btn.dataset.delFile); const p = activeProject(); p.files.splice(idx,1); renderFiles(p); save() };
+
+      // Chat
+      $('#btnSend').onclick = ()=>{ const p = activeProject(); if(!p) return; const val = $('#chatInput').value.trim(); if(!val) return; p.chat.push({ who:'you', text: val }); $('#chatInput').value=''; renderChat(p); save() };
+
+      // Time tracking
+      $('#btnStart').onclick = ()=>{
+        if(timer.tickId) return; const p = activeProject(); if(!p) return; const m = p.milestones[0];
+        const log = { start: Date.now(), end: null }; m.timeLogs.push(log); timer.startTs = log.start;
+        timer.tickId = setInterval(updateTimerUI, 1000); updateTimerUI(); save();
+      };
+      $('#btnStop').onclick = ()=>{
+        if(!timer.tickId) return; const p = activeProject(); if(!p) return; const m = p.milestones[0];
+        const running = m.timeLogs.find(l=>!l.end); if(running){ running.end = Date.now() }
+        clearInterval(timer.tickId); timer.tickId=null; timer.startTs=null; updateTimerUI(); save();
+      };
+
+      // Payments
+      $('#btnCreateInvoice').onclick = ()=> createInvoice();
+      $('#btnReleaseFunds').onclick = ()=> {
+        const p = activeProject(); if(!p) return; const ms = p.milestones.find(m => m.status==='in review' && m.approvals.client);
+        if(!ms) return alert('No approved milestone ready.');
+        ms.status = 'paid'; p.escrow.funded = Math.max(0, p.escrow.funded - ms.amount); toast('Funds released.'); renderPayments(p); showWorkspace(); save();
+      };
+      $('#btnStartDispute').onclick = ()=>{ alert('Dispute created. Our team will review evidence (demo).'); };
+
+      // SOW / Change & Contract
+      $('#btnProposeChange').onclick = ()=> openModal('modalChange');
+      $('#changeForm').onsubmit = (e)=>{ e.preventDefault(); const p = activeProject(); if(!p) return; const f = new FormData(e.target); const ch = { id: 'chg'+Date.now(), desc:f.get('desc'), impact:f.get('impact'), delta:Number(f.get('delta')||0), approver:f.get('approver'), status:'pending'}; p.changes.push(ch); toast('Change request sent.'); closeModal('modalChange'); save(); };
+      $('#btnViewContract').onclick = ()=>{ const p = activeProject(); if(!p) return; $('#contractText').innerHTML = p.contract; openModal('modalContract') };
+
+      // Role view
+      $('#viewClient').onclick = ()=>{ state.userRole='client'; save(); toast('Client view'); };
+      $('#viewFreelancer').onclick = ()=>{ state.userRole='freelancer'; save(); toast('Freelancer view'); };
+
+      // Quick search
+      $('#btnSearch').onclick = ()=> toast('Search (demo) for: '+ $('#search').value);
+
+      // Post project buttons in header
+      $('#btnLogin').onclick = ()=> toast('Login (demo)');
+    }
+
+    function createInvoice(){
+      const p = activeProject(); if(!p) return;
+      const ms = p.milestones.find(m => m.status==='in review' || m.status==='active');
+      const hours = totalSeconds(ms.timeLogs)/3600; const rate = 100; // demo
+      const labor = Math.round(hours*rate*100)/100; const subtotal = Math.round((labor + ms.amount)*100)/100; const tax = Math.round(subtotal*0.05*100)/100; const total = Math.round((subtotal+tax)*100)/100;
+      const html = `<!doctype html><meta charset="utf-8"><title>Invoice - ${p.title}</title>
+        <style>body{font-family:ui-sans-serif,system-ui;margin:40px;color:#111}h1{margin:0}table{width:100%;border-collapse:collapse}td,th{padding:8px;border-bottom:1px solid #ddd}.right{text-align:right}.muted{color:#666}</style>
+        <h1>Invoice</h1>
+        <p class="muted">Project: ${p.title} • Date: ${new Date().toLocaleDateString()}</p>
+        <table><tr><th>Description</th><th class="right">Amount</th></tr>
+        <tr><td>Milestone: ${ms.name}</td><td class="right">$${ms.amount.toLocaleString()}</td></tr>
+        <tr><td>Labor (${hours.toFixed(2)}h @ $${rate}/h)</td><td class="right">$${labor.toLocaleString()}</td></tr>
+        <tr><td class="right"><strong>Subtotal</strong></td><td class="right"><strong>$${subtotal.toLocaleString()}</strong></td></tr>
+        <tr><td class="right">Tax (5%)</td><td class="right">$${tax.toLocaleString()}</td></tr>
+        <tr><td class="right"><strong>Total due</strong></td><td class="right"><strong>$${total.toLocaleString()}</strong></td></tr>
+        </table>
+        <p class="muted">Payment terms: Due on milestone approval. Funds released from escrow upon client approval.</p>`;
+      const blob = new Blob([html], {type:'text/html'}); const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href=url; a.download = `invoice_${p.id}_${Date.now()}.html`; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=> URL.revokeObjectURL(url), 1000);
+      toast('Invoice generated (HTML download).');
+    }
+
+    // --- Init ---
+    function init(){
+      load(); renderKPIs(); renderTalent(); bindEvents();
+      const y = new Date().getFullYear(); $('#year').textContent = y;
+      if(state.activeProjectId){ showWorkspace() }
+      post.sync();
+    }
+
+    init();
+  </script>
+</body>
+</html>

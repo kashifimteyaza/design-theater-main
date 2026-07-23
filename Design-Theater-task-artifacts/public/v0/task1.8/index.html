@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="City of Riverside official government services. Pay bills, report issues, apply for permits, and access public information.">
+    <title>City of Riverside - Government Services</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Skip to main content link for screen readers -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Accessibility Controls -->
+    <div class="accessibility-bar" aria-label="Accessibility options">
+        <button id="text-size-decrease" aria-label="Decrease text size" title="Decrease text size">A-</button>
+        <button id="text-size-reset" aria-label="Reset text size" title="Reset text size">A</button>
+        <button id="text-size-increase" aria-label="Increase text size" title="Increase text size">A+</button>
+        <span class="separator" aria-hidden="true">|</span>
+        <button id="contrast-toggle" aria-label="Toggle high contrast mode" title="Toggle high contrast">High Contrast</button>
+        <span class="separator" aria-hidden="true">|</span>
+        <button id="language-toggle" aria-label="Toggle language" title="Switch to Spanish">Español</button>
+    </div>
+
+    <!-- Emergency Alert Section -->
+    <div id="emergency-alert" class="emergency-alert hidden" role="alert" aria-live="assertive" aria-label="Emergency alert">
+        <div class="emergency-content">
+            <span class="emergency-icon" aria-hidden="true">⚠️</span>
+            <div class="emergency-text">
+                <strong id="alert-title">No active alerts</strong>
+                <p id="alert-message"></p>
+            </div>
+            <button class="close-alert" aria-label="Close alert" onclick="closeEmergencyAlert()">×</button>
+        </div>
+    </div>
+
+    <header role="banner">
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo" aria-hidden="true">🏛️</div>
+                <div>
+                    <h1>City of Riverside</h1>
+                    <p class="tagline" lang="es">Official Government Services • Servicios Municipales Oficiales</p>
+                </div>
+            </div>
+            <nav class="header-nav" aria-label="Primary navigation">
+                <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-nav">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul id="main-nav" class="nav-links" hidden>
+                    <li><a href="#services" id="nav-services">Services</a></li>
+                    <li><a href="#track-request" id="nav-track">Track Request</a></li>
+                    <li><a href="#saved-forms" id="nav-saved">Saved Forms</a></li>
+                    <li><a href="#help" id="nav-help">Help & FAQs</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- Search Section -->
+        <section class="search-section" aria-label="Search services">
+            <div class="search-container">
+                <label for="search-input" class="sr-only">Search city services</label>
+                <input 
+                    type="search" 
+                    id="search-input" 
+                    placeholder="Search services (e.g., pay water bill, report pothole, building permit)" 
+                    aria-label="Search city services"
+                    aria-describedby="search-help"
+                >
+                <button id="search-button" aria-label="Search">🔍</button>
+                <p id="search-help" class="sr-only">Type what you want to do and press search or enter</p>
+            </div>
+            <div id="search-results" class="search-results hidden" role="region" aria-live="polite" aria-label="Search results"></div>
+        </section>
+
+        <!-- Most Common Tasks (Priority Tasks for First-Time Visitors) -->
+        <section class="quick-tasks" aria-label="Most common tasks">
+            <h2>Most Used Services</h2>
+            <div class="task-grid">
+                <a href="#" class="task-card" data-service="water-bill" onclick="openService('water-bill'); return false;">
+                    <span class="task-icon" aria-hidden="true">💧</span>
+                    <h3>Pay Water Bill</h3>
+                    <p>Access online or by phone</p>
+                </a>
+                <a href="#" class="task-card" data-service="report-issue" onclick="openService('report-issue'); return false;">
+                    <span class="task-icon" aria-hidden="true">🛣️</span>
+                    <h3>Report Pothole/Issue</h3>
+                    <p>Submit with photo & location</p>
+                </a>
+                <a href="#" class="task-card" data-service="park-programs" onclick="openService('park-programs'); return false;">
+                    <span class="task-icon" aria-hidden="true">🏞️</span>
+                    <h3>Parks & Programs</h3>
+                    <p>Classes, sports, events</p>
+                </a>
+                <a href="#" class="task-card" data-service="permits" onclick="openService('permits'); return false;">
+                    <span class="task-icon" aria-hidden="true">🏗️</span>
+                    <h3>Building Permits</h3>
+                    <p>Apply, check status, renew</p>
+                </a>
+                <a href="#" class="task-card" data-service="council" onclick="openService('council'); return false;">
+                    <span class="task-icon" aria-hidden="true">📋</span>
+                    <h3>City Council Info</h3>
+                    <p>Meetings, agendas, minutes</p>
+                </a>
+                <a href="#" class="task-card" data-service="licenses" onclick="openService('licenses'); return false;">
+                    <span class="task-icon" aria-hidden="true">📜</span>
+                    <h3>Business Licenses</h3>
+                    <p>Apply, renew, compliance</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- Service Categories by Life Situation -->
+        <section id="services" class="services-section" aria-label="Service categories">
+            <h2>Find Services by Your Needs</h2>
+            <div class="category-tabs" role="tablist" aria-label="Service categories">
+                <button class="category-tab active" role="tab" aria-selected="true" aria-controls="resident-panel" id="resident-tab">Resident</button>
+                <button class="category-tab" role="tab" aria-selected="false" aria-controls="business-panel" id="business-tab">Business Owner</button>
+                <button class="category-tab" role="tab" aria-selected="false" aria-controls="visitor-panel" id="visitor-tab">Visitor</button>
+            </div>
+
+            <div id="resident-panel" class="category-panel" role="tabpanel" aria-labelledby="resident-tab">
+                <h3>For Residents</h3>
+                <div class="service-list">
+                    <div class="service-item">
+                        <h4>Utilities & Bills</h4>
+                        <ul>
+                            <li><a href="#" onclick="openService('water-bill'); return false;">Water & Sewer Bills</a></li>
+                            <li><a href="#" onclick="openService('trash'); return false;">Trash & Recycling</a></li>
+                            <li><a href="#" onclick="openService('billing-help'); return false;">Billing Help & Assistance</a></li>
+                        </ul>
+                    </div>
+                    <div class="service-item">
+                        <h4>Neighborhood Services</h4>
+                        <ul>
+                            <li><a href="#" onclick="openService('report-issue'); return false;">Report Pothole/Street Issue</a></li>
+                            <li><a href="#" onclick="openService('animal-control'); return false;">Animal Control</a></li>
+                            <li><a href="#" onclick="openService('street-maintenance'); return false;">Street Cleaning Schedule</a></li>
+                        </ul>
+                    </div>
+                    <div class="service-item">
+                        <h4>Recreation & Community</h4>
+                        <ul>
+                            <li><a href="#" onclick="openService('park-programs'); return false;">Parks & Recreation Programs</a></li>
+                            <li><a href="#" onclick="openService('library'); return false;">Library Services</a></li>
+                            <li><a href="#" onclick="openService('events'); return false;">Community Events Calendar</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="business-panel" class="category-panel hidden" role="tabpanel" aria-labelledby="business-tab">
+                <h3>For Business Owners</h3>
+                <div class="service-list">
+                    <div class="service-item">
+                        <h4>Starting & Managing Business</h4>
+                        <ul>
+                            <li><a href="#" onclick="openService('licenses'); return false;">Business Licenses & Permits</a></li>
+                            <li><a href="#" onclick="openService('zoning'); return false;">Zoning & Land Use</a></li>
+                            <li><a href="#" onclick="openService('health-permits'); return false;">Health Department Permits</a></li>
+                        </ul>
+                    </div>
+                    <div class="service-item">
+                        <h4>Construction & Development</h4>
+                        <ul>
+                            <li><a href="#" onclick="openService('permits'); return false;">Building & Demolition Permits</a></li>
+                            <li><a href="#" onclick="openService('planning'); return false;">Planning & Development</a></li>
+                            <li><a href="#" onclick="openService('inspections'); return false;">Inspections & Compliance</a></li>
+                        </ul>
+                    </div>
+                    <div class="service-item">
+                        <h4>Payments & Reporting</h4>
+                        <ul>
+                            <li><a href="#" onclick="openService('business-tax'); return false;">Business Tax Payments</a></li>
+                            <li><a href="#" onclick="openService('compliance'); return false;">Code Compliance</a></li>
+                            <li><a href="#" onclick="openService('appeals'); return false;">Permits & Zoning Appeals</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="visitor-panel" class="category-panel hidden" role="tabpanel" aria-labelledby="visitor-tab">
+                <h3>For Visitors</h3>
+                <div class="service-list">
+                    <div class="service-item">
+                        <h4>City Information</h4>
+                        <ul>
+                            <li><a href="#" onclick="openService('parks'); return false;">Parks & Recreation Areas</a></li>
+                            <li><a href="#" onclick="openService('events'); return false;">Events & Attractions</a></li>
+                            <li><a href="#" onclick="openService('parking'); return false;">Parking Information</a></li>
+                        </ul>
+                    </div>
+                    <div class="service-item">
+                        <h4>Getting Around</h4>
+                        <ul>
+                            <li><a href="#" onclick="openService('transit'); return false;">Public Transportation</a></li>
+                            <li><a href="#" onclick="openService('bike-paths'); return false;">Bike Paths & Trails</a></li>
+                            <li><a href="#" onclick="openService('maps'); return false;">City Maps & Directions</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Track Your Service Request -->
+        <section id="track-request" class="track-section" aria-label="Track service request">
+            <h2>Track Your Service Request</h2>
+            <p>Don't remember your request number? <a href="#" onclick="alert('In a real system, this would show a lookup form'); return false;">Search by location or issue type</a></p>
+            <form onsubmit="trackRequest(event)">
+                <label for="request-number">
+                    Service Request Number
+                    <span class="required" aria-label="required">*</span>
+                </label>
+                <input type="text" id="request-number" placeholder="e.g., SR-2026-12345" required aria-label="Service request number">
+                <button type="submit">Track Request</button>
+            </form>
+            <div id="track-results" class="hidden" role="region" aria-live="polite"></div>
+        </section>
+
+        <!-- Saved Forms & Favorites -->
+        <section id="saved-forms" class="saved-section" aria-label="Saved forms">
+            <h2>Your Saved Forms & Quick Links</h2>
+            <div id="saved-items" class="saved-list">
+                <p class="empty-state">No saved forms yet. Services you access frequently will appear here.</p>
+            </div>
+        </section>
+
+        <!-- Help & FAQs -->
+        <section id="help" class="help-section" aria-label="Help and FAQs">
+            <h2>Help & Frequently Asked Questions</h2>
+            <div class="faq-container">
+                <details class="faq-item">
+                    <summary>How do I pay my water bill online?</summary>
+                    <p>Visit our online payment portal under "Pay Water Bill." You'll need your account number (found on your bill). You can pay with credit card, debit card, or bank transfer. Payment appears within 1-2 business days.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>How long does a building permit usually take?</summary>
+                    <p>Standard permits take 5-10 business days. Expedited permits (available for additional fee) take 2-3 business days. You can track your permit status in real-time using your request number.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>I don't have an English copy of the form. Can I get it in Spanish?</summary>
+                    <p>All forms are available in both English and Spanish. Use the language toggle in the top right corner, or contact our multilingual customer service at (555) 123-4567.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>What if I have trouble using this website?</summary>
+                    <p>We offer phone support (555) 123-4567, in-person visits to City Hall (Mon-Fri 8am-5pm), and email support at services@riverside.gov. All services can be completed without using the website.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>How do I get emergency help?</summary>
+                    <p>For life-threatening emergencies, call 911. For non-emergency city services and information, call (555) 123-4567. Sign up for emergency alerts at the top of this page.</p>
+                </details>
+            </div>
+        </section>
+
+        <!-- Accessibility Statement -->
+        <section class="accessibility-section" aria-label="Accessibility information">
+            <h2>Accessibility Commitment</h2>
+            <p>The City of Riverside is committed to providing accessible services to all residents. This website meets <a href="#">WCAG 2.1 AA standards</a>. If you experience any accessibility barriers, please contact us at (555) 123-4567 or <a href="mailto:accessibility@riverside.gov">accessibility@riverside.gov</a>.</p>
+            <p>All city services are available without using this website. Visit City Hall or call us for alternative access methods.</p>
+        </section>
+    </main>
+
+    <footer role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Accessibility</a></li>
+                    <li><a href="#">Report Website Issue</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Hours & Contact</h3>
+                <p>City Hall: Mon-Fri 8am-5pm<br>
+                   Phone: (555) 123-4567<br>
+                   Email: services@riverside.gov</p>
+            </div>
+            <div class="footer-section">
+                <h3>Emergency</h3>
+                <p><strong>Call 911</strong> for emergencies<br>
+                   Non-emergency: (555) 123-7911</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 City of Riverside. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

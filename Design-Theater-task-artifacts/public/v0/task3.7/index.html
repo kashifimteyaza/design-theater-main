@@ -1,0 +1,941 @@
+<html lang="en">
+      <head>
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>MoneyWise - Financial Management Built on Trust</title>
+        <style>
+          * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+          }
+
+          :root {
+            --primary: #2563eb;
+            --secondary: #059669;
+            --neutral-50: #f9fafb;
+            --neutral-100: #f3f4f6;
+            --neutral-200: #e5e7eb;
+            --neutral-700: #374151;
+            --neutral-900: #111827;
+            --accent-calm: #06b6d4;
+            --accent-warm: #f59e0b;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --spacing-2xl: 4rem;
+          }
+
+          html {
+            scroll-behavior: smooth;
+          }
+
+          body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--neutral-50);
+            color: var(--neutral-900);
+            line-height: 1.6;
+          }
+
+          /* Navigation */
+          header {
+            position: sticky;
+            top: 0;
+            background: white;
+            border-bottom: 1px solid var(--neutral-200);
+            z-index: 100;
+            padding: var(--spacing-md) var(--spacing-lg);
+          }
+
+          nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+
+          .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+          }
+
+          .logo::before {
+            content: "💰";
+            font-size: 1.75rem;
+          }
+
+          nav a {
+            color: var(--neutral-700);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+          }
+
+          nav a:hover {
+            color: var(--primary);
+          }
+
+          .nav-links {
+            display: none;
+            gap: var(--spacing-lg);
+          }
+
+          @media (min-width: 768px) {
+            .nav-links {
+              display: flex;
+            }
+          }
+
+          .cta-button {
+            background: var(--primary);
+            color: white;
+            padding: var(--spacing-xs) var(--spacing-md);
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background 0.2s, transform 0.2s;
+            border: none;
+            cursor: pointer;
+          }
+
+          .cta-button:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+          }
+
+          .cta-button-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: calc(var(--spacing-xs) - 2px) calc(var(--spacing-md) - 2px);
+          }
+
+          .cta-button-secondary:hover {
+            background: var(--primary);
+            color: white;
+          }
+
+          /* Hero Section */
+          .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-2xl) var(--spacing-lg);
+            text-align: center;
+          }
+
+          h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            line-height: 1.2;
+            margin-bottom: var(--spacing-md);
+            color: var(--neutral-900);
+          }
+
+          .hero-subtitle {
+            font-size: 1.1rem;
+            color: var(--neutral-700);
+            max-width: 600px;
+            margin: 0 auto var(--spacing-lg);
+            line-height: 1.8;
+          }
+
+          .hero-actions {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: var(--spacing-2xl);
+          }
+
+          /* Trust Banner */
+          .trust-banner {
+            background: linear-gradient(135deg, #f0f9ff 0%, #f0fdf4 100%);
+            padding: var(--spacing-lg);
+            border-radius: 8px;
+            margin: var(--spacing-2xl) auto;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+            margin-left: var(--spacing-lg);
+            margin-right: var(--spacing-lg);
+          }
+
+          .trust-item {
+            text-align: center;
+          }
+
+          .trust-item-icon {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-xs);
+          }
+
+          .trust-item strong {
+            display: block;
+            color: var(--primary);
+            margin-bottom: var(--spacing-xs);
+            font-weight: 600;
+          }
+
+          .trust-item p {
+            font-size: 0.9rem;
+            color: var(--neutral-700);
+          }
+
+          /* Features Grid */
+          .features {
+            max-width: 1200px;
+            margin: var(--spacing-2xl) auto;
+            padding: 0 var(--spacing-lg);
+          }
+
+          .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: var(--spacing-lg);
+            color: var(--neutral-900);
+          }
+
+          .section-subtitle {
+            text-align: center;
+            color: var(--neutral-700);
+            margin-bottom: var(--spacing-2xl);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 1.05rem;
+          }
+
+          .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-2xl);
+          }
+
+          .feature-card {
+            background: white;
+            padding: var(--spacing-lg);
+            border-radius: 8px;
+            border: 1px solid var(--neutral-200);
+            transition: all 0.3s;
+          }
+
+          .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.1);
+          }
+
+          .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-md);
+          }
+
+          .feature-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: var(--spacing-sm);
+            color: var(--neutral-900);
+          }
+
+          .feature-card p {
+            font-size: 0.95rem;
+            color: var(--neutral-700);
+            line-height: 1.7;
+          }
+
+          /* Accessibility Focus Section */
+          .accessibility-section {
+            background: white;
+            padding: var(--spacing-2xl) var(--spacing-lg);
+            margin: var(--spacing-2xl) 0;
+            border-top: 3px solid var(--accent-calm);
+          }
+
+          .accessibility-content {
+            max-width: 1200px;
+            margin: 0 auto;
+          }
+
+          .accessibility-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: var(--spacing-lg);
+            color: var(--neutral-900);
+          }
+
+          .accessibility-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+          }
+
+          .accessibility-item {
+            background: var(--neutral-50);
+            padding: var(--spacing-lg);
+            border-radius: 6px;
+            border-left: 4px solid var(--accent-calm);
+          }
+
+          .accessibility-item h4 {
+            color: var(--accent-calm);
+            margin-bottom: var(--spacing-xs);
+            font-weight: 600;
+          }
+
+          .accessibility-item p {
+            font-size: 0.95rem;
+            color: var(--neutral-700);
+          }
+
+          /* Dashboard Preview */
+          .preview-section {
+            max-width: 1200px;
+            margin: var(--spacing-2xl) auto;
+            padding: 0 var(--spacing-lg);
+          }
+
+          .preview-container {
+            background: white;
+            border: 1px solid var(--neutral-200);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+          }
+
+          .preview-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent-calm) 100%);
+            color: white;
+            padding: var(--spacing-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+          }
+
+          .preview-tabs {
+            display: flex;
+            gap: var(--spacing-sm);
+            background: var(--neutral-100);
+            padding: var(--spacing-sm);
+            border-radius: 4px;
+          }
+
+          .tab-button {
+            padding: var(--spacing-xs) var(--spacing-md);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: var(--neutral-700);
+            transition: all 0.2s;
+          }
+
+          .tab-button.active {
+            background: white;
+            color: var(--primary);
+            font-weight: 500;
+          }
+
+          .preview-content {
+            padding: var(--spacing-lg);
+          }
+
+          .dashboard-widget {
+            background: var(--neutral-50);
+            padding: var(--spacing-lg);
+            border-radius: 6px;
+            margin-bottom: var(--spacing-md);
+          }
+
+          .dashboard-widget h4 {
+            color: var(--neutral-900);
+            margin-bottom: var(--spacing-sm);
+            font-size: 0.95rem;
+            font-weight: 600;
+          }
+
+          .widget-value {
+            font-size: 2rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+          }
+
+          .widget-description {
+            font-size: 0.85rem;
+            color: var(--neutral-700);
+          }
+
+          .widget-progress {
+            background: var(--neutral-200);
+            height: 6px;
+            border-radius: 3px;
+            margin-top: var(--spacing-sm);
+            overflow: hidden;
+          }
+
+          .widget-progress-bar {
+            background: var(--secondary);
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.3s;
+          }
+
+          .accounts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+          }
+
+          .account-item {
+            background: white;
+            border: 2px solid var(--neutral-200);
+            border-radius: 6px;
+            padding: var(--spacing-md);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+          }
+
+          .account-item:hover {
+            border-color: var(--primary);
+            background: var(--neutral-50);
+          }
+
+          .account-item.connected {
+            border-color: var(--secondary);
+          }
+
+          .account-icon {
+            font-size: 1.5rem;
+            margin-bottom: var(--spacing-xs);
+          }
+
+          .account-name {
+            font-size: 0.85rem;
+            color: var(--neutral-700);
+            margin-bottom: var(--spacing-xs);
+          }
+
+          .account-balance {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--neutral-900);
+          }
+
+          /* CTA Section */
+          .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent-calm) 100%);
+            color: white;
+            padding: var(--spacing-2xl) var(--spacing-lg);
+            text-align: center;
+            margin: var(--spacing-2xl) 0 0 0;
+          }
+
+          .cta-section h2 {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-md);
+          }
+
+          .cta-section p {
+            font-size: 1.1rem;
+            margin-bottom: var(--spacing-lg);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+          }
+
+          .cta-section .cta-button {
+            background: white;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1rem;
+            padding: var(--spacing-md) var(--spacing-xl);
+          }
+
+          .cta-section .cta-button:hover {
+            background: var(--neutral-100);
+          }
+
+          /* Footer */
+          footer {
+            background: var(--neutral-900);
+            color: var(--neutral-100);
+            padding: var(--spacing-2xl) var(--spacing-lg);
+            font-size: 0.9rem;
+          }
+
+          .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+          }
+
+          footer h4 {
+            margin-bottom: var(--spacing-sm);
+            font-size: 0.95rem;
+          }
+
+          footer a {
+            color: var(--neutral-100);
+            text-decoration: none;
+            transition: color 0.2s;
+          }
+
+          footer a:hover {
+            color: var(--primary);
+          }
+
+          footer ul {
+            list-style: none;
+          }
+
+          footer li {
+            margin-bottom: var(--spacing-xs);
+          }
+
+          .footer-bottom {
+            border-top: 1px solid var(--neutral-700);
+            padding-top: var(--spacing-lg);
+            text-align: center;
+            color: var(--neutral-400);
+          }
+
+          /* Mobile Menu */
+          .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--neutral-900);
+          }
+
+          @media (max-width: 767px) {
+            .mobile-menu-toggle {
+              display: block;
+            }
+
+            h1 {
+              font-size: 1.8rem;
+            }
+
+            .section-title {
+              font-size: 1.5rem;
+            }
+
+            .trust-banner {
+              grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+              grid-template-columns: 1fr;
+            }
+
+            .preview-header {
+              flex-direction: column;
+              align-items: flex-start;
+            }
+
+            .cta-section h2 {
+              font-size: 1.5rem;
+            }
+          }
+
+          /* Smooth interactions */
+          button, a {
+            transition: all 0.2s ease;
+          }
+
+          .fade-in {
+            animation: fadeIn 0.6s ease-in-out;
+          }
+
+          @keyframes fadeIn {
+            from {
+              opacity: 0;
+              transform: translateY(20px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+        </style>
+      </head>
+      <body>
+        {/* Navigation */}
+        <header>
+          <nav>
+            <a href="#" className="logo">MoneyWise</a>
+            <div className="nav-links">
+              <a href="#features">Features</a>
+              <a href="#accessibility">Accessibility</a>
+              <a href="#how-it-works">How It Works</a>
+              <a href="#security">Security</a>
+            </div>
+            <button className="mobile-menu-toggle" onClick="toggleMobileMenu()">☰</button>
+            <button className="cta-button">Start Free</button>
+          </nav>
+        </header>
+
+        {/* Hero Section */}
+        <section className="hero">
+          <h1>Your Complete Financial Picture, Without the Overwhelm</h1>
+          <p className="hero-subtitle">MoneyWise connects all your accounts, understands your goals, and adapts to life's changes. Because managing money shouldn't feel stressful.</p>
+          <div className="hero-actions">
+            <button className="cta-button">Begin Your Journey</button>
+            <button className="cta-button cta-button-secondary">Watch Demo</button>
+          </div>
+        </section>
+
+        {/* Trust Banner */}
+        <section className="trust-banner">
+          <div className="trust-item">
+            <div className="trust-item-icon">🔒</div>
+            <strong>Bank-Level Security</strong>
+            <p>Military-grade encryption protects your data 24/7</p>
+          </div>
+          <div className="trust-item">
+            <div className="trust-item-icon">✅</div>
+            <strong>No Judgments</strong>
+            <p>Your financial story is personal. We support your goals.</p>
+          </div>
+          <div className="trust-item">
+            <div className="trust-item-icon">🎯</div>
+            <strong>Results That Matter</strong>
+            <p>Real families achieve their financial goals with MoneyWise</p>
+          </div>
+          <div className="trust-item">
+            <div className="trust-item-icon">👥</div>
+            <strong>For Everyone</strong>
+            <p>From students to families, simple to sophisticated</p>
+          </div>
+        </section>
+
+        {/* Core Features */}
+        <section className="features" id="features">
+          <h2 className="section-title">Core Capabilities That Adapt to You</h2>
+          <p className="section-subtitle">Whether you're checking balances on your phone or planning your retirement, MoneyWise scales with your needs.</p>
+          
+          <div className="features-grid">
+            <div className="feature-card">
+              <div className="feature-icon">🏦</div>
+              <h3>Connected Accounts</h3>
+              <p>Link checking, savings, credit cards, investments, and loans in one secure place. One view of everything you manage.</p>
+            </div>
+            <div className="feature-card">
+              <div className="feature-icon">📂</div>
+              <h3>Smart Categorization</h3>
+              <p>Automatically sorted transactions you can refine. Understand spending patterns without manual data entry that feels tedious.</p>
+            </div>
+            <div className="feature-card">
+              <div className="feature-icon">🎯</div>
+              <h3>Adaptive Goal Tracking</h3>
+              <p>Set goals and adjust without shame. Life happens. MoneyWise adapts and keeps you on track toward what matters.</p>
+            </div>
+            <div className="feature-card">
+              <div className="feature-icon">📈</div>
+              <h3>Investment Monitoring</h3>
+              <p>Understand your portfolio in plain language. No jargon. No overwhelming charts. Just what your investments are doing.</p>
+            </div>
+            <div className="feature-card">
+              <div className="feature-icon">📲</div>
+              <h3>Smart Alerts</h3>
+              <p>Helpful notifications, never shameful. Know when you're approaching budget limits before overspending happens.</p>
+            </div>
+            <div className="feature-card">
+              <div className="feature-icon">👨‍👩‍👧‍👦</div>
+              <h3>Shared Accounts with Privacy</h3>
+              <p>Families choose what to share. Kids learn good habits. Partners stay transparent. Everyone maintains boundaries.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Accessibility Focus */}
+        <section className="accessibility-section" id="accessibility">
+          <div className="accessibility-content">
+            <h2>Designed for Everyone, Including Overlooked Needs</h2>
+            <div className="accessibility-grid">
+              <div className="accessibility-item">
+                <h4>For Those with Dyscalculia</h4>
+                <p>Visual representations with text alternatives. Numbers presented clearly. Charts that inform rather than confuse. No pressure.</p>
+              </div>
+              <div className="accessibility-item">
+                <h4>Rebuilding After Setbacks</h4>
+                <p>Bankruptcy recovery paths. Realistic timelines. Progress that shows improvement. Encouragement, never criticism.</p>
+              </div>
+              <div className="accessibility-item">
+                <h4>Anxious About Money</h4>
+                <p>Gentle reminders, not alarming notifications. Progress visualization. Education that reduces uncertainty. Safe space to grow.</p>
+              </div>
+              <div className="accessibility-item">
+                <h4>New to Financial Management</h4>
+                <p>Guided onboarding. Explanations in plain language. Resources that educate. Building confidence step by step.</p>
+              </div>
+              <div className="accessibility-item">
+                <h4>Relationship Conflict Resolution</h4>
+                <p>Transparency tools that build trust. Separate viewing permissions. Conversation starters. Data that reduces arguments.</p>
+              </div>
+              <div className="accessibility-item">
+                <h4>Mobile-First Users</h4>
+                <p>Quick check-ins on phones. Essential info at a glance. Full power on desktop. Truly responsive experience.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Dashboard Preview */}
+        <section className="preview-section" id="how-it-works">
+          <h2 className="section-title">Your Dashboard, Your Way</h2>
+          <p className="section-subtitle">Switch between quick mobile checks and deep desktop analysis</p>
+          
+          <div className="preview-container">
+            <div className="preview-header">
+              <div>
+                <h3>Dashboard Preview</h3>
+                <p style={{ opacity: 0.9, marginTop: '0.25rem' }}>See how information adapts to your screen</p>
+              </div>
+              <div className="preview-tabs">
+                <button className="tab-button active" onClick="switchView('mobile')">📱 Mobile</button>
+                <button className="tab-button" onClick="switchView('desktop')">🖥️ Desktop</button>
+              </div>
+            </div>
+            
+            <div className="preview-content">
+              <div id="mobile-view" style={{ display: 'block' }}>
+                <div className="dashboard-widget">
+                  <h4>💰 Total Wealth</h4>
+                  <div className="widget-value">$24,857.32</div>
+                  <div className="widget-description">Up 3% this month</div>
+                </div>
+                
+                <div className="dashboard-widget">
+                  <h4>🎯 Emergency Fund Goal</h4>
+                  <div className="widget-description">$8,500 of $10,000</div>
+                  <div className="widget-progress">
+                    <div className="widget-progress-bar" style={{ width: '85%' }}></div>
+                  </div>
+                </div>
+                
+                <div className="dashboard-widget">
+                  <h4>💳 This Month's Spending</h4>
+                  <div className="widget-value">$1,240</div>
+                  <div className="widget-description">Within budget (limit: $1,500)</div>
+                </div>
+              </div>
+              
+              <div id="desktop-view" style={{ display: 'none' }}>
+                <h4 style={{ marginBottom: 'var(--spacing-lg)', color: 'var(--neutral-900)' }}>Connected Accounts</h4>
+                <div className="accounts-grid">
+                  <div className="account-item connected">
+                    <div className="account-icon">🏦</div>
+                    <div className="account-name">Checking</div>
+                    <div className="account-balance">$4,205.18</div>
+                  </div>
+                  <div className="account-item connected">
+                    <div className="account-icon">💰</div>
+                    <div className="account-name">Savings</div>
+                    <div className="account-balance">$12,500.00</div>
+                  </div>
+                  <div className="account-item connected">
+                    <div className="account-icon">💳</div>
+                    <div className="account-name">Credit Card</div>
+                    <div className="account-balance">-$3,210.50</div>
+                  </div>
+                  <div className="account-item connected">
+                    <div className="account-icon">📈</div>
+                    <div className="account-name">Brokerage</div>
+                    <div className="account-balance">$11,362.64</div>
+                  </div>
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 'var(--spacing-lg)', marginTop: 'var(--spacing-lg)' }}>
+                  <div className="dashboard-widget">
+                    <h4>Monthly Spending by Category</h4>
+                    <div style={{ fontSize: '0.85rem', marginTop: 'var(--spacing-md)', lineHeight: '2' }}>
+                      <div>🛒 Groceries: <strong>$380</strong></div>
+                      <div>🚗 Transportation: <strong>$240</strong></div>
+                      <div>🎬 Entertainment: <strong>$150</strong></div>
+                      <div>🏠 Utilities: <strong>$190</strong></div>
+                    </div>
+                  </div>
+                  <div className="dashboard-widget">
+                    <h4>Investment Performance</h4>
+                    <div style={{ fontSize: '0.85rem', marginTop: 'var(--spacing-md)', lineHeight: '2' }}>
+                      <div>Stocks: <strong style={{ color: 'var(--secondary)' }}>+4.2%</strong></div>
+                      <div>Bonds: <strong style={{ color: 'var(--secondary)' }}>+1.8%</strong></div>
+                      <div>Cash: <strong>+0.3%</strong></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Security Section */}
+        <section className="features" id="security">
+          <h2 className="section-title">Security Built on Trust</h2>
+          <p className="section-subtitle">Your financial information is your most sensitive data. We protect it like it's our own.</p>
+          
+          <div className="features-grid" style={{ maxWidth: '900px', marginLeft: 'auto', marginRight: 'auto' }}>
+            <div className="feature-card">
+              <div className="feature-icon">🔐</div>
+              <h3>End-to-End Encryption</h3>
+              <p>Your data is encrypted in transit and at rest. Even our team can't see your sensitive information.</p>
+            </div>
+            <div className="feature-card">
+              <div className="feature-icon">🛡️</div>
+              <h3>Read-Only Access</h3>
+              <p>We never touch your money. We only read transaction data through secure API connections.</p>
+            </div>
+            <div className="feature-card">
+              <div className="feature-icon">✍️</div>
+              <h3>Your Control</h3>
+              <p>You decide what's shared with family, advisors, or accountants. Revoke access anytime.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Call to Action */}
+        <section className="cta-section">
+          <h2>Ready to Understand Your Money?</h2>
+          <p>Join thousands of people taking control of their financial future without the stress.</p>
+          <button className="cta-button">Start Free Trial</button>
+          <p style={{ marginTop: 'var(--spacing-lg)', fontSize: '0.9rem', opacity: 0.9 }}>No credit card required. Cancel anytime.</p>
+        </section>
+
+        {/* Footer */}
+        <footer>
+          <div className="footer-content">
+            <div>
+              <h4>Product</h4>
+              <ul>
+                <li><a href="#">Features</a></li>
+                <li><a href="#">Security</a></li>
+                <li><a href="#">Pricing</a></li>
+                <li><a href="#">Blog</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4>Company</h4>
+              <ul>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Press</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4>Resources</h4>
+              <ul>
+                <li><a href="#">Help Center</a></li>
+                <li><a href="#">Community</a></li>
+                <li><a href="#">API Docs</a></li>
+                <li><a href="#">Status</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4>Legal</h4>
+              <ul>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+                <li><a href="#">Security</a></li>
+                <li><a href="#">Accessibility</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="footer-bottom">
+            <p>&copy; 2026 MoneyWise. Empowering financial confidence, one person at a time.</p>
+          </div>
+        </footer>
+
+        <script>
+          function switchView(view) {
+            const mobileView = document.getElementById('mobile-view');
+            const desktopView = document.getElementById('desktop-view');
+            const buttons = document.querySelectorAll('.preview-tabs .tab-button');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            if (view === 'mobile') {
+              mobileView.style.display = 'block';
+              desktopView.style.display = 'none';
+              buttons[0].classList.add('active');
+            } else {
+              mobileView.style.display = 'none';
+              desktopView.style.display = 'block';
+              buttons[1].classList.add('active');
+            }
+          }
+
+          function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            if (navLinks.style.display === 'flex') {
+              navLinks.style.display = 'none';
+            } else {
+              navLinks.style.display = 'flex';
+              navLinks.style.position = 'absolute';
+              navLinks.style.top = '100%';
+              navLinks.style.left = '0';
+              navLinks.style.right = '0';
+              navLinks.style.background = 'white';
+              navLinks.style.flexDirection = 'column';
+              navLinks.style.padding = 'var(--spacing-lg)';
+              navLinks.style.borderBottom = '1px solid var(--neutral-200)';
+              navLinks.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+            }
+          }
+
+          // Add fade-in animation on scroll
+          const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+          };
+
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('fade-in');
+                observer.unobserve(entry.target);
+              }
+            });
+          }, observerOptions);
+
+          // Observe all feature cards and sections
+          document.querySelectorAll('.feature-card, .dashboard-widget, .accessibility-item').forEach(el => {
+            observer.observe(el);
+          });
+
+          // Smooth scroll for navigation links
+          document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+              e.preventDefault();
+              const target = document.querySelector(this.getAttribute('href'));
+              if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                const navLinks = document.querySelector('.nav-links');
+                if (navLinks && navLinks.style.display === 'flex') {
+                  toggleMobileMenu();
+                }
+              }
+            });
+          });
+     </script>
+      </body>
+    </html>

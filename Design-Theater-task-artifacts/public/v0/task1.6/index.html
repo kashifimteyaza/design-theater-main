@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopLocal - Support Local Artisans & Handmade Goods</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2d5016;
+            --accent: #d4841f;
+            --neutral-light: #f5f3f0;
+            --neutral-dark: #2c2c2c;
+            --success: #4a7c3f;
+            --border: #ddd;
+            --radius: 8px;
+            --spacing-xs: 8px;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 40px;
+            --spacing-xl: 64px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--neutral-dark);
+            background: white;
+            line-height: 1.6;
+        }
+
+        /* Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        button:focus-visible,
+        a:focus-visible,
+        input:focus-visible,
+        select:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-sm);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo::before {
+            content: "🌱";
+            font-size: 28px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--spacing-md);
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--neutral-dark);
+            font-weight: 500;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            background: var(--neutral-light);
+            color: var(--accent);
+        }
+
+        .nav-auth {
+            display: flex;
+            gap: var(--spacing-sm);
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1f3a0f;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(45, 80, 22, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #c7730b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 132, 31, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 13px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--neutral-light) 0%, white 100%);
+            padding: var(--spacing-xl) var(--spacing-md);
+            text-align: center;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: clamp(32px, 5vw, 56px);
+            color: var(--primary);
+            margin-bottom: var(--spacing-md);
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            color: var(--neutral-dark);
+            margin-bottom: var(--spacing-lg);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hero-cta button {
+            font-size: 16px;
+            padding: 14px 32px;
+        }
+
+        /* User Groups Section */
+        .user-groups {
+            background: white;
+            padding: var(--spacing-xl) var(--spacing-md);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            color: var(--primary);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .groups-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .group-card {
+            background: var(--neutral-light);
+            padding: var(--spacing-md);
+            border-radius: var(--radius);
+            border-left: 4px solid var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .group-card:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            transform: translateY(-4px);
+        }
+
+        .group-icon {
+            font-size: 40px;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .group-card h3 {
+            color: var(--primary);
+            margin-bottom: var(--spacing-sm);
+            font-size: 20px;
+        }
+
+        .group-card p {
+            color: var(--neutral-dark);
+            margin-bottom: var(--spacing-md);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .group-benefits {
+            list-style: none;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .group-benefits li {
+            padding: 6px 0;
+            font-size: 13px;
+            color: var(--neutral-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .group-benefits li::before {
+            content: "✓";
+            color: var(--success);
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .group-card .btn {
+            width: 100%;
+        }
+
+        /* Platform Features */
+        .features {
+            background: var(--primary);
+            color: white;
+            padding: var(--spacing-xl) var(--spacing-md);
+        }
+
+        .features .section-title {
+            color: white;
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .feature-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: var(--spacing-md);
+            border-radius: var(--radius);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .feature-box h4 {
+            font-size: 18px;
+            margin-bottom: var(--spacing-sm);
+            color: var(--accent);
+        }
+
+        .feature-box p {
+            font-size: 14px;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+
+        /* Trust Section */
+        .trust {
+            background: white;
+            padding: var(--spacing-xl) var(--spacing-md);
+            border-top: 1px solid var(--border);
+        }
+
+        .trust-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-lg);
+            align-items: center;
+        }
+
+        .trust-text h2 {
+            color: var(--primary);
+            font-size: 28px;
+            margin-bottom: var(--spacing-md);
+            line-height: 1.3;
+        }
+
+        .trust-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-md);
+        }
+
+        .stat {
+            text-align: center;
+            padding: var(--spacing-md);
+            background: var(--neutral-light);
+            border-radius: var(--radius);
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--neutral-dark);
+            margin-top: 6px;
+        }
+
+        .trust-signals {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+
+        .signal {
+            display: flex;
+            gap: var(--spacing-sm);
+            align-items: flex-start;
+        }
+
+        .signal-icon {
+            font-size: 24px;
+            min-width: 30px;
+        }
+
+        .signal-text h4 {
+            color: var(--primary);
+            margin-bottom: 4px;
+            font-size: 15px;
+        }
+
+        .signal-text p {
+            font-size: 13px;
+            color: var(--neutral-dark);
+            line-height: 1.5;
+        }
+
+        /* Vendor Application Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-md);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--radius);
+            padding: var(--spacing-lg);
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .modal-header h2 {
+            color: var(--primary);
+            font-size: 24px;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--neutral-dark);
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius);
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--neutral-light);
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-md);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            font-family: inherit;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--accent);
+            background: var(--neutral-light);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-hint {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-lg);
+        }
+
+        .form-actions button {
+            flex: 1;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: var(--spacing-lg) var(--spacing-md);
+            margin-top: var(--spacing-xl);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .footer-section h4 {
+            margin-bottom: var(--spacing-sm);
+            font-size: 16px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 13px;
+            display: block;
+            padding: 4px 0;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: var(--spacing-md);
+            text-align: center;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Tab System for Role Selection */
+        .role-tabs {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+            border-bottom: 2px solid var(--border);
+        }
+
+        .role-tab {
+            padding: 12px 16px;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--neutral-dark);
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .role-tab.active {
+            border-bottom-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .role-tab:hover {
+            color: var(--accent);
+        }
+
+        .role-form {
+            display: none;
+        }
+
+        .role-form.active {
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: var(--spacing-sm);
+                gap: var(--spacing-sm);
+            }
+
+            .nav-links {
+                gap: var(--spacing-sm);
+                width: 100%;
+            }
+
+            .nav-links a {
+                font-size: 13px;
+                padding: 6px 8px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .hero {
+                padding: var(--spacing-lg) var(--spacing-md);
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+            }
+
+            .hero-cta button {
+                width: 100%;
+            }
+
+            .trust-content {
+                grid-template-columns: 1fr;
+            }
+
+            .trust-signals {
+                margin-top: var(--spacing-lg);
+            }
+
+            .modal-content {
+                padding: var(--spacing-md);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 24px;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .nav-links {
+                gap: 6px;
+            }
+
+            .nav-auth {
+                gap: 6px;
+            }
+
+            .btn {
+                padding: 10px 16px;
+                font-size: 13px;
+            }
+
+            .trust-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .stat {
+                padding: var(--spacing-sm);
+            }
+
+            .stat-number {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="#home" class="logo">ShopLocal</a>
+            <ul class="nav-links">
+                <li><a href="#customers" onclick="scrollToSection('customers')">For Customers</a></li>
+                <li><a href="#sellers" onclick="scrollToSection('sellers')">For Sellers</a></li>
+                <li><a href="#how-it-works" onclick="scrollToSection('features')">How It Works</a></li>
+            </ul>
+            <div class="nav-auth">
+                <button class="btn btn-outline btn-small" onclick="openLoginModal()">Sign In</button>
+                <button class="btn btn-secondary btn-small" onclick="openVendorModal()">Become a Seller</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Support Local Artisans, Discover Unique Handmade Goods</h1>
+            <p class="hero-subtitle">ShopLocal connects you with 300+ local artisans and producers. Shop handmade crafts, vintage treasures, and fresh local products directly from makers you can trust.</p>
+            <div class="hero-cta">
+                <button class="btn btn-primary" onclick="scrollToSection('customers')">Start Shopping</button>
+                <button class="btn btn-secondary" onclick="openVendorModal()">Sell Your Products</button>
+                <button class="btn btn-outline" onclick="scrollToSection('sellers')">Learn More</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- User Groups -->
+    <section class="user-groups" id="customers">
+        <h2 class="section-title">Designed for Everyone</h2>
+        <div class="groups-container">
+            <!-- Customers Card -->
+            <div class="group-card">
+                <div class="group-icon">🛍️</div>
+                <h3>For Customers</h3>
+                <p>Discover authentic handmade goods and local products from artisans in your region.</p>
+                <ul class="group-benefits">
+                    <li>Browse 1000+ verified artisan products</li>
+                    <li>Read seller reviews and maker stories</li>
+                    <li>Support local creators directly</li>
+                    <li>Shop by category or location</li>
+                    <li>Easy order tracking</li>
+                </ul>
+                <button class="btn btn-primary" onclick="scrollToSection('trust')">Explore Products</button>
+            </div>
+
+            <!-- Sellers Card -->
+            <div class="group-card" id="sellers">
+                <div class="group-icon">🎨</div>
+                <h3>For Sellers</h3>
+                <p>Reach customers without the overhead of your own website. Manage inventory from anywhere.</p>
+                <ul class="group-benefits">
+                    <li>Simple product upload process</li>
+                    <li>Mobile inventory management</li>
+                    <li>Automatic order notifications</li>
+                    <li>Built-in customer messaging</li>
+                    <li>Fair commission rates</li>
+                </ul>
+                <button class="btn btn-secondary" onclick="openVendorModal()">Apply Today</button>
+            </div>
+
+            <!-- Admin Card -->
+            <div class="group-card">
+                <div class="group-icon">⚙️</div>
+                <h3>For Admins</h3>
+                <p>Oversee marketplace health with accessible tools that don't require tech expertise.</p>
+                <ul class="group-benefits">
+                    <li>Vendor verification dashboard</li>
+                    <li>Quality monitoring tools</li>
+                    <li>Dispute resolution system</li>
+                    <li>Sales analytics overview</li>
+                    <li>Community guidelines management</li>
+                </ul>
+                <button class="btn btn-outline" onclick="alert('Admin access requires special credentials')">Admin Portal</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Platform Features -->
+    <section class="features" id="features">
+        <h2 class="section-title">Platform Capabilities</h2>
+        <div class="features-grid">
+            <div class="feature-box">
+                <h4>📦 Smart Product Management</h4>
+                <p>Upload products with photos, descriptions, and inventory tracking. Sellers can update from phone or desktop.</p>
+            </div>
+            <div class="feature-box">
+                <h4>🔐 Trust & Safety</h4>
+                <p>Verified sellers, review system, and buyer protection ensure a secure marketplace for everyone.</p>
+            </div>
+            <div class="feature-box">
+                <h4>📱 Mobile First</h4>
+                <p>Shop while browsing farmers markets or manage inventory between craft fairs. Works seamlessly on any device.</p>
+            </div>
+            <div class="feature-box">
+                <h4>♿ Accessible Design</h4>
+                <p>WCAG-compliant interface ensures all users can navigate easily, including those with accessibility needs.</p>
+            </div>
+            <div class="feature-box">
+                <h4>💬 Direct Communication</h4>
+                <p>Message sellers about custom orders or questions. Ask for product modifications before purchase.</p>
+            </div>
+            <div class="feature-box">
+                <h4>🛡️ Dispute Resolution</h4>
+                <p>Easy correction process for accidental orders or misunderstandings. Fair outcomes for all parties.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Section -->
+    <section class="trust" id="trust">
+        <div class="trust-content">
+            <div class="trust-text">
+                <h2>Why ShopLocal Stands Apart</h2>
+                <p>We're not another Etsy clone. We're built by the community, for the community. Every seller is personally vetted. Every review is authentic. Every transaction supports makers in your region.</p>
+                
+                <div class="trust-stats">
+                    <div class="stat">
+                        <div class="stat-number">300+</div>
+                        <div class="stat-label">Verified Sellers</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">1000+</div>
+                        <div class="stat-label">Unique Products</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Positive Reviews</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">$500K+</div>
+                        <div class="stat-label">Paid to Makers</div>
+                    </div>
+                </div>
+            </div>
+            <div class="trust-signals">
+                <div class="signal">
+                    <div class="signal-icon">✓</div>
+                    <div class="signal-text">
+                        <h4>Seller Verification</h4>
+                        <p>Every artisan is personally vetted before approval to ensure quality and authenticity.</p>
+                    </div>
+                </div>
+                <div class="signal">
+                    <div class="signal-icon">⭐</div>
+                    <div class="signal-text">
+                        <h4>Authentic Reviews</h4>
+                        <p>Verified purchase reviews help customers make confident decisions and hold sellers accountable.</p>
+                    </div>
+                </div>
+                <div class="signal">
+                    <div class="signal-icon">🤝</div>
+                    <div class="signal-text">
+                        <h4>Creator Stories</h4>
+                        <p>Learn the story behind each maker and their craft. Connect with the humans, not just products.</p>
+                    </div>
+                </div>
+                <div class="signal">
+                    <div class="signal-icon">💰</div>
+                    <div class="signal-text">
+                        <h4>Fair Pricing</h4>
+                        <p>Competitive 5% commission rate means more money goes directly to artisans and makers.</p>
+                    </div>
+                </div>
+                <div class="signal">
+                    <div class="signal-icon">🔧</div>
+                    <div class="signal-text">
+                        <h4>Error Correction</h4>
+                        <p>Accidentally ordered something? Made a mistake in your listing? We make it easy to correct.</p>
+                    </div>
+                </div>
+                <div class="signal">
+                    <div class="signal-icon">🏛️</div>
+                    <div class="signal-text">
+                        <h4>Government Contract Ready</h4>
+                        <p>WCAG 2.1 AA compliant and audited for accessibility. Built to serve everyone.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vendor Application Modal -->
+    <div class="modal" id="vendorModal" role="dialog" aria-labelledby="vendorModalTitle" aria-modal="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="vendorModalTitle">Become a ShopLocal Seller</h2>
+                <button class="modal-close" onclick="closeModal('vendorModal')" aria-label="Close dialog">×</button>
+            </div>
+
+            <div class="role-tabs">
+                <button class="role-tab active" onclick="switchRole('individual')" aria-selected="true">Individual Maker</button>
+                <button class="role-tab" onclick="switchRole('business')" aria-selected="false">Registered Business</button>
+            </div>
+
+            <!-- Individual Maker Form -->
+            <form class="role-form active" id="individualForm" onsubmit="handleSubmit(event, 'individual')">
+                <div class="form-group">
+                    <label for="name-individual">Full Name *</label>
+                    <input type="text" id="name-individual" name="name" required aria-required="true">
+                </div>
+
+                <div class="form-group">
+                    <label for="email-individual">Email Address *</label>
+                    <input type="email" id="email-individual" name="email" required aria-required="true">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number (Optional)</label>
+                    <input type="tel" id="phone" name="phone">
+                    <div class="form-hint">We'll only contact you about your application</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="craft">What do you make? *</label>
+                    <select id="craft" name="craft" required aria-required="true">
+                        <option value="">Select a category</option>
+                        <option value="handmade-crafts">Handmade Crafts</option>
+                        <option value="vintage">Vintage & Antiques</option>
+                        <option value="produce">Local Produce</option>
+                        <option value="art">Art & Prints</option>
+                        <option value="jewelry">Jewelry</option>
+                        <option value="textiles">Textiles & Clothing</option>
+                        <option value="food">Baked & Food Items</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="experience">How long have you been selling? *</label>
+                    <select id="experience" name="experience" required aria-required="true">
+                        <option value="">Select an option</option>
+                        <option value="new">Just starting out</option>
+                        <option value="1-2">1-2 years</option>
+                        <option value="3-5">3-5 years</option>
+                        <option value="5plus">5+ years</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="portfolio">Where can we see your work? (URL, Instagram, Website, etc.)</label>
+                    <input type="url" id="portfolio" name="portfolio" placeholder="https://...">
+                </div>
+
+                <div class="form-group">
+                    <label for="why">Why do you want to join ShopLocal? *</label>
+                    <textarea id="why" name="why" required aria-required="true" placeholder="Tell us about your motivation..."></textarea>
+                    <div class="form-hint">This helps us understand if we're a good fit</div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('vendorModal')">Cancel</button>
+                    <button type="submit" class="btn btn-secondary">Submit Application</button>
+                </div>
+            </form>
+
+            <!-- Business Form -->
+            <form class="role-form" id="businessForm" onsubmit="handleSubmit(event, 'business')">
+                <div class="form-group">
+                    <label for="business-name">Business Name *</label>
+                    <input type="text" id="business-name" name="businessName" required aria-required="true">
+                </div>
+
+                <div class="form-group">
+                    <label for="contact-person">Contact Person Name *</label>
+                    <input type="text" id="contact-person" name="contactPerson" required aria-required="true">
+                </div>
+
+                <div class="form-group">
+                    <label for="business-email">Business Email *</label>
+                    <input type="email" id="business-email" name="businessEmail" required aria-required="true">
+                </div>
+
+                <div class="form-group">
+                    <label for="ein">Business Registration/Tax ID *</label>
+                    <input type="text" id="ein" name="ein" required aria-required="true" placeholder="EIN or equivalent">
+                    <div class="form-hint">We verify all registered businesses</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="products">What products will you sell? *</label>
+                    <select id="products" name="products" required aria-required="true">
+                        <option value="">Select category</option>
+                        <option value="handmade-crafts">Handmade Crafts</option>
+                        <option value="vintage">Vintage & Antiques</option>
+                        <option value="produce">Local Produce</option>
+                        <option value="food">Food Production</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="volume">Expected monthly inventory volume? *</label>
+                    <input type="number" id="volume" name="volume" required aria-required="true" placeholder="Number of products" min="1">
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('vendorModal')">Cancel</button>
+                    <button type="submit" class="btn btn-secondary">Submit Application</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal" role="dialog" aria-labelledby="loginModalTitle" aria-modal="true">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h2 id="loginModalTitle">Sign In to ShopLocal</h2>
+                <button class="modal-close" onclick="closeModal('loginModal')" aria-label="Close dialog">×</button>
+            </div>
+
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="login-email">Email Address</label>
+                    <input type="email" id="login-email" name="email" required aria-required="true">
+                </div>
+
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" name="password" required aria-required="true">
+                </div>
+
+                <div class="form-group" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-lg);">
+                    <label style="margin: 0; font-size: 13px;">
+                        <input type="checkbox" name="remember" style="width: auto; margin-right: 6px;">
+                        Remember me
+                    </label>
+                    <a href="#" style="color: var(--accent); text-decoration: none; font-size: 13px;">Forgot password?</a>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('loginModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Sign In</button>
+                </div>
+            </form>
+
+            <p style="text-align: center; margin-top: var(--spacing-md); font-size: 13px; color: var(--neutral-dark);">
+                Don't have an account? <a href="#" style="color: var(--accent); text-decoration: none; font-weight: 600;" onclick="openVendorModal(); return false;">Create one</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>ShopLocal</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Impact Report</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>For Customers</h4>
+                <ul>
+                    <li><a href="#">Browse Products</a></li>
+                    <li><a href="#">How to Buy</a></li>
+                    <li><a href="#">Shipping & Returns</a></li>
+                    <li><a href="#">Gift Cards</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>For Sellers</h4>
+                <ul>
+                    <li><a href="#">Seller Resources</a></li>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">Community Guidelines</a></li>
+                    <li><a href="#">Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Help & Legal</h4>
+                <ul>
+                    <li><a href="#">Contact Support</a></li>
+                    <li><a href="#">Accessibility</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 ShopLocal Marketplace. Connecting makers with communities. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Modal Management
+        function openVendorModal() {
+            document.getElementById('vendorModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            document.getElementById('vendorModal').focus();
+        }
+
+        function openLoginModal() {
+            document.getElementById('loginModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            document.getElementById('loginModal').focus();
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on outside click
+        window.addEventListener('click', function(event) {
+            const vendorModal = document.getElementById('vendorModal');
+            const loginModal = document.getElementById('loginModal');
+            
+            if (event.target === vendorModal) {
+                closeModal('vendorModal');
+            }
+            if (event.target === loginModal) {
+                closeModal('loginModal');
+            }
+        });
+
+        // Close modals with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal('vendorModal');
+                closeModal('loginModal');
+            }
+        });
+
+        // Role switching in vendor form
+        function switchRole(role) {
+            document.querySelectorAll('.role-tab').forEach(tab => {
+                tab.classList.remove('active');
+                tab.setAttribute('aria-selected', 'false');
+            });
+            document.querySelectorAll('.role-form').forEach(form => {
+                form.classList.remove('active');
+            });
+
+            if (role === 'individual') {
+                document.querySelectorAll('.role-tab')[0].classList.add('active');
+                document.querySelectorAll('.role-tab')[0].setAttribute('aria-selected', 'true');
+                document.getElementById('individualForm').classList.add('active');
+            } else {
+                document.querySelectorAll('.role-tab')[1].classList.add('active');
+                document.querySelectorAll('.role-tab')[1].setAttribute('aria-selected', 'true');
+                document.getElementById('businessForm').classList.add('active');
+            }
+        }
+
+        // Form submission
+        function handleSubmit(event, type) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData);
+            
+            console.log(`[v0] ${type} vendor application submitted:`, data);
+            
+            alert(`Thank you for your interest in becoming a ShopLocal seller!\n\nWe've received your ${type === 'individual' ? 'individual maker' : 'business'} application. Our team will review it within 2-3 business days.\n\nCheck your email for updates.`);
+            
+            closeModal('vendorModal');
+            event.target.reset();
+        }
+
+        // Login submission
+        function handleLogin(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData);
+            
+            console.log('[v0] Login attempt:', { email: data.email, remember: data.remember });
+            
+            alert('Welcome back! In a real app, you would now be logged in.\n\nEmail: ' + data.email);
+            
+            closeModal('loginModal');
+            event.target.reset();
+        }
+
+        // Smooth scroll helper
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Add active state to navigation on scroll
+        window.addEventListener('scroll', function() {
+            const sections = ['customers', 'sellers', 'features', 'trust'];
+            let current = '';
+            
+            sections.forEach(sectionId => {
+                const element = document.getElementById(sectionId);
+                if (element) {
+                    const rect = element.getBoundingClientRect();
+                    if (rect.top <= 150) {
+                        current = sectionId;
+                    }
+                }
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.style.color = '';
+                if (link.getAttribute('href') === '#' + current) {
+                    link.style.color = 'var(--accent)';
+                }
+            });
+        });
+
+        // Announce important changes to screen readers
+        function announceToScreenReader(message) {
+            const announcement = document.createElement('div');
+            announcement.setAttribute('role', 'status');
+            announcement.setAttribute('aria-live', 'polite');
+            announcement.className = 'sr-only';
+            announcement.textContent = message;
+            document.body.appendChild(announcement);
+            
+            setTimeout(() => announcement.remove(), 1000);
+        }
+    </script>
+</body>
+</html>

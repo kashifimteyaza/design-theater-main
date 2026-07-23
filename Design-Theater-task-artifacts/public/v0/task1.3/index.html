@@ -1,0 +1,1294 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Thompson & Associates - Trusted legal counsel across corporate, family, personal injury, and estate planning law. 20 years of excellence serving clients."
+    />
+    <title>
+      Thompson & Associates - Law Firm | Corporate, Family, Personal Injury,
+      Estate Planning
+    </title>
+    <style>
+                * {
+                  margin: 0;
+                  padding: 0;
+                  box-sizing: border-box;
+                }
+
+                html {
+                  scroll-behavior: smooth;
+                }
+
+                body {
+                  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+                  line-height: 1.6;
+                  color: #1a1a1a;
+                  background-color: #ffffff;
+                }
+
+                /* Layout */
+                .container {
+                  max-width: 1200px;
+                  margin: 0 auto;
+                  padding: 0 20px;
+                }
+
+                /* Header & Navigation */
+                header {
+                  background-color: #0f2840;
+                  color: white;
+                  padding: 1rem 0;
+                  position: sticky;
+                  top: 0;
+                  z-index: 100;
+                  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                }
+
+                .header-content {
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  max-width: 1200px;
+                  margin: 0 auto;
+                  padding: 0 20px;
+                }
+
+                .logo {
+                  font-size: 1.5rem;
+                  font-weight: 700;
+                  letter-spacing: -0.5px;
+                }
+
+                nav ul {
+                  display: flex;
+                  list-style: none;
+                  gap: 2rem;
+                  align-items: center;
+                }
+
+                nav a {
+                  color: white;
+                  text-decoration: none;
+                  font-size: 0.95rem;
+                  transition: color 0.3s ease;
+                }
+
+                nav a:hover {
+                  color: #64b5f6;
+                }
+
+                .cta-button {
+                  background-color: #d4af37;
+                  color: #0f2840;
+                  padding: 0.75rem 1.5rem;
+                  border-radius: 4px;
+                  text-decoration: none;
+                  font-weight: 600;
+                  border: none;
+                  cursor: pointer;
+                  transition: background-color 0.3s ease;
+                  font-size: 0.95rem;
+                }
+
+                .cta-button:hover {
+                  background-color: #e5c158;
+                }
+
+                /* Hero Section */
+                .hero {
+                  background: linear-gradient(135deg, #0f2840 0%, #1a3d52 100%);
+                  color: white;
+                  padding: 4rem 0;
+                  text-align: center;
+                }
+
+                .hero h1 {
+                  font-size: 3rem;
+                  margin-bottom: 1rem;
+                  font-weight: 700;
+                }
+
+                .hero p {
+                  font-size: 1.3rem;
+                  margin-bottom: 2.5rem;
+                  max-width: 700px;
+                  margin-left: auto;
+                  margin-right: auto;
+                  line-height: 1.8;
+                }
+
+                .credibility-badges {
+                  display: grid;
+                  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                  gap: 2rem;
+                  margin-top: 3rem;
+                  max-width: 900px;
+                  margin-left: auto;
+                  margin-right: auto;
+                }
+
+                .badge {
+                  background-color: rgba(100, 181, 246, 0.15);
+                  padding: 1.5rem;
+                  border-radius: 8px;
+                  border-left: 4px solid #d4af37;
+                }
+
+                .badge-number {
+                  font-size: 2rem;
+                  font-weight: 700;
+                  color: #d4af37;
+                }
+
+                .badge-text {
+                  font-size: 0.9rem;
+                  margin-top: 0.5rem;
+                  opacity: 0.9;
+                }
+
+                /* Visitor Type Quick Nav */
+                .quick-nav {
+                  background-color: #f8f9fa;
+                  padding: 3rem 0;
+                  margin: 2rem 0;
+                }
+
+                .quick-nav h2 {
+                  text-align: center;
+                  margin-bottom: 2rem;
+                  color: #0f2840;
+                }
+
+                .quick-nav-grid {
+                  display: grid;
+                  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                  gap: 1.5rem;
+                }
+
+                .quick-nav-card {
+                  background: white;
+                  padding: 2rem;
+                  border-radius: 8px;
+                  text-align: center;
+                  border: 2px solid transparent;
+                  transition: all 0.3s ease;
+                  cursor: pointer;
+                  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+                }
+
+                .quick-nav-card:hover {
+                  border-color: #d4af37;
+                  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+                  transform: translateY(-4px);
+                }
+
+                .quick-nav-icon {
+                  font-size: 2.5rem;
+                  margin-bottom: 1rem;
+                }
+
+                .quick-nav-card h3 {
+                  color: #0f2840;
+                  margin-bottom: 0.5rem;
+                }
+
+                .quick-nav-card p {
+                  font-size: 0.9rem;
+                  color: #666;
+                }
+
+                /* Practice Areas Section */
+                .practice-areas {
+                  padding: 4rem 0;
+                }
+
+                .section-title {
+                  font-size: 2.5rem;
+                  color: #0f2840;
+                  margin-bottom: 1rem;
+                  text-align: center;
+                }
+
+                .section-subtitle {
+                  text-align: center;
+                  color: #666;
+                  margin-bottom: 3rem;
+                  font-size: 1.1rem;
+                }
+
+                .practice-filters {
+                  display: flex;
+                  justify-content: center;
+                  gap: 1rem;
+                  margin-bottom: 2rem;
+                  flex-wrap: wrap;
+                }
+
+                .filter-btn {
+                  padding: 0.75rem 1.5rem;
+                  background-color: white;
+                  border: 2px solid #e0e0e0;
+                  border-radius: 20px;
+                  cursor: pointer;
+                  transition: all 0.3s ease;
+                  font-size: 0.95rem;
+                  font-weight: 500;
+                }
+
+                .filter-btn:hover,
+                .filter-btn.active {
+                  background-color: #0f2840;
+                  color: white;
+                  border-color: #0f2840;
+                }
+
+                .practice-grid {
+                  display: grid;
+                  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                  gap: 2rem;
+                  margin-bottom: 3rem;
+                }
+
+                .practice-card {
+                  background: white;
+                  border: 1px solid #e0e0e0;
+                  border-radius: 8px;
+                  overflow: hidden;
+                  transition: all 0.3s ease;
+                  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+                  display: flex;
+                  flex-direction: column;
+                }
+
+                .practice-card:hover {
+                  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+                  border-color: #d4af37;
+                  transform: translateY(-8px);
+                }
+
+                .practice-header {
+                  background: linear-gradient(135deg, #0f2840 0%, #1a3d52 100%);
+                  color: white;
+                  padding: 2rem;
+                  text-align: center;
+                }
+
+                .practice-icon {
+                  font-size: 2.5rem;
+                  margin-bottom: 0.5rem;
+                }
+
+                .practice-card h3 {
+                  font-size: 1.5rem;
+                  color: white;
+                  margin: 0;
+                }
+
+                .practice-content {
+                  padding: 2rem;
+                  flex: 1;
+                  display: flex;
+                  flex-direction: column;
+                }
+
+                .practice-content p {
+                  color: #666;
+                  margin-bottom: 1.5rem;
+                  font-size: 0.95rem;
+                  flex: 1;
+                }
+
+                .practice-content ul {
+                  list-style: none;
+                  margin-bottom: 1.5rem;
+                  font-size: 0.9rem;
+                }
+
+                .practice-content li {
+                  padding: 0.5rem 0;
+                  color: #444;
+                  padding-left: 1.5rem;
+                  position: relative;
+                }
+
+                .practice-content li:before {
+                  content: "›";
+                  position: absolute;
+                  left: 0;
+                  color: #d4af37;
+                  font-weight: bold;
+                }
+
+                .practice-card-cta {
+                  background-color: #f8f9fa;
+                  padding: 1rem;
+                  text-align: center;
+                  border-top: 1px solid #e0e0e0;
+                  margin-top: auto;
+                }
+
+                .practice-card-cta a {
+                  color: #0f2840;
+                  text-decoration: none;
+                  font-weight: 600;
+                  transition: color 0.3s ease;
+                }
+
+                .practice-card-cta a:hover {
+                  color: #d4af37;
+                }
+
+                /* Attorney Finder */
+                .attorney-finder {
+                  background-color: #f8f9fa;
+                  padding: 4rem 0;
+                  margin: 3rem 0;
+                }
+
+                .attorney-grid {
+                  display: grid;
+                  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                  gap: 2rem;
+                  margin-top: 2rem;
+                }
+
+                .attorney-card {
+                  background: white;
+                  border-radius: 8px;
+                  overflow: hidden;
+                  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+                  transition: all 0.3s ease;
+                }
+
+                .attorney-card:hover {
+                  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+                  transform: translateY(-4px);
+                }
+
+                .attorney-image {
+                  width: 100%;
+                  height: 250px;
+                  background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-size: 3rem;
+                }
+
+                .attorney-info {
+                  padding: 1.5rem;
+                }
+
+                .attorney-info h3 {
+                  color: #0f2840;
+                  margin-bottom: 0.25rem;
+                }
+
+                .attorney-title {
+                  color: #d4af37;
+                  font-size: 0.9rem;
+                  font-weight: 600;
+                  margin-bottom: 1rem;
+                }
+
+                .attorney-specialties {
+                  display: flex;
+                  flex-wrap: wrap;
+                  gap: 0.5rem;
+                  margin-bottom: 1rem;
+                }
+
+                .specialty-tag {
+                  background-color: #f0f4ff;
+                  color: #0f2840;
+                  padding: 0.25rem 0.75rem;
+                  border-radius: 12px;
+                  font-size: 0.8rem;
+                  font-weight: 500;
+                }
+
+                .attorney-info p {
+                  color: #666;
+                  font-size: 0.9rem;
+                  margin-bottom: 1rem;
+                }
+
+                .attorney-contact {
+                  display: flex;
+                  gap: 1rem;
+                }
+
+                .attorney-contact a {
+                  flex: 1;
+                  padding: 0.5rem;
+                  background-color: #0f2840;
+                  color: white;
+                  text-decoration: none;
+                  text-align: center;
+                  border-radius: 4px;
+                  font-size: 0.85rem;
+                  font-weight: 600;
+                  transition: background-color 0.3s ease;
+                }
+
+                .attorney-contact a:hover {
+                  background-color: #1a3d52;
+                }
+
+                /* Results Section */
+                .results-section {
+                  padding: 4rem 0;
+                  text-align: center;
+                }
+
+                .results-grid {
+                  display: grid;
+                  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                  gap: 2rem;
+                  margin-top: 2rem;
+                }
+
+                .result-card {
+                  background: white;
+                  padding: 2rem;
+                  border-radius: 8px;
+                  border-left: 4px solid #d4af37;
+                  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+                  transition: all 0.3s ease;
+                }
+
+                .result-card:hover {
+                  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+                }
+
+                .result-amount {
+                  font-size: 1.8rem;
+                  color: #d4af37;
+                  font-weight: 700;
+                  margin-bottom: 0.5rem;
+                }
+
+                .result-case {
+                  color: #0f2840;
+                  font-weight: 600;
+                  margin-bottom: 0.5rem;
+                }
+
+                .result-practice {
+                  color: #666;
+                  font-size: 0.9rem;
+                }
+
+                /* Resources Section */
+                .resources-section {
+                  background-color: #f8f9fa;
+                  padding: 4rem 0;
+                }
+
+                .resources-grid {
+                  display: grid;
+                  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                  gap: 2rem;
+                  margin-top: 2rem;
+                }
+
+                .resource-card {
+                  background: white;
+                  padding: 2rem;
+                  border-radius: 8px;
+                  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+                  transition: all 0.3s ease;
+                }
+
+                .resource-card:hover {
+                  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+                  transform: translateY(-4px);
+                }
+
+                .resource-icon {
+                  font-size: 2rem;
+                  margin-bottom: 1rem;
+                }
+
+                .resource-card h3 {
+                  color: #0f2840;
+                  margin-bottom: 0.75rem;
+                }
+
+                .resource-card p {
+                  color: #666;
+                  font-size: 0.9rem;
+                  margin-bottom: 1rem;
+                }
+
+                .resource-link {
+                  color: #0f2840;
+                  text-decoration: none;
+                  font-weight: 600;
+                  font-size: 0.9rem;
+                  transition: color 0.3s ease;
+                }
+
+                .resource-link:hover {
+                  color: #d4af37;
+                }
+
+                /* CTA Section */
+                .cta-section {
+                  background: linear-gradient(135deg, #0f2840 0%, #1a3d52 100%);
+                  color: white;
+                  padding: 4rem 0;
+                  text-align: center;
+                }
+
+                .cta-section h2 {
+                  font-size: 2.5rem;
+                  margin-bottom: 1rem;
+                }
+
+                .cta-section p {
+                  font-size: 1.2rem;
+                  margin-bottom: 2rem;
+                  max-width: 600px;
+                  margin-left: auto;
+                  margin-right: auto;
+                }
+
+                .cta-buttons {
+                  display: flex;
+                  gap: 1rem;
+                  justify-content: center;
+                  flex-wrap: wrap;
+                }
+
+                .primary-cta {
+                  background-color: #d4af37;
+                  color: #0f2840;
+                  padding: 1rem 2.5rem;
+                  border-radius: 4px;
+                  text-decoration: none;
+                  font-weight: 600;
+                  border: none;
+                  cursor: pointer;
+                  transition: background-color 0.3s ease;
+                  font-size: 1rem;
+                }
+
+                .primary-cta:hover {
+                  background-color: #e5c158;
+                }
+
+                .secondary-cta {
+                  background-color: transparent;
+                  color: white;
+                  padding: 1rem 2.5rem;
+                  border-radius: 4px;
+                  text-decoration: none;
+                  font-weight: 600;
+                  border: 2px solid white;
+                  cursor: pointer;
+                  transition: all 0.3s ease;
+                  font-size: 1rem;
+                }
+
+                .secondary-cta:hover {
+                  background-color: white;
+                  color: #0f2840;
+                }
+
+                /* Footer */
+                footer {
+                  background-color: #0a1a27;
+                  color: white;
+                  padding: 3rem 0 1rem;
+                }
+
+                .footer-content {
+                  display: grid;
+                  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                  gap: 2rem;
+                  margin-bottom: 2rem;
+                }
+
+                .footer-section h4 {
+                  margin-bottom: 1rem;
+                  color: #d4af37;
+                }
+
+                .footer-section ul {
+                  list-style: none;
+                }
+
+                .footer-section li {
+                  margin-bottom: 0.75rem;
+                }
+
+                .footer-section a {
+                  color: #bbb;
+                  text-decoration: none;
+                  transition: color 0.3s ease;
+                  font-size: 0.95rem;
+                }
+
+                .footer-section a:hover {
+                  color: #d4af37;
+                }
+
+                .footer-bottom {
+                  border-top: 1px solid #1a3d52;
+                  padding-top: 2rem;
+                  text-align: center;
+                  color: #999;
+                  font-size: 0.9rem;
+                }
+
+                /* Responsive */
+                @media (max-width: 768px) {
+                  .hero h1 {
+                    font-size: 2rem;
+                  }
+
+                  nav ul {
+                    gap: 1rem;
+                    font-size: 0.85rem;
+                  }
+
+                  .credibility-badges {
+                    grid-template-columns: repeat(2, 1fr);
+                  }
+
+                  .section-title {
+                    font-size: 1.75rem;
+                  }
+
+                  .practice-grid,
+                  .attorney-grid,
+                  .results-grid,
+                  .resources-grid {
+                    grid-template-columns: 1fr;
+                  }
+
+                  .cta-section h2 {
+                    font-size: 1.75rem;
+                  }
+
+                  .cta-buttons {
+                    flex-direction: column;
+                  }
+
+                  .primary-cta,
+                  .secondary-cta {
+                    width: 100%;
+                  }
+                }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div className="header-content">
+        <div className="logo">Thompson & Associates</div>
+        <nav>
+          <ul>
+            <li><a href="#practice-areas">Practice Areas</a></li>
+            <li><a href="#attorneys">Our Attorneys</a></li>
+            <li><a href="#resources">Resources</a></li>
+            <li>
+              <a href="#contact" className="cta-button"
+                >Schedule Consultation</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <section className="hero">
+      <div className="container">
+        <h1>Trusted Legal Counsel for 20 Years</h1>
+        <p>
+          Thompson & Associates represents individuals and businesses across
+          corporate law, family law, personal injury, and estate planning. Your
+          trusted advisor for life's most important legal matters.
+        </p>
+
+        <div className="credibility-badges">
+          <div className="badge">
+            <div className="badge-number">20+</div>
+            <div className="badge-text">Years of Service</div>
+          </div>
+          <div className="badge">
+            <div className="badge-number">15</div>
+            <div className="badge-text">Expert Attorneys</div>
+          </div>
+          <div className="badge">
+            <div className="badge-number">4</div>
+            <div className="badge-text">Practice Areas</div>
+          </div>
+          <div className="badge">
+            <div className="badge-number">500+</div>
+            <div className="badge-text">Satisfied Clients</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- {/* Quick Navigation by Visitor Type */} -->
+    <section className="quick-nav">
+      <div className="container">
+        <h2>What Can We Help You With?</h2>
+        <div className="quick-nav-grid">
+          <div
+            className="quick-nav-card"
+            onClick="scrollToSection('practice-areas')"
+          >
+            <div className="quick-nav-icon">👥</div>
+            <h3>I'm an Individual</h3>
+            <p>
+              Seeking legal help for personal matters: family law, personal
+              injury, or estate planning
+            </p>
+          </div>
+          <div
+            className="quick-nav-card"
+            onClick="scrollToSection('practice-areas')"
+          >
+            <div className="quick-nav-icon">🏢</div>
+            <h3>I'm a Business</h3>
+            <p>
+              Need corporate counsel for mergers, contracts, or business
+              transactions
+            </p>
+          </div>
+          <div
+            className="quick-nav-card"
+            onClick="scrollToSection('attorneys')"
+          >
+            <div className="quick-nav-icon">👨‍⚖️</div>
+            <h3>Find My Attorney</h3>
+            <p>
+              Browse our team to find the perfect fit for your specific legal
+              needs
+            </p>
+          </div>
+          <div
+            className="quick-nav-card"
+            onClick="scrollToSection('resources')"
+          >
+            <div className="quick-nav-icon">📚</div>
+            <h3>Learn More</h3>
+            <p>
+              Explore legal guides and educational resources to understand your
+              options
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- {/* Practice Areas Section */} -->
+    <section className="practice-areas" id="practice-areas">
+      <div className="container">
+        <h2 className="section-title">Our Practice Areas</h2>
+        <p className="section-subtitle">
+          Expert representation across all your legal needs
+        </p>
+
+        <div className="practice-filters">
+          <button
+            className="filter-btn active"
+            onClick="filterPractices('all', event)"
+          >
+            All Practice Areas
+          </button>
+          <button
+            className="filter-btn"
+            onClick="filterPractices('business', event)"
+          >
+            Business
+          </button>
+          <button
+            className="filter-btn"
+            onClick="filterPractices('individual', event)"
+          >
+            Individual
+          </button>
+        </div>
+
+        <div className="practice-grid">
+          <!-- {/* Corporate Law */} -->
+          <div className="practice-card" data-category="business">
+            <div className="practice-header">
+              <div className="practice-icon">🏢</div>
+              <h3>Corporate Law</h3>
+            </div>
+            <div className="practice-content">
+              <p>
+                Comprehensive legal services for businesses of all sizes, from
+                startups to established corporations.
+              </p>
+              <ul>
+                <li>Business Formation & Structure</li>
+                <li>Mergers & Acquisitions</li>
+                <li>Contract Negotiation</li>
+                <li>Regulatory Compliance</li>
+                <li>Intellectual Property</li>
+              </ul>
+              <div className="practice-card-cta">
+                <a href="#contact">Consult with Our Corporate Team</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- {/* Family Law */} -->
+          <div className="practice-card" data-category="individual">
+            <div className="practice-header">
+              <div className="practice-icon">👨‍👩‍👧‍👦</div>
+              <h3>Family Law</h3>
+            </div>
+            <div className="practice-content">
+              <p>
+                Compassionate representation for sensitive family matters
+                handled with discretion and expertise.
+              </p>
+              <ul>
+                <li>Divorce & Separation</li>
+                <li>Child Custody & Support</li>
+                <li>Alimony & Spousal Support</li>
+                <li>Adoption Proceedings</li>
+                <li>Prenuptial Agreements</li>
+              </ul>
+              <div className="practice-card-cta">
+                <a href="#contact">Schedule Family Law Consultation</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- {/* Personal Injury */} -->
+          <div className="practice-card" data-category="individual">
+            <div className="practice-header">
+              <div className="practice-icon">⚕️</div>
+              <h3>Personal Injury</h3>
+            </div>
+            <div className="practice-content">
+              <p>
+                We fight for maximum compensation if you've been injured due to
+                someone else's negligence.
+              </p>
+              <ul>
+                <li>Auto Accidents</li>
+                <li>Slip & Fall Cases</li>
+                <li>Medical Malpractice</li>
+                <li>Workplace Injuries</li>
+                <li>Product Liability</li>
+              </ul>
+              <div className="practice-card-cta">
+                <a href="#contact">Free Injury Consultation</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- {/* Estate Planning */} -->
+          <div className="practice-card" data-category="individual">
+            <div className="practice-header">
+              <div className="practice-icon">📋</div>
+              <h3>Estate Planning</h3>
+            </div>
+            <div className="practice-content">
+              <p>
+                Protect your legacy and ensure your wishes are properly
+                documented and executed.
+              </p>
+              <ul>
+                <li>Wills & Trusts</li>
+                <li>Probate Administration</li>
+                <li>Power of Attorney</li>
+                <li>Asset Protection</li>
+                <li>Tax Planning</li>
+              </ul>
+              <div className="practice-card-cta">
+                <a href="#contact">Plan Your Estate Today</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- {/* Attorney Finder Section */} -->
+    <section className="attorney-finder" id="attorneys">
+      <div className="container">
+        <h2 className="section-title">Meet Our Attorneys</h2>
+        <p className="section-subtitle">
+          15 experienced legal professionals ready to serve you
+        </p>
+
+        <div className="attorney-grid">
+          {/* Attorney 1 - Corporate */}
+          <div className="attorney-card">
+            <div className="attorney-image">👨‍⚖️</div>
+            <div className="attorney-info">
+              <h3>James Mitchell</h3>
+              <div className="attorney-title">
+                Senior Partner, Corporate Law
+              </div>
+              <div className="attorney-specialties">
+                <span className="specialty-tag">Corporate Law</span>
+                <span className="specialty-tag">M&A</span>
+              </div>
+              <p>
+                20+ years specializing in complex corporate transactions and
+                business law. JD from Yale Law School.
+              </p>
+              <div className="attorney-contact">
+                <a href="#contact">Book Consultation</a>
+                <a href="mailto:james@thompsonassociates.com">Email</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- {/* Attorney 2 - Family Law */} -->
+          <div className="attorney-card">
+            <div className="attorney-image">👩‍⚖️</div>
+            <div className="attorney-info">
+              <h3>Sarah Chen</h3>
+              <div className="attorney-title">Family Law Specialist</div>
+              <div className="attorney-specialties">
+                <span className="specialty-tag">Family Law</span>
+                <span className="specialty-tag">Mediation</span>
+              </div>
+              <p>
+                18+ years helping families through difficult transitions. Board
+                certified family law specialist.
+              </p>
+              <div className="attorney-contact">
+                <a href="#contact">Book Consultation</a>
+                <a href="mailto:sarah@thompsonassociates.com">Email</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- {/* Attorney 3 - Personal Injury */} -->
+          <div className="attorney-card">
+            <div className="attorney-image">👨‍⚖️</div>
+            <div className="attorney-info">
+              <h3>David Rodriguez</h3>
+              <div className="attorney-title">Personal Injury Attorney</div>
+              <div className="attorney-specialties">
+                <span className="specialty-tag">Personal Injury</span>
+                <span className="specialty-tag">Litigation</span>
+              </div>
+              <p>
+                15+ years winning substantial settlements for injured clients.
+                Trial-tested advocate.
+              </p>
+              <div className="attorney-contact">
+                <a href="#contact">Book Consultation</a>
+                <a href="mailto:david@thompsonassociates.com">Email</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- {/* Attorney 4 - Estate Planning */} -->
+          <div className="attorney-card">
+            <div className="attorney-image">👩‍⚖️</div>
+            <div className="attorney-info">
+              <h3>Margaret Williams</h3>
+              <div className="attorney-title">Estate Planning Attorney</div>
+              <div className="attorney-specialties">
+                <span className="specialty-tag">Estate Planning</span>
+                <span className="specialty-tag">Probate</span>
+              </div>
+              <p>
+                22+ years safeguarding family legacies. Extensive experience
+                with complex estates.
+              </p>
+              <div className="attorney-contact">
+                <a href="#contact">Book Consultation</a>
+                <a href="mailto:margaret@thompsonassociates.com">Email</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- {/* Attorney 5 - Corporate */} -->
+          <div className="attorney-card">
+            <div className="attorney-image">👨‍⚖️</div>
+            <div className="attorney-info">
+              <h3>Robert Thompson</h3>
+              <div className="attorney-title">Founder & Managing Partner</div>
+              <div className="attorney-specialties">
+                <span className="specialty-tag">Corporate Law</span>
+                <span className="specialty-tag">Litigation</span>
+              </div>
+              <p>
+                Founder of Thompson & Associates with 25+ years of legal
+                excellence and market leadership.
+              </p>
+              <div className="attorney-contact">
+                <a href="#contact">Book Consultation</a>
+                <a href="mailto:robert@thompsonassociates.com">Email</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- {/* Attorney 6 - Family Law */} -->
+          <div className="attorney-card">
+            <div className="attorney-image">👩‍⚖️</div>
+            <div className="attorney-info">
+              <h3>Jessica Anderson</h3>
+              <div className="attorney-title">Family Law Attorney</div>
+              <div className="attorney-specialties">
+                <span className="specialty-tag">Family Law</span>
+                <span className="specialty-tag">Custody</span>
+              </div>
+              <p>
+                10+ years focused on child custody cases with a proven track
+                record of favorable outcomes.
+              </p>
+              <div className="attorney-contact">
+                <a href="#contact">Book Consultation</a>
+                <a href="mailto:jessica@thompsonassociates.com">Email</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- {/* Case Results Section */} -->
+    <section className="results-section">
+      <div className="container">
+        <h2 className="section-title">Results We've Achieved</h2>
+        <p className="section-subtitle">Real outcomes for our clients</p>
+
+        <div className="results-grid">
+          <div className="result-card">
+            <div className="result-amount">$2.8M Settlement</div>
+            <div className="result-case">Auto Accident Injury</div>
+            <div className="result-practice">Personal Injury</div>
+          </div>
+          <div className="result-card">
+            <div className="result-amount">$5.2M Acquisition</div>
+            <div className="result-case">Tech Startup Sale</div>
+            <div className="result-practice">Corporate Law</div>
+          </div>
+          <div className="result-card">
+            <div className="result-amount">$1.5M Estate</div>
+            <div className="result-case">Complex Trust Administration</div>
+            <div className="result-practice">Estate Planning</div>
+          </div>
+          <div className="result-card">
+            <div className="result-amount">Full Custody Award</div>
+            <div className="result-case">Custody Dispute Resolution</div>
+            <div className="result-practice">Family Law</div>
+          </div>
+          <div className="result-card">
+            <div className="result-amount">$3.1M Settlement</div>
+            <div className="result-case">Medical Malpractice</div>
+            <div className="result-practice">Personal Injury</div>
+          </div>
+          <div className="result-card">
+            <div className="result-amount">$8.5M Merger</div>
+            <div className="result-case">Mid-Market Company Consolidation</div>
+            <div className="result-practice">Corporate Law</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- {/* Resources Section */} -->
+    <section className="resources-section" id="resources">
+      <div className="container">
+        <h2 className="section-title">Legal Resources & Guides</h2>
+        <p className="section-subtitle">
+          Educate yourself about common legal matters
+        </p>
+
+        <div className="resources-grid">
+          <div className="resource-card">
+            <div className="resource-icon">📘</div>
+            <h3>Understanding Divorce Law</h3>
+            <p>
+              A comprehensive guide to the divorce process, timeline
+              expectations, and how to protect your interests.
+            </p>
+            <a href="#" className="resource-link">Read Guide →</a>
+          </div>
+          <div className="resource-card">
+            <div className="resource-icon">📗</div>
+            <h3>Estate Planning 101</h3>
+            <p>
+              Learn why estate planning matters, the key documents you need, and
+              how to get started today.
+            </p>
+            <a href="#" className="resource-link">Read Guide →</a>
+          </div>
+          <div className="resource-card">
+            <div className="resource-icon">📙</div>
+            <h3>After an Auto Accident</h3>
+            <p>
+              Immediate steps to take, how to document evidence, and when to
+              contact an attorney.
+            </p>
+            <a href="#" className="resource-link">Read Guide →</a>
+          </div>
+          <div className="resource-card">
+            <div className="resource-icon">📕</div>
+            <h3>Business Contract Essentials</h3>
+            <p>
+              Key clauses to include, common pitfalls to avoid, and how to
+              negotiate effectively.
+            </p>
+            <a href="#" className="resource-link">Read Guide →</a>
+          </div>
+          <div className="resource-card">
+            <div className="resource-icon">📖</div>
+            <h3>Child Custody Rights</h3>
+            <p>
+              Understanding custody arrangements, visitation rights, and child
+              support calculations.
+            </p>
+            <a href="#" className="resource-link">Read Guide →</a>
+          </div>
+          <div className="resource-card">
+            <div className="resource-icon">📕</div>
+            <h3>Employment Law Basics</h3>
+            <p>
+              Your workplace rights, when retaliation is illegal, and steps to
+              document violations.
+            </p>
+            <a href="#" className="resource-link">Read Guide →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- {/* CTA Section */} -->
+    <section className="cta-section" id="contact">
+      <div className="container">
+        <h2>Ready to Discuss Your Legal Matter?</h2>
+        <p>
+          Contact Thompson & Associates today for a confidential consultation.
+          We're here to help you understand your options and protect your
+          interests.
+        </p>
+        <div className="cta-buttons">
+          <button className="primary-cta" onClick="handleConsultation()">
+            Schedule Free Consultation
+          </button>
+          <button className="secondary-cta" onClick="handleCall()">
+            Call (555) 123-4567
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- {/* Footer */} -->
+    <footer>
+      <div className="container">
+        <div className="footer-content">
+          <div className="footer-section">
+            <h4>Thompson & Associates</h4>
+            <ul>
+              <li><a href="#practice-areas">Practice Areas</a></li>
+              <li><a href="#attorneys">Our Attorneys</a></li>
+              <li><a href="#resources">Resources</a></li>
+              <li><a href="#contact">Contact Us</a></li>
+            </ul>
+          </div>
+          <div className="footer-section">
+            <h4>Practice Areas</h4>
+            <ul>
+              <li><a href="#practice-areas">Corporate Law</a></li>
+              <li><a href="#practice-areas">Family Law</a></li>
+              <li><a href="#practice-areas">Personal Injury</a></li>
+              <li><a href="#practice-areas">Estate Planning</a></li>
+            </ul>
+          </div>
+          <div className="footer-section">
+            <h4>Contact Info</h4>
+            <ul>
+              <li><a href="tel:+15551234567">Phone: (555) 123-4567</a></li>
+              <li>
+                <a href="mailto:info@thompsonassociates.com"
+                  >info@thompsonassociates.com</a
+                >
+              </li>
+              <li>123 Legal Plaza</li>
+              <li>Business District, ST 12345</li>
+            </ul>
+          </div>
+          <div className="footer-section">
+            <h4>Hours</h4>
+            <ul>
+              <li>Monday - Friday: 9am - 6pm</li>
+              <li>Saturday: 10am - 2pm</li>
+              <li>Sunday: Closed</li>
+              <li><a href="#contact">Book an Appointment</a></li>
+            </ul>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <p>
+            &copy; 2024 Thompson & Associates. All rights reserved. |
+            <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      {
+          // Practice area filtering
+          function filterPractices(category, e) {
+            const cards = document.querySelectorAll('.practice-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            buttons.forEach(btn => btn.classList.remove('active'));
+            e.target.classList.add('active');
+            
+            cards.forEach(card => {
+              if (category === 'all' || card.getAttribute('data-category') === category) {
+                card.style.display = 'block';
+                setTimeout(() => card.style.opacity = '1', 0);
+              } else {
+                card.style.display = 'none';
+              }
+            });
+          }
+
+          // Smooth scroll helper
+          function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+              element.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
+
+          // CTA handlers
+          function handleConsultation() {
+            alert('Thank you for your interest! Please call (555) 123-4567 or fill out our contact form to schedule your free consultation.');
+          }
+
+          function handleCall() {
+            window.location.href = 'tel:+15551234567';
+          }
+
+          // Smooth scroll behavior for anchor links
+          document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+              const href = this.getAttribute('href');
+              if (href !== '#contact' && href !== '#') {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                  target.scrollIntoView({ behavior: 'smooth' });
+                }
+              }
+            });
+          });;
+      }
+    </script>
+  </body>
+</html>

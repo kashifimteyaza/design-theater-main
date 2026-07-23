@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduConnect - Find Your Perfect Tutor</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">EduConnect</div>
+                <div class="nav-links">
+                    <button class="nav-link" onclick="scrollToSection('tutors')">Find Tutors</button>
+                    <button class="nav-link" onclick="showLogin()">Login</button>
+                    <button class="nav-link btn-primary" onclick="showSignup()">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Your Path to Academic Excellence Starts Here</h1>
+                <p>Connect with expert tutors for SAT prep, math, science, and essay writing</p>
+                <button class="btn-large" onclick="scrollToSection('tutors')">Browse Tutors</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2>How EduConnect Works</h2>
+            <div class="steps-grid">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Browse & Review</h3>
+                    <p>Search tutors by subject and budget. Read reviews from other students.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Book a Trial</h3>
+                    <p>Schedule a 1-hour trial session risk-free. No long-term commitment.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Attend Online</h3>
+                    <p>Meet via secure video chat. Tutors share screens and interactive tools.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Grow Together</h3>
+                    <p>Book ongoing sessions and track progress with detailed feedback.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subjects Section -->
+    <section class="subjects">
+        <div class="container">
+            <h2>Specialized Tutoring in Every Subject</h2>
+            <div class="subjects-grid">
+                <div class="subject-card">
+                    <div class="subject-icon">📚</div>
+                    <h3>SAT Prep</h3>
+                    <p>Boost your SAT score with targeted strategies and practice tests</p>
+                </div>
+                <div class="subject-card">
+                    <div class="subject-icon">🔢</div>
+                    <h3>Mathematics</h3>
+                    <p>From algebra to calculus, master every concept</p>
+                </div>
+                <div class="subject-card">
+                    <div class="subject-icon">🔬</div>
+                    <h3>Science</h3>
+                    <p>Biology, Chemistry, Physics - explained clearly</p>
+                </div>
+                <div class="subject-card">
+                    <div class="subject-icon">✍️</div>
+                    <h3>Essay Writing</h3>
+                    <p>Craft compelling essays with expert guidance</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Browse Tutors Section -->
+    <section id="tutors" class="tutors-section">
+        <div class="container">
+            <h2>Find Your Perfect Tutor</h2>
+            
+            <div class="search-filters">
+                <input type="text" id="searchInput" placeholder="Search tutors..." class="search-input">
+                <select id="subjectFilter" class="filter-select">
+                    <option value="">All Subjects</option>
+                    <option value="SAT Prep">SAT Prep</option>
+                    <option value="Mathematics">Mathematics</option>
+                    <option value="Science">Science</option>
+                    <option value="Essay Writing">Essay Writing</option>
+                </select>
+                <select id="budgetFilter" class="filter-select">
+                    <option value="">All Budgets</option>
+                    <option value="0-30">$0-30/hr</option>
+                    <option value="30-50">$30-50/hr</option>
+                    <option value="50+">$50+/hr</option>
+                </select>
+            </div>
+
+            <div id="tutorsGrid" class="tutors-grid">
+                <!-- Populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Tutor Detail Modal -->
+    <div id="tutorModal" class="modal">
+        <div class="modal-content modal-large">
+            <button class="modal-close" onclick="closeTutorModal()">&times;</button>
+            <div class="tutor-detail">
+                <div class="tutor-detail-header">
+                    <img id="tutorImage" src="" alt="" class="tutor-avatar-large">
+                    <div class="tutor-info-header">
+                        <h2 id="tutorName"></h2>
+                        <div class="tutor-rating">
+                            <span id="tutorRating"></span>
+                            <span id="reviewCount"></span>
+                        </div>
+                        <p id="tutorSubjects" class="tutor-subjects-list"></p>
+                    </div>
+                </div>
+
+                <div class="tutor-detail-body">
+                    <div class="detail-section">
+                        <h3>About</h3>
+                        <p id="tutorBio"></p>
+                    </div>
+
+                    <div class="detail-section">
+                        <h3>Experience</h3>
+                        <p id="tutorExperience"></p>
+                    </div>
+
+                    <div class="detail-section">
+                        <h3>Session Types & Pricing</h3>
+                        <div id="sessionTypes" class="session-types">
+                            <!-- Populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="detail-section">
+                        <h3>Reviews</h3>
+                        <div id="reviews" class="reviews-list">
+                            <!-- Populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tutor-detail-footer">
+                    <button class="btn-primary btn-large" onclick="startBooking()">Book a Session</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Workflow Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content modal-large">
+            <button class="modal-close" onclick="closeBooking()">&times;</button>
+            <div class="booking-workflow">
+                <div class="booking-progress">
+                    <div class="progress-steps">
+                        <div class="progress-step active" id="step-1">
+                            <div class="progress-circle">1</div>
+                            <p>Session Type</p>
+                        </div>
+                        <div class="progress-step" id="step-2">
+                            <div class="progress-circle">2</div>
+                            <p>Schedule</p>
+                        </div>
+                        <div class="progress-step" id="step-3">
+                            <div class="progress-circle">3</div>
+                            <p>Payment</p>
+                        </div>
+                        <div class="progress-step" id="step-4">
+                            <div class="progress-circle">4</div>
+                            <p>Confirm</p>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+
+                <div class="booking-content">
+                    <!-- Step 1: Session Type -->
+                    <div class="booking-step active" id="booking-step-1">
+                        <h3>Select Session Type</h3>
+                        <p class="step-subtitle">Choose what works best for you</p>
+                        
+                        <div class="session-options" id="sessionOptions">
+                            <!-- Populated by JavaScript -->
+                        </div>
+
+                        <div class="booking-notes">
+                            <p><strong>Trial sessions:</strong> Perfect to see if it's a good fit. Cancel free if not satisfied.</p>
+                        </div>
+
+                        <div class="booking-actions">
+                            <button class="btn-secondary" onclick="closeBooking()">Cancel</button>
+                            <button class="btn-primary" onclick="nextBookingStep()">Continue</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Schedule -->
+                    <div class="booking-step" id="booking-step-2">
+                        <h3>Choose Your Session Time</h3>
+                        <p class="step-subtitle">Select a time that works for you</p>
+
+                        <div class="calendar-section">
+                            <div class="calendar-nav">
+                                <button onclick="prevWeek()">&larr; Previous</button>
+                                <span id="currentWeek"></span>
+                                <button onclick="nextWeek()">Next &rarr;</button>
+                            </div>
+                            <div id="availabilityCalendar" class="availability-slots">
+                                <!-- Populated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <div class="booking-actions">
+                            <button class="btn-secondary" onclick="prevBookingStep()">Back</button>
+                            <button class="btn-primary" onclick="nextBookingStep()" id="continueStep2" disabled>Continue</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Payment -->
+                    <div class="booking-step" id="booking-step-3">
+                        <h3>Payment Details</h3>
+                        <p class="step-subtitle">Complete your booking</p>
+
+                        <div class="booking-summary">
+                            <div class="summary-item">
+                                <span>Tutor:</span>
+                                <span id="summaryTutor" class="summary-value"></span>
+                            </div>
+                            <div class="summary-item">
+                                <span>Session:</span>
+                                <span id="summarySession" class="summary-value"></span>
+                            </div>
+                            <div class="summary-item">
+                                <span>Date & Time:</span>
+                                <span id="summaryTime" class="summary-value"></span>
+                            </div>
+                            <div class="summary-item">
+                                <span>Rate:</span>
+                                <span id="summaryRate" class="summary-value"></span>
+                            </div>
+                            <div class="summary-item total">
+                                <span>Total:</span>
+                                <span id="summaryTotal" class="summary-value"></span>
+                            </div>
+                        </div>
+
+                        <div class="payment-section">
+                            <h4>Payment Method</h4>
+                            <div class="payment-options">
+                                <label class="payment-option">
+                                    <input type="radio" name="payment" value="card" checked>
+                                    <span>Credit/Debit Card</span>
+                                </label>
+                                <label class="payment-option">
+                                    <input type="radio" name="payment" value="saved">
+                                    <span>Saved Payment Method</span>
+                                </label>
+                            </div>
+
+                            <div id="cardForm" class="card-form">
+                                <input type="text" placeholder="Card Number" class="form-input" maxlength="19">
+                                <div class="form-row">
+                                    <input type="text" placeholder="MM/YY" class="form-input" maxlength="5">
+                                    <input type="text" placeholder="CVV" class="form-input" maxlength="3">
+                                </div>
+                                <input type="text" placeholder="Cardholder Name" class="form-input">
+                            </div>
+                        </div>
+
+                        <div class="booking-actions">
+                            <button class="btn-secondary" onclick="prevBookingStep()">Back</button>
+                            <button class="btn-primary" onclick="nextBookingStep()">Continue</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Confirmation -->
+                    <div class="booking-step" id="booking-step-4">
+                        <div class="confirmation-content">
+                            <div class="confirmation-icon">✓</div>
+                            <h3>Session Booked!</h3>
+                            <p>Your session has been confirmed</p>
+
+                            <div class="booking-summary">
+                                <div class="summary-item">
+                                    <span>Tutor:</span>
+                                    <span id="confirmTutor" class="summary-value"></span>
+                                </div>
+                                <div class="summary-item">
+                                    <span>Date & Time:</span>
+                                    <span id="confirmTime" class="summary-value"></span>
+                                </div>
+                                <div class="summary-item">
+                                    <span>Duration:</span>
+                                    <span id="confirmDuration" class="summary-value"></span>
+                                </div>
+                                <div class="summary-item">
+                                    <span>Join URL:</span>
+                                    <span id="confirmUrl" class="summary-value url-text"></span>
+                                </div>
+                            </div>
+
+                            <div class="confirmation-notes">
+                                <h4>What to Expect</h4>
+                                <ul>
+                                    <li>You'll receive a calendar invite</li>
+                                    <li>Join 5 minutes early for a brief tech check</li>
+                                    <li>Your tutor will share materials during the session</li>
+                                    <li>You'll get feedback after the session</li>
+                                </ul>
+                            </div>
+
+                            <div class="booking-actions centered">
+                                <button class="btn-secondary" onclick="closeBooking()">Close</button>
+                                <button class="btn-primary" onclick="viewSessionDashboard()">View My Sessions</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Session Dashboard Modal -->
+    <div id="dashboardModal" class="modal">
+        <div class="modal-content modal-large">
+            <button class="modal-close" onclick="closeDashboard()">&times;</button>
+            <div class="session-dashboard">
+                <h2>My Booked Sessions</h2>
+
+                <div class="sessions-list">
+                    <div class="session-card upcoming">
+                        <div class="session-card-header">
+                            <h3>Sarah Johnson - SAT Prep</h3>
+                            <span class="session-status">Upcoming</span>
+                        </div>
+                        <div class="session-card-body">
+                            <p><strong>Date:</strong> <span id="sessionDate"></span></p>
+                            <p><strong>Time:</strong> <span id="sessionTime"></span></p>
+                            <p><strong>Duration:</strong> <span id="sessionDuration"></span></p>
+                            <p><strong>Meeting Link:</strong> <a href="#" id="sessionLink">Join Video Call</a></p>
+                        </div>
+                        <div class="session-card-footer">
+                            <button class="btn-primary" id="joinButton" style="display:none;" onclick="joinSession()">Join Now</button>
+                            <button class="btn-secondary" onclick="cancelSession()">Cancel Session</button>
+                        </div>
+                    </div>
+
+                    <div class="session-card completed">
+                        <div class="session-card-header">
+                            <h3>Sarah Johnson - SAT Prep</h3>
+                            <span class="session-status completed">Completed</span>
+                        </div>
+                        <div class="session-card-body">
+                            <p><strong>Date:</strong> Feb 3, 2026 • 3:00 PM - 4:00 PM</p>
+                            <p><strong>Topics Covered:</strong> Math section strategies, practice problems</p>
+                            <div class="session-feedback">
+                                <h4>Feedback from Tutor</h4>
+                                <p>"Great progress on your quantitative reasoning! Continue practicing with the worksheets I provided."</p>
+                            </div>
+                        </div>
+                        <div class="session-card-footer">
+                            <button class="btn-secondary" onclick="leaveReview()">Leave Review</button>
+                            <button class="btn-secondary" onclick="bookFollow()">Book Follow-up</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Review Modal -->
+    <div id="reviewModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeReview()">&times;</button>
+            <div class="review-form">
+                <h3>Leave a Review</h3>
+                
+                <div class="form-group">
+                    <label>Rating</label>
+                    <div class="rating-input">
+                        <input type="radio" name="rating" value="5" id="rating5">
+                        <label for="rating5">⭐⭐⭐⭐⭐</label>
+                        <input type="radio" name="rating" value="4" id="rating4">
+                        <label for="rating4">⭐⭐⭐⭐</label>
+                        <input type="radio" name="rating" value="3" id="rating3">
+                        <label for="rating3">⭐⭐⭐</label>
+                        <input type="radio" name="rating" value="2" id="rating2">
+                        <label for="rating2">⭐⭐</label>
+                        <input type="radio" name="rating" value="1" id="rating1">
+                        <label for="rating1">⭐</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Your Review</label>
+                    <textarea placeholder="Share your experience..." class="form-textarea" rows="4"></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button class="btn-secondary" onclick="closeReview()">Cancel</button>
+                    <button class="btn-primary" onclick="submitReview()">Submit Review</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Session Modal -->
+    <div id="videoModal" class="modal">
+        <div class="modal-content modal-fullscreen">
+            <button class="modal-close" onclick="endSession()">&times;</button>
+            <div class="video-session">
+                <div class="video-grid">
+                    <div class="video-main">
+                        <div class="video-placeholder tutor">
+                            <p>Tutor's Video</p>
+                        </div>
+                    </div>
+                    <div class="video-small">
+                        <div class="video-placeholder student">
+                            <p>Your Video</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="session-toolbar">
+                    <div class="session-info">
+                        <h3>Sarah Johnson - SAT Prep</h3>
+                        <p id="sessionTimer">00:00</p>
+                    </div>
+
+                    <div class="toolbar-controls">
+                        <button class="tool-button" title="Share Screen">
+                            <span>📤</span>
+                        </button>
+                        <button class="tool-button" title="Chat">
+                            <span>💬</span>
+                        </button>
+                        <button class="tool-button" title="Note Taking">
+                            <span>📝</span>
+                        </button>
+                    </div>
+
+                    <div class="session-actions">
+                        <button class="btn-danger" onclick="endSession()">End Session</button>
+                    </div>
+                </div>
+
+                <div class="session-materials">
+                    <h4>Session Materials</h4>
+                    <ul>
+                        <li><a href="#" download>SAT_Math_Strategies.pdf</a></li>
+                        <li><a href="#" download>Practice_Problems.pdf</a></li>
+                        <li><a href="#" download>Whiteboard_Notes.pdf</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thompson & Associates | Trusted Legal Counsel</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="#" class="logo">Thompson & Associates</a>
+            <ul>
+                <li><a href="#practice-areas">Practice Areas</a></li>
+                <li><a href="#attorneys">Our Attorneys</a></li>
+                <li><a href="#case-results">Case Results</a></li>
+                <li><a href="#client-resources">Client Resources</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>20 Years of Trusted Legal Counsel.</h1>
+                <p>From complex corporate mergers to personal estate planning, we are committed to providing our clients with exceptional legal representation.</p>
+                <a href="#contact" class="cta-button">Schedule a Consultation</a>
+            </div>
+        </section>
+
+        <section id="practice-areas" class="practice-areas">
+            <h2>Our Expertise</h2>
+            <div class="practice-areas-container">
+                <practice-area-card 
+                    title="Corporate Law"
+                    description="Comprehensive legal services for businesses of all sizes, from formation to complex litigation."
+                    icon="corporate.svg">
+                </practice-area-card>
+                <practice-area-card
+                    title="Family Law"
+                    description="Compassionate and effective representation in all areas of family law, including divorce and child custody."
+                    icon="family.svg">
+                </practice-area-card>
+                <practice-area-card
+                    title="Personal Injury"
+                    description="Dedicated advocacy for individuals who have been injured due to the negligence of others."
+                    icon="injury.svg">
+                </practice-area-card>
+                <practice-area-card
+                    title="Estate Planning"
+                    description="Helping you protect your assets and provide for your loved ones with wills, trusts, and estate planning."
+                    icon="estate.svg">
+                </practice-area-card>
+            </div>
+        </section>
+
+        <section id="why-us" class="why-us">
+            <h2>Why Choose Thompson & Associates?</h2>
+            <div class="reasons-container">
+                <div class="reason">
+                    <h3>20+ Years of Experience</h3>
+                    <p>Our firm has a long and successful track record of achieving favorable outcomes for our clients.</p>
+                </div>
+                <div class="reason">
+                    <h3>Dedicated Team of Attorneys</h3>
+                    <p>Our team of 15 attorneys brings a wealth of knowledge and experience to every case.</p>
+                </div>
+                <div class="reason">
+                    <h3>Client-Centered Approach</h3>
+                    <p>We are committed to providing personalized attention and building long-term relationships with our clients.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="attorneys" class="attorneys">
+            <h2>Meet Our Attorneys</h2>
+            <p>Our team of experienced attorneys is dedicated to providing the highest quality legal representation.</p>
+            <a href="#" class="cta-button">View All Attorneys</a>
+        </section>
+
+        <section id="case-results" class="case-results">
+            <h2>Proven Results</h2>
+            <p>We have a long history of achieving successful outcomes for our clients. View some of our recent case results.</p>
+            <a href="#" class="cta-button">View Case Results</a>
+        </section>
+
+        <section id="client-resources" class="client-resources">
+            <h2>Client Resources</h2>
+            <p>Access helpful resources and information for existing clients.</p>
+            <a href="#" class="cta-button">Access Resources</a>
+        </section>
+
+
+        <section id="contact" class="contact">
+            <h2>Contact Us</h2>
+            <form>
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" required></textarea>
+                <button type="submit" class="cta-button">Send Message</button>
+            </form>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Thompson & Associates. All Rights Reserved.</p>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="StreamVault - Curated independent films, documentaries, and international cinema for culturally curious viewers">
+    <title>StreamVault - Curated Cinema</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: #0a0a0a;
+            color: #e8e8e8;
+            line-height: 1.6;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background: rgba(10, 10, 10, 0.95);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #e8e8e8 0%, #a8a8a8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: #b0b0b0;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            padding: 0.5rem 0;
+        }
+
+        nav a:hover {
+            color: #e8e8e8;
+        }
+
+        .cta-button {
+            background: #2a2a2a;
+            color: #e8e8e8;
+            border: 1px solid #404040;
+            padding: 0.7rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: #3a3a3a;
+            border-color: #505050;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            height: 100vh;
+            max-height: 100vh;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 4rem;
+            padding: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            right: -200px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(200, 180, 140, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            z-index: 2;
+        }
+
+        .hero-label {
+            color: #9a8a6a;
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: #e8e8e8;
+            font-weight: 300;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #b0b0b0;
+            max-width: 90%;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .primary-button {
+            background: #e8e8e8;
+            color: #0a0a0a;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .primary-button:hover {
+            background: #d0d0d0;
+            transform: translateY(-2px);
+        }
+
+        .secondary-button {
+            background: transparent;
+            color: #e8e8e8;
+            border: 1px solid #505050;
+            padding: 1rem 2.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .secondary-button:hover {
+            border-color: #e8e8e8;
+            background: rgba(232, 232, 232, 0.05);
+        }
+
+        .hero-image {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .film-card {
+            width: 100%;
+            max-width: 400px;
+            aspect-ratio: 9 / 16;
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .film-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .film-card-header {
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .film-origin {
+            color: #9a8a6a;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .film-title {
+            font-size: 1.8rem;
+            color: #e8e8e8;
+            font-weight: 300;
+            line-height: 1.2;
+        }
+
+        .film-details {
+            padding: 1rem 0;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .film-meta {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .film-description {
+            font-size: 0.95rem;
+            color: #a8a8a8;
+            line-height: 1.6;
+            margin: 1rem 0;
+        }
+
+        /* ===== CURATION SECTIONS ===== */
+        .curation-section {
+            padding: 6rem 4rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .section-header {
+            max-width: 600px;
+            margin-bottom: 3rem;
+        }
+
+        .section-label {
+            color: #9a8a6a;
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            color: #e8e8e8;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .section-description {
+            color: #888;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .collection-card {
+            background: rgba(42, 42, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #e8e8e8;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .collection-card:hover {
+            background: rgba(42, 42, 42, 0.9);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .card-image {
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            background: linear-gradient(135deg, #3a3a3a 0%, #1a1a1a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 3rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-label {
+            color: #9a8a6a;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+
+        .card-meta {
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        /* ===== FEATURED SECTION ===== */
+        .featured-section {
+            background: rgba(42, 42, 42, 0.3);
+            padding: 6rem 4rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .featured-text h2 {
+            font-size: 2.2rem;
+            color: #e8e8e8;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+            line-height: 1.2;
+        }
+
+        .featured-text p {
+            color: #888;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .feature-list li {
+            padding: 0.8rem 0;
+            color: #b0b0b0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .feature-list li::before {
+            content: '▪';
+            color: #9a8a6a;
+            font-size: 1.2rem;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: rgba(10, 10, 10, 0.95);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 4rem;
+            margin-top: 6rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            color: #e8e8e8;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .footer-section a {
+            display: block;
+            color: #888;
+            text-decoration: none;
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #e8e8e8;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-info {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        /* ===== ACCESSIBILITY ===== */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        button:focus,
+        a:focus {
+            outline: 2px solid #9a8a6a;
+            outline-offset: 2px;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 2rem;
+                min-height: auto;
+                height: auto;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                max-width: 100%;
+            }
+
+            .film-card {
+                max-width: 350px;
+            }
+
+            .featured-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .collection-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .curation-section,
+            .featured-section {
+                padding: 4rem 2rem;
+            }
+
+            header {
+                padding: 1rem 2rem;
+            }
+
+            nav {
+                gap: 1.5rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            nav {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            nav a {
+                display: none;
+            }
+
+            .cta-button {
+                padding: 0.6rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .hero {
+                padding: 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+            }
+
+            .primary-button,
+            .secondary-button {
+                width: 100%;
+            }
+
+            .film-card {
+                max-width: 100%;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .collection-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                gap: 1rem;
+            }
+
+            .card-content {
+                padding: 1rem;
+            }
+
+            .card-title {
+                font-size: 0.95rem;
+            }
+
+            .featured-text h2 {
+                font-size: 1.8rem;
+            }
+
+            .curation-section,
+            .featured-section {
+                padding: 3rem 1.5rem;
+            }
+
+            footer {
+                padding: 2rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 1rem;
+            }
+
+            .hero {
+                padding: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .hero p {
+                font-size: 0.95rem;
+            }
+
+            .film-card {
+                padding: 1.5rem;
+            }
+
+            .film-title {
+                font-size: 1.4rem;
+            }
+
+            .section-title {
+                font-size: 1.4rem;
+            }
+
+            .featured-text h2 {
+                font-size: 1.4rem;
+            }
+
+            .collection-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .curation-section,
+            .featured-section {
+                padding: 2rem 1rem;
+            }
+
+            footer {
+                padding: 1.5rem;
+            }
+        }
+
+        /* ===== TV MODE (Large screens, horizontal layout) ===== */
+        @media (min-width: 1920px) {
+            .hero h1 {
+                font-size: 4.5rem;
+            }
+
+            .section-title {
+                font-size: 3rem;
+            }
+
+            .collection-grid {
+                grid-template-columns: repeat(6, 1fr);
+            }
+
+            .film-card {
+                max-width: 500px;
+            }
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        /* Scroll animations */
+        .collection-card {
+            opacity: 0;
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .collection-card:nth-child(1) { animation-delay: 0.1s; }
+        .collection-card:nth-child(2) { animation-delay: 0.2s; }
+        .collection-card:nth-child(3) { animation-delay: 0.3s; }
+        .collection-card:nth-child(4) { animation-delay: 0.4s; }
+        .collection-card:nth-child(5) { animation-delay: 0.5s; }
+        .collection-card:nth-child(6) { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <!-- HEADER/NAVIGATION -->
+    <header role="banner">
+        <div class="logo" aria-label="StreamVault Home">STREAMVAULT</div>
+        <nav role="navigation">
+            <a href="#curation">Collections</a>
+            <a href="#accessibility">About</a>
+            <a href="#footer">Help</a>
+            <button class="cta-button" aria-label="Sign in to StreamVault">Sign In</button>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero" role="region" aria-label="Featured film">
+        <div class="hero-content">
+            <p class="hero-label">Currently Featured</p>
+            <h1>Cinema as Culture</h1>
+            <p>Discover independent films, documentaries, and international cinema curated for viewers who see film as art. From Tokyo to São Paulo, Berlin to Bangkok—explore stories that expand horizons.</p>
+            
+            <div class="hero-cta">
+                <button class="primary-button">Explore Collections</button>
+                <button class="secondary-button">Watch Trailer</button>
+            </div>
+        </div>
+
+        <div class="hero-image">
+            <div class="film-card">
+                <div class="film-card-header">
+                    <p class="film-origin">Japan, 2023</p>
+                    <h2 class="film-title">The Fragile Frame</h2>
+                </div>
+                <div class="film-details">
+                    <div class="film-meta">
+                        <span>90 min</span>
+                        <span>Drama</span>
+                    </div>
+                    <span>★★★★★</span>
+                </div>
+                <p class="film-description">A quiet meditation on memory, family, and the moments we capture but never fully understand. Subtitled.</p>
+                <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                    <p style="color: #666; font-size: 0.85rem;">Director: Takeshi Yamamoto</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CURATIONS BY REGION -->
+    <section class="curation-section" id="curation" role="region" aria-label="Collections by region">
+        <div class="section-header">
+            <p class="section-label">Explore</p>
+            <h2 class="section-title">Cinema by Culture</h2>
+            <p class="section-description">Thoughtfully curated collections organized by region and perspective. Discover voices and visions often overlooked in mainstream streaming.</p>
+        </div>
+
+        <div class="collection-grid">
+            <a href="#" class="collection-card" role="link" tabindex="0">
+                <div class="card-image">🎬</div>
+                <div class="card-content">
+                    <div>
+                        <p class="card-label">East Asia</p>
+                        <h3 class="card-title">Tokyo & Seoul</h3>
+                    </div>
+                    <p class="card-meta">24 films</p>
+                </div>
+            </a>
+
+            <a href="#" class="collection-card" role="link" tabindex="0">
+                <div class="card-image">📽️</div>
+                <div class="card-content">
+                    <div>
+                        <p class="card-label">Europe</p>
+                        <h3 class="card-title">Avant-Garde & Art Cinema</h3>
+                    </div>
+                    <p class="card-meta">31 films</p>
+                </div>
+            </a>
+
+            <a href="#" class="collection-card" role="link" tabindex="0">
+                <div class="card-image">🌍</div>
+                <div class="card-content">
+                    <div>
+                        <p class="card-label">Latin America</p>
+                        <h3 class="card-title">New Voices</h3>
+                    </div>
+                    <p class="card-meta">18 films</p>
+                </div>
+            </a>
+
+            <a href="#" class="collection-card" role="link" tabindex="0">
+                <div class="card-image">🎞️</div>
+                <div class="card-content">
+                    <div>
+                        <p class="card-label">Documentary</p>
+                        <h3 class="card-title">Untold Stories</h3>
+                    </div>
+                    <p class="card-meta">27 films</p>
+                </div>
+            </a>
+
+            <a href="#" class="collection-card" role="link" tabindex="0">
+                <div class="card-image">🌟</div>
+                <div class="card-content">
+                    <div>
+                        <p class="card-label">Directors</p>
+                        <h3 class="card-title">Retrospectives</h3>
+                    </div>
+                    <p class="card-meta">42 films</p>
+                </div>
+            </a>
+
+            <a href="#" class="collection-card" role="link" tabindex="0">
+                <div class="card-image">🎭</div>
+                <div class="card-content">
+                    <div>
+                        <p class="card-label">Curated Lists</p>
+                        <h3 class="card-title">Film Club Picks</h3>
+                    </div>
+                    <p class="card-meta">15 lists</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- FEATURED: ACCESSIBILITY -->
+    <section class="featured-section" id="accessibility" role="region" aria-label="Accessibility features">
+        <div class="featured-grid">
+            <div class="featured-text">
+                <h2>Cinema for Everyone</h2>
+                <p>We believe great cinema should be accessible to all. StreamVault provides comprehensive accessibility features because the stories that move us shouldn't be limited by language or physical ability.</p>
+                
+                <ul class="feature-list">
+                    <li>Subtitles in 12+ languages for all international films</li>
+                    <li>Audio descriptions for selected films</li>
+                    <li>Customizable subtitle styling and positioning</li>
+                    <li>High-contrast viewing modes</li>
+                    <li>Keyboard navigation throughout the platform</li>
+                    <li>Curated collections for accessibility-forward content</li>
+                </ul>
+
+                <button class="primary-button" style="margin-top: 1rem;">Learn More</button>
+            </div>
+
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <div class="film-card" style="max-width: 400px;">
+                    <div class="film-card-header">
+                        <p class="film-origin">France / Belgium, 2022</p>
+                        <h2 class="film-title">Silent Spaces</h2>
+                    </div>
+                    <div class="film-details">
+                        <div class="film-meta">
+                            <span>78 min</span>
+                            <span>Documentary</span>
+                        </div>
+                        <span>★★★★☆</span>
+                    </div>
+                    <p class="film-description">A visual journey through urban silence. Fully audio described and available in 8 subtitle languages. Accessible to Deaf and hard-of-hearing audiences.</p>
+                    <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                        <p style="color: #666; font-size: 0.85rem;">Director: Juliette Brice</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="footer" role="contentinfo">
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h3>Collections</h3>
+                <a href="#">By Region</a>
+                <a href="#">By Genre</a>
+                <a href="#">By Director</a>
+                <a href="#">New Releases</a>
+            </div>
+
+            <div class="footer-section">
+                <h3>Account</h3>
+                <a href="#">Your Watchlist</a>
+                <a href="#">Preferences</a>
+                <a href="#">Billing</a>
+                <a href="#">Sign Out</a>
+            </div>
+
+            <div class="footer-section">
+                <h3>Support</h3>
+                <a href="#">Help Center</a>
+                <a href="#">Contact Us</a>
+                <a href="#">Accessibility</a>
+                <a href="#">Community</a>
+            </div>
+
+            <div class="footer-section">
+                <h3>StreamVault</h3>
+                <a href="#">About Us</a>
+                <a href="#">Curation Philosophy</a>
+                <a href="#">For Filmmakers</a>
+                <a href="#">Press</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p class="footer-info">© 2024 StreamVault. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Cookie Preferences</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll and focus management
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && document.querySelector(href)) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    target.focus();
+                }
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.collection-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Keyboard navigation for collection cards
+        document.querySelectorAll('.collection-card').forEach(card => {
+            card.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    card.click();
+                }
+            });
+        });
+
+        // Button interactions
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', function() {
+                console.log('[v0] Button clicked:', this.textContent);
+                // Add your button action logic here
+            });
+        });
+
+        // Scroll depth tracking for analytics
+        let maxScroll = 0;
+        window.addEventListener('scroll', () => {
+            const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            maxScroll = Math.max(maxScroll, scrollPercent);
+            console.log('[v0] Scroll depth:', Math.round(maxScroll) + '%');
+        });
+    </script>
+</body>
+</html>

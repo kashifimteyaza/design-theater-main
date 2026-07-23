@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riverside University - Home</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1e3a5f;
+            --accent: #c41e3a;
+            --secondary: #f5f5f5;
+            --text: #2d3436;
+            --text-light: #636e72;
+            --border: #dfe6e9;
+            --success: #27ae60;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            background-color: #fff;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .logo span {
+            font-size: 0.75rem;
+            opacity: 0.9;
+            font-weight: normal;
+            letter-spacing: 1px;
+        }
+
+        /* ===== PERSONA SELECTOR ===== */
+        .persona-selector {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .persona-label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            margin-right: 0.5rem;
+            white-space: nowrap;
+        }
+
+        .persona-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .persona-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .persona-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .persona-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            box-shadow: 0 4px 12px rgba(196, 30, 58, 0.3);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, #2a5a8f 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            line-height: 1.5;
+        }
+
+        .persona-tagline {
+            display: none;
+            font-size: 1.1rem;
+            font-style: italic;
+            opacity: 0.85;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .persona-tagline.show {
+            display: block;
+        }
+
+        /* ===== MAIN CONTENT SECTIONS ===== */
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* ===== PERSONA-BASED CONTENT ===== */
+        .content-group {
+            display: none;
+        }
+
+        .content-group.active {
+            display: block;
+            animation: fadeIn 0.4s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== CARD GRID ===== */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+            border-color: var(--accent);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-link {
+            color: var(--accent);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s;
+        }
+
+        .card-link:hover {
+            gap: 0.8rem;
+        }
+
+        /* ===== HIGHLIGHTED SECTION ===== */
+        .highlight-section {
+            background: var(--secondary);
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            margin: 2rem 0;
+        }
+
+        .highlight-section h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        /* ===== QUICK STATS ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--secondary);
+            border-radius: 8px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .persona-selector {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .main-container {
+                padding: 2rem 1rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== VISIBILITY HELPERS ===== */
+        .universal {
+            display: block;
+        }
+
+        .persona-specific {
+            display: none;
+        }
+
+        .persona-specific.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER WITH PERSONA SELECTOR -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                RIVERSIDE UNIVERSITY
+                <span>Est. 1978</span>
+            </div>
+            <nav class="persona-selector">
+                <span class="persona-label">I am a:</span>
+                <div class="persona-buttons">
+                    <button class="persona-btn active" data-persona="prospective">
+                        🎓 Prospective Student
+                    </button>
+                    <button class="persona-btn" data-persona="current">
+                        📚 Current Student
+                    </button>
+                    <button class="persona-btn" data-persona="faculty">
+                        👨‍🏫 Faculty
+                    </button>
+                    <button class="persona-btn" data-persona="alumni">
+                        🎖️ Alumni
+                    </button>
+                    <button class="persona-btn" data-persona="parent">
+                        👨‍👩‍👧 Parent/Family
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Welcome to Riverside University</h1>
+            <p>Discover Excellence in Liberal Arts Education</p>
+            <div class="persona-tagline" id="heroTagline"></div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-container">
+        <!-- PROSPECTIVE STUDENT CONTENT -->
+        <div class="content-group active" data-persona="prospective">
+            <section class="section">
+                <h2 class="section-title">Why Choose Riverside?</h2>
+                <div class="highlight-section">
+                    <h3>👋 Welcome Future Engineers, Artists, Scientists & Leaders</h3>
+                    <p>Riverside University is a vibrant community of 8,000 students dedicated to intellectual growth, leadership development, and meaningful engagement. Our beautiful 200-acre campus blends traditional academic excellence with cutting-edge research opportunities.</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Graduation Rate</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">14:1</div>
+                        <div class="stat-label">Student-Faculty Ratio</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">78%</div>
+                        <div class="stat-label">Study Abroad Participation</div>
+                    </div>
+                </div>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon">🏫</div>
+                        <h3>Academic Programs</h3>
+                        <p>Explore 40+ majors and 60+ minors across sciences, humanities, engineering, and arts. Small classes mean direct mentorship from world-class faculty.</p>
+                        <a href="#" class="card-link">Browse Programs →</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🎭</div>
+                        <h3>Campus Life</h3>
+                        <p>150+ student clubs, championship sports teams, vibrant arts scene, and year-round events. Find your community and create lasting friendships.</p>
+                        <a href="#" class="card-link">Explore Student Life →</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">💰</div>
+                        <h3>Financial Aid</h3>
+                        <p>Over 95% of students receive financial aid. Average aid package $42,000/year. We're committed to making Riverside affordable for talented students.</p>
+                        <a href="#" class="card-link">Financial Aid →</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Admissions Information</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon">📋</div>
+                        <h3>Application Requirements</h3>
+                        <p>Competitive holistic review process. SAT/ACT optional. Application deadline January 15th.</p>
+                        <a href="#" class="card-link">Learn More →</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📅</div>
+                        <h3>Campus Visits</h3>
+                        <p>Tour our beautiful campus, meet current students, and talk with admissions counselors. Virtual tours available year-round.</p>
+                        <a href="#" class="card-link">Schedule Visit →</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">❓</div>
+                        <h3>Ask An Admissions Counselor</h3>
+                        <p>Have questions? We're here to help! Chat with our team or schedule a one-on-one consultation.</p>
+                        <a href="#" class="card-link">Contact Us →</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- CURRENT STUDENT CONTENT -->
+        <div class="content-group" data-persona="current">
+            <section class="section">
+                <h2 class="section-title">Student Resources & Services</h2>
+                <div class="highlight-section">
+                    <h3>⚡ Quick Access to Everything You Need</h3>
+                    <p>Welcome back! Whether you need your schedule, grades, library hours, or wellness resources, here's your hub for all student services.</p>
+                </div>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon">📊</div>
+                        <h3>StudentPortal</h3>
+                        <p>Check your schedule, grades, transcripts, and course registrations. Pay tuition and view financial aid disbursements.</p>
+                        <a href="#" class="card-link">Access Portal →</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📚</div>
+                        <h3>Library Services</h3>
+                        <p>Research databases, study spaces, and librarian consultation. Extended hours during finals week. 24/7 online resources.</p>
+                        <a href="#" class="card-link">Library →</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🏥</div>
+                        <h3>Health & Wellness</h3>
+                        <p>On-campus health center, counseling services, fitness facilities, and wellness programs. All available to students at no additional cost.</p>
+                        <a href="#" class="card-link">Health Services →</a>
+                    </div>
+                </div>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon">💼</div>
+                        <h3>Career Center</h3>
+                        <p>Resume reviews, interview prep, internship postings, and alumni networking. Career counselors in each school.</p>
+                        <a href="#" class="card-link">Career Services →</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🎓</div>
+                        <h3>Academic Support</h3>
+                        <p>Free tutoring, writing center, study groups, and professor office hours. Academic advisors ready to help with degree planning.</p>
+                        <a href="#" class="card-link">Tutoring →</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🏘️</div>
+                        <h3>Housing & Dining</h3>
+                        <p>Housing portal, dining menu, residential life programming, and community standards. Housing lottery information.</p>
+                        <a href="#" class="card-link">Housing Portal →</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Student Life</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon">⚽</div>
+                        <h3>Athletics & Recreation</h3>
+                        <p>12 varsity sports, club sports, and intramural leagues. State-of-the-art athletic facilities available to all students.</p>
+                        <a href="#" class="card-link">Athletics →</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🎵</div>
+                        <h3>Student Organizations</h3>
+                        <p>150+ clubs covering arts, academics, cultural interests, service, and more. Start your own club in minutes.</p>
+                        <a href="#" class="card-link">Find Clubs →</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📰</div>
+                        <h3>Campus News</h3>
+                        <p>Stay updated on campus events, academic announcements, and community happenings through our student-run news outlets.</p>
+                        <a href="#" class="card-link">Campus News →</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- FACULTY CONTENT -->
+        <div class="content-group" data-persona="faculty">
+            <section class="section">
+                <h2 class="section-title">Faculty Resources & Tools</h2>
+                <div class="highlight-section">
+                    <h3>🎯 Streamline Your Teaching & Research</h3>
+                    <p>Access institutional resources, teaching tools, research support, and administrative services designed to support your academic mission.</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">$45M+</div>
+                        <div class="stat-label">Annual Research Funding</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">92%</div>
+                        <div class="stat-label">Faculty with Terminal Degrees</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">12:1</div>
+                        <div class="stat-label">Class Size Average</div>
+                    </div>
+                </div>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon">🖥️</div>
+                        <h3>Course Management System</h3>
+                        <p>Canvas LMS with integrated grading, communication, and assessment tools. Professional development workshops available.</p>
+                        <a href="#" class="card-link">Canvas Login →</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🔬</div>
+                        <h3>Research Support</h3>
+                        <p>Research office assistance, grant writing workshops, IRB support, and lab resources. Connect with collaborators across disciplines.</p>
+                        <a href="#" class="card-link">Research Office →</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📖</div>
+                        <h3>Curriculum Development</h3>
+                        <p>Pedagogical workshops, curriculum mapping tools, and peer mentoring. Support for developing innovative teaching methods.</p>
+                        <a href="#" class="card-link">Teaching Excellence →</a>
+                    </div>
+                </div>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon">👥</div>
+                        <h3>Faculty Directory & Community</h3>
+                        <p>Connect with colleagues, explore interdisciplinary research opportunities, and participate in faculty governance.</p>
+                        <a href="#" class="card-link">Faculty Directory →</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">💼</div>
+                        <h3>Professional Development</h3>
+                        <p>Sabbatical opportunities, conference funding, mentorship programs, and career advancement support.</p>
+                        <a href="#" class="card-link">Faculty Development →</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📚</div>
+                        <h3>Library & Collections</h3>
+                        <p>Comprehensive research databases, interlibrary loan, librarian support, and subject specialists for your discipline.</p>
+                        <a href="#" class="card-link">Library Services →</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Administrative & Policies</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon">📋</div>
+                        <h3>Faculty Handbook</h3>
+                        <p>Policies, procedures, and expectations. Updated annually with faculty input.</p>
+                        <a href="#" class="card-link">View Handbook →</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">⚖️</div>
+                        <h3>Academic Integrity</h3>
+                        <p>Resources for maintaining academic standards and supporting student learning.</p>
+                        <a href="#" class="card-link">Learn More →</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🔒</div>
+                        <h3>Compliance & Safety</h3>
+                        <p>Title IX, FERPA, lab safety, and workplace policies. Training and resources available.</p>
+                        <a href="#" class="card-link">Compliance →</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ALUMNI CONTENT -->
+        <div class="content-group" data-persona="alumni">
+            <section class="section">
+                <h2 class="section-title">Welcome Back to Riverside</h2>
+                <div class="highlight-section">
+                    <h3>🌟 Stay Connected to Your Community</h3>
+                    <p>Our 65,000+ alumni network spans every continent and industry. Stay engaged, reconnect with classmates, and support the next generation of Riverside leaders.</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">65K+</div>
+                        <div class="stat-label">Active Alumni Network</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">150+</div>
+                        <div class="stat-label">Local Alumni Chapters</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">15+</div>
+                        <div class="stat-label">Years Average Connection</div>
+                    </div>
+                </div>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon">💳</div>
+                        <h3>Alumni Portal</h3>
+                        <p>Update your profile, reconnect with classmates, find alumni events, and access exclusive alumni benefits and discounts.</p>
+                        <a href="#" class="card-link">Log In →</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🤝</div>
+                        <h3>Networking Events</h3>
+                        <p>Regional networking mixers, industry panels, mentorship programs, and reunions throughout the year. Virtual and in-person options.</p>
+                        <a href="#" class="card-link">See Events →</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🎓</div>
+                        <h3>Mentoring Program</h3>
+                        <p>Share your expertise with current students. Our structured mentoring program matches alumni mentors with students by industry and interest.</p>
+                        <a href="#" class="card-link">Become a Mentor →</a>
+                    </div>
+                </div>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon">📰</div>
+                        <h3>Alumni Magazine</h3>
+                        <p>Bi-annual publication with alumni profiles, campus updates, and class notes. Subscribe to receive digital or print copies.</p>
+                        <a href="#" class="card-link">Read Magazine →</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">❤️</div>
+                        <h3>Make a Gift</h3>
+                        <p>Your support provides scholarships, enhances facilities, and strengthens academic programs. See impact of alumni giving across campus.</p>
+                        <a href="#" class="card-link">Donate Now →</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">💼</div>
+                        <h3>Career Services</h3>
+                        <p>Alumni career network, job board, and resume reviews. Connect with hiring alumni and explore career transitions.</p>
+                        <a href="#" class="card-link">Career Network →</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Get Involved</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon">📍</div>
+                        <h3>Local Chapters</h3>
+                        <p>Find your regional alumni chapter and attend local events. Volunteer to help organize chapter activities.</p>
+                        <a href="#" class="card-link">Find Your Chapter →</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🗣️</div>
+                        <h3>Speaker Series</h3>
+                        <p>Share your journey with current students. Speak in classrooms or attend panel discussions on your industry or specialty.</p>
+                        <a href="#" class="card-link">Volunteer →</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📧</div>
+                        <h3>Stay Updated</h3>
+                        <p>Subscribe to alumni newsletter, campus news, and fundraising campaign updates to stay informed about Riverside.</p>
+                        <a href="#" class="card-link">Subscribe →</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- PARENT/FAMILY CONTENT -->
+        <div class="content-group" data-persona="parent">
+            <section class="section">
+                <h2 class="section-title">Resources for Parents & Families</h2>
+                <div class="highlight-section">
+                    <h3>👨‍👩‍👧 We Support Your Student's Success</h3>
+                    <p>We recognize that families are essential partners in our students' education. Riverside provides comprehensive support services, transparent communication, and regular engagement opportunities for parents and families.</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">99%</div>
+                        <div class="stat-label">Student Safety Rating</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Campus Security</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">95%</div>
+                        <div class="stat-label">Aid Coverage</div>
+                    </div>
+                </div>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon">🏫</div>
+                        <h3>Parent Orientation</h3>
+                        <p>Comprehensive orientation program during move-in weekend and virtual sessions. Learn about campus resources and connect with other families.</p>
+                        <a href="#" class="card-link">Schedule →</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🔒</div>
+                        <h3>Campus Safety & Security</h3>
+                        <p>24/7 security, campus emergency response systems, and regular safety briefings. How we keep students safe on and off campus.</p>
+                        <a href="#" class="card-link">Learn More →</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">⚕️</div>
+                        <h3>Health & Wellness</h3>
+                        <p>Campus health center, mental health services, and wellness programs. Student health insurance requirements and coverage details.</p>
+                        <a href="#" class="card-link">Health Services →</a>
+                    </div>
+                </div>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon">💰</div>
+                        <h3>Financial Information</h3>
+                        <p>Detailed cost breakdown, financial aid process, FAFSA requirements, and payment options. Scholarship and grant information.</p>
+                        <a href="#" class="card-link">Financial Aid →</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📞</div>
+                        <h3>Parent Services Office</h3>
+                        <p>Dedicated team to answer questions about academics, student life, policies, and campus operations. Regular parent updates and newsletters.</p>
+                        <a href="#" class="card-link">Contact Us →</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🎓</div>
+                        <h3>Academic Progress</h3>
+                        <p>Understanding Riverside's grading system, academic standards, and support for struggling students. How to be an effective partner in your student's learning.</p>
+                        <a href="#" class="card-link">Academic Support →</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Important Information</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon">🗓️</div>
+                        <h3>Key Dates & Deadlines</h3>
+                        <p>Move-in dates, academic calendar, financial aid deadlines, and important registration dates for your planning.</p>
+                        <a href="#" class="card-link">View Calendar →</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📋</div>
+                        <h3>Policies & Procedures</h3>
+                        <p>Code of conduct, parental notification policies, FERPA information, and other important policies affecting your student.</p>
+                        <a href="#" class="card-link">View Policies →</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📧</div>
+                        <h3>Communication Hub</h3>
+                        <p>Get on our mailing list for regular updates, emergency notifications, and event invitations throughout the academic year.</p>
+                        <a href="#" class="card-link">Subscribe →</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- UNIVERSAL FOOTER -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>ACADEMICS</h4>
+                    <ul>
+                        <li><a href="#">Schools & Colleges</a></li>
+                        <li><a href="#">Academic Programs</a></li>
+                        <li><a href="#">Course Catalog</a></li>
+                        <li><a href="#">Library</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>ADMISSIONS</h4>
+                    <ul>
+                        <li><a href="#">Apply Now</a></li>
+                        <li><a href="#">Financial Aid</a></li>
+                        <li><a href="#">Campus Visit</a></li>
+                        <li><a href="#">Contact Admissions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>STUDENT LIFE</h4>
+                    <ul>
+                        <li><a href="#">Housing</a></li>
+                        <li><a href="#">Student Activities</a></li>
+                        <li><a href="#">Athletics</a></li>
+                        <li><a href="#">Student Services</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>CONTACT</h4>
+                    <ul>
+                        <li><a href="#">Main Phone: (555) 123-4567</a></li>
+                        <li><a href="#">Email: info@riverside.edu</a></li>
+                        <li><a href="#">Address: 123 Campus Lane</a></li>
+                        <li><a href="#">Social Media</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Riverside University. All rights reserved. | <a href="#" style="color: inherit;">Privacy Policy</a> | <a href="#" style="color: inherit;">Accessibility</a> | <a href="#" style="color: inherit;">Non-Discrimination</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // PERSONA SYSTEM
+        const personas = {
+            prospective: {
+                tagline: "🎓 Explore your future with Riverside's world-class liberal arts education and vibrant campus community"
+            },
+            current: {
+                tagline: "📚 Access resources, grades, events, and support that keep you thriving at Riverside"
+            },
+            faculty: {
+                tagline: "👨‍🏫 Discover tools, research support, and professional development opportunities at Riverside"
+            },
+            alumni: {
+                tagline: "🌟 Reconnect with your Riverside community and make a lasting impact on future generations"
+            },
+            parent: {
+                tagline: "👨‍👩‍👧 We partner with families to ensure student success, safety, and growth at Riverside"
+            }
+        };
+
+        let currentPersona = 'prospective';
+
+        // DOM Elements
+        const personaBtns = document.querySelectorAll('.persona-btn');
+        const contentGroups = document.querySelectorAll('.content-group');
+        const heroTagline = document.getElementById('heroTagline');
+
+        // Event Listeners
+        personaBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const persona = btn.dataset.persona;
+                setPersona(persona);
+            });
+        });
+
+        // Set Persona Function
+        function setPersona(persona) {
+            // Update current persona
+            currentPersona = persona;
+
+            // Update active button
+            personaBtns.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.persona === persona) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Update content visibility
+            contentGroups.forEach(group => {
+                group.classList.remove('active');
+                if (group.dataset.persona === persona) {
+                    group.classList.add('active');
+                }
+            });
+
+            // Update hero tagline
+            heroTagline.textContent = personas[persona].tagline;
+            heroTagline.classList.add('show');
+
+            // Store preference
+            localStorage.setItem('selectedPersona', persona);
+        }
+
+        // Load saved persona on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedPersona = localStorage.getItem('selectedPersona') || 'prospective';
+            setPersona(savedPersona);
+        });
+
+        // Smooth scroll for card links
+        document.querySelectorAll('.card-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                // In a real site, this would navigate to actual pages
+            });
+        });
+    </script>
+</body>
+</html>

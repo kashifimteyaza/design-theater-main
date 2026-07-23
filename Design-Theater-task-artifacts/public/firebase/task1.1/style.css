@@ -1,0 +1,108 @@
+/* General Styles */
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: #f4f1eb;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-image: url('https://www.transparenttextures.com/patterns/subtle-white-feathers.png');
+}
+
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+    color: #6a4f4b;
+}
+
+/* Header */
+header {
+    background: #fff;
+    padding: 1rem;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #6a4f4b;
+    font-weight: bold;
+}
+
+/* Hero Section */
+#hero {
+    background-image: url('https://images.unsplash.com/photo-1559925393-8be0ec4767c8?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
+    padding: 100px 0;
+}
+
+.hero-content {
+    background: rgba(0, 0, 0, 0.5);
+    display: inline-block;
+    padding: 2rem;
+    border-radius: 10px;
+}
+
+/* Sections */
+section {
+    padding: 2rem 1rem;
+    text-align: center;
+}
+
+#about {
+    background: #fff;
+}
+
+/* Menu */
+.menu-items {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.menu-item {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1), 0 6px 6px rgba(0,0,0,0.15);
+    width: 300px;
+    text-align: left;
+}
+
+/* Visit Section */
+#visit {
+    background: #f4f1eb;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 1rem;
+    background: #333;
+    color: #fff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .menu-items {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .menu-item {
+        width: 80%;
+    }
+}

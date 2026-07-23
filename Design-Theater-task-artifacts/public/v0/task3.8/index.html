@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="EventSpace - Virtual conferences designed for everyone. From 50-person workshops to 5,000-attendee summits.">
+    <title>EventSpace - Virtual Events Made Simple</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --accent: #f59e0b;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --text: #374151;
+            --border: #e5e7eb;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: white;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .cta-button {
+            background: var(--primary);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .cta-button:hover {
+            background: var(--primary-dark);
+            text-decoration: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(245, 158, 11, 0.05) 100%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--dark);
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: var(--text);
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .button-primary {
+            background: var(--primary);
+            color: white;
+            padding: 14px 32px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .button-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .button-secondary {
+            background: white;
+            color: var(--primary);
+            padding: 14px 32px;
+            border-radius: 6px;
+            border: 2px solid var(--primary);
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .button-secondary:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--dark);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            padding: 30px;
+            background: var(--light);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* User Groups Section */
+        .user-groups {
+            padding: 80px 0;
+            background: var(--light);
+        }
+
+        .user-groups-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .user-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .user-card:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .user-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .user-card .role {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .user-card p {
+            font-size: 14px;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Pain Points Section */
+        .pain-points {
+            padding: 80px 0;
+        }
+
+        .pain-points-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .pain-point {
+            padding: 25px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .pain-point h4 {
+            color: #dc2626;
+            font-size: 16px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pain-point p {
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .solution {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border);
+            font-size: 14px;
+            color: #16a34a;
+            font-weight: 500;
+        }
+
+        /* Platform Features Section */
+        .platform-features {
+            padding: 80px 0;
+            background: var(--light);
+        }
+
+        .features-checklist {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .checklist-item {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+            padding: 15px;
+            background: white;
+            border-radius: 6px;
+        }
+
+        .checklist-item::before {
+            content: "✓";
+            color: #16a34a;
+            font-size: 24px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .checklist-item p {
+            font-size: 15px;
+            color: var(--text);
+        }
+
+        /* Accessibility Section */
+        .accessibility {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .accessibility-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .accessibility h2 {
+            font-size: 32px;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+
+        .accessibility-list {
+            list-style: none;
+        }
+
+        .accessibility-list li {
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 15px;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .accessibility-list li::before {
+            content: "♿";
+            font-size: 20px;
+        }
+
+        /* CTA Section */
+        .final-cta {
+            padding: 60px 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-align: center;
+            border-radius: 8px;
+            margin: 80px 0;
+        }
+
+        .final-cta h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .final-cta p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 15px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: #d1d5db;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #9ca3af;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .button-primary, .button-secondary {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .accessibility-content {
+                grid-template-columns: 1fr;
+            }
+
+            .accessibility h2 {
+                font-size: 24px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feature-card, .user-card, .pain-point, .checklist-item {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+        .feature-card:nth-child(4) { animation-delay: 0.4s; }
+        .feature-card:nth-child(5) { animation-delay: 0.5s; }
+        .feature-card:nth-child(6) { animation-delay: 0.6s; }
+
+        /* Skip to main content link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+    <a href="#main" class="skip-link">Skip to main content</a>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">EventSpace</div>
+                <ul class="nav-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#users">For Everyone</a></li>
+                    <li><a href="#solutions">Solutions</a></li>
+                    <li><a href="#accessibility">Accessibility</a></li>
+                </ul>
+                <button class="cta-button">Get Started</button>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <h1>Virtual Events That Actually Work</h1>
+                <p>From 50-person workshops to 5,000-attendee summits. Designed for tech experts and first-time organizers alike.</p>
+                <div class="hero-buttons">
+                    <button class="button-primary">Start Your Event</button>
+                    <button class="button-secondary">See a Demo</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Overview -->
+        <section class="features" id="features">
+            <div class="container">
+                <h2 class="section-title">Everything You Need for Virtual Events</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📝</div>
+                        <h3>Smart Registration</h3>
+                        <p>Intuitive signup flows that work across devices. Pre-event reminders and timezone-aware scheduling.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎬</div>
+                        <h3>Reliable Streaming</h3>
+                        <p>Broadcast to thousands with built-in redundancy. Automatic fallback to keep your event running.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎭</div>
+                        <h3>Breakout Rooms</h3>
+                        <p>Easy session management. Attendees can switch rooms or join recordings without confusion.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🤝</div>
+                        <h3>Natural Networking</h3>
+                        <p>Optional video, text-based chat, and profile matching. No forced cameras—let people connect their way.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🏪</div>
+                        <h3>Exhibit Halls</h3>
+                        <p>Interactive vendor spaces with virtual booths, demos, and networking opportunities.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>Analytics & Insights</h3>
+                        <p>Track attendance, engagement, and session performance. Actionable data for future events.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- User Groups Section -->
+        <section class="user-groups" id="users">
+            <div class="container">
+                <h2 class="section-title">Built for Every Role</h2>
+                <div class="user-groups-grid">
+                    <div class="user-card">
+                        <div class="user-icon">👔</div>
+                        <div class="role">EVENT ORGANIZERS</div>
+                        <h3>Professional Control</h3>
+                        <p>Powerful admin tools that don't overwhelm. Manage every detail with an intuitive dashboard. Simple for first-timers, powerful for pros.</p>
+                    </div>
+                    <div class="user-card">
+                        <div class="user-icon">🎤</div>
+                        <div class="role">SPEAKERS</div>
+                        <h3>Confidence You Need</h3>
+                        <p>Presentation tools that just work. One-click setup, HD quality, and backup systems so technical failures never sabotage your talk.</p>
+                    </div>
+                    <div class="user-card">
+                        <div class="user-icon">👥</div>
+                        <div class="role">ATTENDEES</div>
+                        <h3>Genuine Connection</h3>
+                        <p>Join on any device. Optional cameras, flexible networking, and clear navigation. Engagement without awkwardness.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pain Points & Solutions -->
+        <section class="pain-points" id="solutions">
+            <div class="container">
+                <h2 class="section-title">We Solve Real Problems</h2>
+                <div class="pain-points-grid">
+                    <div class="pain-point">
+                        <h4>❌ Wrong Session Confusion</h4>
+                        <p>Attendees click the wrong link and end up in the wrong breakout room.</p>
+                        <div class="solution">✓ Clear session navigator with notifications before you join</div>
+                    </div>
+                    <div class="pain-point">
+                        <h4>❌ Timezone Chaos</h4>
+                        <p>Key content missed due to timezone confusion and unclear event timing.</p>
+                        <div class="solution">✓ Automatic timezone conversion with email reminders</div>
+                    </div>
+                    <div class="pain-point">
+                        <h4>❌ Isolation & Awkwardness</h4>
+                        <p>Missing the energy of in-person events. Forced video interactions feel uncomfortable.</p>
+                        <div class="solution">✓ Optional engagement: text chat, profiles, and matchmaking alternatives</div>
+                    </div>
+                    <div class="pain-point">
+                        <h4>❌ Accidental Exits</h4>
+                        <p>Attendees leave sessions by mistake and can't easily rejoin their recordings.</p>
+                        <div class="solution">✓ One-click rejoin and automatic session recording access</div>
+                    </div>
+                    <div class="pain-point">
+                        <h4>❌ Permission Disasters</h4>
+                        <p>Recording issues and permission confusions kill engagement during presentations.</p>
+                        <div class="solution">✓ Simple one-time permissions with clear camera/mic status indicators</div>
+                    </div>
+                    <div class="pain-point">
+                        <h4>❌ Organizer Overwhelm</h4>
+                        <p>Too many options make it impossible for first-time organizers to succeed.</p>
+                        <div class="solution">✓ Smart defaults with optional advanced customization</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Platform Features -->
+        <section class="platform-features">
+            <div class="container">
+                <h2 class="section-title">Core Capabilities</h2>
+                <div class="features-checklist">
+                    <div class="checklist-item">
+                        <p><strong>Live Streaming</strong> - Broadcast to thousands simultaneously</p>
+                    </div>
+                    <div class="checklist-item">
+                        <p><strong>Breakout Rooms</strong> - Parallel sessions without confusion</p>
+                    </div>
+                    <div class="checklist-item">
+                        <p><strong>Auto Recordings</strong> - Sessions saved automatically</p>
+                    </div>
+                    <div class="checklist-item">
+                        <p><strong>Networking Tools</strong> - Organic connection building</p>
+                    </div>
+                    <div class="checklist-item">
+                        <p><strong>Exhibit Halls</strong> - Vendor engagement spaces</p>
+                    </div>
+                    <div class="checklist-item">
+                        <p><strong>Mobile-First</strong> - Works on any device</p>
+                    </div>
+                    <div class="checklist-item">
+                        <p><strong>Analytics</strong> - Track what matters</p>
+                    </div>
+                    <div class="checklist-item">
+                        <p><strong>API & Webhooks</strong> - Custom integrations</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Accessibility Section -->
+        <section class="accessibility" id="accessibility">
+            <div class="container">
+                <div class="accessibility-content">
+                    <div>
+                        <h2>Accessible to Everyone</h2>
+                        <p>Virtual events should include everyone. We've built accessibility into our core platform.</p>
+                        <ul class="accessibility-list">
+                            <li>Screen reader compatible</li>
+                            <li>Live captions & transcripts</li>
+                            <li>Full keyboard navigation</li>
+                            <li>High contrast mode support</li>
+                            <li>WCAG 2.1 AA compliant</li>
+                            <li>ASL interpretation support</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p style="font-size: 16px; line-height: 1.8; color: var(--text);">We believe inclusion isn't an afterthought—it's essential. Our platform serves users with varying comfort with technology, different devices, varying internet speeds, and diverse accessibility needs.</p>
+                        <p style="font-size: 14px; margin-top: 20px; color: #6b7280;">Attendees from volunteers at nonprofit fundraisers to tech-savvy conference pros deserve a platform that works seamlessly for everyone.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <section class="final-cta">
+            <div class="container">
+                <h2>Ready to Host Your Next Virtual Event?</h2>
+                <p>Join hundreds of organizers creating engaging experiences for thousands of attendees.</p>
+                <button class="button-primary" style="background: white; color: var(--primary); border: none;">Start Free Trial</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Security</a></li>
+                        <li><a href="#">Enterprise</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">API Docs</a></li>
+                        <li><a href="#">Status Page</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy</a></li>
+                        <li><a href="#">Terms</a></li>
+                        <li><a href="#">Accessibility</a></li>
+                        <li><a href="#">Compliance</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 EventSpace. All rights reserved. | Made with clarity for virtual events everywhere.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Add scroll effect to header
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 10) {
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Button interactions
+        document.querySelectorAll('.button-primary, .button-secondary, .cta-button').forEach(button => {
+            button.addEventListener('click', function() {
+                alert('Get started dialog would appear here. Redirect to registration/demo booking.');
+            });
+        });
+
+        // Keyboard focus management for accessibility
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Tab') {
+                document.body.style.outline = 'none';
+            }
+        });
+
+        document.addEventListener('mousedown', function() {
+            document.body.style.outline = 'none';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduConnect – Find Your Perfect Tutor</title>
+  <style>
+    :root{
+      --bg:#0b1020;--panel:#11162b;--panel-2:#151b33;--brand:#6ee7ff;--brand-2:#8b5cf6;--ok:#22c55e;--warn:#f59e0b;--err:#ef4444;--text:#e6e9f2;--muted:#9aa3b2;--card:#0f1428;--accent:#1f2a4a;--line:#29304a;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial; background:radial-gradient(1000px 600px at 100% -10%,#1c2450 0%, rgba(28,36,80,0) 60%),
+    linear-gradient(180deg,#0b1020 0%, #0d1326 100%); color:var(--text)}
+    a{color:inherit}
+    .container{max-width:1200px;margin:0 auto;padding:24px}
+    header{position:sticky;top:0;background:rgba(13,19,38,.8);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line);z-index:100}
+    header .row{display:flex;align-items:center;gap:16px;padding:10px 24px}
+    .logo{font-weight:800;letter-spacing:.4px}
+    .logo b{background:linear-gradient(90deg,var(--brand),var(--brand-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+    nav{margin-left:auto;display:flex;gap:14px}
+    nav a{padding:8px 12px;border-radius:10px;color:var(--muted)}
+    nav a.active, nav a:hover{background:var(--panel-2);color:var(--text)}
+    .cta{border:1px solid var(--brand); color:var(--text); background:linear-gradient(180deg, rgba(110,231,255,.15), rgba(139,92,246,.15)); padding:10px 14px;border-radius:12px}
+
+    /* Hero */
+    .hero{padding:40px 24px 10px}
+    .hero h1{font-size:40px;line-height:1.12;margin:0 0 10px}
+    .hero p{color:var(--muted);margin:0 0 22px}
+    .searchbar{display:grid;grid-template-columns:1.2fr 1fr 1fr auto;gap:10px;background:var(--panel);padding:12px;border:1px solid var(--line);border-radius:16px}
+    .searchbar .field{display:flex;flex-direction:column;gap:6px}
+    label{font-size:12px;color:var(--muted)}
+    select,input,button,textarea{font:inherit}
+    .input, select{background:var(--card);border:1px solid var(--line);color:var(--text);padding:10px 12px;border-radius:10px;outline:none}
+    .btn{border:1px solid transparent;background:linear-gradient(90deg,var(--brand),var(--brand-2));color:#061024;font-weight:700;padding:10px 14px;border-radius:12px;cursor:pointer}
+    .btn.secondary{background:none;border-color:var(--line);color:var(--text)}
+
+    /* Filters */
+    .filters{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+    .chip{background:var(--panel-2);border:1px solid var(--line);padding:6px 10px;border-radius:999px;color:var(--muted);cursor:pointer}
+    .chip.active{outline:2px solid var(--brand);color:var(--text)}
+
+    /* Tutor grid */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+    .card header{position:relative;background:linear-gradient(180deg, #182040, #0e1430);border-bottom:1px solid var(--line)}
+    .avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(180deg,#334,#111);border:2px solid #fff1;position:absolute;bottom:-32px;left:16px}
+    .cover{height:80px}
+    .card .body{padding:14px}
+    .stars{color:#ffd166}
+    .tag{font-size:12px;color:var(--muted);border:1px dashed #3b456a;padding:4px 8px;border-radius:8px}
+    .price{font-weight:800}
+    .row{display:flex;align-items:center;gap:10px}
+    .grow{flex:1}
+    .avail{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:8px 0}
+    .dot{height:8px;border-radius:8px;background:#2b365c}
+    .dot.free{background:linear-gradient(180deg,#2dd4bf,#22c55e)}
+
+    .toolbar{display:flex;justify-content:space-between;align-items:center;margin-top:16px;color:var(--muted)}
+    .select{display:flex;align-items:center;gap:8px}
+
+    /* Drawer/Modal */
+    .scrim{position:fixed;inset:0;background:#0008;display:none;align-items:center;justify-content:center;z-index:200}
+    .modal{width:min(900px,92vw);max-height:90vh;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:16px;display:grid;grid-template-columns:1.1fr .9fr}
+    .modal .left{padding:18px;border-right:1px solid var(--line)}
+    .modal .right{padding:18px}
+    .close{position:absolute;top:10px;right:10px;background:transparent;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:6px 8px;cursor:pointer}
+
+    .calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:10px}
+    .slot{padding:8px;border:1px solid var(--line);border-radius:10px;text-align:center;cursor:pointer;background:var(--panel-2)}
+    .slot.unavailable{opacity:.5;filter:grayscale(1);cursor:not-allowed}
+    .slot.selected{outline:2px solid var(--brand)}
+
+    /* Booking wizard */
+    .wizard{display:none}
+    .wizard.active{display:block}
+    .steps{display:flex;gap:6px;margin-bottom:10px}
+    .step{flex:1;height:8px;background:#2b365c;border-radius:999px}
+    .step.done{background:linear-gradient(90deg,var(--brand),var(--brand-2))}
+    .inline{display:flex;gap:10px;align-items:center}
+
+    /* Session room mock */
+    .room{position:fixed;inset:0;background:#0a0f21;display:none;z-index:300}
+    .room header{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;border-bottom:1px solid var(--line);background:#0d1330}
+    .room main{display:grid;grid-template-columns:2fr 1fr;height:calc(100% - 54px)}
+    .video-wrap{padding:16px}
+    video,.whiteboard{width:100%;height:45vh;background:#0a0d1c;border:1px solid var(--line);border-radius:12px}
+    .whiteboard{height:30vh}
+    .sidebar{border-left:1px solid var(--line);display:flex;flex-direction:column}
+    .chat{flex:1;overflow:auto;padding:12px}
+    .chat .msg{margin:8px 0}
+    .chat input{width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:#0f1430;color:var(--text)}
+    .toolbar-room{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line)}
+
+    /* Footer */
+    footer{margin-top:40px;border-top:1px solid var(--line);padding:30px 24px;color:var(--muted)}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .modal{grid-template-columns:1fr}
+    }
+    @media (max-width: 680px){
+      .searchbar{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr}
+      .toolbar{flex-direction:column;gap:8px;align-items:flex-start}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="row">
+      <div class="logo">Edu<b>Connect</b></div>
+      <nav>
+        <a class="active" href="#">Home</a>
+        <a href="#how">How it works</a>
+        <a href="#subjects">Subjects</a>
+        <a href="#">For Tutors</a>
+      </nav>
+      <button class="cta" id="openDashboardBtn" title="Tutor demo dashboard">Tutor Dashboard</button>
+    </div>
+  </header>
+
+  <section class="hero container">
+    <h1>Confident prep starts with the right tutor.</h1>
+    <p>Search by subject and budget, read real reviews, and book a trial in under 60 seconds.</p>
+    <div class="searchbar" role="search" aria-label="Tutor search">
+      <div class="field">
+        <label for="subject">Subject</label>
+        <select id="subject" class="input">
+          <option value="sat">SAT Prep</option>
+          <option value="math">Math</option>
+          <option value="science">Science</option>
+          <option value="essay">Essay Writing</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="budget">Budget (max $/hr): <span id="budgetVal">80</span></label>
+        <input id="budget" class="input" type="range" min="20" max="200" value="80" />
+      </div>
+      <div class="field">
+        <label for="when">When</label>
+        <select id="when" class="input">
+          <option value="any">Anytime</option>
+          <option value="after">Weekdays after 5pm</option>
+          <option value="weekend">Weekends</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>&nbsp;</label>
+        <button id="searchBtn" class="btn" aria-label="Search tutors">Search Tutors</button>
+      </div>
+    </div>
+    <div class="filters" id="filters">
+      <div class="chip active" data-filter="rated">Top Rated</div>
+      <div class="chip" data-filter="trial">Offers Trial</div>
+      <div class="chip" data-filter="group">Group Sessions</div>
+      <div class="chip" data-filter="online">Online Now</div>
+    </div>
+
+    <div class="toolbar">
+      <div class="select">Showing <span id="count">0</span> tutors</div>
+      <div class="select">Sort
+        <select id="sort" class="input">
+          <option value="relevance">Relevance</option>
+          <option value="priceLow">Price: Low to High</option>
+          <option value="priceHigh">Price: High to Low</option>
+          <option value="rating">Rating</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="grid" id="grid" aria-live="polite"></div>
+
+    <section id="how" class="container">
+      <h2>How it works</h2>
+      <ol>
+        <li>Search by subject & budget</li>
+        <li>Compare profiles & reviews</li>
+        <li>Book a free/discounted trial</li>
+        <li>Join your secure video room</li>
+        <li>Keep learning with ongoing plans</li>
+      </ol>
+    </section>
+  </section>
+
+  <div class="scrim" id="profileModal" role="dialog" aria-modal="true" aria-label="Tutor profile">
+    <div class="modal">
+      <button class="close" id="closeProfile">✕</button>
+      <div class="left">
+        <h3 id="p_name">Tutor Name</h3>
+        <div class="row"><span class="stars" id="p_rating">★★★★★</span> <span id="p_reviews" class="tag">120 reviews</span></div>
+        <p id="p_bio" style="color:var(--muted)">Bio goes here…</p>
+        <div class="tag" id="p_subjects">SAT • Math • Science</div>
+        <h4>Availability (next 7 days)</h4>
+        <div id="p_calendar" class="calendar" aria-label="Availability calendar"></div>
+      </div>
+      <div class="right">
+        <div class="row">
+          <div class="price" id="p_price">$60/hr</div>
+          <div class="grow"></div>
+          <select id="p_type" class="input">
+            <option value="trial">Trial (30 min)</option>
+            <option value="std">Standard 1h</option>
+            <option value="intensive">Intensive 2h</option>
+            <option value="group">Group 1h</option>
+          </select>
+        </div>
+        <div style="height:8px"></div>
+        <button class="btn" id="bookBtn">Book session</button>
+        <div class="wizard" id="wizard">
+          <div class="steps">
+            <div class="step" data-step="1"></div>
+            <div class="step" data-step="2"></div>
+            <div class="step" data-step="3"></div>
+            <div class="step" data-step="4"></div>
+          </div>
+          <div id="stepArea"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="room" id="room">
+    <header>
+      <div>Session with <b id="roomTutor">Tutor</b> • <span id="roomTimer">00:00</span></div>
+      <div>
+        <button class="btn secondary" id="toggleMic">Mic</button>
+        <button class="btn secondary" id="toggleCam">Cam</button>
+        <button class="btn" id="endSession">End Session</button>
+      </div>
+    </header>
+    <main>
+      <div class="video-wrap">
+        <video id="localVideo" autoplay playsinline muted title="Your preview"></video>
+        <div style="height:10px"></div>
+        <canvas class="whiteboard" id="whiteboard" title="Whiteboard"></canvas>
+      </div>
+      <aside class="sidebar">
+        <div class="chat" id="chatLog" aria-live="polite"></div>
+        <div class="toolbar-room">
+          <input id="chatInput" placeholder="Type a message and press Enter" />
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <footer class="container">
+    <div>© 2025 EduConnect. Secure payments • Parent accounts • 24/7 support • Reschedule-friendly</div>
+  </footer>
+
+  <script>
+    // ------- Mock data -------
+    const tutors=[
+      {id:1,name:"Maya Chen",subjects:["sat","math","essay"],price:60,rating:4.9,reviews:132,trial:true,group:true,online:true,bio:"Former Princeton TA • 7 years tutoring SAT (1560 avg superscore) and AP Calc.",slots:genSlots()},
+      {id:2,name:"Alex Rivera",subjects:["science","sat"],price:90,rating:4.8,reviews:98,trial:false,group:false,online:false,bio:"Ex-NASA intern • AP Physics wizard. I build confidence with clear step-by-step explanations.",slots:genSlots()},
+      {id:3,name:"Priya Singh",subjects:["essay","sat"],price:70,rating:5.0,reviews:210,trial:true,group:true,online:true,bio:"Harvard Writing Center alum • Personal statements & SAT Reading mastery.",slots:genSlots()},
+      {id:4,name:"Daniel Brooks",subjects:["math"],price:45,rating:4.6,reviews:54,trial:true,group:false,online:true,bio:"Middle/High School Math specialist • Algebra through Calculus.",slots:genSlots()},
+      {id:5,name:"Sara Al-Masri",subjects:["science","math"],price:80,rating:4.9,reviews:176,trial:false,group:true,online:true,bio:"PhD Candidate in Chemistry • AP Chem & Bio with labs and visuals.",slots:genSlots()},
+      {id:6,name:"Ethan Park",subjects:["sat","math","science"],price:110,rating:4.7,reviews:120,trial:true,group:true,online:false,bio:"7000+ hrs experience • Holistic SAT programs + STEM enrichment.",slots:genSlots()},
+    ];
+    function genSlots(){
+      // 7 days x 6 slots/day; true means available
+      return Array.from({length:7},()=>Array.from({length:6},()=>Math.random()>.35));
+    }
+
+    // ------- Utility -------
+    const $=sel=>document.querySelector(sel);
+    const $$=sel=>Array.from(document.querySelectorAll(sel));
+    function fmtPrice(v){return `$${v}/hr`}
+    function stars(r){const full=Math.round(r);return "★★★★★".slice(0,full)+"☆☆☆☆☆".slice(0,5-full)}
+
+    // ------- Search & render -------
+    const grid=$('#grid'),count=$('#count');
+    function applyFilters(){
+      const subject=$('#subject').value; const budget=+$('#budget').value; const when=$('#when').value; const activeFilters=$$('#filters .chip.active').map(c=>c.dataset.filter);
+      let list=tutors.filter(t=>t.subjects.includes(subject)&&t.price<=budget);
+      if(activeFilters.includes('trial')) list=list.filter(t=>t.trial);
+      if(activeFilters.includes('group')) list=list.filter(t=>t.group);
+      if(activeFilters.includes('online')) list=list.filter(t=>t.online);
+      // simple "when" filter: require at least 5 evening/weekend slots
+      if(when==='after') list=list.filter(t=>t.slots.some(day=>day.slice(3).filter(Boolean).length>=2));
+      if(when==='weekend') list=list.filter((_t,i)=>true);
+      const sort=$('#sort').value;
+      list.sort((a,b)=>{
+        if(sort==='priceLow') return a.price-b.price;
+        if(sort==='priceHigh') return b.price-a.price;
+        if(sort==='rating') return b.rating-a.rating;
+        return (b.trial - a.trial) || (b.rating-a.rating); // relevance
+      });
+      renderCards(list); localStorage.setItem('lastSearch',JSON.stringify({subject,budget,when,activeFilters,sort}));
+    }
+
+    function renderCards(list){
+      count.textContent=list.length; grid.innerHTML='';
+      list.forEach(t=>{
+        const hadFree=t.slots.some(day=>day.includes(true));
+        const el=document.createElement('article'); el.className='card'; el.setAttribute('tabindex','0');
+        el.innerHTML=`
+          <header class="cover"></header>
+          <img class="avatar" alt="${t.name}" src="data:image/svg+xml,${encodeURIComponent(avatarSVG(t.name))}"/>
+          <div class="body">
+            <div class="row"><h3 class="grow">${t.name}</h3><span class="price">${fmtPrice(t.price)}</span></div>
+            <div class="row"><span class="stars" aria-label="Rating ${t.rating}">${stars(t.rating)}</span><span class="tag">${t.reviews} reviews</span></div>
+            <p style="color:var(--muted);margin:6px 0">${t.bio}</p>
+            <div class="row"><div class="tag">${t.subjects.map(s=>labelSubject(s)).join(' • ')}</div></div>
+            <div class="avail" aria-label="Weekly availability preview">${previewDots(t.slots)}</div>
+            <div class="row">
+              <button class="btn secondary" aria-label="View ${t.name} profile" data-view="${t.id}">View Profile</button>
+              <div class="grow"></div>
+              <button class="btn" aria-label="Book trial with ${t.name}" data-book="${t.id}" ${hadFree?"":"disabled"}>Book Trial</button>
+            </div>
+          </div>`;
+        grid.appendChild(el);
+      });
+    }
+
+    function avatarSVG(name){
+      const initials=name.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+      return `<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'>\n<defs><linearGradient id='g' x1='0' x2='1'><stop stop-color='#6ee7ff'/><stop offset='1' stop-color='#8b5cf6'/></linearGradient></defs>\n<rect width='100%' height='100%' rx='32' fill='url(#g)'/>\n<text x='50%' y='58%' font-family='Verdana' font-size='28' text-anchor='middle' fill='#0b1020'>${initials}</text>\n</svg>`;
+    }
+
+    function previewDots(slots){
+      return slots.map(day=>{
+        const freeCount=day.filter(Boolean).length;
+        return `<div class='dot ${freeCount>2?"free":""}' title='${freeCount} open slots'></div>`
+      }).join('');
+    }
+
+    function labelSubject(s){
+      return {sat:'SAT',math:'Math',science:'Science',essay:'Essay'}[s]||s;
+    }
+
+    // ------- Profile & booking -------
+    let currentTutor=null, selectedSlot=null;
+    grid.addEventListener('click', e=>{
+      const view=e.target.closest('[data-view]'); const book=e.target.closest('[data-book]');
+      if(view){openProfile(+view.dataset.view)}
+      if(book){openProfile(+book.dataset.book); startBooking('trial')}
+    });
+
+    function openProfile(id){
+      const t=tutors.find(x=>x.id===id); currentTutor=t; selectedSlot=null; $('#p_name').textContent=t.name; $('#p_rating').textContent=stars(t.rating); $('#p_reviews').textContent=t.reviews+" reviews"; $('#p_bio').textContent=t.bio; $('#p_price').textContent=fmtPrice(t.price); $('#p_subjects').textContent=t.subjects.map(labelSubject).join(' • ');
+      const cal=$('#p_calendar'); cal.innerHTML='';
+      const now=new Date();
+      t.slots.forEach((day,di)=>{
+        day.forEach((free,si)=>{
+          const d=new Date(now); d.setDate(now.getDate()+di); d.setHours(14+si,0,0,0); // 2pm + slot index
+          const btn=document.createElement('button'); btn.className='slot'+(free?'':' unavailable'); btn.textContent=d.toLocaleString([], {weekday:'short', hour:'2-digit', minute:'2-digit'});
+          if(free){btn.addEventListener('click',()=>{ $$('.slot').forEach(s=>s.classList.remove('selected')); btn.classList.add('selected'); selectedSlot=d; });}
+          cal.appendChild(btn);
+        });
+      });
+      $('#profileModal').style.display='flex';
+    }
+    $('#closeProfile').onclick=()=>{$('#profileModal').style.display='none'; $('#wizard').classList.remove('active')}
+
+    function startBooking(type){
+      $('#p_type').value=type||'trial'; $('#wizard').classList.add('active'); renderStep(1);
+    }
+    $('#bookBtn').onclick=()=>startBooking($('#p_type').value)
+
+    function renderStep(n){
+      $$('.steps .step').forEach((s,i)=>s.classList.toggle('done',i<n));
+      const area=$('#stepArea');
+      if(n===1){
+        area.innerHTML=`
+          <h3>1) Confirm session type</h3>
+          <p class="tag">Trial sessions are 30 minutes and often free or discounted.</p>
+          <div class="inline">
+            <select id='typeSel' class='input'>${$('#p_type').innerHTML}</select>
+            <button class='btn' id='to2'>Continue</button>
+          </div>`;
+        $('#typeSel').value=$('#p_type').value;
+        $('#to2').onclick=()=>{ $('#p_type').value=$('#typeSel').value; renderStep(2)}
+      }
+      if(n===2){
+        area.innerHTML=`
+          <h3>2) Choose a time</h3>
+          <p>Select a time slot from the availability grid on the left.</p>
+          <div class='inline'><button class='btn' id='to3' ${selectedSlot?"":"disabled"}>Continue</button><button class='btn secondary' id='back1'>Back</button></div>`;
+        const updateNext=()=>$('#to3').disabled=!selectedSlot; updateNext();
+        $('#p_calendar').addEventListener('click',updateNext,{once:true});
+        $('#to3').onclick=()=>renderStep(3); $('#back1').onclick=()=>renderStep(1);
+      }
+      if(n===3){
+        area.innerHTML=`
+          <h3>3) Student details</h3>
+          <div class='field'><label>Student name</label><input id='s_name' class='input' placeholder='Full name' value='Alex Student'></div>
+          <div class='field'><label>Parent email (for confirmations)</label><input id='s_email' class='input' type='email' placeholder='parent@email.com' value='parent@example.com'></div>
+          <div class='field'><label>Goals</label><textarea id='s_goals' class='input' rows='3' placeholder='e.g., Raise SAT Math from 620 to 700+'></textarea></div>
+          <div class='inline'><button class='btn' id='to4'>Continue</button><button class='btn secondary' id='back2'>Back</button></div>`;
+        $('#to4').onclick=()=>renderStep(4); $('#back2').onclick=()=>renderStep(2);
+      }
+      if(n===4){
+        const price=($('#p_type').value==='trial'?0: currentTutor.price);
+        area.innerHTML=`
+          <h3>4) Confirm & Pay</h3>
+          <p class='tag'>${currentTutor.name} • ${$('#p_type').selectedOptions[0].text} • ${selectedSlot?selectedSlot.toLocaleString():''}</p>
+          <p>Total: <b>${price?`$${price}`:'$0 (trial)'}</b></p>
+          <div class='inline'>
+            <input class='input' id='card' inputmode='numeric' placeholder='Card 4242 4242 4242 4242' value='4242424242424242'>
+            <button class='btn' id='confirmPay'>Confirm</button>
+            <button class='btn secondary' id='back3'>Back</button>
+          </div>
+          <p style='color:var(--muted);font-size:12px'>Payment simulated locally. Use any numbers — no data is sent anywhere.</p>`;
+        $('#confirmPay').onclick=completeBooking; $('#back3').onclick=()=>renderStep(3);
+      }
+    }
+
+    function completeBooking(){
+      if(!selectedSlot){alert('Pick a time first'); return}
+      const booking={tutor:currentTutor.name,time:selectedSlot.toString(),type:$('#p_type').value,price:currentTutor.price};
+      const existing=JSON.parse(localStorage.getItem('bookings')||'[]'); existing.push(booking); localStorage.setItem('bookings',JSON.stringify(existing));
+      // Confirmation view
+      $('#stepArea').innerHTML=`
+        <h3>You're booked! 🎉</h3>
+        <p class='tag'>${booking.tutor} • ${$('#p_type').selectedOptions[0].text} • ${new Date(booking.time).toLocaleString()}</p>
+        <div class='inline'>
+          <button class='btn' id='joinNow'>Join video room</button>
+          <button class='btn secondary' id='closeProfile2'>Close</button>
+        </div>
+        <p style='color:var(--muted)'>A calendar invite and reminder would be sent here in production. You can reschedule from the confirmation email or your dashboard.</p>`;
+      $('#joinNow').onclick=()=>{openRoom(currentTutor.name)}; $('#closeProfile2').onclick=()=>{$('#profileModal').style.display='none'}
+    }
+
+    // ------- Session room (mock) -------
+    let mediaStream=null, timerInt=null, seconds=0;
+    async function openRoom(tutorName){
+      $('#roomTutor').textContent=tutorName; $('#room').style.display='block'; seconds=0; updateTimer(); timerInt=setInterval(()=>{seconds++; updateTimer()},1000);
+      try{
+        mediaStream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});
+        $('#localVideo').srcObject=mediaStream;
+      }catch(err){
+        console.warn('Media error',err); const v=$('#localVideo'); v.poster=''; v.insertAdjacentHTML('afterend',`<div class='tag'>Camera/Mic blocked. You can still use chat and the whiteboard.</div>`)
+      }
+      whiteboardInit();
+    }
+    function updateTimer(){
+      const m=String(Math.floor(seconds/60)).padStart(2,'0'); const s=String(seconds%60).padStart(2,'0'); $('#roomTimer').textContent=`${m}:${s}`;
+    }
+    $('#toggleMic').onclick=()=>{if(!mediaStream)return; mediaStream.getAudioTracks().forEach(t=>t.enabled=!t.enabled)}
+    $('#toggleCam').onclick=()=>{if(!mediaStream)return; mediaStream.getVideoTracks().forEach(t=>t.enabled=!t.enabled)}
+    $('#endSession').onclick=()=>{
+      if(mediaStream){mediaStream.getTracks().forEach(t=>t.stop())}
+      clearInterval(timerInt); $('#room').style.display='none';
+      // Post-session feedback & plan prompt
+      alert('Session ended. Students would now see: quick feedback form, homework upload, and the option to book a recurring plan.');
+    }
+
+    // Chat
+    $('#chatInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.value.trim()){pushMsg('You',e.target.value.trim()); e.target.value=''; setTimeout(()=>pushMsg($('#roomTutor').textContent,'Great job! Let\'s review derivatives.'),600)}})
+    function pushMsg(who,text){
+      const el=document.createElement('div'); el.className='msg'; el.innerHTML=`<b>${who}:</b> ${text}`; $('#chatLog').appendChild(el); $('#chatLog').scrollTop=1e9;
+    }
+
+    // Whiteboard
+    function whiteboardInit(){
+      const c=$('#whiteboard'); const ctx=c.getContext('2d'); let drawing=false, last=null;
+      const dpr=window.devicePixelRatio||1; c.width=c.clientWidth*dpr; c.height=c.clientHeight*dpr; ctx.scale(dpr,dpr); ctx.strokeStyle='#8b5cf6'; ctx.lineWidth=2; ctx.lineCap='round';
+      c.onpointerdown=e=>{drawing=true; last=pos(e)}; c.onpointerup=()=>drawing=false; c.onpointerout=()=>drawing=false; c.onpointermove=e=>{if(!drawing)return; const p=pos(e); ctx.beginPath(); ctx.moveTo(last.x,last.y); ctx.lineTo(p.x,p.y); ctx.stroke(); last=p};
+      function pos(e){const r=c.getBoundingClientRect(); return {x:e.clientX-r.left,y:e.clientY-r.top}}
+    }
+
+    // ------- Tutor Dashboard (demo for tutor-side needs) -------
+    const dashHTML=`
+      <div class='modal'>
+        <button class='close' id='closeDash'>✕</button>
+        <div class='left'>
+          <h3>Weekly Availability</h3>
+          <p class='tag'>Drag to toggle slots (mock).</p>
+          <div class='calendar' id='dashCal'></div>
+        </div>
+        <div class='right'>
+          <h3>Rates & Session Types</h3>
+          <div class='field'><label>Hourly rate</label><input id='rateInput' class='input' type='number' value='75'></div>
+          <div class='field'><label><input type='checkbox' id='trialCk' checked> Offer trial sessions</label></div>
+          <div class='field'><label><input type='checkbox' id='groupCk'> Offer group sessions</label></div>
+          <button class='btn' id='saveDash'>Save</button>
+          <div style='height:18px'></div>
+          <h3>Student Progress</h3>
+          <p class='tag'>Record notes and goals after sessions.</p>
+          <div class='field'><label>Latest note</label><textarea id='note' class='input' rows='4' placeholder='Alex: scored 680 on practice test; assign geometry drills #3'></textarea></div>
+          <button class='btn secondary' id='saveNote'>Save note</button>
+        </div>
+      </div>`;
+    const dashScrim=document.createElement('div'); dashScrim.className='scrim'; dashScrim.id='dash'; dashScrim.innerHTML=dashHTML; document.body.appendChild(dashScrim);
+
+    $('#openDashboardBtn').onclick=()=>{dashScrim.style.display='flex'; renderDashCal()}
+    document.addEventListener('click',e=>{ if(e.target.id==='closeDash') dashScrim.style.display='none' })
+
+    function renderDashCal(){
+      const wrap=$('#dashCal'); wrap.innerHTML='';
+      for(let d=0; d<7; d++) for(let s=0; s<6; s++){
+        const cell=document.createElement('div'); cell.className='slot'; cell.textContent=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][d]+` ${14+s}:00`;
+        cell.classList.toggle('selected',Math.random()>.5); cell.onclick=()=>cell.classList.toggle('selected'); wrap.appendChild(cell);
+      }
+      $('#saveDash').onclick=()=>alert('Saved. In production this updates availability and affects search results.');
+      $('#saveNote').onclick=()=>alert('Note saved to student profile with timestamp.');
+    }
+
+    // ------- Init & events -------
+    $('#budget').oninput=e=>$('#budgetVal').textContent=e.target.value
+    $('#searchBtn').onclick=applyFilters; $('#sort').onchange=applyFilters; $$('#filters .chip').forEach(c=>c.onclick=()=>{c.classList.toggle('active'); applyFilters()});
+
+    // restore last search
+    (function(){
+      const last=JSON.parse(localStorage.getItem('lastSearch')||'null'); if(last){
+        $('#subject').value=last.subject; $('#budget').value=last.budget; $('#budgetVal').textContent=last.budget; $('#when').value=last.when; $('#sort').value=last.sort; $$('#filters .chip').forEach(c=>c.classList.toggle('active', last.activeFilters.includes(c.dataset.filter)));
+      }
+      applyFilters();
+    })();
+  </script>
+</body>
+</html>

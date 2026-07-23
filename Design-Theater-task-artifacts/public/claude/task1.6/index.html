@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopLocal - Connect with Local Artisans</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Earthy, organic color palette */
+            --terracotta: #D4785C;
+            --sage: #8B9D83;
+            --cream: #F5F1E8;
+            --charcoal: #3A3A3A;
+            --warm-white: #FFFBF5;
+            --accent-gold: #C89F5D;
+            --muted-blue: #6B8E9E;
+            
+            /* Spacing system */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2.5rem;
+            --space-xl: 4rem;
+            
+            /* Typography */
+            --font-display: 'Georgia', serif;
+            --font-body: 'Verdana', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--warm-white);
+            color: var(--charcoal);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Accessibility skip link */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--terracotta);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Header */
+        header {
+            background: var(--cream);
+            border-bottom: 3px solid var(--sage);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--space-md) var(--space-sm);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: var(--space-md);
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--terracotta);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--sage);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .utility-nav {
+            display: flex;
+            gap: var(--space-sm);
+            align-items: center;
+        }
+
+        .utility-nav a {
+            text-decoration: none;
+            color: var(--charcoal);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .utility-nav a:hover,
+        .utility-nav a:focus {
+            background: var(--sage);
+            color: white;
+            outline: 2px solid var(--sage);
+            outline-offset: 2px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--cream) 0%, var(--warm-white) 100%);
+            padding: var(--space-xl) var(--space-sm) var(--space-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(139, 157, 131, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--charcoal);
+            margin-bottom: var(--space-md);
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: var(--charcoal);
+            margin-bottom: var(--space-xl);
+            max-width: 700px;
+            opacity: 0.9;
+        }
+
+        /* Role Selection Cards */
+        .role-selector {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--space-lg) var(--space-sm);
+        }
+
+        .role-selector h2 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: var(--space-lg);
+            color: var(--charcoal);
+        }
+
+        .role-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .role-card {
+            background: white;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: var(--space-lg);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .role-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--terracotta);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+            transform-origin: left;
+        }
+
+        .role-card:hover::before,
+        .role-card:focus-within::before {
+            transform: scaleX(1);
+        }
+
+        .role-card:hover,
+        .role-card:focus-within {
+            border-color: var(--sage);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            transform: translateY(-4px);
+        }
+
+        .role-card.customer {
+            background: linear-gradient(135deg, #fff 0%, #FFF9F0 100%);
+        }
+
+        .role-card.seller {
+            background: linear-gradient(135deg, #fff 0%, #F5F9F5 100%);
+        }
+
+        .role-card.admin {
+            background: linear-gradient(135deg, #fff 0%, #F5F8FA 100%);
+        }
+
+        .role-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: var(--space-md);
+            transition: transform 0.3s ease;
+        }
+
+        .role-card:hover .role-icon,
+        .role-card:focus-within .role-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .role-card.customer .role-icon {
+            background: rgba(212, 120, 92, 0.15);
+            color: var(--terracotta);
+        }
+
+        .role-card.seller .role-icon {
+            background: rgba(139, 157, 131, 0.15);
+            color: var(--sage);
+        }
+
+        .role-card.admin .role-icon {
+            background: rgba(107, 142, 158, 0.15);
+            color: var(--muted-blue);
+        }
+
+        .role-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            margin-bottom: var(--space-sm);
+            color: var(--charcoal);
+        }
+
+        .role-card p {
+            color: var(--charcoal);
+            opacity: 0.8;
+            margin-bottom: var(--space-md);
+            font-size: 0.95rem;
+        }
+
+        .role-features {
+            list-style: none;
+            margin-bottom: var(--space-md);
+        }
+
+        .role-features li {
+            padding: 0.4rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 0.9rem;
+            color: var(--charcoal);
+        }
+
+        .role-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--sage);
+            font-weight: bold;
+        }
+
+        .role-cta {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: var(--charcoal);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            border: 2px solid var(--charcoal);
+        }
+
+        .role-cta:hover,
+        .role-cta:focus {
+            background: white;
+            color: var(--charcoal);
+            outline: 2px solid var(--charcoal);
+            outline-offset: 2px;
+        }
+
+        /* Trust Signals Section */
+        .trust-section {
+            background: var(--cream);
+            padding: var(--space-xl) var(--space-sm);
+        }
+
+        .trust-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .trust-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-lg);
+            text-align: center;
+        }
+
+        .trust-stat {
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .trust-stat:nth-child(1) { animation-delay: 0.1s; }
+        .trust-stat:nth-child(2) { animation-delay: 0.2s; }
+        .trust-stat:nth-child(3) { animation-delay: 0.3s; }
+        .trust-stat:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+        }
+
+        .trust-number {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            color: var(--terracotta);
+            font-weight: bold;
+            display: block;
+            margin-bottom: var(--space-xs);
+        }
+
+        .trust-label {
+            color: var(--charcoal);
+            font-size: 0.95rem;
+        }
+
+        /* Design Philosophy Section */
+        .philosophy-section {
+            padding: var(--space-xl) var(--space-sm);
+            background: white;
+        }
+
+        .philosophy-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .philosophy-content h2 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            margin-bottom: var(--space-lg);
+            color: var(--charcoal);
+            text-align: center;
+        }
+
+        .design-principles {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-lg);
+            margin-top: var(--space-lg);
+        }
+
+        .principle {
+            padding: var(--space-md);
+            border-left: 4px solid var(--sage);
+            background: var(--warm-white);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .principle h3 {
+            font-family: var(--font-display);
+            color: var(--terracotta);
+            margin-bottom: var(--space-sm);
+            font-size: 1.2rem;
+        }
+
+        .principle p {
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: var(--charcoal);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--charcoal);
+            color: var(--cream);
+            padding: var(--space-lg) var(--space-sm);
+            margin-top: var(--space-xl);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-lg);
+        }
+
+        .footer-section h4 {
+            font-family: var(--font-display);
+            color: var(--accent-gold);
+            margin-bottom: var(--space-sm);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: var(--cream);
+            text-decoration: none;
+            font-size: 0.9rem;
+            line-height: 2;
+            transition: color 0.2s ease;
+        }
+
+        .footer-section a:hover,
+        .footer-section a:focus {
+            color: var(--accent-gold);
+            text-decoration: underline;
+        }
+
+        /* Modal for role details */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-sm);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: var(--space-lg);
+            position: relative;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: var(--space-sm);
+            right: var(--space-sm);
+            background: var(--cream);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover,
+        .modal-close:focus {
+            background: var(--terracotta);
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .modal h2 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            margin-bottom: var(--space-md);
+            color: var(--charcoal);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-md);
+            margin-top: var(--space-md);
+        }
+
+        .feature-item {
+            padding: var(--space-md);
+            background: var(--warm-white);
+            border-radius: 8px;
+            border-left: 3px solid var(--sage);
+        }
+
+        .feature-item h4 {
+            color: var(--terracotta);
+            margin-bottom: var(--space-xs);
+            font-family: var(--font-display);
+        }
+
+        .feature-item p {
+            font-size: 0.9rem;
+            color: var(--charcoal);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                justify-content: center;
+            }
+
+            .utility-nav {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .role-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                text-align: center;
+            }
+
+            .hero-subtitle {
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        /* Keyboard navigation indicators */
+        *:focus {
+            outline: 2px solid var(--terracotta);
+            outline-offset: 2px;
+        }
+
+        button:focus,
+        a:focus {
+            outline-color: var(--sage);
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            :root {
+                --charcoal: #000;
+                --cream: #fff;
+            }
+
+            .role-card {
+                border: 3px solid var(--charcoal);
+            }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header role="banner">
+        <div class="header-content">
+            <a href="/" class="logo" aria-label="ShopLocal Homepage">
+                <span class="logo-icon" aria-hidden="true">🌿</span>
+                <span>ShopLocal</span>
+            </a>
+            <nav class="utility-nav" aria-label="Main navigation">
+                <a href="#browse">Browse</a>
+                <a href="#about">About</a>
+                <a href="#support">Support</a>
+                <a href="#login">Log In</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section class="hero" aria-labelledby="hero-heading">
+            <div class="hero-content">
+                <h1 id="hero-heading">Discover Handcrafted Treasures from Local Artisans</h1>
+                <p class="hero-subtitle">
+                    A marketplace where craftsmanship meets community. Connect directly with 300+ local makers, 
+                    support small businesses, and find one-of-a-kind pieces you won't see anywhere else.
+                </p>
+            </div>
+        </section>
+
+        <section class="role-selector" aria-labelledby="role-heading">
+            <h2 id="role-heading">Choose Your Path</h2>
+            <div class="role-cards">
+                <!-- Customer Card -->
+                <article class="role-card customer" tabindex="0" role="button" 
+                         aria-label="Learn more about shopping on ShopLocal"
+                         onclick="openModal('customer')"
+                         onkeypress="if(event.key==='Enter') openModal('customer')">
+                    <div class="role-icon" aria-hidden="true">🛍️</div>
+                    <h3>Shop Unique Finds</h3>
+                    <p>Discover handmade goods, vintage treasures, and local produce from trusted artisans in your region.</p>
+                    <ul class="role-features" aria-label="Shopping features">
+                        <li>Curated product discovery</li>
+                        <li>Verified seller reviews</li>
+                        <li>Secure checkout</li>
+                        <li>Easy returns & support</li>
+                    </ul>
+                    <a href="#shop" class="role-cta">Start Shopping</a>
+                </article>
+
+                <!-- Seller Card -->
+                <article class="role-card seller" tabindex="0" role="button"
+                         aria-label="Learn more about selling on ShopLocal"
+                         onclick="openModal('seller')"
+                         onkeypress="if(event.key==='Enter') openModal('seller')">
+                    <div class="role-icon" aria-hidden="true">🎨</div>
+                    <h3>Sell Your Craft</h3>
+                    <p>Join our community of makers. Simple tools designed for artisans, not tech experts.</p>
+                    <ul class="role-features" aria-label="Seller features">
+                        <li>Mobile-friendly inventory</li>
+                        <li>One-tap product uploads</li>
+                        <li>Easy order management</li>
+                        <li>No hidden fees</li>
+                    </ul>
+                    <a href="#sell" class="role-cta">Become a Seller</a>
+                </article>
+
+                <!-- Admin Card -->
+                <article class="role-card admin" tabindex="0" role="button"
+                         aria-label="Learn more about platform administration"
+                         onclick="openModal('admin')"
+                         onkeypress="if(event.key==='Enter') openModal('admin')">
+                    <div class="role-icon" aria-hidden="true">⚙️</div>
+                    <h3>Platform Management</h3>
+                    <p>Streamlined oversight tools for maintaining quality and resolving issues efficiently.</p>
+                    <ul class="role-features" aria-label="Admin features">
+                        <li>Quality monitoring dashboard</li>
+                        <li>Vendor application review</li>
+                        <li>Dispute resolution tools</li>
+                        <li>Analytics & insights</li>
+                    </ul>
+                    <a href="#admin" class="role-cta">Admin Portal</a>
+                </article>
+            </div>
+        </section>
+
+        <section class="trust-section" aria-labelledby="trust-heading">
+            <div class="trust-content">
+                <h2 id="trust-heading" class="sr-only">Platform Statistics</h2>
+                <div class="trust-stats">
+                    <div class="trust-stat">
+                        <span class="trust-number" aria-label="300 plus">300+</span>
+                        <span class="trust-label">Local Artisans</span>
+                    </div>
+                    <div class="trust-stat">
+                        <span class="trust-number" aria-label="50,000 plus">50k+</span>
+                        <span class="trust-label">Happy Customers</span>
+                    </div>
+                    <div class="trust-stat">
+                        <span class="trust-number">4.8★</span>
+                        <span class="trust-label">Average Rating</span>
+                    </div>
+                    <div class="trust-stat">
+                        <span class="trust-number">98%</span>
+                        <span class="trust-label">Satisfaction Rate</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="philosophy-section" aria-labelledby="philosophy-heading">
+            <div class="philosophy-content">
+                <h2 id="philosophy-heading">Our Platform Design Philosophy</h2>
+                <div class="design-principles">
+                    <article class="principle">
+                        <h3>Role-Based Navigation</h3>
+                        <p>
+                            Clear entry points for each user type ensure customers, sellers, and admins 
+                            can immediately access their relevant tools without confusion or unnecessary steps.
+                        </p>
+                    </article>
+
+                    <article class="principle">
+                        <h3>Accessibility First</h3>
+                        <p>
+                            WCAG 2.1 AA compliant design with keyboard navigation, screen reader support, 
+                            high contrast modes, and simplified interfaces for users of all technical abilities.
+                        </p>
+                    </article>
+
+                    <article class="principle">
+                        <h3>Mobile-Responsive</h3>
+                        <p>
+                            Optimized for sellers updating inventory at craft fairs and customers browsing 
+                            at farmers markets, with touch-friendly controls and offline capabilities.
+                        </p>
+                    </article>
+
+                    <article class="principle">
+                        <h3>Unified Brand Experience</h3>
+                        <p>
+                            Consistent visual language across all user types—earthy colors, handcrafted feel, 
+                            warm typography—that balances Etsy's polish with local market authenticity.
+                        </p>
+                    </article>
+
+                    <article class="principle">
+                        <h3>Error Recovery</h3>
+                        <p>
+                            One-click undo for accidental orders, draft auto-save for listings, 
+                            clear confirmation steps, and helpful error messages that guide users back on track.
+                        </p>
+                    </article>
+
+                    <article class="principle">
+                        <h3>Progressive Complexity</h3>
+                        <p>
+                            Simple defaults for new users with advanced features revealed progressively. 
+                            Sellers start with basic listings and gradually discover inventory management tools.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>For Customers</h4>
+                <ul>
+                    <li><a href="#categories">Browse Categories</a></li>
+                    <li><a href="#local">Shop Local</a></li>
+                    <li><a href="#gift-guides">Gift Guides</a></li>
+                    <li><a href="#buyer-protection">Buyer Protection</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>For Sellers</h4>
+                <ul>
+                    <li><a href="#apply">Apply to Sell</a></li>
+                    <li><a href="#seller-handbook">Seller Handbook</a></li>
+                    <li><a href="#pricing">Pricing & Fees</a></li>
+                    <li><a href="#seller-support">Seller Support</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#community">Our Community</a></li>
+                    <li><a href="#sustainability">Sustainability</a></li>
+                    <li><a href="#careers">Careers</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#help">Help Center</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                    <li><a href="#accessibility">Accessibility</a></li>
+                    <li><a href="#terms">Terms & Privacy</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal for detailed role information -->
+    <div id="roleModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()" aria-label="Close modal">×</button>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        const modal = document.getElementById('roleModal');
+        const modalBody = document.getElementById('modalBody');
+
+        const roleContent = {
+            customer: {
+                title: 'Shopping Experience',
+                intro: 'Our customer interface prioritizes quick product discovery and trust signals while maintaining the warmth of a local market.',
+                features: [
+                    {
+                        title: 'Smart Discovery',
+                        description: 'Curated collections, location-based recommendations, and filters that actually make sense for handmade goods.'
+                    },
+                    {
+                        title: 'Trust Signals',
+                        description: 'Verified seller badges, detailed maker profiles, authentic customer reviews, and transparent shipping times.'
+                    },
+                    {
+                        title: 'Seamless Checkout',
+                        description: 'Guest checkout option, saved payment methods, order tracking, and straightforward return process.'
+                    },
+                    {
+                        title: 'Mobile Shopping',
+                        description: 'Touch-optimized browsing for browsing at markets, with offline wish lists and one-tap reordering.'
+                    },
+                    {
+                        title: 'Easy Corrections',
+                        description: 'One-click order cancellation within 1 hour, simple return initiation, and clear communication with sellers.'
+                    },
+                    {
+                        title: 'Community Connection',
+                        description: 'Meet the makers through video introductions, studio tours, and stories behind each product.'
+                    }
+                ]
+            },
+            seller: {
+                title: 'Seller Tools',
+                intro: 'Designed for artisans who are experts at their craft, not technology. Simple, mobile-friendly, and respectful of your time.',
+                features: [
+                    {
+                        title: 'Quick Product Upload',
+                        description: 'Photo upload from phone, voice-to-text descriptions, and smart category suggestions. List items in under 2 minutes.'
+                    },
+                    {
+                        title: 'Mobile Inventory',
+                        description: 'Update stock levels between craft fairs with one tap. Mark items sold or update quantities on the go.'
+                    },
+                    {
+                        title: 'Order Management',
+                        description: 'Clear visual order queue, print shipping labels from phone, bulk status updates, and automated customer notifications.'
+                    },
+                    {
+                        title: 'Accessible Interface',
+                        description: 'Large tap targets, high contrast text, screen reader support, and simplified navigation for less tech-savvy users.'
+                    },
+                    {
+                        title: 'Error Prevention',
+                        description: 'Auto-save drafts, undo recent changes, confirmation before deletions, and helpful inline validation.'
+                    },
+                    {
+                        title: 'Transparent Fees',
+                        description: 'Clear pricing calculator, no surprise charges, detailed earnings breakdown, and flexible payout schedule.'
+                    }
+                ]
+            },
+            admin: {
+                title: 'Platform Management',
+                intro: 'Streamlined oversight tools that surface the most important issues without overwhelming your team with noise.',
+                features: [
+                    {
+                        title: 'Quality Dashboard',
+                        description: 'At-a-glance metrics for seller performance, customer satisfaction, and product quality with smart alerts for issues.'
+                    },
+                    {
+                        title: 'Vendor Applications',
+                        description: 'Streamlined review workflow with portfolio preview, automated criteria checks, and bulk approval options.'
+                    },
+                    {
+                        title: 'Dispute Resolution',
+                        description: 'Clear case management, automated information gathering, suggested resolutions, and communication templates.'
+                    },
+                    {
+                        title: 'Moderation Tools',
+                        description: 'Flagged content queue, pattern detection for policy violations, and efficient bulk actions with audit trails.'
+                    },
+                    {
+                        title: 'Analytics & Insights',
+                        description: 'Platform health metrics, growth trends, category performance, and actionable insights without data overload.'
+                    },
+                    {
+                        title: 'Team Collaboration',
+                        description: 'Case assignment, internal notes, workload balancing, and handoff protocols for seamless team coordination.'
+                    }
+                ]
+            }
+        };
+
+        function openModal(role) {
+            const content = roleContent[role];
+            if (!content) return;
+
+            modalBody.innerHTML = `
+                <h2 id="modal-title">${content.title}</h2>
+                <p style="font-size: 1.1rem; margin-bottom: var(--space-lg); opacity: 0.9;">
+                    ${content.intro}
+                </p>
+                <div class="feature-grid">
+                    ${content.features.map(feature => `
+                        <div class="feature-item">
+                            <h4>${feature.title}</h4>
+                            <p>${feature.description}</p>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+
+            modal.classList.add('active');
+            modal.querySelector('.modal-close').focus();
+
+            // Trap focus in modal
+            modal.addEventListener('keydown', trapFocus);
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            modal.removeEventListener('keydown', trapFocus);
+        }
+
+        function trapFocus(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+                return;
+            }
+
+            if (e.key !== 'Tab') return;
+
+            const focusableElements = modal.querySelectorAll(
+                'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+            );
+            const firstElement = focusableElements[0];
+            const lastElement = focusableElements[focusableElements.length - 1];
+
+            if (e.shiftKey && document.activeElement === firstElement) {
+                lastElement.focus();
+                e.preventDefault();
+            } else if (!e.shiftKey && document.activeElement === lastElement) {
+                firstElement.focus();
+                e.preventDefault();
+            }
+        }
+
+        // Close modal when clicking outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Announce to screen readers when modal opens
+        const liveRegion = document.createElement('div');
+        liveRegion.setAttribute('role', 'status');
+        liveRegion.setAttribute('aria-live', 'polite');
+        liveRegion.className = 'sr-only';
+        document.body.appendChild(liveRegion);
+
+        // Screen reader only class
+        const style = document.createElement('style');
+        style.textContent = `
+            .sr-only {
+                position: absolute;
+                width: 1px;
+                height: 1px;
+                padding: 0;
+                margin: -1px;
+                overflow: hidden;
+                clip: rect(0,0,0,0);
+                white-space: nowrap;
+                border-width: 0;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

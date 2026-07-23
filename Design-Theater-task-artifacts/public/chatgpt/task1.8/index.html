@@ -1,0 +1,1102 @@
+<!doctype html>
+<html id="html" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>City of Riverside — Task-First Homepage</title>
+  <meta name="color-scheme" content="light dark" />
+  <style>
+    /* =========================
+       ACCESSIBLE, SYSTEMATIC CSS
+       - WCAG-friendly defaults
+       - No external dependencies
+       - Strong focus states
+       - Min tap size 44x44
+       - Uses CSS vars for easy theming and "text size" control
+       ========================= */
+
+    :root {
+      --base-font-size: 100%;           /* user-adjustable via controls */
+      --font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      --radius: 16px;
+      --space-1: .25rem;
+      --space-2: .5rem;
+      --space-3: .75rem;
+      --space-4: 1rem;
+      --space-5: 1.5rem;
+      --space-6: 2rem;
+      --maxw: 1200px;
+
+      /* Default contrast palette (meets AA on text) */
+      --bg: #ffffff;
+      --text: #111;
+      --muted: #5a5a5a;
+      --card: #f6f6f8;
+      --card-stroke: #e5e7eb;
+      --brand: #0b6cfb;
+      --brand-700: #0647a8;
+      --ok: #0b8d3b;
+      --warn: #b45309;
+      --danger: #b91c1c;
+      --focus: #111;          /* high-contrast focus ring */
+      --link: #0b6cfb;
+      --link-visited: #6b21a8;
+    }
+
+    /* High-contrast mode (toggleable) */
+    body.hc {
+      --bg: #000;
+      --text: #fff;
+      --muted: #ddd;
+      --card: #111;
+      --card-stroke: #444;
+      --brand: #fff; /* ensure distinct from text with borders below */
+      --brand-700: #fff;
+      --focus: #ff0;
+      --link: #9cf;
+      --link-visited: #fc9;
+    }
+
+    html { font-size: var(--base-font-size); }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-family);
+      line-height: 1.5;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+
+    a { color: var(--link); }
+    a:visited { color: var(--link-visited); }
+    a, button {
+      min-height: 44px;        /* target size */
+      min-width: 44px;
+    }
+
+    /* Skip links */
+    .skip-links {
+      position: absolute; top: -1000px; left: 0;
+    }
+    .skip-links a:focus {
+      position: static; display: inline-block; background: var(--brand);
+      color: #fff; padding: var(--space-2) var(--space-4); border-radius: 8px;
+      margin: var(--space-2);
+    }
+
+    /* Header */
+    header {
+      border-bottom: 1px solid var(--card-stroke);
+      background: var(--bg);
+    }
+    .topbar {
+      display: flex; align-items: center; gap: var(--space-4);
+      max-width: var(--maxw); margin: 0 auto; padding: var(--space-3) var(--space-4);
+    }
+    .brand {
+      display: flex; align-items: center; gap: var(--space-3);
+      text-decoration: none; color: inherit;
+    }
+    .brand-mark {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: conic-gradient(from 180deg, #0b6cfb, #0bd1fb, #0b6cfb);
+      border: 3px solid var(--brand);
+      outline: 2px solid #fff3;
+    }
+    .brand h1 {
+      font-size: 1.25rem; margin: 0; letter-spacing: .5px;
+    }
+
+    .utility {
+      margin-left: auto;
+      display: flex; align-items: center; gap: var(--space-2);
+      flex-wrap: wrap;
+    }
+    .utility button, .utility .linkish {
+      background: transparent; color: var(--text); border: 1px solid var(--card-stroke);
+      padding: .5rem .75rem; border-radius: 999px; cursor: pointer;
+      font-size: .95rem;
+    }
+    .utility button:hover { background: var(--card); }
+    .utility .segment {
+      display: inline-flex; border: 1px solid var(--card-stroke); border-radius: 999px;
+      overflow: hidden;
+    }
+    .utility .segment button {
+      border: none; border-right: 1px solid var(--card-stroke); background: transparent;
+    }
+    .utility .segment button[aria-pressed="true"] {
+      background: var(--brand); color: #fff;
+    }
+    .utility .segment button:last-child { border-right: none; }
+
+    /* Emergency banner */
+    .emergency {
+      display: none;
+      border-bottom: 3px solid var(--danger);
+      background: #fff2f2;
+      color: #6b0000;
+    }
+    body.hc .emergency { background: #300; color: #fff; }
+    .emergency.active { display: block; }
+    .emergency .wrap {
+      max-width: var(--maxw); margin: 0 auto; padding: var(--space-3) var(--space-4);
+      display: grid; grid-template-columns: 1fr auto; gap: var(--space-3);
+      align-items: start;
+    }
+    .emergency strong { display: inline-block; margin-right: .5rem; }
+    .emergency-actions { display: flex; gap: var(--space-2); }
+    .emergency button, .emergency a {
+      background: #6b0000; color: #fff; border: none; padding: .5rem .75rem;
+      border-radius: 8px; text-decoration: none;
+    }
+    .emergency a { display: inline-block; }
+    .emergency button:hover, .emergency a:hover { opacity: .9; }
+
+    /* Nav + search */
+    nav.primary {
+      border-bottom: 1px solid var(--card-stroke);
+      background: var(--bg);
+    }
+    .navwrap {
+      max-width: var(--maxw); margin: 0 auto; padding: var(--space-3) var(--space-4);
+      display: flex; gap: var(--space-4); overflow-x: auto;
+    }
+    .pill {
+      flex: 0 0 auto; border: 1px solid var(--card-stroke); border-radius: 999px;
+      padding: .5rem .9rem; text-decoration: none; color: inherit; background: var(--card);
+    }
+    .pill:hover { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+    .search {
+      max-width: var(--maxw); margin: 0 auto; padding: var(--space-4) var(--space-4) 0;
+      display: grid; gap: var(--space-2);
+    }
+    .search form {
+      display: grid; grid-template-columns: 1fr auto; gap: var(--space-2);
+    }
+    .search input[type="search"] {
+      font-size: 1.1rem; padding: .8rem 1rem; border-radius: 12px;
+      border: 1px solid var(--card-stroke);
+    }
+    .search button[type="submit"] {
+      border: 1px solid var(--brand); background: var(--brand); color: #fff;
+      border-radius: 12px; padding: .8rem 1rem; font-size: 1rem; cursor: pointer;
+    }
+    .search .hint { color: var(--muted); font-size: .95rem; }
+
+    /* Main Layout */
+    main { display: block; }
+    .wrap {
+      max-width: var(--maxw); margin: 0 auto; padding: var(--space-4);
+    }
+
+    /* Cards / grids */
+    .grid {
+      display: grid; gap: var(--space-4);
+      grid-template-columns: repeat(12, 1fr);
+    }
+    .col-8 { grid-column: span 8; }
+    .col-4 { grid-column: span 4; }
+    @media (max-width: 960px) {
+      .grid { grid-template-columns: 1fr; }
+      .col-8, .col-4 { grid-column: 1 / -1; }
+    }
+
+    .card {
+      background: var(--card); border: 1px solid var(--card-stroke);
+      border-radius: var(--radius); padding: var(--space-4);
+    }
+    .card h2, .card h3 { margin-top: 0; }
+
+    /* Quick Tasks */
+    .tasks {
+      display: grid; gap: var(--space-3);
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+    .task {
+      display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--space-3);
+      background: #fff; border: 1px solid var(--card-stroke); border-radius: 14px; padding: var(--space-3);
+      text-decoration: none; color: inherit;
+    }
+    body.hc .task { background: #000; }
+    .task:hover { outline: 2px solid var(--brand); outline-offset: 2px; }
+    .task .icon {
+      width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center;
+      background: var(--card); border: 1px solid var(--card-stroke);
+      font-weight: 700;
+    }
+    .task .meta { color: var(--muted); font-size: .9rem; }
+    .fav-btn {
+      border: 1px solid var(--card-stroke); background: var(--card); border-radius: 10px;
+      padding: .35rem .55rem; cursor: pointer;
+    }
+    .fav-btn[aria-pressed="true"] { background: #ffd54d; }
+
+    /* My Stuff */
+    .mystuff-empty { color: var(--muted); }
+
+    /* Status & Alerts */
+    .status-list {
+      list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-2);
+    }
+    .status-item {
+      border-left: 6px solid var(--ok); background: #fff; padding: var(--space-3);
+      border-radius: 8px; border: 1px solid var(--card-stroke);
+    }
+    .status-item.warn { border-left-color: var(--warn); }
+    .status-item.danger { border-left-color: var(--danger); }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--card-stroke);
+      margin-top: var(--space-6); background: var(--bg);
+    }
+    .foot {
+      max-width: var(--maxw); margin: 0 auto; padding: var(--space-5) var(--space-4);
+      display: grid; gap: var(--space-4);
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+    .tiny { font-size: .9rem; color: var(--muted); }
+
+    /* Buttons & focus */
+    :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+
+    /* Visually hidden for screen readers */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
+
+    /* Modal (for full emergency detail) */
+    .modal {
+      position: fixed; inset: 0; background: #0008; display: none; align-items: center; justify-content: center;
+      z-index: 999;
+    }
+    .modal.open { display: flex; }
+    .dialog {
+      background: var(--bg); color: var(--text); border-radius: 16px; padding: var(--space-5);
+      width: min(700px, 94vw); border: 2px solid var(--card-stroke);
+    }
+    .dialog header { display: flex; justify-content: space-between; align-items: center; }
+    .dialog header h3 { margin: 0; }
+    .dialog .close {
+      border: 1px solid var(--card-stroke); background: var(--card); border-radius: 8px; padding: .4rem .6rem;
+    }
+
+    /* Staff demo controls (not for residents; hidden via details) */
+    .staff {
+      border: 2px dashed var(--card-stroke);
+      background: #fffef7;
+    }
+    details summary { cursor: pointer; }
+  </style>
+</head>
+<body>
+  <!-- Skip links for keyboard users -->
+  <nav class="skip-links" aria-label="Skip links">
+    <a href="#main">Skip to main content</a>
+    <a href="#service-search">Skip to service search</a>
+  </nav>
+
+  <!-- Top Header -->
+  <header>
+    <div class="topbar">
+      <a class="brand" href="#" aria-label="City of Riverside home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <h1 data-i18n="siteTitle">City of Riverside</h1>
+      </a>
+
+      <div class="utility" role="group" aria-label="Display and language settings">
+        <!-- Language toggle: sets <html lang> and swaps innerText via i18n -->
+        <div class="segment" role="group" aria-label="Language">
+          <button id="lang-en" type="button" aria-pressed="true" data-lang="en" aria-label="Switch to English">EN</button>
+          <button id="lang-es" type="button" aria-pressed="false" data-lang="es" aria-label="Cambiar a Español">ES</button>
+        </div>
+
+        <!-- Text size: root font-size adjustments, persisted -->
+        <div class="segment" role="group" aria-label="Text size">
+          <button type="button" id="text-smaller" aria-label="Decrease text size">A−</button>
+          <button type="button" id="text-default" aria-label="Reset text size" aria-pressed="true">A</button>
+          <button type="button" id="text-larger" aria-label="Increase text size">A+</button>
+        </div>
+
+        <!-- High contrast toggle -->
+        <button id="contrast" type="button" aria-pressed="false">
+          <span aria-hidden="true">◑</span> <span data-i18n="highContrast">High contrast</span>
+        </button>
+
+        <!-- Sign in (placeholder for SSO or legacy auth) -->
+        <a href="#signin" class="linkish"><span data-i18n="signIn">Sign in</span></a>
+      </div>
+    </div>
+
+    <!-- EMERGENCY BANNER (assertive live region) -->
+    <div id="emergency" class="emergency" role="region" aria-label="Emergency alert">
+      <div class="wrap">
+        <div role="alert" aria-live="assertive">
+          <strong data-i18n="emergencyPrefix">Emergency:</strong>
+          <span id="emergency-text" data-i18n="emergencyMessage">
+            Heat Advisory in effect today. Drink water, check on neighbors, and avoid outdoor activity 12–5pm.
+          </span>
+        </div>
+        <div class="emergency-actions">
+          <a href="#alert-details" id="view-alert" data-i18n="viewDetails">View details</a>
+          <button id="dismiss-alert" type="button" data-i18n="dismiss">Dismiss</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Primary task-based nav (NOT department-based) -->
+    <nav class="primary" aria-label="Primary">
+      <div class="navwrap">
+        <a class="pill" href="#tasks" data-i18n="nav_pay_apply">Pay &amp; Apply</a>
+        <a class="pill" href="#tasks" data-i18n="nav_report_request">Report &amp; Request</a>
+        <a class="pill" href="#tasks" data-i18n="nav_parks">Parks &amp; Recreation</a>
+        <a class="pill" href="#tasks" data-i18n="nav_streets">Transit &amp; Streets</a>
+        <a class="pill" href="#tasks" data-i18n="nav_business">Business &amp; Permits</a>
+        <a class="pill" href="#tasks" data-i18n="nav_safety">Public Safety</a>
+        <a class="pill" href="#council" data-i18n="nav_council">City Council &amp; Meetings</a>
+      </div>
+
+      <!-- Task search with gov-specific synonyms; staff can grow the data list safely -->
+      <div class="search">
+        <label for="service-search" class="sr-only" data-i18n="searchLabel">Search services</label>
+        <form id="search-form" role="search" aria-label="Service search">
+          <input id="service-search" name="q" type="search" list="svc-suggestions"
+                 placeholder="Pay water bill, permit, trash, pothole…" autocomplete="off" />
+          <datalist id="svc-suggestions">
+            <option value="Pay water bill"></option>
+            <option value="Report a pothole"></option>
+            <option value="Building permit"></option>
+            <option value="Trash & recycling schedule"></option>
+            <option value="Park programs"></option>
+            <option value="Business license"></option>
+            <option value="Council meeting minutes"></option>
+            <option value="Emergency alerts"></option>
+          </datalist>
+          <button type="submit" id="search-btn" data-i18n="search">Search</button>
+        </form>
+        <p class="hint" data-i18n="searchHint">Tip: Search by need (e.g., “permit” or “trash”)—no department knowledge required.</p>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main id="main" tabindex="-1">
+    <div class="wrap">
+      <div class="grid" role="region" aria-label="Homepage content">
+        <!-- Left: Top Tasks + My Stuff -->
+        <section class="col-8 card" aria-labelledby="tasks-title" data-slot="top-tasks">
+          <h2 id="tasks-title" data-i18n="topTasks">Top tasks</h2>
+          <div class="tasks" id="tasks">
+            <!--
+              Task items:
+              - aria-label includes clear action text
+              - data-key used for favorites & search mapping
+              - data-url stands in for legacy system links; keep consistent shape for CMS handoff
+            -->
+            <a class="task" href="#pay-water" aria-label="Pay water bill"
+               data-key="pay-water" data-url="/pay/water">
+              <span class="icon" aria-hidden="true">💧</span>
+              <div>
+                <div class="title" data-i18n="task_pay_water">Pay water bill</div>
+                <div class="meta" data-i18n="meta_pay_water">Secure payment—no account required</div>
+              </div>
+              <button class="fav-btn" type="button" aria-pressed="false" aria-label="Save Pay water bill">★</button>
+            </a>
+
+            <a class="task" href="#report-pothole" aria-label="Report a pothole"
+               data-key="pothole" data-url="/report/pothole">
+              <span class="icon" aria-hidden="true">🕳️</span>
+              <div>
+                <div class="title" data-i18n="task_pothole">Report a pothole</div>
+                <div class="meta" data-i18n="meta_pothole">Geo-tag photos; get status updates</div>
+              </div>
+              <button class="fav-btn" type="button" aria-pressed="false" aria-label="Save Report a pothole">★</button>
+            </a>
+
+            <a class="task" href="#building-permit" aria-label="Apply for a building permit"
+               data-key="permit" data-url="/permits/building">
+              <span class="icon" aria-hidden="true">📄</span>
+              <div>
+                <div class="title" data-i18n="task_building_permit">Apply for building permit</div>
+                <div class="meta" data-i18n="meta_building_permit">Guided steps across departments</div>
+              </div>
+              <button class="fav-btn" type="button" aria-pressed="false" aria-label="Save Apply for building permit">★</button>
+            </a>
+
+            <a class="task" href="#track-request" aria-label="Track a service request"
+               data-key="track" data-url="/requests/track">
+              <span class="icon" aria-hidden="true">🧭</span>
+              <div>
+                <div class="title" data-i18n="task_track">Track a service request</div>
+                <div class="meta" data-i18n="meta_track">Enter a number; see real-time status</div>
+              </div>
+              <button class="fav-btn" type="button" aria-pressed="false" aria-label="Save Track a service request">★</button>
+            </a>
+
+            <a class="task" href="#trash" aria-label="Trash and recycling schedule"
+               data-key="trash" data-url="/trash-schedule">
+              <span class="icon" aria-hidden="true">🗑️</span>
+              <div>
+                <div class="title" data-i18n="task_trash">Trash &amp; recycling</div>
+                <div class="meta" data-i18n="meta_trash">Find your pickup day; request a bin</div>
+              </div>
+              <button class="fav-btn" type="button" aria-pressed="false" aria-label="Save Trash and recycling">★</button>
+            </a>
+
+            <a class="task" href="#parks" aria-label="Find park programs"
+               data-key="parks" data-url="/parks/programs">
+              <span class="icon" aria-hidden="true">🌳</span>
+              <div>
+                <div class="title" data-i18n="task_parks">Park programs</div>
+                <div class="meta" data-i18n="meta_parks">Youth & senior activities</div>
+              </div>
+              <button class="fav-btn" type="button" aria-pressed="false" aria-label="Save Park programs">★</button>
+            </a>
+
+            <a class="task" href="#council" aria-label="City Council meetings and minutes"
+               data-key="council" data-url="/council/meetings">
+              <span class="icon" aria-hidden="true">🏛️</span>
+              <div>
+                <div class="title" data-i18n="task_council">Council meetings &amp; minutes</div>
+                <div class="meta" data-i18n="meta_council">Agendas, minutes, watch live</div>
+              </div>
+              <button class="fav-btn" type="button" aria-pressed="false" aria-label="Save Council meetings and minutes">★</button>
+            </a>
+
+            <a class="task" href="#business" aria-label="Business licenses and permits"
+               data-key="business" data-url="/business/licenses">
+              <span class="icon" aria-hidden="true">🏷️</span>
+              <div>
+                <div class="title" data-i18n="task_business">Business licenses &amp; permits</div>
+                <div class="meta" data-i18n="meta_business">One place to start and renew</div>
+              </div>
+              <button class="fav-btn" type="button" aria-pressed="false" aria-label="Save Business licenses and permits">★</button>
+            </a>
+          </div>
+        </section>
+
+        <!-- Right: My Stuff + Service Status -->
+        <aside class="col-4 card" aria-labelledby="my-stuff-title" data-slot="my-stuff">
+          <h2 id="my-stuff-title" data-i18n="myStuff">My Stuff</h2>
+          <p class="tiny" data-i18n="myStuffHint">Save forms & shortcuts you use often.</p>
+          <div id="my-stuff"></div>
+          <button id="clear-favs" class="fav-btn" type="button" style="margin-top: .5rem;" data-i18n="clearAll">Clear all</button>
+        </aside>
+
+        <section class="col-8 card" aria-labelledby="permit-guide-title" data-slot="guided-permits">
+          <h2 id="permit-guide-title" data-i18n="guidedPermits">Guided permits (one path across departments)</h2>
+          <p class="tiny" data-i18n="guidedPermitsCopy">
+            We stitch together the six departmental steps into a single checklist you can save and resume.
+          </p>
+          <ol>
+            <li data-i18n="permitStep1">Answer a few questions about your project.</li>
+            <li data-i18n="permitStep2">We assemble the forms you need and pre-fill what we can.</li>
+            <li data-i18n="permitStep3">Pay fees in one stop (integrates with legacy payment systems).</li>
+            <li data-i18n="permitStep4">Track approvals and inspections in one timeline.</li>
+          </ol>
+          <a class="pill" href="#building-permit" data-i18n="startPermit">Start permit</a>
+        </section>
+
+        <section class="col-4 card" aria-labelledby="status-title" data-slot="status">
+          <h2 id="status-title" data-i18n="serviceStatus">Service status</h2>
+          <ul class="status-list" role="list" id="status-list">
+            <li class="status-item" aria-live="polite">
+              <strong data-i18n="statusWater">Water utility</strong> — <span data-i18n="statusWaterOk">All systems normal</span>
+            </li>
+            <li class="status-item warn" aria-live="polite">
+              <strong data-i18n="statusParks">Parks & Recreation</strong> — <span data-i18n="statusParksWarn">Afternoon programs moved indoors due to heat</span>
+            </li>
+            <li class="status-item danger" aria-live="polite">
+              <strong data-i18n="statusRoads">Roads</strong> — <span data-i18n="statusRoadsDanger">Lane closures on Mission Ave between 3–6pm</span>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Council + Track request -->
+        <section class="col-8 card" id="council" aria-labelledby="council-title" data-slot="council">
+          <h2 id="council-title" data-i18n="councilMeetings">City Council & meetings</h2>
+          <ul>
+            <li><a href="#agenda" data-i18n="agenda">View agendas</a></li>
+            <li><a href="#minutes" data-i18n="minutes">Read minutes</a></li>
+            <li><a href="#watch-live" data-i18n="watchLive">Watch live</a></li>
+          </ul>
+        </section>
+
+        <section class="col-4 card" id="track" aria-labelledby="track-title" data-slot="track">
+          <h2 id="track-title" data-i18n="trackRequest">Track a service request</h2>
+          <form id="track-form">
+            <label for="track-id" data-i18n="trackLabel">Enter your tracking number</label>
+            <input id="track-id" name="track-id" inputmode="numeric" pattern="[0-9]{6}" placeholder="e.g., 123456" />
+            <button type="submit" class="pill" style="margin-top:.5rem" data-i18n="checkStatus">Check status</button>
+          </form>
+          <div id="track-result" role="status" aria-live="polite" class="tiny" style="margin-top:.5rem;"></div>
+        </section>
+
+        <!-- Approach (for stakeholders & transparency) -->
+        <section class="col-12 card" aria-labelledby="approach-title" data-slot="approach">
+          <h2 id="approach-title" data-i18n="approachTitle">Design approach: fast tasks, clear emergencies, full accessibility</h2>
+          <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));">
+            <div>
+              <h3 data-i18n="approachIA_h">Task-first IA</h3>
+              <ul>
+                <li data-i18n="approachIA_1">Everything is organized by resident needs (“Pay, Report, Apply”), not by department.</li>
+                <li data-i18n="approachIA_2">Plain-language search maps everyday terms (“trash”, “permit”) to the right task.</li>
+                <li data-i18n="approachIA_3">Guided permits consolidate six departments into one checklist.</li>
+              </ul>
+            </div>
+            <div>
+              <h3 data-i18n="approachAccess_h">Accessibility & inclusion</h3>
+              <ul>
+                <li data-i18n="approachAccess_1">WCAG-aligned: keyboardable, screen-reader labels, robust focus, text resize & high contrast.</li>
+                <li data-i18n="approachAccess_2">English/Español toggle updates semantics and copy (sets <code>lang</code> correctly).</li>
+                <li data-i18n="approachAccess_3">Mobile-first with large tap targets for seniors and on-the-go parents.</li>
+              </ul>
+            </div>
+            <div>
+              <h3 data-i18n="approachEmerg_h">Emergency comms</h3>
+              <ul>
+                <li data-i18n="approachEmerg_1">Sticky banner with assertive live region + modal details to avoid burying safety info.</li>
+                <li data-i18n="approachEmerg_2">Service Status panel highlights impacted services (heat, closures, outages).</li>
+                <li data-i18n="approachEmerg_3">All messages localizable (English/Español).</li>
+              </ul>
+            </div>
+            <div>
+              <h3 data-i18n="approachOps_h">Operations & integrations</h3>
+              <ul>
+                <li data-i18n="approachOps_1">Deep links to legacy systems (payments, permitting, alerts) via stable <code>data-url</code> slots.</li>
+                <li data-i18n="approachOps_2">“My Stuff” uses local storage now; can bind to accounts later for cross-device continuity.</li>
+                <li data-i18n="approachOps_3">Consistent “content slots” staff can edit without breaking layout.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Staff-only demo controls (safe to remove in production) -->
+          <details class="card staff" style="margin-top:1rem;">
+            <summary><strong>Staff demo controls</strong> (toggle emergencies, language, etc.)</summary>
+            <div style="display:flex; gap:.5rem; flex-wrap:wrap; margin-top:.5rem;">
+              <button type="button" id="demo-emergency-on">Activate emergency banner</button>
+              <button type="button" id="demo-emergency-off">Deactivate emergency banner</button>
+              <button type="button" id="demo-es">Set Español</button>
+              <button type="button" id="demo-en">Set English</button>
+            </div>
+          </details>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="foot">
+      <div>
+        <h3 data-i18n="footerCity">City of Riverside</h3>
+        <p class="tiny">3900 Main St • Riverside, CA 92522</p>
+        <p class="tiny"><a href="#accessibility" data-i18n="footerAccessibility">Accessibility & ADA</a> • <a href="#privacy" data-i18n="footerPrivacy">Privacy</a> • <a href="#contact" data-i18n="footerContact">Contact</a></p>
+      </div>
+      <div>
+        <h3 data-i18n="footerDepartments">Departments A–Z</h3>
+        <p class="tiny" data-i18n="footerDeptCopy">Prefer department pages? Browse the full directory.</p>
+        <a class="pill" href="#departments" data-i18n="viewDepartments">View departments</a>
+      </div>
+      <div>
+        <h3 data-i18n="footerAlerts">Emergency alerts</h3>
+        <p class="tiny" data-i18n="footerAlertsCopy">Sign up for text/email alerts for critical updates.</p>
+        <a class="pill" href="#alerts-signup" data-i18n="signUpAlerts">Sign up</a>
+      </div>
+    </div>
+    <div class="wrap tiny">
+      <p>&copy; <span id="year"></span> <span data-i18n="footerCity">City of Riverside</span>. <span data-i18n="footerRights">All rights reserved.</span></p>
+    </div>
+  </footer>
+
+  <!-- Emergency modal (focus-trapped) -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-body">
+    <div class="dialog">
+      <header>
+        <h3 id="modal-title" data-i18n="emergencyDetailTitle">Heat Advisory — what to do</h3>
+        <button type="button" class="close" id="modal-close" aria-label="Close">✕</button>
+      </header>
+      <div id="modal-body">
+        <p data-i18n="emergencyDetail1">Stay hydrated, limit outdoor activity, and check on neighbors. Cooling centers are open 12–7pm at MLK Center and Eastside Library.</p>
+        <ul>
+          <li data-i18n="emergencyDetail2">Call 911 for emergencies; 311 for city service questions.</li>
+          <li data-i18n="emergencyDetail3">Pets: never leave animals in vehicles; provide shade and water.</li>
+          <li data-i18n="emergencyDetail4">Transit is free to cooling centers during the advisory.</li>
+        </ul>
+        <a class="pill" href="#alerts" data-i18n="moreAlerts">More alerts & resources</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live region for small confirmations -->
+  <div class="sr-only" aria-live="polite" id="live"></div>
+
+  <script>
+    /* ============================================================
+       VANILLA JS: IA, I18N, ACCESSIBILITY, PREFERENCES, INTEGRATIONS
+       - No external scripts
+       ============================================================ */
+
+    const $ = (sel, ctx=document) => ctx.querySelector(sel);
+    const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
+
+    // ============ PREFERENCES (persisted) ============
+    const prefs = {
+      get lang() { return localStorage.getItem('lang') || 'en'; },
+      set lang(v) { localStorage.setItem('lang', v); },
+      get contrast() { return localStorage.getItem('contrast') === '1'; },
+      set contrast(v) { localStorage.setItem('contrast', v ? '1' : '0'); },
+      get fontScale() { return parseFloat(localStorage.getItem('fontScale') || '1'); },
+      set fontScale(v) { localStorage.setItem('fontScale', String(v)); },
+      get favs() { try { return JSON.parse(localStorage.getItem('favs')||'[]'); } catch { return []; } },
+      set favs(arr) { localStorage.setItem('favs', JSON.stringify(arr)); }
+    };
+
+    // ============ I18N (English & Spanish) ============
+    const i18n = {
+      en: {
+        siteTitle: "City of Riverside",
+        highContrast: "High contrast",
+        signIn: "Sign in",
+        emergencyPrefix: "Emergency:",
+        emergencyMessage: "Heat Advisory in effect today. Drink water, check on neighbors, and avoid outdoor activity 12–5pm.",
+        viewDetails: "View details",
+        dismiss: "Dismiss",
+        nav_pay_apply: "Pay & Apply",
+        nav_report_request: "Report & Request",
+        nav_parks: "Parks & Recreation",
+        nav_streets: "Transit & Streets",
+        nav_business: "Business & Permits",
+        nav_safety: "Public Safety",
+        nav_council: "City Council & Meetings",
+        searchLabel: "Search services",
+        search: "Search",
+        searchHint: "Tip: Search by need (e.g., “permit” or “trash”)—no department knowledge required.",
+        topTasks: "Top tasks",
+        task_pay_water: "Pay water bill",
+        meta_pay_water: "Secure payment—no account required",
+        task_pothole: "Report a pothole",
+        meta_pothole: "Geo-tag photos; get status updates",
+        task_building_permit: "Apply for building permit",
+        meta_building_permit: "Guided steps across departments",
+        task_track: "Track a service request",
+        meta_track: "Enter a number; see real-time status",
+        task_trash: "Trash & recycling",
+        meta_trash: "Find your pickup day; request a bin",
+        task_parks: "Park programs",
+        meta_parks: "Youth & senior activities",
+        task_council: "Council meetings & minutes",
+        meta_council: "Agendas, minutes, watch live",
+        task_business: "Business licenses & permits",
+        meta_business: "One place to start and renew",
+        myStuff: "My Stuff",
+        myStuffHint: "Save forms & shortcuts you use often.",
+        clearAll: "Clear all",
+        guidedPermits: "Guided permits (one path across departments)",
+        guidedPermitsCopy: "We stitch together the six departmental steps into a single checklist you can save and resume.",
+        permitStep1: "Answer a few questions about your project.",
+        permitStep2: "We assemble the forms you need and pre-fill what we can.",
+        permitStep3: "Pay fees in one stop (integrates with legacy payment systems).",
+        permitStep4: "Track approvals and inspections in one timeline.",
+        startPermit: "Start permit",
+        serviceStatus: "Service status",
+        statusWater: "Water utility",
+        statusWaterOk: "All systems normal",
+        statusParks: "Parks & Recreation",
+        statusParksWarn: "Afternoon programs moved indoors due to heat",
+        statusRoads: "Roads",
+        statusRoadsDanger: "Lane closures on Mission Ave between 3–6pm",
+        councilMeetings: "City Council & meetings",
+        agenda: "View agendas",
+        minutes: "Read minutes",
+        watchLive: "Watch live",
+        trackRequest: "Track a service request",
+        trackLabel: "Enter your tracking number",
+        checkStatus: "Check status",
+        approachTitle: "Design approach: fast tasks, clear emergencies, full accessibility",
+        approachIA_h: "Task-first IA",
+        approachIA_1: "Everything is organized by resident needs (“Pay, Report, Apply”), not by department.",
+        approachIA_2: "Plain-language search maps everyday terms (“trash”, “permit”) to the right task.",
+        approachIA_3: "Guided permits consolidate six departments into one checklist.",
+        approachAccess_h: "Accessibility & inclusion",
+        approachAccess_1: "WCAG-aligned: keyboardable, screen-reader labels, robust focus, text resize & high contrast.",
+        approachAccess_2: "English/Español toggle updates semantics and copy (sets lang correctly).",
+        approachAccess_3: "Mobile-first with large tap targets for seniors and on-the-go parents.",
+        approachEmerg_h: "Emergency comms",
+        approachEmerg_1: "Sticky banner with assertive live region + modal details to avoid burying safety info.",
+        approachEmerg_2: "Service Status panel highlights impacted services (heat, closures, outages).",
+        approachEmerg_3: "All messages localizable (English/Español).",
+        approachOps_h: "Operations & integrations",
+        approachOps_1: "Deep links to legacy systems (payments, permitting, alerts) via stable data-url slots.",
+        approachOps_2: "“My Stuff” uses local storage now; can bind to accounts later for cross-device continuity.",
+        approachOps_3: "Consistent “content slots” staff can edit without breaking layout.",
+        footerCity: "City of Riverside",
+        footerAccessibility: "Accessibility & ADA",
+        footerPrivacy: "Privacy",
+        footerContact: "Contact",
+        footerDepartments: "Departments A–Z",
+        footerDeptCopy: "Prefer department pages? Browse the full directory.",
+        viewDepartments: "View departments",
+        footerAlerts: "Emergency alerts",
+        footerAlertsCopy: "Sign up for text/email alerts for critical updates.",
+        signUpAlerts: "Sign up",
+        footerRights: "All rights reserved.",
+        emergencyDetailTitle: "Heat Advisory — what to do",
+        emergencyDetail1: "Stay hydrated, limit outdoor activity, and check on neighbors. Cooling centers are open 12–7pm at MLK Center and Eastside Library.",
+        emergencyDetail2: "Call 911 for emergencies; 311 for city service questions.",
+        emergencyDetail3: "Pets: never leave animals in vehicles; provide shade and water.",
+        emergencyDetail4: "Transit is free to cooling centers during the advisory.",
+        moreAlerts: "More alerts & resources"
+      },
+      es: {
+        siteTitle: "Ciudad de Riverside",
+        highContrast: "Alto contraste",
+        signIn: "Iniciar sesión",
+        emergencyPrefix: "Emergencia:",
+        emergencyMessage: "Aviso de calor vigente hoy. Beba agua, verifique a sus vecinos y evite actividades al aire libre de 12 a 5 p. m.",
+        viewDetails: "Ver detalles",
+        dismiss: "Descartar",
+        nav_pay_apply: "Pagar y Solicitar",
+        nav_report_request: "Reportar y Pedir",
+        nav_parks: "Parques y Recreación",
+        nav_streets: "Transporte y Calles",
+        nav_business: "Negocios y Permisos",
+        nav_safety: "Seguridad Pública",
+        nav_council: "Concejo y Reuniones",
+        searchLabel: "Buscar servicios",
+        search: "Buscar",
+        searchHint: "Consejo: Busque por necesidad (ej., “permiso” o “basura”)—no necesita saber el departamento.",
+        topTasks: "Tareas principales",
+        task_pay_water: "Pagar factura de agua",
+        meta_pay_water: "Pago seguro—no requiere cuenta",
+        task_pothole: "Reportar un bache",
+        meta_pothole: "Fotos con geolocalización; reciba actualizaciones",
+        task_building_permit: "Solicitar permiso de construcción",
+        meta_building_permit: "Pasos guiados entre departamentos",
+        task_track: "Rastrear una solicitud",
+        meta_track: "Ingrese un número; vea el estado en tiempo real",
+        task_trash: "Basura y reciclaje",
+        meta_trash: "Encuentre su día de recolección; pida un contenedor",
+        task_parks: "Programas de parques",
+        meta_parks: "Actividades para jóvenes y personas mayores",
+        task_council: "Reuniones y actas del Concejo",
+        meta_council: "Agendas, actas, ver en vivo",
+        task_business: "Licencias y permisos de negocio",
+        meta_business: "Un solo lugar para iniciar y renovar",
+        myStuff: "Mis Favoritos",
+        myStuffHint: "Guarde formularios y accesos que use con frecuencia.",
+        clearAll: "Borrar todo",
+        guidedPermits: "Permisos guiados (un solo recorrido entre departamentos)",
+        guidedPermitsCopy: "Unimos los seis pasos departamentales en una sola lista que puede guardar y continuar.",
+        permitStep1: "Responda algunas preguntas sobre su proyecto.",
+        permitStep2: "Armamos los formularios necesarios y completamos lo posible.",
+        permitStep3: "Pague tarifas en un solo lugar (integra con pagos heredados).",
+        permitStep4: "Rastree aprobaciones e inspecciones en una línea de tiempo.",
+        startPermit: "Iniciar permiso",
+        serviceStatus: "Estado de servicios",
+        statusWater: "Agua",
+        statusWaterOk: "Todos los sistemas normales",
+        statusParks: "Parques y Recreación",
+        statusParksWarn: "Programas de la tarde trasladados a interiores por calor",
+        statusRoads: "Carreteras",
+        statusRoadsDanger: "Cierres de carril en Mission Ave de 3–6 p. m.",
+        councilMeetings: "Concejo y reuniones",
+        agenda: "Ver agendas",
+        minutes: "Leer actas",
+        watchLive: "Ver en vivo",
+        trackRequest: "Rastrear una solicitud",
+        trackLabel: "Ingrese su número de seguimiento",
+        checkStatus: "Ver estado",
+        approachTitle: "Enfoque de diseño: tareas rápidas, emergencias claras, accesibilidad total",
+        approachIA_h: "Arquitectura centrada en tareas",
+        approachIA_1: "Todo se organiza por necesidades de residentes (“Pagar, Reportar, Solicitar”), no por departamento.",
+        approachIA_2: "Búsqueda en lenguaje sencillo mapea términos cotidianos (“basura”, “permiso”) a la tarea correcta.",
+        approachIA_3: "Permisos guiados consolidan seis departamentos en una sola lista.",
+        approachAccess_h: "Accesibilidad e inclusión",
+        approachAccess_1: "Alineado a WCAG: navegable por teclado, etiquetas para lectores de pantalla, foco visible, tamaño de texto y alto contraste.",
+        approachAccess_2: "Interruptor Inglés/Español actualiza semántica y texto (ajusta lang).",
+        approachAccess_3: "Primero móvil con objetivos táctiles grandes.",
+        approachEmerg_h: "Comunicaciones de emergencia",
+        approachEmerg_1: "Franja fija con región en vivo + detalles en modal para no ocultar información de seguridad.",
+        approachEmerg_2: "Panel de Estado resalta servicios afectados (calor, cierres, cortes).",
+        approachEmerg_3: "Todos los mensajes localizables (Inglés/Español).",
+        approachOps_h: "Operaciones e integraciones",
+        approachOps_1: "Vínculos a sistemas heredados (pagos, permisos, alertas) mediante ranuras data-url.",
+        approachOps_2: "“Mis Favoritos” usa almacenamiento local ahora; luego puede unirse a cuentas para continuidad.",
+        approachOps_3: "“Zonas de contenido” consistentes que el personal puede editar sin romper el diseño.",
+        footerCity: "Ciudad de Riverside",
+        footerAccessibility: "Accesibilidad y ADA",
+        footerPrivacy: "Privacidad",
+        footerContact: "Contacto",
+        footerDepartments: "Departamentos A–Z",
+        footerDeptCopy: "¿Prefiere páginas de departamentos? Vea el directorio completo.",
+        viewDepartments: "Ver departamentos",
+        footerAlerts: "Alertas de emergencia",
+        footerAlertsCopy: "Suscríbase a alertas por texto/correo.",
+        signUpAlerts: "Suscribirse",
+        footerRights: "Todos los derechos reservados.",
+        emergencyDetailTitle: "Aviso de calor — qué hacer",
+        emergencyDetail1: "Hidrátese, limite actividad al aire libre y verifique a sus vecinos. Centros de enfriamiento abiertos de 12–7 p. m. en MLK y Biblioteca Eastside.",
+        emergencyDetail2: "Llame al 911 para emergencias; 311 para preguntas de servicios municipales.",
+        emergencyDetail3: "Mascotas: nunca las deje en vehículos; provea sombra y agua.",
+        emergencyDetail4: "Transporte gratuito a centros de enfriamiento durante el aviso.",
+        moreAlerts: "Más alertas y recursos"
+      }
+    };
+
+    function applyI18n(lang) {
+      const dict = i18n[lang] || i18n.en;
+      $$("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (dict[key]) el.innerHTML = dict[key];
+      });
+      // Update <html lang>
+      document.documentElement.lang = lang;
+      // Toggle pressed states
+      $("#lang-en").setAttribute("aria-pressed", String(lang === 'en'));
+      $("#lang-es").setAttribute("aria-pressed", String(lang === 'es'));
+      announce(lang === 'es' ? "Idioma cambiado a Español" : "Language set to English");
+    }
+
+    // ============ CONTRAST & FONT SIZE ============
+    function setContrast(enabled) {
+      document.body.classList.toggle("hc", !!enabled);
+      $("#contrast").setAttribute("aria-pressed", String(!!enabled));
+      announce(enabled ? "High contrast enabled" : "High contrast disabled");
+    }
+    function setFontScale(scale) {
+      const clamped = Math.min(1.4, Math.max(0.9, scale));
+      document.documentElement.style.setProperty("--base-font-size", (clamped * 100) + "%");
+      // Update button pressed states
+      $("#text-default").setAttribute("aria-pressed", String(clamped === 1));
+      announce("Text size adjusted");
+      return clamped;
+    }
+
+    // ============ FAVORITES ("My Stuff") ============
+    function toggleFav(key, pressed) {
+      const favs = new Set(prefs.favs);
+      if (pressed) favs.add(key); else favs.delete(key);
+      prefs.favs = Array.from(favs);
+      renderMyStuff();
+      announce(pressed ? "Saved to My Stuff" : "Removed from My Stuff");
+    }
+    function renderMyStuff() {
+      const container = $("#my-stuff");
+      const favs = new Set(prefs.favs);
+      // Update star buttons
+      $$(".task").forEach(task => {
+        const key = task.getAttribute("data-key");
+        const btn = $(".fav-btn", task);
+        const on = favs.has(key);
+        btn.setAttribute("aria-pressed", String(on));
+      });
+      // Build list
+      container.innerHTML = "";
+      if (!favs.size) {
+        container.innerHTML = `<p class="mystuff-empty" data-i18n="mystuffEmpty">Nothing saved yet. Tap ★ to save a task.</p>`;
+        applyI18n(prefs.lang); // translate empty state if needed
+        return;
+      }
+      const list = document.createElement("ul");
+      list.style.listStyle = "none"; list.style.padding = 0; list.style.margin = 0; list.style.display = "grid"; list.style.gap = ".5rem";
+      favs.forEach(key => {
+        const card = $(`.task[data-key="${key}"]`);
+        if (!card) return;
+        const title = $(".title", card)?.textContent || key;
+        const url = card.getAttribute("data-url") || "#";
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <a class="task" href="${url}" aria-label="${title}">
+            <span class="icon" aria-hidden="true">★</span>
+            <div><div class="title">${title}</div><div class="meta">${url}</div></div>
+            <button class="fav-btn" type="button" aria-pressed="true" aria-label="Remove ${title}">★</button>
+          </a>
+        `;
+        // inner star un-favorite
+        $(".fav-btn", li).addEventListener("click", (e) => {
+          e.preventDefault();
+          toggleFav(key, false);
+        });
+        list.appendChild(li);
+      });
+      container.appendChild(list);
+    }
+
+    // ============ SEARCH MAPPING (plain language -> task) ============
+    const searchMap = [
+      { keys: ["pay water", "water bill", "pagar agua", "bill", "pago"], match: "pay-water" },
+      { keys: ["pothole", "bache", "report hole"], match: "pothole" },
+      { keys: ["permit", "building", "permiso", "construcción"], match: "permit" },
+      { keys: ["track", "status", "seguimiento"], match: "track" },
+      { keys: ["trash", "recycling", "basura", "reciclaje"], match: "trash" },
+      { keys: ["park", "programs", "parques"], match: "parks" },
+      { keys: ["council", "concejo", "minutes", "agendas"], match: "council" },
+      { keys: ["business", "licencia", "license"], match: "business" },
+      { keys: ["alerts", "emergency", "emergencia"], match: "emergency" }
+    ];
+    function handleSearch(q) {
+      if (!q) return;
+      const qc = q.toLowerCase().trim();
+      const hit = searchMap.find(row => row.keys.some(k => qc.includes(k)));
+      if (hit) {
+        const el = $(`.task[data-key="${hit.match}"]`);
+        if (hit.match === "emergency") {
+          showEmergency(true);
+          window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? "auto" : "smooth" });
+          announce("Emergency information shown");
+          return;
+        }
+        if (el) {
+          el.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth", block: "center" });
+          el.classList.add("pulse");
+          setTimeout(() => el.classList.remove("pulse"), 1200);
+          el.focus?.();
+          announce("Jumped to " + $(".title", el).textContent);
+        }
+      } else {
+        alert(prefs.lang === 'es' ? "No se encontró. Intente otra palabra." : "No match found. Try another term.");
+      }
+    }
+
+    // ============ EMERGENCY UX ============
+    function showEmergency(on) {
+      $("#emergency").classList.toggle("active", !!on);
+      localStorage.setItem('emergencyActive', on ? '1' : '0');
+    }
+    function openModal() {
+      const modal = $("#modal");
+      modal.classList.add("open");
+      // Focus trap minimal
+      const focusables = $$('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])', modal)
+        .filter(el => !el.hasAttribute('disabled'));
+      const first = focusables[0], last = focusables[focusables.length - 1];
+      function trap(e) {
+        if (e.key === "Tab") {
+          if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+          else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        } else if (e.key === "Escape") closeModal();
+      }
+      modal.addEventListener("keydown", trap);
+      $("#modal-close").addEventListener("click", closeModal, { once: true });
+      first?.focus();
+    }
+    function closeModal() {
+      $("#modal").classList.remove("open");
+      $("#view-alert").focus();
+    }
+
+    // Reduced motion respect
+    function prefersReducedMotion() {
+      return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    }
+
+    // ============ Announce helper ============
+    function announce(msg) {
+      const live = $("#live");
+      live.textContent = ""; // force change
+      setTimeout(() => live.textContent = msg, 10);
+    }
+
+    // ============ TRACKING DEMO ============
+    $("#track-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const id = $("#track-id").value.trim();
+      const out = $("#track-result");
+      if (!/^\d{6}$/.test(id)) {
+        out.textContent = prefs.lang === 'es'
+          ? "Ingrese un número de 6 dígitos."
+          : "Please enter a 6-digit number.";
+        return;
+      }
+      // Demo statuses (would call legacy service in production)
+      const phase = ["Received", "In Progress", "Scheduled", "Completed"];
+      const msg = prefs.lang === 'es'
+        ? `Solicitud ${id}: ${phase[Math.floor(Math.random()*phase.length)]}.`
+        : `Request ${id}: ${phase[Math.floor(Math.random()*phase.length)]}.`;
+      out.textContent = msg;
+      announce("Status updated");
+    });
+
+    // ============ EVENT LISTENERS & INIT ============
+    // Emergency banner actions
+    $("#dismiss-alert").addEventListener("click", () => showEmergency(false));
+    $("#view-alert").addEventListener("click", (e) => { e.preventDefault(); openModal(); });
+
+    // Pref controls
+    $("#contrast").addEventListener("click", () => { const on = !prefs.contrast; prefs.contrast = on; setContrast(on); });
+    $("#text-smaller").addEventListener("click", () => { prefs.fontScale = setFontScale(prefs.fontScale - 0.1); });
+    $("#text-default").addEventListener("click", () => { prefs.fontScale = setFontScale(1); });
+    $("#text-larger").addEventListener("click", () => { prefs.fontScale = setFontScale(prefs.fontScale + 0.1); });
+
+    // Language buttons
+    $("#lang-en").addEventListener("click", () => { prefs.lang = 'en'; applyI18n('en'); });
+    $("#lang-es").addEventListener("click", () => { prefs.lang = 'es'; applyI18n('es'); });
+
+    // Search
+    $("#search-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      handleSearch($("#service-search").value);
+    });
+
+    // Favorite buttons
+    $$(".task .fav-btn").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const task = e.currentTarget.closest(".task");
+        const key = task.getAttribute("data-key");
+        const now = !(btn.getAttribute("aria-pressed") === "true");
+        btn.setAttribute("aria-pressed", String(now));
+        toggleFav(key, now);
+      });
+    });
+    $("#clear-favs").addEventListener("click", () => { prefs.favs = []; renderMyStuff(); });
+
+    // Staff demo controls
+    $("#demo-emergency-on").addEventListener("click", () => showEmergency(true));
+    $("#demo-emergency-off").addEventListener("click", () => showEmergency(false));
+    $("#demo-es").addEventListener("click", () => { prefs.lang = 'es'; applyI18n('es'); });
+    $("#demo-en").addEventListener("click", () => { prefs.lang = 'en'; applyI18n('en'); });
+
+    // Init
+    (function init(){
+      // year
+      $("#year").textContent = new Date().getFullYear();
+
+      // preferences
+      setContrast(prefs.contrast);
+      setFontScale(prefs.fontScale);
+
+      // language
+      applyI18n(prefs.lang);
+
+      // favorites
+      renderMyStuff();
+
+      // emergency banner state (persisted between visits)
+      const active = localStorage.getItem('emergencyActive') === '1';
+      if (active) showEmergency(true);
+    })();
+  </script>
+
+  <!--
+    ==============================
+    CONTENT GOVERNANCE NOTES
+    ==============================
+    This homepage is built around “content slots” (data-slot attributes) and
+    semantic components (tasks, status items, etc.). Staff can update copy
+    and links without changing structure or styles. Key practices:
+    - Keep headings (h2/h3) intact for screen readers.
+    - Update legacy integration targets via data-url on .task items.
+    - Add/remove Top Tasks by cloning an <a.task> block (preserves a11y).
+    - All user-facing strings are in the i18n map (English & Spanish).
+    - Emergency messaging is one switch away (sticky banner + modal).
+    - AA/AAA features: adjustable text size, high-contrast, keyboard traps avoided,
+      screen-reader announcements, large tap targets, prefers-reduced-motion respected.
+  -->
+</body>
+</html>

@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>City of Riverside — Unified City Services</title>
+    <link rel="stylesheet" href="/style.css" />
+    <meta property="og:image" content="https://bolt.new/static/og_default.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
+  </head>
+  <body>
+    <a href="#main" class="skip-link" data-i18n="skipNav">Skip to main content</a>
+    <a href="#search-form" class="skip-link" data-i18n="skipSearch">Skip to search</a>
+
+    <!-- Emergency Banner -->
+    <div id="emergency-banner" class="emergency-banner emergency-banner--active" role="alert">
+      <div class="emergency-banner__inner">
+        <span class="emergency-banner__icon" aria-hidden="true">⚠</span>
+        <div class="emergency-banner__content">
+          <span class="emergency-banner__label" data-i18n="emergencyLabel">EMERGENCY NOTICE:</span>
+          <span data-i18n="emergencyText">Water service interruption in Zone 4 (Oak Ave to River Rd) today 9 AM–4 PM for emergency repairs. Affected residents: (951) 555-0911.</span>
+          <a href="#" class="emergency-banner__more" data-i18n="emergencyMore">Learn more</a>
+        </div>
+        <button id="dismiss-emergency" class="emergency-banner__close" data-i18n-aria="dismissAlert" aria-label="Dismiss emergency alert">×</button>
+      </div>
+    </div>
+
+    <!-- Accessibility Toolbar -->
+    <div class="a11y-toolbar">
+      <div class="a11y-toolbar__inner">
+        <span class="a11y-toolbar__label" data-i18n="accessibilityLabel">Accessibility:</span>
+        <div class="a11y-toolbar__controls">
+          <button id="text-size-decrease" class="a11y-btn" aria-label="Decrease text size">A−</button>
+          <button id="text-size-normal" class="a11y-btn" aria-label="Reset text size">A</button>
+          <button id="text-size-increase" class="a11y-btn" aria-label="Increase text size">A+</button>
+          <span class="a11y-toolbar__divider" aria-hidden="true"></span>
+          <button id="contrast-toggle" class="a11y-btn" data-i18n="highContrast">High Contrast</button>
+          <span class="a11y-toolbar__divider" aria-hidden="true"></span>
+          <button id="lang-en" class="a11y-btn a11y-btn--active" aria-pressed="true">EN</button>
+          <button id="lang-es" class="a11y-btn" aria-pressed="false">ES</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Site Header -->
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a href="#" class="site-header__logo">
+          <span class="site-header__seal" aria-hidden="true">★</span>
+          <span class="site-header__brand">
+            <span class="site-header__city" data-i18n="cityName">City of Riverside</span>
+            <span class="site-header__tagline" data-i18n="tagline">Serving Our Community</span>
+          </span>
+        </a>
+        <div class="site-header__utilities">
+          <a href="#" class="utility-link" data-i18n="myAccount">My Account</a>
+          <a href="#" class="utility-link" data-i18n="contactUs">Contact Us</a>
+          <a href="#tracker" class="utility-link utility-link--highlight" data-i18n="trackRequest">Track a Request</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Navigation -->
+    <nav id="main-nav" class="main-nav" aria-label="Primary">
+      <div class="main-nav__inner">
+        <button id="mobile-menu-toggle" class="mobile-menu-btn" aria-expanded="false" aria-controls="main-nav" aria-label="Open menu">
+          <span class="mobile-menu-btn__bar"></span>
+          <span class="mobile-menu-btn__bar"></span>
+          <span class="mobile-menu-btn__bar"></span>
+        </button>
+        <ul class="main-nav__list">
+          <li class="main-nav__item">
+            <button class="main-nav__trigger" aria-expanded="false" aria-controls="dropdown-pay">
+              <span class="main-nav__icon" aria-hidden="true">💳</span>
+              <span data-i18n="navPay">Pay</span>
+              <span class="main-nav__chevron" aria-hidden="true">▾</span>
+            </button>
+            <div id="dropdown-pay" class="main-nav__dropdown" hidden>
+              <ul class="dropdown-grid">
+                <li><a href="#" class="dropdown-link" data-i18n="payWater">Water Bill</a></li>
+                <li><a href="#" class="dropdown-link" data-i18n="payParking">Parking Ticket</a></li>
+                <li><a href="#" class="dropdown-link" data-i18n="payTax">Business Tax</a></li>
+                <li><a href="#" class="dropdown-link" data-i18n="payPermit">Permit Fees</a></li>
+                <li><a href="#" class="dropdown-link" data-i18n="payRent">Rent (City Housing)</a></li>
+                <li><a href="#" class="dropdown-link" data-i18n="payFines">Court Fines</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="main-nav__item">
+            <button class="main-nav__trigger" aria-expanded="false" aria-controls="dropdown-report">
+              <span class="main-nav__icon" aria-hidden="true">📣</span>
+              <span data-i18n="navReport">Report</span>
+              <span class="main-nav__chevron" aria-hidden="true">▾</span>
+            </button>
+            <div id="dropdown-report" class="main-nav__dropdown" hidden>
+              <ul class="dropdown-grid">
+                <li><a href="#" class="dropdown-link" data-i18n="reportPothole">Pothole</a></li>
+                <li><a href="#" class="dropdown-link" data-i18n="reportGraffiti">Graffiti</a></li>
+                <li><a href="#" class="dropdown-link" data-i18n="reportLight">Broken Street Light</a></li>
+                <li><a href="#" class="dropdown-link" data-i18n="reportDump">Illegal Dumping</a></li>
+                <li><a href="#" class="dropdown-link" data-i18n="reportNoise">Noise Complaint</a></li>
+                <li><a href="#" class="dropdown-link" data-i18n="reportCode">Code Violation</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="main-nav__item">
+            <button class="main-nav__trigger" aria-expanded="false" aria-controls="dropdown-apply">
+              <span class="main-nav__icon" aria-hidden="true">📝</span>
+              <span data-i18n="navApply">Apply</span>
+              <span class="main-nav__chevron" aria-hidden="true">▾</span>
+            </button>
+            <div id="dropdown-apply" class="main-nav__dropdown" hidden>
+              <ul class="dropdown-grid">
+                <li><a href="#" class="dropdown-link" data-i18n="applyBuild">Building Permit</a></li>
+                <li><a href="#" class="dropdown-link" data-i18n="applyBiz">Business License</a></li>
+                <li><a href="#" class="dropdown-link" data-i18n="applyEvent">Special Event Permit</a></li>
+                <li><a href="#" class="dropdown-link" data-i18n="applyHousing">Affordable Housing</a></li>
+                <li><a href="#" class="dropdown-link" data-i18n="applyJob">City Jobs</a></li>
+                <li><a href="#" class="dropdown-link" data-i18n="applyNeighbor">Neighborhood Grant</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="main-nav__item">
+            <button class="main-nav__trigger" aria-expanded="false" aria-controls="dropdown-find">
+              <span class="main-nav__icon" aria-hidden="true">🔎</span>
+              <span data-i18n="navFind">Find</span>
+              <span class="main-nav__chevron" aria-hidden="true">▾</span>
+            </button>
+            <div id="dropdown-find" class="main-nav__dropdown" hidden>
+              <ul class="dropdown-grid">
+                <li><a href="#" class="dropdown-link" data-i18n="findPark">Parks & Recreation</a></li>
+                <li><a href="#" class="dropdown-link" data-i18n="findLibrary">Library Hours</a></li>
+                <li><a href="#" class="dropdown-link" data-i18n="findRecycle">Trash & Recycling</a></li>
+                <li><a href="#" class="dropdown-link" data-i18n="findCouncil">Council Meetings</a></li>
+                <li><a href="#" class="dropdown-link" data-i18n="findElection">Voting & Elections</a></li>
+                <li><a href="#" class="dropdown-link" data-i18n="findTransit">Transit Routes</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="main-nav__item">
+            <a class="main-nav__trigger main-nav__trigger--track" href="#tracker">
+              <span class="main-nav__icon" aria-hidden="true">📍</span>
+              <span data-i18n="navTrack">Track</span>
+            </a>
+          </li>
+          <li class="main-nav__item">
+            <button class="main-nav__trigger" aria-expanded="false" aria-controls="dropdown-more">
+              <span class="main-nav__icon" aria-hidden="true">＋</span>
+              <span data-i18n="navMore">More Services</span>
+              <span class="main-nav__chevron" aria-hidden="true">▾</span>
+            </button>
+            <div id="dropdown-more" class="main-nav__dropdown" hidden>
+              <ul class="dropdown-grid">
+                <li><a href="#" class="dropdown-link" data-i18n="moreDepts">City Departments</a></li>
+                <li><a href="#" class="dropdown-link" data-i18n="moreMayor">Mayor's Office</a></li>
+                <li><a href="#" class="dropdown-link" data-i18n="moreBudget">City Budget</a></li>
+                <li><a href="#" class="dropdown-link" data-i18n="moreAgenda">Agendas & Minutes</a></li>
+                <li><a href="#" class="dropdown-link" data-i18n="morePublicRecords">Public Records</a></li>
+                <li><a href="#" class="dropdown-link" data-i18n="moreMaps">GIS Maps</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main id="main">
+      <!-- Hero / Search -->
+      <section class="hero">
+        <div class="hero__bg" aria-hidden="true"></div>
+        <div class="hero__content">
+          <h1 class="hero__heading" data-i18n="heroHeading">How can we help you today?</h1>
+          <p class="hero__subheading" data-i18n="heroSub">Find city services, pay bills, report issues, and more — all in one place.</p>
+
+          <form id="search-form" class="search-form" role="search" aria-label="Search city services">
+            <label for="search-input" class="sr-only" data-i18n="searchLabel">Search city services</label>
+            <div class="search-form__field">
+              <span class="search-form__icon" aria-hidden="true">🔍</span>
+              <input id="search-input" class="search-form__input" type="search" autocomplete="off"
+                data-i18n-placeholder="searchPlaceholder"
+                placeholder="Search — e.g. pay water bill, report pothole, building permit..." />
+              <button type="submit" class="search-form__btn" data-i18n="searchBtn">Search</button>
+            </div>
+            <div id="search-results" class="search-autocomplete" hidden></div>
+          </form>
+
+          <div class="hero__popular">
+            <span class="hero__popular-label" data-i18n="popularLabel">Popular:</span>
+            <ul class="hero__popular-list">
+              <li><a class="hero__popular-link" href="#" data-i18n="pop1">Pay water bill</a></li>
+              <li><a class="hero__popular-link" href="#" data-i18n="pop2">Report a pothole</a></li>
+              <li><a class="hero__popular-link" href="#" data-i18n="pop3">Building permits</a></li>
+              <li><a class="hero__popular-link" href="#" data-i18n="pop4">Park programs</a></li>
+              <li><a class="hero__popular-link" href="#" data-i18n="pop5">Trash pickup schedule</a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quick Actions -->
+      <section class="quick-actions container">
+        <header>
+          <h2 class="section-heading section-heading--center" data-i18n="quickActionsHeading">Common Tasks</h2>
+          <p class="section-sub section-sub--center" data-i18n="quickActionsSub">The six tasks residents use most — no searching required.</p>
+        </header>
+        <div class="quick-actions__grid">
+          <a href="#" class="quick-action-card">
+            <span class="quick-action-card__icon" aria-hidden="true">💧</span>
+            <span class="quick-action-card__label" data-i18n="qaWater">Pay Water Bill</span>
+            <span class="quick-action-card__desc" data-i18n="qaWaterDesc">Online payment, due dates, account lookup</span>
+          </a>
+          <a href="#" class="quick-action-card">
+            <span class="quick-action-card__icon" aria-hidden="true">🛣️</span>
+            <span class="quick-action-card__label" data-i18n="qaPothole">Report a Pothole</span>
+            <span class="quick-action-card__desc" data-i18n="qaPotholeDesc">Submit with photo & GPS location</span>
+          </a>
+          <a href="#" class="quick-action-card">
+            <span class="quick-action-card__icon" aria-hidden="true">🏗️</span>
+            <span class="quick-action-card__label" data-i18n="qaPermit">Building Permit</span>
+            <span class="quick-action-card__desc" data-i18n="qaPermitDesc">Apply, check status, schedule inspection</span>
+          </a>
+          <a href="#" class="quick-action-card">
+            <span class="quick-action-card__icon" aria-hidden="true">♻️</span>
+            <span class="quick-action-card__label" data-i18n="qaTrash">Trash & Recycling</span>
+            <span class="quick-action-card__desc" data-i18n="qaTrashDesc">Pickup schedule, holiday changes, bulk pickup</span>
+          </a>
+          <a href="#" class="quick-action-card">
+            <span class="quick-action-card__icon" aria-hidden="true">🌳</span>
+            <span class="quick-action-card__label" data-i18n="qaParks">Park Programs</span>
+            <span class="quick-action-card__desc" data-i18n="qaParksDesc">Register for classes, reserve facilities</span>
+          </a>
+          <a href="#" class="quick-action-card">
+            <span class="quick-action-card__icon" aria-hidden="true">🏪</span>
+            <span class="quick-action-card__label" data-i18n="qaBiz">Business License</span>
+            <span class="quick-action-card__desc" data-i18n="qaBizDesc">New license, renewal, or update your info</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Tracker -->
+      <section id="tracker" class="tracker-section container">
+        <div class="tracker-card">
+          <div class="tracker-card__body">
+            <h2 class="tracker-card__heading" data-i18n="trackerHeading">Track Your Service Request</h2>
+            <p class="tracker-card__info" data-i18n="trackerBody">Enter your confirmation number to check the status of a report, permit application, or service request.</p>
+            <form id="tracker-form" class="tracker-form">
+              <label for="tracker-input" class="sr-only" data-i18n="trackerLabel">Request confirmation number</label>
+              <div class="tracker-form__row">
+                <input id="tracker-input" class="tracker-form__input" type="text"
+                  data-i18n-placeholder="trackerPlaceholder"
+                  placeholder="e.g. RVS-2024-00438" />
+                <button type="submit" class="tracker-form__btn btn btn--primary" data-i18n="trackerBtn">Check Status</button>
+              </div>
+              <p class="tracker-form__hint" data-i18n="trackerHint">Found on your email confirmation receipt from the City of Riverside.</p>
+            </form>
+            <div id="tracker-result" class="tracker-result" hidden></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Life Situations -->
+      <section class="life-situations container">
+        <header>
+          <h2 class="section-heading" data-i18n="situationsHeading">I'm a resident who needs to...</h2>
+          <p class="section-sub" data-i18n="situationsSub">Step-by-step guides for common life events — no jargon, no wrong turns.</p>
+        </header>
+        <div class="situations-grid">
+          <article class="situation-card">
+            <div class="situation-card__icon-wrap" aria-hidden="true">📦</div>
+            <h3 class="situation-card__heading" data-i18n="sitMoving">Move into Riverside</h3>
+            <ol class="situation-card__steps">
+              <li data-i18n="sitMovingS1">Set up water service</li>
+              <li data-i18n="sitMovingS2">Register to vote</li>
+              <li data-i18n="sitMovingS3">Find your trash schedule</li>
+              <li data-i18n="sitMovingS4">Locate nearest library & park</li>
+            </ol>
+            <a class="situation-card__cta" href="#" data-i18n="situationCta">Full guide →</a>
+          </article>
+          <article class="situation-card">
+            <div class="situation-card__icon-wrap" aria-hidden="true">🔨</div>
+            <h3 class="situation-card__heading" data-i18n="sitBuild">Build or Renovate</h3>
+            <ol class="situation-card__steps">
+              <li data-i18n="sitBuildS1">Check zoning requirements</li>
+              <li data-i18n="sitBuildS2">Apply for building permit</li>
+              <li data-i18n="sitBuildS3">Schedule plan review</li>
+              <li data-i18n="sitBuildS4">Request inspection</li>
+            </ol>
+            <a class="situation-card__cta" href="#" data-i18n="situationCta">Full guide →</a>
+          </article>
+          <article class="situation-card">
+            <div class="situation-card__icon-wrap" aria-hidden="true">💼</div>
+            <h3 class="situation-card__heading" data-i18n="sitBizOpen">Open a Business</h3>
+            <ol class="situation-card__steps">
+              <li data-i18n="sitBizS1">Choose business structure</li>
+              <li data-i18n="sitBizS2">Apply for business license</li>
+              <li data-i18n="sitBizS3">Zoning & land use check</li>
+              <li data-i18n="sitBizS4">Health & safety permits</li>
+            </ol>
+            <a class="situation-card__cta" href="#" data-i18n="situationCta">Full guide →</a>
+          </article>
+          <article class="situation-card">
+            <div class="situation-card__icon-wrap" aria-hidden="true">👵</div>
+            <h3 class="situation-card__heading" data-i18n="sitSenior">Senior Services</h3>
+            <ol class="situation-card__steps">
+              <li data-i18n="sitSeniorS1">Senior center programs</li>
+              <li data-i18n="sitSeniorS2">Transportation assistance</li>
+              <li data-i18n="sitSeniorS3">Utility bill assistance</li>
+              <li data-i18n="sitSeniorS4">Meals & nutrition programs</li>
+            </ol>
+            <a class="situation-card__cta" href="#" data-i18n="situationCta">Full guide →</a>
+          </article>
+        </div>
+      </section>
+
+      <!-- News -->
+      <section class="news-section container">
+        <header class="news-section__header">
+          <h2 class="section-heading" data-i18n="newsHeading">City News & Updates</h2>
+          <a href="#" class="utility-link" data-i18n="newsAll">All News →</a>
+        </header>
+        <div class="news-grid">
+          <article class="news-card news-card--alert">
+            <span class="news-card__badge news-card__badge--alert" data-i18n="badgeAlert">Alert</span>
+            <h3 class="news-card__heading" data-i18n="news1Heading">Water Main Repair – Zone 4</h3>
+            <p class="news-card__date" data-i18n="news1Date">April 29, 2026</p>
+            <p class="news-card__body" data-i18n="news1Body">Emergency repairs are underway on Oak Ave. Service will be restored by 4 PM today.</p>
+            <a class="news-card__link" href="#" data-i18n="readMore">Read more</a>
+          </article>
+          <article class="news-card">
+            <span class="news-card__badge" data-i18n="badgeUpdate">Update</span>
+            <h3 class="news-card__heading" data-i18n="news2Heading">Summer Recreation Registration Opens May 1</h3>
+            <p class="news-card__date" data-i18n="news2Date">April 27, 2026</p>
+            <p class="news-card__body" data-i18n="news2Body">Register early for swim lessons, youth sports leagues, and summer camp programs.</p>
+            <a class="news-card__link" href="#" data-i18n="readMore">Read more</a>
+          </article>
+          <article class="news-card">
+            <span class="news-card__badge" data-i18n="badgeNotice">Notice</span>
+            <h3 class="news-card__heading" data-i18n="news3Heading">City Council Meeting – May 6, 6 PM</h3>
+            <p class="news-card__date" data-i18n="news3Date">April 25, 2026</p>
+            <p class="news-card__body" data-i18n="news3Body">Regular city council session. Agenda includes FY2027 budget and infrastructure plan.</p>
+            <a class="news-card__link" href="#" data-i18n="readMore">Read more</a>
+          </article>
+        </div>
+      </section>
+
+      <!-- Departments -->
+      <section class="departments-section container">
+        <header>
+          <h2 class="section-heading section-heading--center" data-i18n="deptsHeading">City Departments</h2>
+          <p class="section-sub section-sub--center" data-i18n="deptsSub">Need to contact a department directly? Find them here.</p>
+        </header>
+        <ul class="dept-grid">
+          <li><a href="#" class="dept-link" data-i18n="deptWater">Water & Utilities</a></li>
+          <li><a href="#" class="dept-link" data-i18n="deptPublicWorks">Public Works</a></li>
+          <li><a href="#" class="dept-link" data-i18n="deptPlanning">Planning & Development</a></li>
+          <li><a href="#" class="dept-link" data-i18n="deptFire">Fire Department</a></li>
+          <li><a href="#" class="dept-link" data-i18n="deptPolice">Police Department</a></li>
+          <li><a href="#" class="dept-link" data-i18n="deptParks">Parks & Recreation</a></li>
+          <li><a href="#" class="dept-link" data-i18n="deptLibrary">Library Services</a></li>
+          <li><a href="#" class="dept-link" data-i18n="deptFinance">Finance & Budget</a></li>
+          <li><a href="#" class="dept-link" data-i18n="deptHR">Human Resources</a></li>
+          <li><a href="#" class="dept-link" data-i18n="deptCityClerk">City Clerk</a></li>
+          <li><a href="#" class="dept-link" data-i18n="deptEcon">Economic Development</a></li>
+          <li><a href="#" class="dept-link" data-i18n="deptHealth">Community Health</a></li>
+        </ul>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <div class="site-footer__brand">
+          <a href="#" class="site-footer__logo-link">
+            <span class="site-footer__city-name" data-i18n="cityName">City of Riverside</span>
+          </a>
+          <p class="site-footer__address" data-i18n="footerAddress">3900 Main Street, Riverside, CA 92522 · (951) 826-5311</p>
+          <p class="site-footer__hours" data-i18n="footerHours">City Hall Hours: Mon–Fri, 8 AM – 5 PM</p>
+        </div>
+        <nav class="site-footer__nav" aria-label="Footer">
+          <div class="site-footer__col">
+            <h3 class="site-footer__col-heading" data-i18n="footerServices">Services</h3>
+            <ul>
+              <li><a href="#" data-i18n="payWater">Water Bill</a></li>
+              <li><a href="#" data-i18n="reportPothole">Pothole</a></li>
+              <li><a href="#" data-i18n="applyBuild">Building Permit</a></li>
+              <li><a href="#" data-i18n="findRecycle">Trash & Recycling</a></li>
+            </ul>
+          </div>
+          <div class="site-footer__col">
+            <h3 class="site-footer__col-heading" data-i18n="footerGov">Government</h3>
+            <ul>
+              <li><a href="#" data-i18n="footerMayor">Mayor's Office</a></li>
+              <li><a href="#" data-i18n="footerCouncil">City Council</a></li>
+              <li><a href="#" data-i18n="footerBudget">Budget & Finance</a></li>
+              <li><a href="#" data-i18n="footerTransparency">Transparency Portal</a></li>
+            </ul>
+          </div>
+          <div class="site-footer__col">
+            <h3 class="site-footer__col-heading" data-i18n="footerHelp">Help & Contact</h3>
+            <ul>
+              <li><a href="#" data-i18n="contactUs">Contact Us</a></li>
+              <li><a href="#" data-i18n="footerFAQ">FAQs</a></li>
+              <li><a href="#" data-i18n="footerAccessibility">Accessibility</a></li>
+              <li><a href="#" data-i18n="footerPrivacy">Privacy Policy</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div class="site-footer__bottom">
+        <div class="site-footer__bottom-inner">
+          <p class="site-footer__copy" data-i18n="footerCopy">© 2026 City of Riverside. All rights reserved.</p>
+          <p class="site-footer__ada">
+            <span data-i18n="footerADA">This website is committed to ADA compliance.</span>
+            <a href="#" data-i18n="reportBarrier">Report an accessibility barrier.</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

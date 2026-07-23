@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PhotoCommunity — Learn, Share, Get Hired</title>
+<style>
+  :root {
+    --bg: #0b0c10;
+    --panel: #111319;
+    --muted: #8b93a7;
+    --text: #e6e8ef;
+    --brand: #6dd6ff;
+    --brand-2: #a6ff9e;
+    --accent: #ffd166;
+    --danger: #ff6b6b;
+    --success: #00c48c;
+    --border: #212433;
+    --chip: #1a1d29;
+    --shadow: 0 10px 30px rgba(0,0,0,.35);
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    color: var(--text); background: radial-gradient(1200px 600px at 80% -200px, #16304b 0%, transparent 60%), var(--bg);
+    line-height: 1.45;
+  }
+  a { color: inherit; text-decoration: none; }
+  .container { width: min(1200px, 100% - 32px); margin-inline: auto; }
+  header {
+    position: sticky; top: 0; z-index: 20; backdrop-filter: blur(8px);
+    background: color-mix(in oklab, var(--bg) 75%, transparent); border-bottom: 1px solid var(--border);
+  }
+  .nav { display: grid; grid-template-columns: 180px 1fr auto; align-items: center; gap: 16px; padding: 12px 0; }
+  .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: .3px; }
+  .logo .dot { width: 12px; height: 12px; border-radius: 99px; background: linear-gradient(135deg, var(--brand), var(--brand-2)); box-shadow: 0 0 0 4px color-mix(in oklab, var(--brand) 12%, transparent); }
+  .search { position: relative; }
+  .search input { width: 100%; background: var(--chip); border: 1px solid var(--border); color: var(--text); border-radius: 12px; padding: 12px 44px 12px 14px; }
+  .search svg { position: absolute; right: 10px; top: 50%; translate: 0 -50%; opacity: .7; }
+  .actions { display: flex; gap: 10px; }
+  .btn { border: 1px solid var(--border); background: var(--chip); color: var(--text); padding: 10px 14px; border-radius: 12px; cursor: pointer; transition: .2s transform, .2s opacity; }
+  .btn:hover { transform: translateY(-1px); }
+  .btn.brand { background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: #0b1020; font-weight: 700; border: none; }
+  .btn.ghost { background: transparent; }
+  
+  /* hero */
+  .hero { padding: 28px 0 8px; display: grid; grid-template-columns: 3fr 2fr; gap: 24px; align-items: stretch; }
+  .hero-card { background: linear-gradient(150deg, #0f1422, #0c0f18); border: 1px solid var(--border); border-radius: 18px; padding: 24px; box-shadow: var(--shadow); position: relative; overflow: hidden; }
+  .hero h1 { margin: 0 0 10px; font-size: clamp(28px, 5vw, 44px); letter-spacing: .2px; }
+  .hero p { margin: 0 0 18px; color: var(--muted); }
+  .hero-ctas { display: flex; gap: 10px; flex-wrap: wrap; }
+  .hero-badges { display: flex; gap: 14px; margin-top: 18px; flex-wrap: wrap; }
+  .chip { background: var(--chip); border: 1px solid var(--border); padding: 8px 10px; border-radius: 999px; color: var(--muted); font-size: 12px; }
+  .hero-card .blob { position: absolute; right: -120px; top: -120px; width: 300px; height: 300px; background: radial-gradient(#1b4a7a, transparent 60%); filter: blur(20px); opacity: .6; }
+  .switcher { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .switcher .tab { text-align: center; padding: 12px; border-radius: 12px; background: var(--chip); border: 1px solid var(--border); cursor: pointer; }
+  .switcher .tab.active { background: linear-gradient(135deg, #1a2436, #151c2b); border-color: #2c3350; }
+
+  /* sections */
+  section { margin: 22px 0; }
+  .grid { display: grid; gap: 16px; }
+  .grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .card { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 14px; }
+  .card h3 { margin: 4px 0 8px; font-size: 18px; }
+  .muted { color: var(--muted); }
+
+  /* featured carousel */
+  .carousel { display: grid; grid-template-columns: 1fr 220px; gap: 16px; align-items: center; }
+  .carousel .slides { position: relative; min-height: 250px; border-radius: 14px; overflow: hidden; border: 1px solid var(--border); background: #0b0f18; }
+  .slide { position: absolute; inset: 0; opacity: 0; transition: opacity .4s; display: grid; place-items: center; }
+  .slide.active { opacity: 1; }
+  .slide img { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.1) saturate(1.05); }
+  .carousel .queue { display: grid; gap: 8px; max-height: 250px; overflow: auto; }
+  .thumb { display: grid; grid-template-columns: 64px 1fr auto; gap: 8px; align-items: center; padding: 6px; border-radius: 12px; border: 1px solid var(--border); background: #0e1220; cursor: pointer; }
+  .thumb.active { outline: 2px solid var(--brand); }
+  .thumb img { width: 64px; height: 48px; object-fit: cover; border-radius: 8px; }
+  .stat { font-size: 12px; color: var(--muted); }
+
+  /* gallery cards */
+  .gallery { position: relative; }
+  .gallery img { width: 100%; height: 160px; object-fit: cover; border-radius: 10px; border: 1px solid var(--border); }
+  .badges { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+  .pill { font-size: 11px; color: #0b1020; background: var(--accent); border-radius: 999px; padding: 6px 8px; font-weight: 700; }
+  .meta { display: flex; gap: 10px; align-items: center; margin-top: 8px; }
+  .avatar { width: 24px; height: 24px; border-radius: 99px; background: linear-gradient(135deg, #445, #222); display: grid; place-items: center; font-size: 12px; border: 1px solid var(--border); }
+
+  /* critiques */
+  .critique { display: grid; grid-template-columns: 48px 1fr auto; gap: 10px; padding: 10px; border: 1px solid var(--border); border-radius: 12px; background: #0e1220; }
+  .vote { display: grid; gap: 6px; place-items: center; }
+  .vote button { background: #0b0f18; border: 1px solid var(--border); color: var(--text); width: 24px; height: 24px; border-radius: 8px; cursor: pointer; }
+  .vote .score { font-size: 12px; color: var(--muted); }
+  .critique .body { font-size: 14px; }
+  .critique .tags { margin-top: 6px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .critique .tags .chip { padding: 4px 8px; }
+  .mark-helpful { font-size: 12px; color: var(--brand); cursor: pointer; }
+
+  /* compose critique */
+  .compose { display: grid; gap: 8px; }
+  textarea { width: 100%; min-height: 80px; resize: vertical; background: #0b0f18; color: var(--text); border: 1px solid var(--border); border-radius: 12px; padding: 10px; }
+  .rubric { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .rubric label { display: grid; gap: 4px; place-items: center; font-size: 12px; color: var(--muted); }
+  .rubric input[type="range"] { width: 100%; }
+  .guidelines { font-size: 12px; color: var(--muted); }
+
+  /* services */
+  .filters { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .filters select, .filters input {
+    background: #0b0f18; color: var(--text); border: 1px solid var(--border); border-radius: 10px; padding: 10px;
+  }
+  .service { display: grid; grid-template-columns: 84px 1fr auto; gap: 12px; align-items: center; }
+  .service .avatar { width: 84px; height: 84px; border-radius: 12px; font-size: 18px; }
+  .rating { color: var(--accent); font-weight: 700; }
+  .trust { display: flex; gap: 8px; font-size: 11px; color: var(--muted); }
+  .trust .ok { color: var(--success); }
+  .lock { color: var(--muted); font-size: 12px; }
+
+  /* modals */
+  dialog { border: 1px solid var(--border); border-radius: 16px; background: var(--panel); color: var(--text); box-shadow: var(--shadow); }
+  dialog::backdrop { background: rgba(0,0,0,.6); }
+  .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 12px; }
+
+  /* footer */
+  footer { border-top: 1px solid var(--border); padding: 20px 0 40px; color: var(--muted); }
+
+  /* responsive */
+  @media (max-width: 960px){ .hero { grid-template-columns: 1fr; } .carousel { grid-template-columns: 1fr; } .grid.cols-4 { grid-template-columns: repeat(2, 1fr);} .grid.cols-3 { grid-template-columns: repeat(2, 1fr);} .filters { grid-template-columns: repeat(2, 1fr);} }
+  @media (max-width: 640px){ .grid.cols-4, .grid.cols-3 { grid-template-columns: 1fr;} .nav { grid-template-columns: 1fr; gap: 8px; } .actions { justify-content: space-between;} }
+</style>
+</head>
+<body>
+<header>
+  <div class="container nav">
+    <div class="logo"><div class="dot"></div> PhotoCommunity</div>
+    <div class="search">
+      <input id="search" placeholder="Search photos, people, services…" aria-label="Search" />
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M21 21l-4.3-4.3M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="2"/></svg>
+    </div>
+    <div class="actions">
+      <button class="btn ghost" id="btn-upload">Upload</button>
+      <button class="btn" id="btn-challenge">Enter Challenge</button>
+      <button class="btn brand" id="btn-join">Join Free</button>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <div class="hero">
+    <div class="hero-card">
+      <div class="blob" aria-hidden="true"></div>
+      <h1>Level up your photography. <span style="color:var(--brand)">Be seen & hired.</span></h1>
+      <p>Upload galleries, receive constructive critiques, win weekly challenges, and connect with clients for events, portraits, and commercial work.</p>
+      <div class="hero-ctas">
+        <button class="btn brand" onclick="scrollToId('community')">Explore Community</button>
+        <button class="btn" onclick="scrollToId('services')">Hire Photographers</button>
+      </div>
+      <div class="hero-badges">
+        <span class="chip">Quality-first feedback</span>
+        <span class="chip">Zero-commission messaging</span>
+        <span class="chip">Reputation you control</span>
+        <span class="chip">Safe, moderated</span>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="switcher" role="tablist" aria-label="Mode">
+        <div id="tab-community" class="tab active" role="tab" aria-selected="true" tabindex="0">Community</div>
+        <div id="tab-hire" class="tab" role="tab" aria-selected="false" tabindex="-1">Hire</div>
+      </div>
+      <div id="panel-community" role="tabpanel" aria-labelledby="tab-community" style="margin-top:12px; display:block;">
+        <div class="grid cols-3">
+          <div class="card">
+            <h3>Weekly Challenge</h3>
+            <p class="muted">Theme: <b>Golden Hour</b> · Ends in <span id="challenge-countdown">–:–:–</span></p>
+            <div class="carousel" style="margin-top:8px;">
+              <div class="slides" id="slides"></div>
+              <div class="queue" id="queue"></div>
+            </div>
+            <div style="display:flex; gap:8px; margin-top:10px;">
+              <button class="btn" onclick="openModal('modal-upload')">Submit Entry</button>
+              <button class="btn ghost" onclick="openModal('modal-rules')">Rules</button>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Active Critiques</h3>
+            <div id="critique-feed" class="grid" style="gap:10px"></div>
+            <button class="btn ghost" onclick="seedMoreCritiques()">Load more</button>
+          </div>
+          <div class="card">
+            <h3>Give a Critique</h3>
+            <div class="compose">
+              <div class="guidelines">Be specific: composition, light, color, subject, and edit. Kind, actionable, concise.</div>
+              <textarea id="critique-text" placeholder="Write a helpful critique…"></textarea>
+              <div class="rubric">
+                <label>Comp
+                  <input type="range" min="1" max="5" value="3" id="r-comp" aria-label="Composition"/>
+                </label>
+                <label>Light
+                  <input type="range" min="1" max="5" value="3" id="r-light" aria-label="Light"/>
+                </label>
+                <label>Color
+                  <input type="range" min="1" max="5" value="3" id="r-color" aria-label="Color"/>
+                </label>
+                <label>Subject
+                  <input type="range" min="1" max="5" value="3" id="r-subject" aria-label="Subject"/>
+                </label>
+                <label>Edit
+                  <input type="range" min="1" max="5" value="3" id="r-edit" aria-label="Edit"/>
+                </label>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+                <div class="muted">Earn <b>Critique Credits</b> to unlock boosts & featured spots.</div>
+                <button class="btn brand" onclick="submitCritique()">Post Critique</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="panel-hire" role="tabpanel" aria-labelledby="tab-hire" style="display:none; margin-top:12px;">
+        <div class="card">
+          <h3>Find a Photographer</h3>
+          <div class="filters" style="margin-top:6px;">
+            <select id="f-type" aria-label="Service type">
+              <option value="all">All Types</option>
+              <option>Weddings</option>
+              <option>Portraits</option>
+              <option>Events</option>
+              <option>Product</option>
+              <option>Real Estate</option>
+            </select>
+            <select id="f-city" aria-label="City">
+              <option value="all">Anywhere</option>
+              <option>New York</option>
+              <option>London</option>
+              <option>Mumbai</option>
+              <option>Sydney</option>
+            </select>
+            <input id="f-budget" type="range" min="200" max="5000" value="1500" aria-label="Budget"/>
+            <div style="display:grid; place-items:center; font-size:12px; color:var(--muted)">Budget: <span id="budget-val">$1500</span></div>
+          </div>
+          <div id="service-list" class="grid cols-3" style="margin-top:12px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section id="community">
+    <div class="grid cols-4" id="gallery-grid"></div>
+  </section>
+
+  <section id="services">
+    <div class="card">
+      <h3>Open Client Requests</h3>
+      <p class="muted">Clients post briefs. Photographers pitch with samples & quotes. Top matches are highlighted by reputation and genre fit.</p>
+      <div class="grid cols-3" id="briefs"></div>
+      <button class="btn" onclick="openModal('modal-brief')">Post a Client Brief</button>
+    </div>
+  </section>
+
+  <section>
+    <div class="grid cols-3">
+      <div class="card">
+        <h3>Reputation & Quality</h3>
+        <p class="muted">You build a <b>Reputation Score</b> from helpful critiques received, challenge performance, and client reviews. Certain features (eg. top placement in search) unlock at score thresholds.</p>
+        <div class="badges">
+          <span class="pill">Constructive ✦</span>
+          <span class="pill" style="background:#9ff6c9">Trusted Pro ★</span>
+          <span class="pill" style="background:#b3b8ff">Challenge Winner 🏆</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Moderation</h3>
+        <p class="muted">Report abusive feedback, spam, or stolen content. Verified community moderators and high-rep members review a queue with evidence and context.</p>
+        <button class="btn ghost" onclick="openModal('modal-report-center')">Open Report Center</button>
+      </div>
+      <div class="card">
+        <h3>Fair Commerce</h3>
+        <p class="muted">Messaging is free. Payments happen off-platform or via our escrow (optional). We surface rates transparently and recommend local pros—no pay-to-win boosts.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="container">
+  <div>© <span id="year"></span> PhotoCommunity · <a href="#" onclick="openModal('modal-rules')">Community Rules</a> · <a href="#" onclick="openModal('modal-brief')">Hire</a></div>
+</footer>
+
+<!-- Modals -->
+<dialog id="modal-upload">
+  <h3>Upload a Gallery</h3>
+  <p class="muted">Add 3–12 photos, write a short intent, and choose genres. Critiques require an <b>intent</b> to guide feedback.</p>
+  <form method="dialog">
+    <input style="display:block; margin:8px 0; width:100%;" type="text" placeholder="Gallery Title"/>
+    <textarea placeholder="What do you want feedback on?" style="width:100%; height:90px"></textarea>
+    <div class="modal-actions">
+      <button class="btn ghost">Cancel</button>
+      <button class="btn brand">Upload</button>
+    </div>
+  </form>
+</dialog>
+<dialog id="modal-rules">
+  <h3>Community Rules</h3>
+  <ul>
+    <li>Assume good intent. Be kind and specific.</li>
+    <li>No personal attacks. Critique the work, not the person.</li>
+    <li>Use the rubric. Low-effort comments may be hidden.</li>
+    <li>Report plagiarism or AI mislabeling.</li>
+  </ul>
+  <div class="modal-actions"><button class="btn brand" onclick="closeModal('modal-rules')">Got it</button></div>
+</dialog>
+<dialog id="modal-brief">
+  <h3>Post a Client Brief</h3>
+  <form method="dialog">
+    <input style="display:block; margin:8px 0; width:100%;" type="text" placeholder="Project Title (eg. Wedding in Pune, Dec 18)"/>
+    <textarea placeholder="Describe scope, date, location, style, budget range" style="width:100%; height:120px"></textarea>
+    <div class="modal-actions">
+      <button class="btn ghost">Cancel</button>
+      <button class="btn brand">Post Brief</button>
+    </div>
+  </form>
+</dialog>
+<dialog id="modal-report">
+  <h3>Report Content</h3>
+  <form method="dialog">
+    <select style="width:100%; margin:8px 0;">
+      <option>Abusive / Harassment</option>
+      <option>Spam / Self-promo</option>
+      <option>Plagiarism / Mislabeling</option>
+      <option>NSFW / Off-theme</option>
+    </select>
+    <textarea placeholder="Add details (optional)" style="width:100%; height:90px"></textarea>
+    <div class="modal-actions">
+      <button class="btn ghost">Cancel</button>
+      <button class="btn brand" onclick="enqueueReport()">Submit</button>
+    </div>
+  </form>
+</dialog>
+<dialog id="modal-report-center">
+  <h3>Report Center (Sample)</h3>
+  <div id="report-queue" class="grid"></div>
+  <div class="modal-actions"><button class="btn brand" onclick="closeModal('modal-report-center')">Close</button></div>
+</dialog>
+<dialog id="modal-quote">
+  <h3>Request a Quote</h3>
+  <form method="dialog">
+    <input style="display:block; margin:8px 0; width:100%;" type="text" placeholder="Your Name"/>
+    <input style="display:block; margin:8px 0; width:100%;" type="email" placeholder="Email"/>
+    <textarea placeholder="Project details & date" style="width:100%; height:100px"></textarea>
+    <div class="modal-actions">
+      <button class="btn ghost">Cancel</button>
+      <button class="btn brand">Send Request</button>
+    </div>
+  </form>
+</dialog>
+
+<script>
+  // --- Utilities ---
+  const $ = (sel, el=document) => el.querySelector(sel);
+  const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
+  const scrollToId = id => { document.getElementById(id)?.scrollIntoView({behavior:'smooth'}); };
+  const openModal = id => document.getElementById(id).showModal();
+  const closeModal = id => document.getElementById(id).close();
+
+  // --- State (sample/demo) ---
+  const featured = [
+    { id: 'f1', title: 'Sunset Ridge', by: 'Riya K', src: placeholder('orange'), likes: 248 },
+    { id: 'f2', title: 'City Reflections', by: 'Luca M', src: placeholder('blue'), likes: 173 },
+    { id: 'f3', title: 'Forest Mist', by: 'Ava N', src: placeholder('green'), likes: 311 },
+    { id: 'f4', title: 'Desert Lines', by: 'Kenji T', src: placeholder('gold'), likes: 199 },
+  ];
+  const galleries = [
+    { id:'g1', title:'Portrait Study #3', user:'AN', city:'London', tags:['Portrait','Studio'], src: placeholder('purple'), stats:{likes:120, comments:12}, rep: 62 },
+    { id:'g2', title:'Monsoon Streets', user:'RK', city:'Mumbai', tags:['Street','Color'], src: placeholder('blue'), stats:{likes:344, comments:43}, rep: 88 },
+    { id:'g3', title:'Kitchen Stories', user:'LM', city:'New York', tags:['Documentary'], src: placeholder('teal'), stats:{likes:210, comments:28}, rep: 77 },
+    { id:'g4', title:'Product: Minimal Watch', user:'TS', city:'Tokyo', tags:['Product','Commercial'], src: placeholder('silver'), stats:{likes:98, comments:9}, rep: 55 },
+    { id:'g5', title:'Wedding by the Lake', user:'EP', city:'Sydney', tags:['Wedding'], src: placeholder('pink'), stats:{likes:402, comments:53}, rep: 91 },
+    { id:'g6', title:'Real Estate: Loft', user:'JJ', city:'Berlin', tags:['Real Estate'], src: placeholder('gray'), stats:{likes:71, comments:6}, rep: 49 },
+    { id:'g7', title:'Golden Hour Beach', user:'AM', city:'Lisbon', tags:['Landscape'], src: placeholder('orange'), stats:{likes:156, comments:17}, rep: 63 },
+    { id:'g8', title:'Food Editorial', user:'YK', city:'Paris', tags:['Food','Commercial'], src: placeholder('red'), stats:{likes:128, comments:11}, rep: 58 }
+  ];
+  let critiques = [
+    { id:'c1', user:'RK', text:'Lovely color palette. Consider moving two steps left to avoid the lamppost intersecting the subject.', tags:['Composition','Color'], score:12 },
+    { id:'c2', user:'LM', text:'Highlights are slightly hot. A -0.2 exposure and lifted shadows could balance.', tags:['Light','Edit'], score:7 },
+    { id:'c3', user:'EP', text:'Great gesture! Try a 35mm next time for context while keeping intimacy.', tags:['Subject','Lens Choice'], score:4 },
+  ];
+  const services = [
+    { id:'s1', name:'Riya Kapoor', genres:['Weddings','Portraits'], city:'Mumbai', rate:1200, rep: 88, reviews: 46 },
+    { id:'s2', name:'Kenji Takeda', genres:['Product','Commercial'], city:'Tokyo', rate:2200, rep: 92, reviews: 31 },
+    { id:'s3', name:'Eleanor Price', genres:['Weddings','Events'], city:'Sydney', rate:1800, rep: 90, reviews: 58 },
+    { id:'s4', name:'Jamal Johnson', genres:['Events','Portraits'], city:'New York', rate:1500, rep: 72, reviews: 22 },
+    { id:'s5', name:'Luca Marin', genres:['Real Estate','Commercial'], city:'London', rate:900, rep: 69, reviews: 18 },
+    { id:'s6', name:'Yara Kim', genres:['Food','Product'], city:'Paris', rate:1400, rep: 80, reviews: 29 },
+  ];
+  let reports = [];
+
+  // --- Init ---
+  window.addEventListener('DOMContentLoaded', () => {
+    $('#year').textContent = new Date().getFullYear();
+    initTabs();
+    renderFeatured();
+    renderCritiques();
+    renderGalleries();
+    renderServices();
+    renderBriefs();
+    initFilters();
+    startCountdown();
+  });
+
+  // --- Tabs ---
+  function initTabs(){
+    const tabC = $('#tab-community');
+    const tabH = $('#tab-hire');
+    tabC.addEventListener('click', ()=>setTab(true));
+    tabH.addEventListener('click', ()=>setTab(false));
+  }
+  function setTab(isCommunity){
+    $('#tab-community').classList.toggle('active', isCommunity);
+    $('#tab-hire').classList.toggle('active', !isCommunity);
+    $('#panel-community').style.display = isCommunity ? 'block' : 'none';
+    $('#panel-hire').style.display = isCommunity ? 'none' : 'block';
+    $('#tab-community').setAttribute('aria-selected', isCommunity);
+    $('#tab-hire').setAttribute('aria-selected', !isCommunity);
+  }
+
+  // --- Featured carousel ---
+  function renderFeatured(){
+    const slides = $('#slides');
+    const queue = $('#queue');
+    featured.forEach((f,i)=>{
+      const s = document.createElement('div'); s.className='slide'+(i===0?' active':'');
+      s.innerHTML = `<img src="${f.src}" alt="${f.title}">`;
+      slides.appendChild(s);
+      const t = document.createElement('div'); t.className='thumb'+(i===0?' active':''); t.setAttribute('data-idx', i);
+      t.innerHTML = `<img src="${f.src}" alt="thumb"><div><div>${f.title}</div><div class="stat">by ${f.by}</div></div><div class="stat">❤ ${f.likes}</div>`;
+      t.addEventListener('click', ()=>activateSlide(i));
+      queue.appendChild(t);
+    });
+  }
+  function activateSlide(i){
+    $$('.slide').forEach((el,idx)=>el.classList.toggle('active', idx===i));
+    $$('.thumb').forEach((el,idx)=>el.classList.toggle('active', idx===i));
+  }
+
+  // --- Critiques ---
+  function renderCritiques(){
+    const feed = $('#critique-feed'); feed.innerHTML = '';
+    critiques.forEach(c=>{
+      const div = document.createElement('div'); div.className='critique';
+      div.innerHTML = `
+        <div class="vote">
+          <button aria-label="Upvote" onclick="vote('${c.id}',1)">▲</button>
+          <div class="score" id="score-${c.id}">${c.score}</div>
+          <button aria-label="Downvote" onclick="vote('${c.id}',-1)">▼</button>
+        </div>
+        <div class="body">
+          <div><b>${c.user}</b> <span class="muted">on your photo</span></div>
+          <div>${escapeHtml(c.text)}</div>
+          <div class="tags">${c.tags.map(t=>`<span class='chip'>${t}</span>`).join('')}</div>
+          <div class="muted" style="margin-top:6px;"><span class="mark-helpful" onclick="markHelpful('${c.id}')">Mark helpful</span> · <a href="#" onclick="openModal('modal-report')">Report</a></div>
+        </div>
+        <div><button class="btn" onclick="reply('${c.id}')">Reply</button></div>`;
+      feed.appendChild(div);
+    });
+  }
+  function vote(id, delta){
+    const c = critiques.find(x=>x.id===id); if(!c) return; c.score = Math.max(0, c.score + delta); $(`#score-${id}`).textContent = c.score;
+  }
+  function markHelpful(id){ alert('Thanks! This helps surface constructive feedback.'); }
+  function reply(id){ prompt('Write a short reply:'); }
+  function submitCritique(){
+    const text = $('#critique-text').value.trim(); if(!text) return alert('Write something helpful first.');
+    const c = { id: 'c'+(Math.random()*1e5|0), user:'You', text, tags:['Community'], score:1 };
+    critiques.unshift(c); renderCritiques(); $('#critique-text').value=''; alert('Posted! +1 Critique Credit earned.');
+  }
+  function seedMoreCritiques(){
+    critiques.push({id:'c'+(Math.random()*1e5|0), user:'JJ', text:'Consider a slower shutter for motion blur to imply speed.', tags:['Technique'], score:2});
+    renderCritiques();
+  }
+
+  // --- Galleries ---
+  function renderGalleries(){
+    const grid = $('#gallery-grid'); grid.innerHTML='';
+    galleries.forEach(g=>{
+      const card = document.createElement('div'); card.className='card gallery';
+      card.innerHTML = `
+        <img src="${g.src}" alt="${g.title}">
+        <h3>${g.title}</h3>
+        <div class="meta">
+          <div class="avatar" title="${g.user}">${g.user}</div>
+          <div class="muted">${g.city}</div>
+          <div class="muted">❤ ${g.stats.likes}</div>
+          <div class="muted">💬 ${g.stats.comments}</div>
+        </div>
+        <div class="badges">${g.tags.map(t=>`<span class='chip'>${t}</span>`).join('')}</div>
+        <div class="muted" style="margin-top:6px; display:flex; justify-content:space-between; align-items:center;">
+          <span>Reputation: <b>${g.rep}</b></span>
+          <a class="muted" href="#" onclick="openModal('modal-report')">Report</a>
+        </div>`;
+      grid.appendChild(card);
+    });
+  }
+
+  // --- Services Marketplace ---
+  function initFilters(){
+    $('#f-budget').addEventListener('input', (e)=> $('#budget-val').textContent = '$'+e.target.value);
+    $('#f-type').addEventListener('change', renderServices);
+    $('#f-city').addEventListener('change', renderServices);
+    $('#f-budget').addEventListener('change', renderServices);
+  }
+  function renderServices(){
+    const type = $('#f-type').value; const city = $('#f-city').value; const budget = +$('#f-budget').value;
+    const list = $('#service-list'); list.innerHTML='';
+    services
+      .filter(s => (type==='all'||s.genres.includes(type)) && (city==='all'||s.city===city) && s.rate<=budget)
+      .sort((a,b)=> b.rep - a.rep)
+      .forEach(s=>{
+        const canTopPlace = s.rep>=75; // quality gate for top placement
+        const card = document.createElement('div'); card.className='card service';
+        card.innerHTML = `
+          <div class="avatar">${initials(s.name)}</div>
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+              <div>
+                <b>${s.name}</b> <span class="muted">· ${s.city}</span>
+                <div class="muted">${s.genres.join(' · ')}</div>
+              </div>
+              <div class="rating">★ ${(4 + (s.rep%10)/20).toFixed(1)}</div>
+            </div>
+            <div class="trust"><span class="ok">✔ Verified ID</span><span>✦ ${s.reviews} reviews</span><span>Rep ${s.rep}</span></div>
+            <div class="muted">Typical package: <b>$${s.rate}</b></div>
+          </div>
+          <div style="display:grid; gap:6px;">
+            ${canTopPlace?'<span class="pill" style="background:#9ff6c9">Top Pro</span>':'<span class="lock">Gain reputation to unlock Top Pro</span>'}
+            <button class="btn" onclick="openModal('modal-quote')">Request Quote</button>
+          </div>`;
+        list.appendChild(card);
+      });
+  }
+
+  // --- Briefs ---
+  function renderBriefs(){
+    const briefs = [
+      { id:'b1', title:'Corporate event, 200 guests', city:'London', budget:1600, date:'Nov 12' },
+      { id:'b2', title:'E-commerce product shoot, 30 SKUs', city:'Mumbai', budget:2000, date:'Oct 5' },
+      { id:'b3', title:'Family portraits in park', city:'New York', budget:600, date:'Sep 28' },
+    ];
+    const wrap = $('#briefs'); wrap.innerHTML='';
+    briefs.forEach(b=>{
+      const el = document.createElement('div'); el.className='card';
+      el.innerHTML = `<h3>${b.title}</h3><div class="muted">${b.city} · Budget up to $${b.budget} · ${b.date}</div><div style="margin-top:8px; display:flex; gap:8px;"><button class="btn" onclick="openModal('modal-quote')">Pitch</button><button class="btn ghost" onclick="saveBrief('${b.id}')">Save</button></div>`;
+      wrap.appendChild(el);
+    });
+  }
+  function saveBrief(id){ alert('Brief saved to your pipeline.'); }
+
+  // --- Reports ---
+  function enqueueReport(){
+    reports.push({ id:'r'+(Math.random()*1e6|0), kind:'Abuse', status:'Queued', evidence:'Screenshot, link' });
+    renderReports(); closeModal('modal-report');
+  }
+  function renderReports(){
+    const q = $('#report-queue'); q.innerHTML='';
+    if(!reports.length){ q.innerHTML = '<div class="muted">No reports yet.</div>'; return; }
+    reports.forEach(r=>{
+      const el = document.createElement('div'); el.className='critique';
+      el.innerHTML = `<div class="avatar">R</div><div class="body"><b>${r.kind}</b><div class="muted">${r.evidence}</div></div><div><button class="btn" onclick="resolveReport('${r.id}')">Resolve</button></div>`;
+      q.appendChild(el);
+    });
+  }
+  function resolveReport(id){ reports = reports.filter(x=>x.id!==id); renderReports(); }
+
+  // --- Challenge countdown (demo) ---
+  function startCountdown(){
+    const end = Date.now() + 1000*60*60*24; // 24h demo
+    const el = $('#challenge-countdown');
+    const t = setInterval(()=>{
+      const diff = Math.max(0, end - Date.now());
+      const h = Math.floor(diff/3.6e6).toString().padStart(2,'0');
+      const m = Math.floor((diff%3.6e6)/6e4).toString().padStart(2,'0');
+      const s = Math.floor((diff%6e4)/1000).toString().padStart(2,'0');
+      el.textContent = `${h}:${m}:${s}`;
+      if(diff<=0) clearInterval(t);
+    }, 1000);
+  }
+
+  // --- Helpers ---
+  function placeholder(color){
+    const colors = { orange:'#ffb86b', blue:'#7aa7ff', green:'#74dba1', gold:'#ffe08a', purple:'#c3a6ff', teal:'#84e3d9', silver:'#bfc7d5', pink:'#ff9ec9', red:'#ff6f87', gray:'#aab3c5' };
+    const c = colors[color]||'#9fb3c8';
+    const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='800'>
+      <defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='${c}'/><stop offset='1' stop-color='#0b0f18'/></linearGradient></defs>
+      <rect fill='url(#g)' width='100%' height='100%'/>
+      <circle cx='60' cy='80' r='6' fill='rgba(255,255,255,.6)'/>
+      <text x='40' y='60' font-size='42' fill='rgba(255,255,255,.7)' font-family='system-ui'>Photo</text>
+    </svg>`;
+    return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+  }
+  function initials(name){ return name.split(' ').map(p=>p[0]).slice(0,2).join('').toUpperCase(); }
+  function escapeHtml(str){ return str.replace(/[&<>]/g, s=>({ '&':'&amp;','<':'&lt;','>':'&gt;' }[s])); }
+</script>
+</body>
+</html>

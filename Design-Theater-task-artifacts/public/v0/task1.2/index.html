@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitCore Studio - Fitness for Everyone</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2d5a3d;
+            --primary-light: #3d6f4d;
+            --accent: #e8967a;
+            --accent-light: #f0a692;
+            --neutral-dark: #1a1a1a;
+            --neutral-light: #f5f5f5;
+            --neutral-gray: #8a8a8a;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--neutral-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: var(--white);
+            border-bottom: 1px solid #f0f0f0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--neutral-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .cta-button {
+            background: var(--primary);
+            color: var(--white);
+            padding: 0.7rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            font-size: 0.95rem;
+        }
+
+        .cta-button:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(45, 90, 61, 0.3);
+        }
+
+        .cta-button-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .cta-button-secondary:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--neutral-dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--white);
+            padding: 8rem 2rem;
+            text-align: center;
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hero .cta-button {
+            background: var(--accent);
+            color: var(--neutral-dark);
+        }
+
+        .hero .cta-button:hover {
+            background: var(--accent-light);
+            box-shadow: 0 6px 16px rgba(232, 150, 122, 0.4);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Section */
+        section {
+            padding: 6rem 2rem;
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            text-align: center;
+            font-weight: 700;
+        }
+
+        section > p {
+            text-align: center;
+            color: var(--neutral-gray);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Why FitCore */
+        .why-fitcore {
+            background: var(--neutral-light);
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .why-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--accent);
+        }
+
+        .why-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .why-card h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .why-card p {
+            color: var(--neutral-gray);
+            line-height: 1.7;
+        }
+
+        /* Class Schedule */
+        .classes {
+            background: var(--white);
+        }
+
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .class-card {
+            background: var(--neutral-light);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 5px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .class-card:hover {
+            transform: translateX(8px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+        }
+
+        .class-type {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .class-card h3 {
+            font-size: 1.5rem;
+            color: var(--neutral-dark);
+            margin-bottom: 0.8rem;
+        }
+
+        .class-times {
+            color: var(--neutral-gray);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .class-level {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        /* Trainers Section */
+        .trainers {
+            background: var(--neutral-light);
+        }
+
+        .trainers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .trainer-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .trainer-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+        }
+
+        .trainer-image {
+            width: 100%;
+            height: 280px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        .trainer-info {
+            padding: 1.8rem;
+        }
+
+        .trainer-info h3 {
+            font-size: 1.3rem;
+            color: var(--neutral-dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .trainer-specialty {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .trainer-bio {
+            color: var(--neutral-gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Philosophy Section */
+        .philosophy {
+            background: var(--white);
+        }
+
+        .philosophy-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .philosophy-text h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 1.2rem;
+        }
+
+        .philosophy-text p {
+            color: var(--neutral-gray);
+            margin-bottom: 1.2rem;
+            line-height: 1.8;
+            text-align: left;
+        }
+
+        .philosophy-values {
+            list-style: none;
+        }
+
+        .philosophy-values li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: var(--neutral-dark);
+            font-weight: 500;
+        }
+
+        .philosophy-values li:before {
+            content: "✓";
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        .philosophy-visual {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            color: var(--white);
+            text-align: center;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .philosophy-visual h4 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .philosophy-visual p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            color: var(--white);
+            text-align: center;
+            padding: 4rem 2rem;
+            border-radius: 12px;
+            margin: 3rem 0;
+        }
+
+        .cta-section h3 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .cta-section button {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .cta-section button:hover {
+            background: var(--primary-light);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--neutral-dark);
+            color: var(--white);
+            padding: 3rem 2rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.7rem;
+        }
+
+        .footer-section a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 2rem;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            section h2 {
+                font-size: 2rem;
+            }
+
+            .philosophy-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-buttons .cta-button {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
+
+            .nav-links a {
+                font-size: 0.85rem;
+            }
+
+            nav {
+                padding: 1rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 4rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            section {
+                padding: 3rem 1rem;
+            }
+
+            .why-grid,
+            .schedule-grid,
+            .trainers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .logo {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        section {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            flex-direction: column;
+            gap: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            text-decoration: none;
+            color: var(--neutral-dark);
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">FitCore Studio</div>
+            <ul class="nav-links">
+                <li><a href="#classes">Classes</a></li>
+                <li><a href="#trainers">Trainers</a></li>
+                <li><a href="#philosophy">Our Philosophy</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><button class="cta-button cta-button-secondary" onclick="document.querySelector('.cta-section').scrollIntoView()">Start Trial</button></li>
+            </ul>
+            <button class="menu-toggle" onclick="toggleMobileMenu()">☰</button>
+            <div class="mobile-menu" id="mobile-menu">
+                <a href="#classes">Classes</a>
+                <a href="#trainers">Trainers</a>
+                <a href="#philosophy">Our Philosophy</a>
+                <a href="#contact">Contact</a>
+                <button class="cta-button" onclick="document.querySelector('.cta-section').scrollIntoView()">Start Trial</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Fitness That Feels Like Community</h1>
+        <p>Experience fitness without the intimidation. At FitCore, you'll find certified trainers, personalized attention, and a space where every fitness level belongs.</p>
+        <div class="hero-buttons">
+            <button class="cta-button">Book Your Trial Class</button>
+            <button class="cta-button cta-button-secondary" style="background: transparent; color: white; border-color: white;">Become a Member</button>
+        </div>
+    </section>
+
+    <!-- Why FitCore -->
+    <section class="why-fitcore">
+        <div class="container">
+            <h2>Why Choose FitCore?</h2>
+            <p>We're different from big gym chains. Here's what sets us apart.</p>
+            <div class="why-grid">
+                <div class="why-card">
+                    <h3>✨ Certified Trainers</h3>
+                    <p>All 6 of our trainers are fully certified and passionate about your success. Small classes mean real attention to form and progression.</p>
+                </div>
+                <div class="why-card">
+                    <h3>👥 Community-Focused</h3>
+                    <p>Unlike corporate gyms, we build real relationships. You'll see the same faces, make friends, and stay motivated together.</p>
+                </div>
+                <div class="why-card">
+                    <h3>🎯 Personalized Approach</h3>
+                    <p>Whether in group classes or 1-on-1 sessions, everything is tailored to your goals, abilities, and schedule.</p>
+                </div>
+                <div class="why-card">
+                    <h3>🏡 Welcoming Space</h3>
+                    <p>Beginners and athletes train side-by-side. There's no judgment—just support, encouragement, and genuine connection.</p>
+                </div>
+                <div class="why-card">
+                    <h3>💪 Variety of Modalities</h3>
+                    <p>Yoga, pilates, and strength training all under one roof. Find the perfect blend for your unique fitness journey.</p>
+                </div>
+                <div class="why-card">
+                    <h3>📈 Real Results</h3>
+                    <p>Our individualized approach means faster progress. Your trainers know you and adjust your program accordingly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Class Schedule -->
+    <section class="classes" id="classes">
+        <div class="container">
+            <h2>Our Class Schedule</h2>
+            <p>Choose from our diverse offerings. All levels welcome.</p>
+            <div class="schedule-grid">
+                <div class="class-card">
+                    <div class="class-type">Yoga</div>
+                    <h3>Flow & Restore</h3>
+                    <p class="class-times">
+                        <strong>Mon, Wed, Fri:</strong> 6:00 AM, 10:00 AM, 6:00 PM<br>
+                        <strong>Sat, Sun:</strong> 9:00 AM
+                    </p>
+                    <p class="class-level">All Levels | 60 min</p>
+                </div>
+                <div class="class-card">
+                    <div class="class-type">Pilates</div>
+                    <h3>Core Strength</h3>
+                    <p class="class-times">
+                        <strong>Tue, Thu:</strong> 7:00 AM, 5:30 PM<br>
+                        <strong>Sat:</strong> 10:30 AM
+                    </p>
+                    <p class="class-level">Beginner to Advanced | 50 min</p>
+                </div>
+                <div class="class-card">
+                    <div class="class-type">Strength</div>
+                    <h3>Power & Build</h3>
+                    <p class="class-times">
+                        <strong>Mon, Wed, Fri:</strong> 7:00 AM, 5:30 PM<br>
+                        <strong>Sat:</strong> 8:00 AM
+                    </p>
+                    <p class="class-level">All Levels | 55 min</p>
+                </div>
+                <div class="class-card">
+                    <div class="class-type">Hybrid</div>
+                    <h3>Yoga + Strength</h3>
+                    <p class="class-times">
+                        <strong>Tue, Thu:</strong> 6:30 AM, 6:00 PM<br>
+                        <strong>Sun:</strong> 5:00 PM
+                    </p>
+                    <p class="class-level">All Levels | 60 min</p>
+                </div>
+                <div class="class-card">
+                    <div class="class-type">Pilates</div>
+                    <h3>Reformer Class</h3>
+                    <p class="class-times">
+                        <strong>Tue, Thu:</strong> 9:00 AM, 7:00 PM<br>
+                        <strong>Sat:</strong> 11:30 AM
+                    </p>
+                    <p class="class-level">Intermediate+ | 45 min</p>
+                </div>
+                <div class="class-card">
+                    <div class="class-type">Personal Training</div>
+                    <h3>1-on-1 Sessions</h3>
+                    <p class="class-times">
+                        <strong>Available:</strong> 6:00 AM – 8:00 PM<br>
+                        <strong>Customized to your schedule</strong>
+                    </p>
+                    <p class="class-level">All Levels | 30–60 min</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trainers -->
+    <section class="trainers" id="trainers">
+        <div class="container">
+            <h2>Meet Our Certified Trainers</h2>
+            <p>The heart of FitCore Studio—experienced, passionate, and dedicated to your success.</p>
+            <div class="trainers-grid">
+                <div class="trainer-card">
+                    <div class="trainer-image">Sarah</div>
+                    <div class="trainer-info">
+                        <h3>Sarah Chen</h3>
+                        <p class="trainer-specialty">Yoga & Mindfulness</p>
+                        <p class="trainer-bio">Certified in Hatha and Vinyasa, Sarah creates flowing, meditative practices that calm the mind and strengthen the body.</p>
+                    </div>
+                </div>
+                <div class="trainer-card">
+                    <div class="trainer-image">Marcus</div>
+                    <div class="trainer-info">
+                        <h3>Marcus DeGroot</h3>
+                        <p class="trainer-specialty">Strength & Conditioning</p>
+                        <p class="trainer-bio">10 years of experience building functional strength. Marcus specializes in injury prevention and programming for all levels.</p>
+                    </div>
+                </div>
+                <div class="trainer-card">
+                    <div class="trainer-image">Emma</div>
+                    <div class="trainer-info">
+                        <h3>Emma Rodriguez</h3>
+                        <p class="trainer-specialty">Pilates & Core Work</p>
+                        <p class="trainer-bio">Certified Pilates instructor with a background in dance. Emma builds long, lean strength with precision and grace.</p>
+                    </div>
+                </div>
+                <div class="trainer-card">
+                    <div class="trainer-image">David</div>
+                    <div class="trainer-info">
+                        <h3>David Okafor</h3>
+                        <p class="trainer-specialty">Personal Training</p>
+                        <p class="trainer-bio">Former athlete turned trainer. David creates personalized programs that transform bodies and build confidence.</p>
+                    </div>
+                </div>
+                <div class="trainer-card">
+                    <div class="trainer-image">Jen</div>
+                    <div class="trainer-info">
+                        <h3>Jen Walsh</h3>
+                        <p class="trainer-specialty">Yoga & Flexibility</p>
+                        <p class="trainer-bio">Restorative yoga expert with 8 years of teaching. Jen helps members find balance, ease, and freedom of movement.</p>
+                    </div>
+                </div>
+                <div class="trainer-card">
+                    <div class="trainer-image">Alex</div>
+                    <div class="trainer-info">
+                        <h3>Alex Kim</h3>
+                        <p class="trainer-specialty">Hybrid Training</p>
+                        <p class="trainer-bio">Dynamic instructor blending strength, flexibility, and functional movement. Alex's classes are energizing and accessible.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy -->
+    <section class="philosophy" id="philosophy">
+        <div class="container">
+            <h2>Our Philosophy</h2>
+            <p>We believe fitness should be joyful, sustainable, and judgment-free.</p>
+            <div class="philosophy-content">
+                <div class="philosophy-text">
+                    <h3>Fitness for Every Body</h3>
+                    <p>At FitCore Studio, we reject the intimidating "no pain, no gain" gym culture. Instead, we celebrate every body, every journey, and every small victory.</p>
+                    <p>Whether you're a yoga novice, a pilates enthusiast, or someone returning to fitness after years away, you belong here. Our trainers meet you where you are and guide you where you want to go.</p>
+                    <ul class="philosophy-values">
+                        <li>Small class sizes for real attention</li>
+                        <li>Certified trainers who genuinely care</li>
+                        <li>Form over speed—progression over ego</li>
+                        <li>Community support every class</li>
+                        <li>Personalized modifications always available</li>
+                    </ul>
+                </div>
+                <div class="philosophy-visual">
+                    <h4>Your Fitness Journey<br>Starts Here</h4>
+                    <p>No judgment. Just growth, community, and real results.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" style="margin-left: auto; margin-right: auto; width: 90%; max-width: 900px;">
+        <h3>Ready to Experience FitCore?</h3>
+        <p>Start your first week FREE. No contracts, no pressure—just real fitness in a real community.</p>
+        <button class="cta-button">Book Your Free Trial Class</button>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>FitCore Studio</h4>
+                <p style="font-size: 0.9rem; color: rgba(255,255,255,0.7); margin-bottom: 1rem;">Boutique fitness for all levels.</p>
+                <p style="font-size: 0.85rem; color: rgba(255,255,255,0.6);">📍 123 Wellness Ave, Your City, ST 12345<br>📞 (555) 123-4567<br>✉️ hello@fitcore.com</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#classes">Classes</a></li>
+                    <li><a href="#trainers">Our Trainers</a></li>
+                    <li><a href="#philosophy">Philosophy</a></li>
+                    <li><a href="#">Membership Plans</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Hours</h4>
+                <ul style="list-style: none;">
+                    <li style="margin-bottom: 0.5rem;">Mon–Fri: 6 AM – 8 PM</li>
+                    <li style="margin-bottom: 0.5rem;">Sat: 8 AM – 6 PM</li>
+                    <li>Sun: 9 AM – 5 PM</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <ul>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">TikTok</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 FitCore Studio. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('active');
+        }
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.remove('active');
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const header = document.querySelector('header');
+            if (!header.contains(e.target)) {
+                document.getElementById('mobile-menu').classList.remove('active');
+            }
+        });
+
+        // Smooth scroll for buttons
+        document.querySelectorAll('button, a[href^="#"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const href = link.getAttribute('href');
+                if (href && href.startsWith('#') && href !== '#') {
+                    const target = document.querySelector(href);
+                    if (target) {
+                        e.preventDefault();
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

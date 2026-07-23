@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morning Brew - Your Neighborhood Coffee Shop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #3e2723;
+            background-color: #faf8f5;
+        }
+
+        /* Header */
+        header {
+            background-color: #4e342e;
+            color: #faf8f5;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #faf8f5;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: #ff8a65;
+        }
+
+        /* Mobile menu toggle */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #faf8f5;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #6d4c41 0%, #4e342e 100%);
+            color: #faf8f5;
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: normal;
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #ff8a65;
+            color: #fff;
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            border: 2px solid #ff8a65;
+        }
+
+        .cta-button:hover {
+            background-color: transparent;
+            color: #ff8a65;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 138, 101, 0.3);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 5rem 0;
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #4e342e;
+            font-weight: normal;
+        }
+
+        /* About Section */
+        .about {
+            background-color: #fff;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight {
+            color: #ff8a65;
+            font-weight: bold;
+        }
+
+        /* Offerings Section */
+        .offerings {
+            background-color: #faf8f5;
+        }
+
+        .offerings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .offering-card {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .offering-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .offering-card h3 {
+            color: #4e342e;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .offering-card p {
+            color: #5d4037;
+            line-height: 1.6;
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Location Section */
+        .location {
+            background-color: #fff;
+        }
+
+        .location-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .location-box {
+            background-color: #faf8f5;
+            padding: 2.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #ff8a65;
+        }
+
+        .location-box h3 {
+            color: #4e342e;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .location-box p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .hours-list {
+            list-style: none;
+        }
+
+        .hours-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #d7ccc8;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .hours-list li:last-child {
+            border-bottom: none;
+        }
+
+        .day {
+            font-weight: bold;
+            color: #4e342e;
+        }
+
+        /* Visit Us Section */
+        .visit {
+            background: linear-gradient(135deg, #6d4c41 0%, #4e342e 100%);
+            color: #faf8f5;
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .visit h2 {
+            color: #faf8f5;
+            margin-bottom: 1rem;
+        }
+
+        .visit p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #3e2723;
+            color: #faf8f5;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        footer p {
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: #4e342e;
+                flex-direction: column;
+                padding: 1rem 0;
+                gap: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease-out;
+            }
+
+            .nav-links.active {
+                max-height: 300px;
+            }
+
+            .nav-links li {
+                padding: 0.75rem 2rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            section h2 {
+                font-size: 2rem;
+            }
+
+            .offerings-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header/Navigation -->
+    <header>
+        <nav>
+            <div class="logo">☕ Morning Brew</div>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about">About</a></li>
+                <li><a href="#offerings">Menu</a></li>
+                <li><a href="#location">Visit Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Morning Brew</h1>
+            <p>Where the neighborhood comes together over great coffee</p>
+            <a href="#location" class="cta-button">Find Us</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2>Welcome to Your Community Coffee Shop</h2>
+            <div class="about-content">
+                <p>
+                    For the past <span class="highlight">three years</span>, Morning Brew has been your neighborhood's go-to spot for expertly crafted coffee and genuine connection.
+                </p>
+                <p>
+                    We're more than just a coffee shop—we're the place where students find their focus, neighbors catch up over lattes, and the aroma of fresh pastries makes every morning a little brighter.
+                </p>
+                <p>
+                    Every espresso is pulled with care, every pastry is baked fresh, and every customer is part of our growing community.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Offerings Section -->
+    <section class="offerings" id="offerings">
+        <div class="container">
+            <h2>What We Offer</h2>
+            <div class="offerings-grid">
+                <div class="offering-card">
+                    <div class="card-icon">☕</div>
+                    <h3>Artisanal Espresso</h3>
+                    <p>
+                        Handcrafted espresso drinks made with premium beans, roasted locally. From classic cappuccinos to creative seasonal lattes, each cup is a work of art.
+                    </p>
+                </div>
+                <div class="offering-card">
+                    <div class="card-icon">🥐</div>
+                    <h3>Fresh Pastries</h3>
+                    <p>
+                        Baked daily in-house, our selection includes buttery croissants, decadent muffins, and rotating seasonal treats that pair perfectly with your morning coffee.
+                    </p>
+                </div>
+                <div class="offering-card">
+                    <div class="card-icon">🪑</div>
+                    <h3>Cozy Atmosphere</h3>
+                    <p>
+                        Comfortable seating, free Wi-Fi, and the perfect ambiance for working, studying, or catching up with friends. This is your space.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section class="location" id="location">
+        <div class="container">
+            <h2>Visit Us</h2>
+            <div class="location-content">
+                <div class="location-box">
+                    <h3>📍 Location</h3>
+                    <p><strong>Morning Brew</strong></p>
+                    <p>123 Main Street</p>
+                    <p>Your Neighborhood</p>
+                    <p>City, State 12345</p>
+                    <p style="margin-top: 1rem; color: #ff8a65;">
+                        <strong>Just two blocks from the park!</strong>
+                    </p>
+                </div>
+                <div class="location-box">
+                    <h3>🕐 Hours</h3>
+                    <ul class="hours-list">
+                        <li><span class="day">Monday - Friday</span> <span>6:30 AM - 6:00 PM</span></li>
+                        <li><span class="day">Saturday</span> <span>7:00 AM - 7:00 PM</span></li>
+                        <li><span class="day">Sunday</span> <span>7:00 AM - 5:00 PM</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="visit">
+        <div class="container">
+            <h2>We Can't Wait to Serve You</h2>
+            <p>Come experience what makes Morning Brew special</p>
+            <a href="#location" class="cta-button">Get Directions</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Morning Brew Coffee Shop. Serving the community with love since 2021.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        const links = navLinks.querySelectorAll('a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

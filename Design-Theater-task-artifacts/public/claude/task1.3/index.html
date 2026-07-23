@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thompson & Associates | Trusted Legal Counsel for 20 Years</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy-deep: #0a1628;
+            --navy-mid: #1a2942;
+            --navy-light: #2d4263;
+            --gold: #c9a961;
+            --gold-light: #e5d4a8;
+            --cream: #f8f6f1;
+            --white: #ffffff;
+            --text-dark: #1a1a1a;
+            --text-medium: #4a4a4a;
+            --corporate-blue: #2563a8;
+            --family-rose: #a84563;
+            --injury-emerald: #2b8a6a;
+            --estate-amber: #c27d45;
+        }
+
+        body {
+            font-family: 'Georgia', 'Palatino', 'Times New Roman', serif;
+            color: var(--text-dark);
+            background-color: var(--cream);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-weight: 400;
+            letter-spacing: 0.02em;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            line-height: 1.2;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        .label {
+            font-family: 'Trebuchet MS', 'Lucida Grande', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy-mid) 100%);
+            color: var(--white);
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--gold);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+
+        .logo strong {
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold-light);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background: var(--gold);
+            color: var(--navy-deep);
+            padding: 0.75rem 1.75rem;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(201, 169, 97, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(165deg, var(--navy-deep) 0%, var(--navy-light) 50%, var(--navy-mid) 100%);
+            color: var(--white);
+            padding: 6rem 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, transparent 48%, rgba(201, 169, 97, 0.03) 49%, rgba(201, 169, 97, 0.03) 51%, transparent 52%),
+                linear-gradient(-45deg, transparent 48%, rgba(201, 169, 97, 0.03) 49%, rgba(201, 169, 97, 0.03) 51%, transparent 52%);
+            background-size: 60px 60px;
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease forwards;
+            opacity: 0;
+        }
+
+        .hero-tagline {
+            font-size: 1.3rem;
+            color: var(--gold-light);
+            margin-bottom: 2rem;
+            font-style: italic;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 3rem;
+            animation: fadeInUp 0.8s ease 0.4s forwards;
+            opacity: 0;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 300;
+            color: var(--gold);
+            display: block;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--gold-light);
+            margin-top: 0.5rem;
+        }
+
+        /* Visitor Type Selector */
+        .visitor-selector {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            animation: fadeInUp 0.8s ease 0.6s forwards;
+            opacity: 0;
+        }
+
+        .visitor-selector h3 {
+            margin-bottom: 1.5rem;
+            color: var(--navy-deep);
+            text-align: center;
+        }
+
+        .visitor-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .visitor-btn {
+            background: var(--cream);
+            border: 2px solid var(--navy-light);
+            padding: 2rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .visitor-btn:hover {
+            background: var(--navy-deep);
+            color: var(--white);
+            border-color: var(--gold);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(10, 22, 40, 0.2);
+        }
+
+        .visitor-btn .icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .visitor-btn h4 {
+            margin-bottom: 0.5rem;
+        }
+
+        .visitor-btn p {
+            font-size: 0.9rem;
+            color: var(--text-medium);
+        }
+
+        .visitor-btn:hover p {
+            color: var(--gold-light);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                transform: translateY(20px);
+            }
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header .label {
+            color: var(--gold);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .section-header h2 {
+            margin-bottom: 1rem;
+            color: var(--navy-deep);
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-medium);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Practice Areas */
+        .practice-areas {
+            background: var(--white);
+        }
+
+        .practice-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .practice-card {
+            background: var(--cream);
+            border-radius: 8px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .practice-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.5) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .practice-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        }
+
+        .practice-card:hover::before {
+            opacity: 1;
+        }
+
+        .practice-card.corporate {
+            border-left-color: var(--corporate-blue);
+        }
+
+        .practice-card.family {
+            border-left-color: var(--family-rose);
+        }
+
+        .practice-card.injury {
+            border-left-color: var(--injury-emerald);
+        }
+
+        .practice-card.estate {
+            border-left-color: var(--estate-amber);
+        }
+
+        .practice-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+            position: relative;
+            z-index: 1;
+        }
+
+        .practice-card.corporate .practice-icon { color: var(--corporate-blue); }
+        .practice-card.family .practice-icon { color: var(--family-rose); }
+        .practice-card.injury .practice-icon { color: var(--injury-emerald); }
+        .practice-card.estate .practice-icon { color: var(--estate-amber); }
+
+        .practice-card h3 {
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .practice-card p {
+            color: var(--text-medium);
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .practice-card .services-list {
+            list-style: none;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .practice-card .services-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 0.95rem;
+            color: var(--text-medium);
+        }
+
+        .practice-card .services-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .practice-card.corporate .services-list li::before { color: var(--corporate-blue); }
+        .practice-card.family .services-list li::before { color: var(--family-rose); }
+        .practice-card.injury .services-list li::before { color: var(--injury-emerald); }
+        .practice-card.estate .services-list li::before { color: var(--estate-amber); }
+
+        .learn-more {
+            color: var(--navy-deep);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        .learn-more::after {
+            content: '→';
+            transition: transform 0.3s ease;
+        }
+
+        .practice-card:hover .learn-more::after {
+            transform: translateX(4px);
+        }
+
+        /* Why Choose Us */
+        .why-choose {
+            background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy-mid) 100%);
+            color: var(--white);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+
+        .benefit {
+            text-align: center;
+        }
+
+        .benefit-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(201, 169, 97, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            border: 2px solid var(--gold);
+        }
+
+        .benefit h4 {
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+
+        .benefit p {
+            color: var(--gold-light);
+        }
+
+        /* Case Results */
+        .case-results {
+            background: var(--cream);
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .result-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            border-top: 4px solid var(--gold);
+            transition: all 0.3s ease;
+        }
+
+        .result-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+
+        .result-amount {
+            font-size: 2rem;
+            color: var(--navy-deep);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-category {
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+        }
+
+        .result-description {
+            color: var(--text-medium);
+            font-size: 0.95rem;
+        }
+
+        /* Resources Section */
+        .resources {
+            background: var(--white);
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .resource-card {
+            background: var(--cream);
+            padding: 2.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--navy-deep);
+            transition: all 0.3s ease;
+        }
+
+        .resource-card:hover {
+            transform: translateX(8px);
+            box-shadow: -4px 8px 24px rgba(0,0,0,0.1);
+        }
+
+        .resource-card .label {
+            color: var(--navy-deep);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .resource-card h4 {
+            margin-bottom: 1rem;
+            color: var(--navy-deep);
+        }
+
+        .resource-card p {
+            color: var(--text-medium);
+            margin-bottom: 1.5rem;
+        }
+
+        .resource-card a {
+            color: var(--navy-deep);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .resource-card a::after {
+            content: '↗';
+        }
+
+        /* Contact CTA */
+        .contact-cta {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            color: var(--navy-deep);
+            text-align: center;
+            padding: 5rem 3rem;
+        }
+
+        .contact-cta h2 {
+            margin-bottom: 1rem;
+        }
+
+        .contact-cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-methods {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-method {
+            background: var(--white);
+            padding: 1.5rem 2.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--navy-deep);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-weight: 600;
+        }
+
+        .contact-method:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(10, 22, 40, 0.15);
+        }
+
+        .contact-method .icon {
+            font-size: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--navy-deep);
+            color: var(--gold-light);
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: var(--gold-light);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 3rem 0;
+            border-top: 1px solid var(--navy-light);
+            text-align: center;
+            color: var(--gold-light);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .practice-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .benefits-grid,
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            nav {
+                padding: 0 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .container,
+            .hero {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+
+            .visitor-buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-methods {
+                flex-direction: column;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo"><strong>Thompson</strong> & Associates</div>
+            <div class="nav-links">
+                <a href="#practice-areas">Practice Areas</a>
+                <a href="#attorneys">Attorneys</a>
+                <a href="#results">Results</a>
+                <a href="#resources">Resources</a>
+                <a href="#contact" class="cta-button">Schedule Consultation</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-grid">
+                <div class="hero-text">
+                    <h1>Trusted Legal Counsel<br>When It Matters Most</h1>
+                    <p class="hero-tagline">Two decades of excellence serving individuals and businesses across four practice areas</p>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-number">20</span>
+                            <span class="stat-label">Years Serving Clients</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">15</span>
+                            <span class="stat-label">Expert Attorneys</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">4</span>
+                            <span class="stat-label">Practice Areas</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="visitor-selector">
+                    <h3>I'm looking for help with...</h3>
+                    <div class="visitor-buttons">
+                        <div class="visitor-btn" onclick="scrollToPractice('individual')">
+                            <span class="icon">👤</span>
+                            <h4>Personal Matters</h4>
+                            <p>Family law, injury claims, estate planning</p>
+                        </div>
+                        <div class="visitor-btn" onclick="scrollToPractice('business')">
+                            <span class="icon">🏢</span>
+                            <h4>Business Needs</h4>
+                            <p>Corporate law, mergers, contracts</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="practice-areas" class="practice-areas">
+        <div class="container">
+            <div class="section-header">
+                <span class="label">Our Expertise</span>
+                <h2>Practice Areas</h2>
+                <p>From family matters to complex corporate transactions, our experienced attorneys provide comprehensive legal solutions tailored to your needs.</p>
+            </div>
+            <div class="practice-grid">
+                <div class="practice-card corporate" data-type="business">
+                    <span class="practice-icon">⚖️</span>
+                    <h3>Corporate Law</h3>
+                    <p>Strategic legal counsel for businesses of all sizes, from startups to established enterprises.</p>
+                    <ul class="services-list">
+                        <li>Mergers & Acquisitions</li>
+                        <li>Contract Negotiation</li>
+                        <li>Business Formation</li>
+                        <li>Corporate Governance</li>
+                        <li>Commercial Litigation</li>
+                    </ul>
+                    <a href="#" class="learn-more">Explore Corporate Law</a>
+                </div>
+
+                <div class="practice-card family" data-type="individual">
+                    <span class="practice-icon">❤️</span>
+                    <h3>Family Law</h3>
+                    <p>Compassionate guidance through life's most challenging personal transitions.</p>
+                    <ul class="services-list">
+                        <li>Divorce & Separation</li>
+                        <li>Child Custody & Support</li>
+                        <li>Spousal Support</li>
+                        <li>Adoption Services</li>
+                        <li>Prenuptial Agreements</li>
+                    </ul>
+                    <a href="#" class="learn-more">Explore Family Law</a>
+                </div>
+
+                <div class="practice-card injury" data-type="individual">
+                    <span class="practice-icon">🛡️</span>
+                    <h3>Personal Injury</h3>
+                    <p>Fighting for fair compensation when you've been injured through no fault of your own.</p>
+                    <ul class="services-list">
+                        <li>Auto Accidents</li>
+                        <li>Medical Malpractice</li>
+                        <li>Workplace Injuries</li>
+                        <li>Product Liability</li>
+                        <li>Wrongful Death</li>
+                    </ul>
+                    <a href="#" class="learn-more">Explore Personal Injury</a>
+                </div>
+
+                <div class="practice-card estate" data-type="individual">
+                    <span class="practice-icon">📜</span>
+                    <h3>Estate Planning</h3>
+                    <p>Protecting your legacy and ensuring your wishes are honored for generations to come.</p>
+                    <ul class="services-list">
+                        <li>Wills & Trusts</li>
+                        <li>Probate Administration</li>
+                        <li>Power of Attorney</li>
+                        <li>Estate Tax Planning</li>
+                        <li>Asset Protection</li>
+                    </ul>
+                    <a href="#" class="learn-more">Explore Estate Planning</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="why-choose">
+        <div class="container">
+            <div class="section-header">
+                <span class="label">Why Thompson & Associates</span>
+                <h2>Built on Trust, Driven by Results</h2>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit">
+                    <div class="benefit-icon">🎓</div>
+                    <h4>Deep Expertise</h4>
+                    <p>Our 15 attorneys bring decades of combined experience across diverse practice areas, with many holding specialized certifications.</p>
+                </div>
+                <div class="benefit">
+                    <div class="benefit-icon">🤝</div>
+                    <h4>Client-Centered Approach</h4>
+                    <p>We listen first, then develop tailored strategies that align with your goals, timeline, and budget.</p>
+                </div>
+                <div class="benefit">
+                    <div class="benefit-icon">📊</div>
+                    <h4>Proven Track Record</h4>
+                    <p>20 years of successful outcomes, from simple wills to multi-million dollar corporate deals and injury settlements.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="results" class="case-results">
+        <div class="container">
+            <div class="section-header">
+                <span class="label">Success Stories</span>
+                <h2>Recent Case Results</h2>
+                <p>While every case is unique, our commitment to excellence consistently delivers outstanding outcomes for our clients.</p>
+            </div>
+            <div class="results-grid">
+                <div class="result-card">
+                    <div class="result-amount">$12.5M</div>
+                    <div class="result-category">Corporate Transaction</div>
+                    <p class="result-description">Successfully negotiated merger for mid-size manufacturing company, securing favorable terms for all stakeholders.</p>
+                </div>
+                <div class="result-card">
+                    <div class="result-amount">$2.8M</div>
+                    <div class="result-category">Personal Injury</div>
+                    <p class="result-description">Secured settlement for client injured in commercial vehicle accident, covering medical costs and lost wages.</p>
+                </div>
+                <div class="result-card">
+                    <div class="result-amount">$1.9M</div>
+                    <div class="result-category">Medical Malpractice</div>
+                    <p class="result-description">Won judgment for surgical error victim, ensuring lifetime care and financial security.</p>
+                </div>
+                <div class="result-card">
+                    <div class="result-amount">$850K</div>
+                    <div class="result-category">Estate Dispute</div>
+                    <p class="result-description">Successfully resolved complex estate litigation, protecting family assets and honoring testator's wishes.</p>
+                </div>
+                <div class="result-card">
+                    <div class="result-amount">100%</div>
+                    <div class="result-category">Child Custody</div>
+                    <p class="result-description">Achieved full custody for client in contested case, prioritizing children's wellbeing and stability.</p>
+                </div>
+                <div class="result-card">
+                    <div class="result-amount">$5.2M</div>
+                    <div class="result-category">Business Litigation</div>
+                    <p class="result-description">Won breach of contract suit for tech startup, recovering damages and protecting intellectual property.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="resources" class="resources">
+        <div class="container">
+            <div class="section-header">
+                <span class="label">Knowledge Center</span>
+                <h2>Legal Resources & Education</h2>
+                <p>Understanding the legal process empowers better decisions. Explore our guides, articles, and tools.</p>
+            </div>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <span class="label">For Individuals</span>
+                    <h4>Understanding Divorce in Our State</h4>
+                    <p>A comprehensive guide to divorce proceedings, from filing to finalization, including custody and asset division.</p>
+                    <a href="#">Read Guide</a>
+                </div>
+                <div class="resource-card">
+                    <span class="label">For Businesses</span>
+                    <h4>Contract Essentials for Startups</h4>
+                    <p>Key contract terms every new business owner should understand before signing agreements with vendors or partners.</p>
+                    <a href="#">Read Guide</a>
+                </div>
+                <div class="resource-card">
+                    <span class="label">For Everyone</span>
+                    <h4>Estate Planning Checklist</h4>
+                    <p>Essential documents and decisions for protecting your family's future, regardless of your age or assets.</p>
+                    <a href="#">Download Checklist</a>
+                </div>
+                <div class="resource-card">
+                    <span class="label">Client Portal</span>
+                    <h4>Access Your Case Documents</h4>
+                    <p>Secure login for existing clients to review case files, track progress, and communicate with your attorney.</p>
+                    <a href="#">Client Login</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-cta">
+        <div class="container">
+            <h2>Schedule Your Consultation</h2>
+            <p>Let's discuss how we can help with your legal needs. Initial consultations available in-person, by phone, or video.</p>
+            <div class="contact-methods">
+                <a href="tel:555-123-4567" class="contact-method">
+                    <span class="icon">📞</span>
+                    <span>(555) 123-4567</span>
+                </a>
+                <a href="mailto:info@thompsonassociates.com" class="contact-method">
+                    <span class="icon">✉️</span>
+                    <span>info@thompsonassociates.com</span>
+                </a>
+                <a href="#" class="contact-method">
+                    <span class="icon">📅</span>
+                    <span>Book Online</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Thompson & Associates</h4>
+                <p>123 Main Street, Suite 500<br>
+                Your City, State 12345</p>
+                <p style="margin-top: 1rem;">Office Hours:<br>
+                Monday - Friday: 8:00 AM - 6:00 PM<br>
+                Saturday: By Appointment</p>
+            </div>
+            <div class="footer-section">
+                <h4>Practice Areas</h4>
+                <a href="#corporate">Corporate Law</a>
+                <a href="#family">Family Law</a>
+                <a href="#injury">Personal Injury</a>
+                <a href="#estate">Estate Planning</a>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <a href="#blog">Legal Blog</a>
+                <a href="#guides">Client Guides</a>
+                <a href="#faq">FAQ</a>
+                <a href="#portal">Client Portal</a>
+            </div>
+            <div class="footer-section">
+                <h4>About</h4>
+                <a href="#attorneys">Our Attorneys</a>
+                <a href="#testimonials">Testimonials</a>
+                <a href="#careers">Careers</a>
+                <a href="#contact">Contact Us</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Thompson & Associates. All rights reserved. | Attorney Advertising | Privacy Policy | Terms of Service</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Visitor type filtering
+        function scrollToPractice(type) {
+            const practiceSection = document.getElementById('practice-areas');
+            const cards = document.querySelectorAll('.practice-card');
+            
+            // Scroll to practice areas
+            practiceSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+
+            // Highlight relevant cards
+            setTimeout(() => {
+                cards.forEach(card => {
+                    if (type === 'individual' && card.dataset.type === 'individual') {
+                        card.style.animation = 'pulse 1s ease';
+                        setTimeout(() => card.style.animation = '', 1000);
+                    } else if (type === 'business' && card.dataset.type === 'business') {
+                        card.style.animation = 'pulse 1s ease';
+                        setTimeout(() => card.style.animation = '', 1000);
+                    }
+                });
+            }, 500);
+        }
+
+        // Add pulse animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe practice cards and other elements
+        document.querySelectorAll('.practice-card, .benefit, .result-card, .resource-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

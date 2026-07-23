@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedTech Solutions - AI-Powered Diagnostic Excellence</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Light Theme (Bright ER) */
+            --primary-bg: #ffffff;
+            --secondary-bg: #f8fafc;
+            --tertiary-bg: #e8f2f7;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            
+            --accent-primary: #0c4a6e;
+            --accent-secondary: #0891b2;
+            --accent-tertiary: #06b6d4;
+            
+            --confidence-high: #059669;
+            --confidence-med: #0891b2;
+            --confidence-low: #f59e0b;
+            
+            --border-color: #cbd5e1;
+            --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.08);
+            --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.1);
+            --shadow-lg: 0 20px 40px rgba(15, 23, 42, 0.12);
+        }
+
+        [data-theme="dark"] {
+            /* Dark Theme (Radiology Suite) */
+            --primary-bg: #0f172a;
+            --secondary-bg: #1e293b;
+            --tertiary-bg: #1e3a4a;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            
+            --accent-primary: #38bdf8;
+            --accent-secondary: #0891b2;
+            --accent-tertiary: #06b6d4;
+            
+            --confidence-high: #10b981;
+            --confidence-med: #06b6d4;
+            --confidence-low: #f59e0b;
+            
+            --border-color: #334155;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-weight: 600;
+            letter-spacing: -0.025em;
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            margin-bottom: 0.75rem;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--primary-bg);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.125rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-primary);
+        }
+
+        .theme-toggle {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .theme-toggle:hover {
+            background: var(--tertiary-bg);
+            color: var(--accent-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--secondary-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        /* AI Visualization */
+        .ai-viz {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .scan-container {
+            position: relative;
+            background: var(--tertiary-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .scan-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .scan-cell {
+            aspect-ratio: 1;
+            background: var(--primary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scan-cell::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--accent-tertiary), transparent);
+            opacity: 0.3;
+            animation: scan 3s infinite;
+        }
+
+        @keyframes scan {
+            0%, 100% { left: -100%; }
+            50% { left: 100%; }
+        }
+
+        .scan-cell.detected {
+            border-color: var(--confidence-high);
+            background: linear-gradient(135deg, var(--confidence-high), transparent);
+        }
+
+        .confidence-display {
+            background: var(--primary-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .confidence-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .confidence-label span:first-child {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .confidence-label span:last-child {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--confidence-high);
+        }
+
+        .confidence-bar {
+            height: 12px;
+            background: var(--secondary-bg);
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--confidence-high), var(--accent-secondary));
+            border-radius: 6px;
+            animation: fillBar 2s ease-out forwards;
+            box-shadow: 0 0 20px var(--confidence-high);
+        }
+
+        @keyframes fillBar {
+            from { width: 0%; }
+            to { width: 94%; }
+        }
+
+        .ai-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        .ai-badge::before {
+            content: '◆';
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* CTA Buttons */
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.875rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--secondary-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--tertiary-bg);
+        }
+
+        /* Features Section */
+        .features {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 4rem 2rem;
+            background: var(--secondary-bg);
+        }
+
+        .features h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--primary-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent-secondary);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Trust Section */
+        .trust {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .trust-card {
+            background: var(--secondary-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .certification-badge {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 4rem 2rem;
+            background: var(--tertiary-bg);
+        }
+
+        .testimonials h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial {
+            background: var(--primary-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .testimonial-quote {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+        }
+
+        .author-info h4 {
+            color: var(--text-primary);
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .author-info p {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h4 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section a {
+            display: block;
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-primary);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 2rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding-top: 6rem;
+            }
+
+            .hero-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#" class="logo">
+                <div class="logo-icon">MT</div>
+                <span>MedTech Solutions</span>
+            </a>
+            <div class="nav-links">
+                <a href="#features">Technology</a>
+                <a href="#trust">Certifications</a>
+                <a href="#testimonials">Clinicians</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <span id="theme-icon">☀️</span>
+                <span id="theme-text">Light Mode</span>
+            </button>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>AI-Powered Cancer Detection That Physicians Trust</h1>
+            <p>Combining cutting-edge artificial intelligence with clinical expertise to detect cancer earlier and save lives. Designed for radiologists who demand both innovation and reliability.</p>
+            
+            <div class="cta-group">
+                <a href="#" class="btn btn-primary">Request Demo →</a>
+                <a href="#" class="btn btn-secondary">View Research</a>
+            </div>
+
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-value">94%</span>
+                    <span class="stat-label">Detection Accuracy</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">38%</span>
+                    <span class="stat-label">Earlier Detection</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">500+</span>
+                    <span class="stat-label">Hospitals Trust Us</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="ai-viz">
+            <div class="scan-container">
+                <h3 style="margin-bottom: 1rem; font-size: 1rem; color: var(--text-muted);">Real-Time Analysis</h3>
+                <div class="scan-grid">
+                    <div class="scan-cell"></div>
+                    <div class="scan-cell"></div>
+                    <div class="scan-cell"></div>
+                    <div class="scan-cell"></div>
+                    <div class="scan-cell"></div>
+                    <div class="scan-cell detected"></div>
+                    <div class="scan-cell detected"></div>
+                    <div class="scan-cell"></div>
+                    <div class="scan-cell"></div>
+                    <div class="scan-cell detected"></div>
+                    <div class="scan-cell detected"></div>
+                    <div class="scan-cell"></div>
+                    <div class="scan-cell"></div>
+                    <div class="scan-cell"></div>
+                    <div class="scan-cell"></div>
+                    <div class="scan-cell"></div>
+                </div>
+
+                <div class="confidence-display">
+                    <div class="confidence-label">
+                        <span>AI Confidence Score</span>
+                        <span>94%</span>
+                    </div>
+                    <div class="confidence-bar">
+                        <div class="confidence-fill"></div>
+                    </div>
+                    <div class="ai-badge">AI-Assisted Diagnosis</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <h2>Built for Clinical Excellence</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Real-Time Analysis</h3>
+                <p>Instant AI-powered detection integrated seamlessly into your existing PACS workflow. Results in under 3 seconds per scan.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>Clinical Precision</h3>
+                <p>94% accuracy rate validated across 2M+ scans. Trained on diverse patient populations and peer-reviewed by leading oncologists.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👁️</div>
+                <h3>Adaptive Display</h3>
+                <p>Optimized for any environment—from bright ERs to dimmed radiology suites. Auto-adjusts for reduced eye strain during long shifts.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>HIPAA Compliant</h3>
+                <p>Enterprise-grade security with full encryption. On-premise deployment options available for maximum data control.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Transparent AI</h3>
+                <p>Clear confidence scores and highlighted regions of interest. AI augments—never replaces—physician judgment.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔄</div>
+                <h3>Legacy Compatible</h3>
+                <p>Works with existing hospital infrastructure and older computers. No expensive hardware upgrades required.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="trust" id="trust">
+        <h2 style="text-align: center; margin-bottom: 3rem;">Medical-Grade Certifications</h2>
+        <div class="trust-grid">
+            <div class="trust-card">
+                <div class="certification-badge">FDA</div>
+                <h3>FDA Cleared</h3>
+                <p style="color: var(--text-muted);">Class II Medical Device</p>
+            </div>
+            <div class="trust-card">
+                <div class="certification-badge">CE</div>
+                <h3>CE Marked</h3>
+                <p style="color: var(--text-muted);">European Compliance</p>
+            </div>
+            <div class="trust-card">
+                <div class="certification-badge">ISO</div>
+                <h3>ISO 13485</h3>
+                <p style="color: var(--text-muted);">Quality Management</p>
+            </div>
+            <div class="trust-card">
+                <div class="certification-badge">🛡️</div>
+                <h3>SOC 2 Type II</h3>
+                <p style="color: var(--text-muted);">Security Audited</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials" id="testimonials">
+        <h2>Trusted by Clinicians</h2>
+        <div class="testimonial-grid">
+            <div class="testimonial">
+                <p class="testimonial-quote">"As someone who was skeptical about AI in radiology, I was impressed by how MedTech complements rather than replaces clinical judgment. The confidence scores are invaluable."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">DH</div>
+                    <div class="author-info">
+                        <h4>Dr. Helen Chen</h4>
+                        <p>Chief of Radiology, 28 years</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial">
+                <p class="testimonial-quote">"The interface works perfectly in our low-light reading rooms. After 12-hour shifts, the last thing I need is eye strain. This actually helps me stay sharp."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">MP</div>
+                    <div class="author-info">
+                        <h4>Dr. Marcus Patterson</h4>
+                        <p>Diagnostic Radiologist, 8 years</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial">
+                <p class="testimonial-quote">"Our tech committee was split between innovation and caution. MedTech won everyone over—it's sophisticated enough for our young residents but trusted by our veteran physicians."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">SK</div>
+                    <div class="author-info">
+                        <h4>Sarah Kim, MBA</h4>
+                        <p>Director of Medical Technology</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Product</h4>
+                <a href="#">Features</a>
+                <a href="#">Integrations</a>
+                <a href="#">Pricing</a>
+                <a href="#">Case Studies</a>
+            </div>
+            <div class="footer-section">
+                <h4>Research</h4>
+                <a href="#">Clinical Studies</a>
+                <a href="#">White Papers</a>
+                <a href="#">Publications</a>
+                <a href="#">Validation Data</a>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <a href="#">Documentation</a>
+                <a href="#">Training</a>
+                <a href="#">Contact Support</a>
+                <a href="#">System Status</a>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <a href="#">About Us</a>
+                <a href="#">Careers</a>
+                <a href="#">Compliance</a>
+                <a href="#">Privacy Policy</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 MedTech Solutions. All rights reserved. | FDA Class II Medical Device | HIPAA Compliant</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            html.setAttribute('data-theme', newTheme);
+            
+            const icon = document.getElementById('theme-icon');
+            const text = document.getElementById('theme-text');
+            
+            if (newTheme === 'dark') {
+                icon.textContent = '🌙';
+                text.textContent = 'Dark Mode';
+            } else {
+                icon.textContent = '☀️';
+                text.textContent = 'Light Mode';
+            }
+            
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Load saved theme
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.getElementById('theme-icon').textContent = '🌙';
+                document.getElementById('theme-text').textContent = 'Dark Mode';
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

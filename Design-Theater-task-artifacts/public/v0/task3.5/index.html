@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProjectMaster Enterprise | Fortune 500 Project Management Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0052cc;
+            --primary-dark: #003d99;
+            --accent: #ff6b35;
+            --neutral-bg: #ffffff;
+            --neutral-dark: #1a1a1a;
+            --neutral-light: #f5f5f5;
+            --neutral-border: #e0e0e0;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --spacing-2xl: 4rem;
+            --transition: all 0.3s ease;
+            --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-family);
+            color: var(--neutral-dark);
+            background-color: var(--neutral-bg);
+            line-height: 1.6;
+        }
+
+        /* Utility Classes */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+        }
+
+        .section {
+            padding: var(--spacing-2xl) 0;
+        }
+
+        .grid {
+            display: grid;
+            gap: var(--spacing-lg);
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        .grid-4 {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        .flex {
+            display: flex;
+            align-items: center;
+        }
+
+        .flex-between {
+            justify-content: space-between;
+        }
+
+        .flex-center {
+            justify-content: center;
+        }
+
+        .flex-column {
+            flex-direction: column;
+        }
+
+        .gap-sm { gap: var(--spacing-sm); }
+        .gap-md { gap: var(--spacing-md); }
+        .gap-lg { gap: var(--spacing-lg); }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-primary { color: var(--primary); }
+        .text-accent { color: var(--accent); }
+
+        .button {
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+            font-family: inherit;
+        }
+
+        .button-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .button-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 82, 204, 0.3);
+        }
+
+        .button-secondary {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .button-secondary:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Header and Navigation */
+        header {
+            background-color: var(--neutral-bg);
+            border-bottom: 1px solid var(--neutral-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--spacing-md) 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--spacing-xl);
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--neutral-dark);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            padding: var(--spacing-xs) 0;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .nav-cta {
+            display: flex;
+            gap: var(--spacing-md);
+            align-items: center;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
+            padding: var(--spacing-2xl) 0;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            line-height: 1.2;
+            margin-bottom: var(--spacing-md);
+            color: var(--neutral-dark);
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: var(--spacing-lg);
+            line-height: 1.8;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .hero-visual {
+            background: linear-gradient(135deg, var(--primary) 0%, #003d99 100%);
+            border-radius: 12px;
+            padding: var(--spacing-xl);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-visual::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            top: -100px;
+            right: -100px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-visual-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .dashboard-preview {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            padding: var(--spacing-lg);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.9rem;
+        }
+
+        /* Features Section */
+        .features {
+            background-color: var(--neutral-bg);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .section-header h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: var(--spacing-md);
+            color: var(--neutral-dark);
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--neutral-bg);
+            border: 1px solid var(--neutral-border);
+            border-radius: 12px;
+            padding: var(--spacing-xl);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 8px 24px rgba(0, 82, 204, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: var(--spacing-sm);
+            color: var(--neutral-dark);
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Capabilities Grid */
+        .capabilities {
+            background-color: var(--neutral-light);
+        }
+
+        .capability-box {
+            background: var(--neutral-bg);
+            padding: var(--spacing-lg);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .capability-box h4 {
+            color: var(--neutral-dark);
+            margin-bottom: var(--spacing-sm);
+            font-size: 1.05rem;
+        }
+
+        .capability-box p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .capability-box ul {
+            list-style: none;
+            margin-top: var(--spacing-sm);
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .capability-box li {
+            padding: var(--spacing-xs) 0;
+            padding-left: var(--spacing-md);
+            position: relative;
+        }
+
+        .capability-box li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        /* Role-Based Access Section */
+        .roles-section {
+            background-color: var(--neutral-bg);
+        }
+
+        .role-card {
+            background: var(--neutral-light);
+            border-radius: 12px;
+            padding: var(--spacing-xl);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .role-card:hover {
+            background: var(--neutral-bg);
+            border: 2px solid var(--primary);
+            transform: scale(1.02);
+        }
+
+        .role-title {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: var(--spacing-sm);
+            font-weight: 600;
+        }
+
+        .role-description {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: var(--spacing-md);
+            min-height: 60px;
+        }
+
+        .role-features {
+            text-align: left;
+            background: var(--neutral-bg);
+            padding: var(--spacing-md);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .role-features li {
+            padding: var(--spacing-xs) 0;
+        }
+
+        .role-features li::before {
+            content: '→ ';
+            color: var(--accent);
+            font-weight: bold;
+            margin-right: var(--spacing-xs);
+        }
+
+        /* Interactive Dashboard Preview */
+        .dashboard-section {
+            background: linear-gradient(135deg, var(--neutral-light) 0%, #f0f4f8 100%);
+        }
+
+        .dashboard-container {
+            background: var(--neutral-bg);
+            border: 1px solid var(--neutral-border);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: var(--spacing-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dashboard-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--neutral-border);
+            background: var(--neutral-light);
+        }
+
+        .dashboard-tab {
+            padding: var(--spacing-md) var(--spacing-lg);
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: #666;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .dashboard-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .dashboard-tab:hover {
+            color: var(--primary);
+        }
+
+        .dashboard-content {
+            padding: var(--spacing-xl);
+        }
+
+        .dashboard-tab-pane {
+            display: none;
+        }
+
+        .dashboard-tab-pane.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .metric-card {
+            background: var(--neutral-light);
+            padding: var(--spacing-lg);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .metric-label {
+            color: #666;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .metric-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--neutral-dark);
+        }
+
+        .metric-change {
+            font-size: 0.85rem;
+            color: var(--success);
+            margin-top: var(--spacing-xs);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: var(--spacing-xs) var(--spacing-md);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status-on-track {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status-at-risk {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .status-critical {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Integration Section */
+        .integrations {
+            background: var(--neutral-bg);
+        }
+
+        .integration-logos {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-lg);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .integration-logo {
+            width: 120px;
+            height: 60px;
+            background: var(--neutral-light);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #999;
+            border: 1px solid var(--neutral-border);
+            transition: var(--transition);
+        }
+
+        .integration-logo:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Security & Compliance */
+        .security {
+            background-color: var(--neutral-light);
+        }
+
+        .compliance-item {
+            display: flex;
+            gap: var(--spacing-md);
+            align-items: flex-start;
+            background: var(--neutral-bg);
+            padding: var(--spacing-lg);
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .compliance-icon {
+            font-size: 1.5rem;
+            color: var(--accent);
+            min-width: 30px;
+        }
+
+        .compliance-content h4 {
+            color: var(--neutral-dark);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .compliance-content p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background: var(--neutral-bg);
+        }
+
+        .testimonial {
+            background: var(--neutral-light);
+            padding: var(--spacing-lg);
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .testimonial-text {
+            color: #333;
+            font-style: italic;
+            margin-bottom: var(--spacing-md);
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--neutral-dark);
+        }
+
+        .testimonial-title {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-align: center;
+            padding: var(--spacing-2xl) 0;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            margin-bottom: var(--spacing-xl);
+            opacity: 0.95;
+        }
+
+        .button-white {
+            background-color: white;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .button-white:hover {
+            background-color: var(--neutral-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--neutral-dark);
+            color: white;
+            padding: var(--spacing-2xl) 0;
+            font-size: 0.9rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .footer-section h4 {
+            margin-bottom: var(--spacing-md);
+            font-size: 0.95rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            line-height: 1.8;
+            transition: var(--transition);
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: var(--spacing-lg);
+            text-align: center;
+            color: #999;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: var(--spacing-md);
+                font-size: 0.9rem;
+            }
+
+            .hero {
+                padding: var(--spacing-xl) 0;
+            }
+
+            .section {
+                padding: var(--spacing-xl) 0;
+            }
+
+            .button {
+                padding: var(--spacing-sm) var(--spacing-md);
+                font-size: 0.95rem;
+            }
+
+            .dashboard-header {
+                flex-direction: column;
+                gap: var(--spacing-md);
+                align-items: flex-start;
+            }
+
+            .integration-logos {
+                gap: var(--spacing-md);
+            }
+
+            .integration-logo {
+                width: 100px;
+                height: 50px;
+                font-size: 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 var(--spacing-md);
+            }
+
+            .nav-links {
+                gap: var(--spacing-md);
+                font-size: 0.85rem;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .button {
+                width: 100%;
+                text-align: center;
+            }
+
+            .section-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .dashboard-tabs {
+                overflow-x: auto;
+            }
+
+            .metric-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <nav class="container flex flex-between">
+            <a href="#" class="logo">ProjectMaster Enterprise</a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#integrations">Integrations</a></li>
+                <li><a href="#security">Security</a></li>
+            </ul>
+            <div class="nav-cta">
+                <button class="button button-secondary" onclick="alert('Demo request - Connect with enterprise team')">Request Demo</button>
+                <button class="button button-primary" onclick="alert('Login - Redirects to authentication portal')">Sign In</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero section">
+        <div class="container">
+            <div class="grid grid-2 gap-lg">
+                <div class="hero-content flex flex-column gap-md">
+                    <h1>Enterprise Project Mastery at Scale</h1>
+                    <p class="hero-subtitle">
+                        Coordinate multi-million dollar initiatives across 500+ team members. Manage dependencies, budgets, compliance, and stakeholder communications in one unified platform built for Fortune 500 complexity.
+                    </p>
+                    <div class="hero-cta">
+                        <button class="button button-primary" onclick="alert('Starting trial - Setup wizard begins')">Start Free Trial</button>
+                        <button class="button button-secondary" onclick="document.getElementById('dashboard-section').scrollIntoView({behavior: 'smooth'})">View Platform →</button>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-visual-content">
+                        <div class="dashboard-preview">
+                            <div style="text-align: center; margin-bottom: 1rem;">📊 Real-time Project Dashboard</div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <div>
+                                    <div style="font-size: 1.5rem; font-weight: bold;">847</div>
+                                    <div style="font-size: 0.8rem; opacity: 0.8;">Active Tasks</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 1.5rem; font-weight: bold;">94%</div>
+                                    <div style="font-size: 0.8rem; opacity: 0.8;">On-Time Rate</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 1.5rem; font-weight: bold;">$52M</div>
+                                    <div style="font-size: 0.8rem; opacity: 0.8;">Budget Tracked</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 1.5rem; font-weight: bold;">23</div>
+                                    <div style="font-size: 0.8rem; opacity: 0.8;">Active Projects</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Features -->
+    <section id="features" class="features section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Enterprise-Grade Capabilities</h2>
+                <p>Comprehensive tools for managing complex initiatives with hundreds of stakeholders and millions in investment</p>
+            </div>
+            <div class="grid grid-3">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Resource Orchestration</h3>
+                    <p>Allocate 500+ team members across projects with intelligent conflict detection, capacity planning, and skill-based matching.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Budget Management</h3>
+                    <p>Track multi-million dollar budgets with real-time spend monitoring, approval workflows, variance analysis, and forecast modeling.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚠️</div>
+                    <h3>Risk Management</h3>
+                    <p>Identify, assess, and mitigate risks with impact matrices, dependency analysis, and automated escalation workflows.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h3>Stakeholder Alignment</h3>
+                    <p>Multi-level communication with executive summaries, team updates, and automated reporting across departments and time zones.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📁</div>
+                    <h3>Document Control</h3>
+                    <p>Version-controlled document management with approval workflows, audit trails, and compliance metadata tracking.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔗</div>
+                    <h3>Vendor Coordination</h3>
+                    <p>Manage external vendors with contract tracking, milestone management, and integrated performance metrics.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✅</div>
+                    <h3>Compliance Tracking</h3>
+                    <p>Automated regulatory compliance monitoring, audit trails, certification management, and compliance reporting.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Executive Dashboards</h3>
+                    <p>Real-time portfolio visibility with KPIs, trend analysis, and drill-down capabilities for C-suite oversight.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔐</div>
+                    <h3>Enterprise Security</h3>
+                    <p>Role-based access control, SSO integration, encryption, and compliance with SOC2, ISO27001, HIPAA standards.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deep Capabilities -->
+    <section class="capabilities section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Architectural Foundations</h2>
+                <p>Purpose-built systems for enterprise-scale complexity</p>
+            </div>
+            <div class="grid grid-2">
+                <div class="capability-box">
+                    <h4>Dependency Mapping Engine</h4>
+                    <p>Visualize and manage intricate task dependencies across 500+ team members with automatic critical path analysis and bottleneck detection.</p>
+                    <ul>
+                        <li>Network graph visualization</li>
+                        <li>Critical path identification</li>
+                        <li>Impact simulation tools</li>
+                        <li>Delay propagation alerts</li>
+                    </ul>
+                </div>
+                <div class="capability-box">
+                    <h4>Multi-Dimensional Resource Management</h4>
+                    <p>Advanced allocation across skills, departments, time zones with conflict resolution and predictive capacity planning.</p>
+                    <ul>
+                        <li>Skill-based assignment</li>
+                        <li>Conflict detection</li>
+                        <li>Capacity forecasting</li>
+                        <li>Cross-project visibility</li>
+                    </ul>
+                </div>
+                <div class="capability-box">
+                    <h4>Progressive Budgeting System</h4>
+                    <p>Staged approval workflows from IC-level estimates to C-suite authorization with real-time variance analysis.</p>
+                    <ul>
+                        <li>Multi-stage approvals</li>
+                        <li>Spend forecasting</li>
+                        <li>Variance thresholds</li>
+                        <li>Cost center tracking</li>
+                    </ul>
+                </div>
+                <div class="capability-box">
+                    <h4>Compliance & Audit System</h4>
+                    <p>Immutable audit trails for every change, automated compliance checks, and real-time regulatory status tracking.</p>
+                    <ul>
+                        <li>Immutable audit logs</li>
+                        <li>Automated compliance</li>
+                        <li>Certification tracking</li>
+                        <li>Change approvals</li>
+                    </ul>
+                </div>
+                <div class="capability-box">
+                    <h4>Intelligent Risk Management</h4>
+                    <p>Probabilistic risk assessment with dependency modeling, impact analysis, and automated escalation.</p>
+                    <ul>
+                        <li>Risk scoring matrix</li>
+                        <li>Dependency impact</li>
+                        <li>Mitigation tracking</li>
+                        <li>Escalation automation</li>
+                    </ul>
+                </div>
+                <div class="capability-box">
+                    <h4>Multi-Level Communication Hub</h4>
+                    <p>Role-appropriate dashboards and reports with automated distribution to executives, managers, and contributors.</p>
+                    <ul>
+                        <li>Executive summaries</li>
+                        <li>Team briefings</li>
+                        <li>Automated reports</li>
+                        <li>Smart notifications</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Role-Based Access -->
+    <section class="roles-section section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Role-Based Experience Design</h2>
+                <p>Tailored interfaces serving each user's distinct needs and complexity level</p>
+            </div>
+            <div class="grid grid-4">
+                <div class="role-card">
+                    <div class="role-title">Individual Contributor</div>
+                    <div class="role-description">Task-focused view with clear responsibilities and dependencies affecting their work</div>
+                    <div class="role-features">
+                        <ul>
+                            <li>My Tasks dashboard</li>
+                            <li>Dependency alerts</li>
+                            <li>Time tracking</li>
+                            <li>Resource requests</li>
+                            <li>Collaboration tools</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="role-card">
+                    <div class="role-title">Project Manager</div>
+                    <div class="role-description">Comprehensive project control with resource allocation, timeline management, and team coordination</div>
+                    <div class="role-features">
+                        <ul>
+                            <li>Project timelines</li>
+                            <li>Resource allocation</li>
+                            <li>Budget tracking</li>
+                            <li>Team performance</li>
+                            <li>Risk management</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="role-card">
+                    <div class="role-title">Portfolio Manager</div>
+                    <div class="role-description">Cross-project visibility with resource optimization, budget consolidation, and strategic insights</div>
+                    <div class="role-features">
+                        <ul>
+                            <li>Multi-project view</li>
+                            <li>Resource pool</li>
+                            <li>Budget allocation</li>
+                            <li>Dependency map</li>
+                            <li>Trend analysis</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="role-card">
+                    <div class="role-title">C-Suite Executive</div>
+                    <div class="role-description">High-level portfolio performance with key metrics, risk highlights, and strategic implications</div>
+                    <div class="role-features">
+                        <ul>
+                            <li>Portfolio KPIs</li>
+                            <li>Risk summary</li>
+                            <li>Budget health</li>
+                            <li>Strategic alerts</li>
+                            <li>1-pager reports</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="role-card">
+                    <div class="role-title">Budget Authority</div>
+                    <div class="role-description">Approval workflows with financial analysis, variance tracking, and authorization controls</div>
+                    <div class="role-features">
+                        <ul>
+                            <li>Approval queues</li>
+                            <li>Budget analysis</li>
+                            <li>Variance reports</li>
+                            <li>Historical trends</li>
+                            <li>Authorization</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="role-card">
+                    <div class="role-title">Compliance Officer</div>
+                    <div class="role-description">Regulatory oversight with audit trails, compliance status, and certification management</div>
+                    <div class="role-features">
+                        <ul>
+                            <li>Audit logs</li>
+                            <li>Compliance matrix</li>
+                            <li>Certifications</li>
+                            <li>Change history</li>
+                            <li>Reports</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="role-card">
+                    <div class="role-title">HR/Resource Manager</div>
+                    <div class="role-description">Resource planning with capacity analysis, skill matching, and team utilization optimization</div>
+                    <div class="role-features">
+                        <ul>
+                            <li>Capacity planning</li>
+                            <li>Skills matrix</li>
+                            <li>Utilization reports</li>
+                            <li>Forecasting</li>
+                            <li>Benchmarking</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="role-card">
+                    <div class="role-title">Admin/Security</div>
+                    <div class="role-description">System administration with access controls, data governance, and integration management</div>
+                    <div class="role-features">
+                        <ul>
+                            <li>User management</li>
+                            <li>Permission controls</li>
+                            <li>Integrations</li>
+                            <li>Audit logs</li>
+                            <li>Data governance</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Dashboard -->
+    <section id="dashboard" class="dashboard-section section" id="dashboard-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Unified Dashboard Platform</h2>
+                <p>Real-time visibility adapts to each role's information needs</p>
+            </div>
+            
+            <div class="dashboard-container">
+                <div class="dashboard-header">
+                    <div>
+                        <div style="font-size: 1.1rem; font-weight: 600;">Executive Portfolio Dashboard</div>
+                        <div style="font-size: 0.85rem; opacity: 0.9; margin-top: 0.25rem;">Updated: 2 minutes ago</div>
+                    </div>
+                    <div style="font-size: 0.9rem;">18 Active Projects | 847 Team Members | $127M Budget</div>
+                </div>
+
+                <div class="dashboard-tabs">
+                    <button class="dashboard-tab active" onclick="switchDashboard(0)">Portfolio Overview</button>
+                    <button class="dashboard-tab" onclick="switchDashboard(1)">Resource Allocation</button>
+                    <button class="dashboard-tab" onclick="switchDashboard(2)">Budget Health</button>
+                    <button class="dashboard-tab" onclick="switchDashboard(3)">Risk Register</button>
+                    <button class="dashboard-tab" onclick="switchDashboard(4)">Compliance Status</button>
+                </div>
+
+                <div class="dashboard-content">
+                    <!-- Tab 1: Portfolio Overview -->
+                    <div class="dashboard-tab-pane active">
+                        <div class="metric-grid">
+                            <div class="metric-card">
+                                <div class="metric-label">Portfolio Health</div>
+                                <div class="metric-value">82%</div>
+                                <div class="metric-change">↑ 4% this month</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label">On-Time Completion</div>
+                                <div class="metric-value">94%</div>
+                                <div class="metric-change">↑ 2% this month</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label">Budget Variance</div>
+                                <div class="metric-value">+3.2%</div>
+                                <div class="metric-change">Within threshold</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label">Active Risks</div>
+                                <div class="metric-value">7</div>
+                                <div class="metric-change">2 critical</div>
+                            </div>
+                        </div>
+                        
+                        <h4 style="margin-top: var(--spacing-xl); margin-bottom: var(--spacing-lg);">Project Status Summary</h4>
+                        <div class="grid grid-2" style="gap: var(--spacing-lg);">
+                            <div style="background: var(--neutral-light); padding: var(--spacing-lg); border-radius: 8px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md);">
+                                    <span style="font-weight: 600;">Product Launch Initiative</span>
+                                    <span class="status-badge status-on-track">On Track</span>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; font-size: 0.9rem;">
+                                    <div><span style="color: #666;">Budget:</span> $24.5M / $25M</div>
+                                    <div><span style="color: #666;">Progress:</span> 72%</div>
+                                </div>
+                            </div>
+                            <div style="background: var(--neutral-light); padding: var(--spacing-lg); border-radius: 8px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md);">
+                                    <span style="font-weight: 600;">Corporate Acquisition</span>
+                                    <span class="status-badge status-at-risk">At Risk</span>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; font-size: 0.9rem;">
+                                    <div><span style="color: #666;">Budget:</span> $18.2M / $17M</div>
+                                    <div><span style="color: #666;">Progress:</span> 45%</div>
+                                </div>
+                            </div>
+                            <div style="background: var(--neutral-light); padding: var(--spacing-lg); border-radius: 8px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md);">
+                                    <span style="font-weight: 600;">ERP Implementation</span>
+                                    <span class="status-badge status-on-track">On Track</span>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; font-size: 0.9rem;">
+                                    <div><span style="color: #666;">Budget:</span> $12.8M / $13.5M</div>
+                                    <div><span style="color: #666;">Progress:</span> 58%</div>
+                                </div>
+                            </div>
+                            <div style="background: var(--neutral-light); padding: var(--spacing-lg); border-radius: 8px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md);">
+                                    <span style="font-weight: 600;">Facility Construction</span>
+                                    <span class="status-badge status-critical">Critical</span>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; font-size: 0.9rem;">
+                                    <div><span style="color: #666;">Budget:</span> $45.3M / $40M</div>
+                                    <div><span style="color: #666;">Progress:</span> 38%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 2: Resource Allocation -->
+                    <div class="dashboard-tab-pane">
+                        <div class="metric-grid">
+                            <div class="metric-card">
+                                <div class="metric-label">Allocated Resources</div>
+                                <div class="metric-value">847</div>
+                                <div class="metric-change">94% utilization</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label">Resource Conflicts</div>
+                                <div class="metric-value">12</div>
+                                <div class="metric-change">Waiting resolution</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label">Skill Gaps</div>
+                                <div class="metric-value">8</div>
+                                <div class="metric-change">Requires planning</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label">Capacity Available</div>
+                                <div class="metric-value">6%</div>
+                                <div class="metric-change">Tight market</div>
+                            </div>
+                        </div>
+                        
+                        <h4 style="margin-top: var(--spacing-xl); margin-bottom: var(--spacing-lg);">Resource Demand vs. Supply</h4>
+                        <div style="background: var(--neutral-light); padding: var(--spacing-lg); border-radius: 8px;">
+                            <div style="margin-bottom: var(--spacing-md);">
+                                <div style="font-size: 0.9rem; margin-bottom: 0.5rem;">Senior Engineers: 124/120 requested</div>
+                                <div style="width: 100%; height: 20px; background: white; border-radius: 4px; overflow: hidden;">
+                                    <div style="width: 103%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: flex-end; padding-right: 0.5rem; color: white; font-size: 0.75rem; font-weight: bold;">103%</div>
+                                </div>
+                            </div>
+                            <div style="margin-bottom: var(--spacing-md);">
+                                <div style="font-size: 0.9rem; margin-bottom: 0.5rem;">Project Managers: 89/95 requested</div>
+                                <div style="width: 100%; height: 20px; background: white; border-radius: 4px; overflow: hidden;">
+                                    <div style="width: 94%; height: 100%; background: var(--primary); display: flex; align-items: center; justify-content: flex-end; padding-right: 0.5rem; color: white; font-size: 0.75rem; font-weight: bold;">94%</div>
+                                </div>
+                            </div>
+                            <div>
+                                <div style="font-size: 0.9rem; margin-bottom: 0.5rem;">QA Specialists: 156/140 requested</div>
+                                <div style="width: 100%; height: 20px; background: white; border-radius: 4px; overflow: hidden;">
+                                    <div style="width: 111%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: flex-end; padding-right: 0.5rem; color: white; font-size: 0.75rem; font-weight: bold;">111%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 3: Budget Health -->
+                    <div class="dashboard-tab-pane">
+                        <div class="metric-grid">
+                            <div class="metric-card">
+                                <div class="metric-label">Total Budget</div>
+                                <div class="metric-value">$127M</div>
+                                <div class="metric-change">Portfolio-wide</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label">Spent YTD</div>
+                                <div class="metric-value">$84.2M</div>
+                                <div class="metric-change">66.3% utilization</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label">Committed</div>
+                                <div class="metric-value">$32.1M</div>
+                                <div class="metric-change">Future obligations</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label">Variance</div>
+                                <div class="metric-value">+$2.4M</div>
+                                <div class="metric-change">1.9% over estimate</div>
+                            </div>
+                        </div>
+                        
+                        <h4 style="margin-top: var(--spacing-xl); margin-bottom: var(--spacing-lg);">Budget Allocation by Project</h4>
+                        <div style="background: var(--neutral-light); padding: var(--spacing-lg); border-radius: 8px;">
+                            <div style="display: grid; gap: 1rem; font-size: 0.9rem;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span>Product Launch Initiative</span>
+                                    <span style="color: #666;">$24.5M / $25M (98%)</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span>Corporate Acquisition</span>
+                                    <span style="color: var(--accent); font-weight: 600;">$18.2M / $17M (107%)</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span>ERP Implementation</span>
+                                    <span style="color: #666;">$12.8M / $13.5M (95%)</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span>Facility Construction</span>
+                                    <span style="color: var(--accent); font-weight: 600;">$45.3M / $40M (113%)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 4: Risk Register -->
+                    <div class="dashboard-tab-pane">
+                        <div class="metric-grid">
+                            <div class="metric-card">
+                                <div class="metric-label">Total Risks</div>
+                                <div class="metric-value">23</div>
+                                <div class="metric-change">Tracked</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label">Critical</div>
+                                <div class="metric-value" style="color: var(--danger);">3</div>
+                                <div class="metric-change">Require immediate action</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label">High Impact</div>
+                                <div class="metric-value" style="color: var(--warning);">7</div>
+                                <div class="metric-change">Monitoring</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label">Mitigated</div>
+                                <div class="metric-value" style="color: var(--success);">18</div>
+                                <div class="metric-change">Under control</div>
+                            </div>
+                        </div>
+                        
+                        <h4 style="margin-top: var(--spacing-xl); margin-bottom: var(--spacing-lg);">Top Risks</h4>
+                        <div class="grid grid-2" style="gap: var(--spacing-lg);">
+                            <div style="background: #fff5f5; border-left: 4px solid var(--danger); padding: var(--spacing-lg); border-radius: 8px;">
+                                <div style="font-weight: 600; color: var(--danger); margin-bottom: 0.5rem;">Vendor Supply Delay (Critical)</div>
+                                <div style="color: #666; font-size: 0.9rem; margin-bottom: 0.5rem;">High probability, cascade impact to 4 projects</div>
+                                <div style="color: #666; font-size: 0.85rem;">Mitigation: Identified secondary suppliers, 60% cost increase</div>
+                            </div>
+                            <div style="background: #fffbf0; border-left: 4px solid var(--warning); padding: var(--spacing-lg); border-radius: 8px;">
+                                <div style="font-weight: 600; color: var(--warning); margin-bottom: 0.5rem;">Resource Availability (High)</div>
+                                <div style="color: #666; font-size: 0.9rem; margin-bottom: 0.5rem;">Key technical resources competing for priority</div>
+                                <div style="color: #666; font-size: 0.85rem;">Mitigation: Cross-training program initiated, 3 months</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 5: Compliance Status -->
+                    <div class="dashboard-tab-pane">
+                        <div class="metric-grid">
+                            <div class="metric-card">
+                                <div class="metric-label">Compliance Score</div>
+                                <div class="metric-value" style="color: var(--success);">97%</div>
+                                <div class="metric-change">All frameworks</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label">Active Audits</div>
+                                <div class="metric-value">4</div>
+                                <div class="metric-change">In progress</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label">Audit Log Entries</div>
+                                <div class="metric-value">248.5K</div>
+                                <div class="metric-change">YTD</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label">Violations</div>
+                                <div class="metric-value">0</div>
+                                <div class="metric-change">This quarter</div>
+                            </div>
+                        </div>
+                        
+                        <h4 style="margin-top: var(--spacing-xl); margin-bottom: var(--spacing-lg);">Regulatory Compliance</h4>
+                        <div style="background: var(--neutral-light); padding: var(--spacing-lg); border-radius: 8px;">
+                            <div style="display: grid; gap: 0.75rem; font-size: 0.9rem;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span>SOC 2 Type II</span>
+                                    <span style="color: var(--success); font-weight: 600;">✓ Compliant</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span>ISO 27001</span>
+                                    <span style="color: var(--success); font-weight: 600;">✓ Certified</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span>HIPAA</span>
+                                    <span style="color: var(--success); font-weight: 600;">✓ Compliant</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span>GDPR/CCPA</span>
+                                    <span style="color: var(--success); font-weight: 600;">✓ Compliant</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integrations -->
+    <section id="integrations" class="integrations section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Enterprise System Integration</h2>
+                <p>Native connectors to your existing enterprise ecosystem</p>
+            </div>
+            <div class="integration-logos">
+                <div class="integration-logo">Salesforce CRM</div>
+                <div class="integration-logo">SAP ERP</div>
+                <div class="integration-logo">Oracle HCM</div>
+                <div class="integration-logo">Jira/Azure DevOps</div>
+                <div class="integration-logo">Slack</div>
+                <div class="integration-logo">Microsoft Teams</div>
+                <div class="integration-logo">Tableau/Power BI</div>
+                <div class="integration-logo">Workday</div>
+                <div class="integration-logo">ServiceNow</div>
+                <div class="integration-logo">AWS/Azure</div>
+                <div class="integration-logo">Atlassian Suite</div>
+                <div class="integration-logo">Custom APIs</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Security & Compliance -->
+    <section id="security" class="security section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Enterprise Security & Compliance</h2>
+                <p>Built with Fortune 500 security requirements in mind</p>
+            </div>
+            <div class="grid grid-2">
+                <div class="compliance-item">
+                    <div class="compliance-icon">🔐</div>
+                    <div class="compliance-content">
+                        <h4>Role-Based Access Control (RBAC)</h4>
+                        <p>Fine-grained permission model supporting 8+ role types with dynamic attribute-based controls for multi-tenant isolation.</p>
+                    </div>
+                </div>
+                <div class="compliance-item">
+                    <div class="compliance-icon">🔑</div>
+                    <div class="compliance-content">
+                        <h4>Enterprise Authentication</h4>
+                        <p>SSO/SAML integration, multi-factor authentication, LDAP/Active Directory sync, and passwordless authentication options.</p>
+                    </div>
+                </div>
+                <div class="compliance-item">
+                    <div class="compliance-icon">📊</div>
+                    <div class="compliance-content">
+                        <h4>Complete Audit Trails</h4>
+                        <p>Immutable, cryptographically signed event logs for every action. 7+ years retention, real-time query API, compliance reporting.</p>
+                    </div>
+                </div>
+                <div class="compliance-item">
+                    <div class="compliance-icon">🛡️</div>
+                    <div class="compliance-content">
+                        <h4>Data Protection</h4>
+                        <p>End-to-end encryption, AES-256 at rest, TLS 1.3 in transit, data residency controls, and FIPS 140-2 compliance.</p>
+                    </div>
+                </div>
+                <div class="compliance-item">
+                    <div class="compliance-icon">✅</div>
+                    <div class="compliance-content">
+                        <h4>Certification & Compliance</h4>
+                        <p>SOC 2 Type II, ISO 27001, HIPAA, GDPR, CCPA compliant with continuous monitoring and automated compliance checks.</p>
+                    </div>
+                </div>
+                <div class="compliance-item">
+                    <div class="compliance-icon">🔍</div>
+                    <div class="compliance-content">
+                        <h4>Advanced Monitoring</h4>
+                        <p>Real-time threat detection, anomaly analysis, vulnerability scanning, and compliance drift monitoring with automated alerts.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Trusted by Fortune 500 Leaders</h2>
+                <p>Real results from companies managing billions in initiatives</p>
+            </div>
+            <div class="grid grid-3">
+                <div class="testimonial">
+                    <div class="testimonial-text">"ProjectMaster unified our fragmented 23-project portfolio, reducing budget variance from 8% to 3% and catching resource conflicts before they became $2M+ problems."</div>
+                    <div class="testimonial-author">Sarah Chen</div>
+                    <div class="testimonial-title">Chief Operating Officer, Global Retail</div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-text">"Managing 500+ people across departments was impossible until ProjectMaster. Now we have real-time visibility into skills, capacity, and conflicts. Our on-time delivery improved 34%."</div>
+                    <div class="testimonial-author">Michael Rodriguez</div>
+                    <div class="testimonial-title">VP Program Management, Automotive</div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-text">"The compliance automation saved us 300+ hours annually. Audit trail completeness, regulatory alignment, and certification tracking now automatic. Zero violations last audit cycle."</div>
+                    <div class="testimonial-author">Jennifer Park</div>
+                    <div class="testimonial-title">Chief Compliance Officer, Financial Services</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Master Your Enterprise Portfolio?</h2>
+            <p>Join Fortune 500 companies transforming how they deliver strategic initiatives</p>
+            <button class="button button-white" onclick="alert('Enterprise demo scheduled - Sales team will contact you within 24 hours')">Schedule Enterprise Demo</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#dashboard">Dashboard</a></li>
+                        <li><a href="#integrations">Integrations</a></li>
+                        <li><a href="#security">Security</a></li>
+                        <li><a href="#">Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">API Reference</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Community</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Security</a></li>
+                        <li><a href="#">Compliance</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ProjectMaster Enterprise. All rights reserved. | Enterprise-Grade Project Management for Fortune 500 Companies</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function switchDashboard(index) {
+            // Get all tabs and panes
+            const tabs = document.querySelectorAll('.dashboard-tab');
+            const panes = document.querySelectorAll('.dashboard-tab-pane');
+
+            // Remove active class from all
+            tabs.forEach(tab => tab.classList.remove('active'));
+            panes.forEach(pane => pane.classList.remove('active'));
+
+            // Add active class to selected
+            tabs[index].classList.add('active');
+            panes[index].classList.add('active');
+        }
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

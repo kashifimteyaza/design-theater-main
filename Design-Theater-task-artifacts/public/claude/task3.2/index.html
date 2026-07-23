@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduConnect - Connect with Expert Tutors</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cream: #FFF8F0;
+            --navy: #1A2332;
+            --terracotta: #D4745E;
+            --sage: #7A9B76;
+            --sand: #E8DCC4;
+            --charcoal: #2D3748;
+            --soft-white: #FEFEFE;
+            --accent-gold: #D4A574;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: var(--cream);
+            color: var(--navy);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3 {
+            font-family: 'Didot', 'Bodoni MT', 'Playfair Display', serif;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+        }
+
+        p, button, input, select {
+            font-family: 'Gill Sans', 'Trebuchet MS', sans-serif;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 248, 240, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(26, 35, 50, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--navy);
+            letter-spacing: -0.03em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--navy);
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--terracotta);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .user-toggle {
+            display: flex;
+            gap: 0.5rem;
+            background: var(--sand);
+            padding: 0.4rem;
+            border-radius: 30px;
+        }
+
+        .toggle-btn {
+            padding: 0.5rem 1.2rem;
+            border: none;
+            background: transparent;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            color: var(--charcoal);
+        }
+
+        .toggle-btn.active {
+            background: var(--soft-white);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: 6rem 4rem 4rem;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--sand) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(212, 116, 94, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--navy);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--charcoal);
+            margin-bottom: 3rem;
+            max-width: 600px;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 1rem;
+            max-width: 800px;
+            background: var(--soft-white);
+            padding: 0.8rem;
+            border-radius: 50px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+
+        .search-bar select,
+        .search-bar input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 0.8rem 1.2rem;
+            font-size: 1rem;
+            outline: none;
+            color: var(--navy);
+        }
+
+        .search-btn {
+            background: var(--terracotta);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .search-btn:hover {
+            background: #C25D47;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 116, 94, 0.3);
+        }
+
+        /* Stats Section */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: -3rem auto 0;
+            padding: 0 4rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .stat-card {
+            background: var(--soft-white);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--terracotta);
+            font-family: 'Gill Sans', sans-serif;
+        }
+
+        .stat-label {
+            color: var(--charcoal);
+            margin-top: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 5rem 4rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--charcoal);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Tutor Grid */
+        .tutor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .tutor-card {
+            background: var(--soft-white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .tutor-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--terracotta), var(--sage));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tutor-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        }
+
+        .tutor-card:hover::before {
+            opacity: 1;
+        }
+
+        .tutor-header {
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--sand) 0%, var(--cream) 100%);
+            text-align: center;
+        }
+
+        .tutor-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--terracotta), var(--sage));
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            font-family: 'Gill Sans', sans-serif;
+        }
+
+        .tutor-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .tutor-title {
+            color: var(--charcoal);
+            font-size: 0.95rem;
+        }
+
+        .tutor-body {
+            padding: 1.5rem 2rem 2rem;
+        }
+
+        .tutor-subjects {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .subject-tag {
+            background: var(--sand);
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--charcoal);
+        }
+
+        .tutor-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem 0;
+            border-top: 1px solid var(--sand);
+            border-bottom: 1px solid var(--sand);
+        }
+
+        .tutor-stat {
+            text-align: center;
+        }
+
+        .tutor-stat-value {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--terracotta);
+        }
+
+        .tutor-stat-label {
+            font-size: 0.85rem;
+            color: var(--charcoal);
+        }
+
+        .tutor-price {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .price-amount {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .price-label {
+            font-size: 0.9rem;
+            color: var(--charcoal);
+        }
+
+        .book-btn {
+            width: 100%;
+            background: var(--navy);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .book-btn:hover {
+            background: var(--charcoal);
+            transform: scale(1.02);
+        }
+
+        /* Booking Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 35, 50, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: var(--soft-white);
+            border-radius: 20px;
+            max-width: 900px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.4s;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            padding: 2.5rem 3rem 2rem;
+            background: linear-gradient(135deg, var(--sand) 0%, var(--cream) 100%);
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--charcoal);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .close-modal:hover {
+            background: rgba(26, 35, 50, 0.1);
+        }
+
+        /* Booking Steps */
+        .booking-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .booking-steps::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 40px;
+            right: 40px;
+            height: 2px;
+            background: var(--sand);
+            z-index: 0;
+        }
+
+        .step-progress {
+            position: absolute;
+            top: 20px;
+            left: 40px;
+            height: 2px;
+            background: var(--terracotta);
+            z-index: 1;
+            transition: width 0.5s;
+        }
+
+        .step {
+            text-align: center;
+            flex: 1;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--sand);
+            color: var(--charcoal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .step.active .step-number {
+            background: var(--terracotta);
+            color: white;
+            box-shadow: 0 4px 15px rgba(212, 116, 94, 0.3);
+        }
+
+        .step.completed .step-number {
+            background: var(--sage);
+            color: white;
+        }
+
+        .step-label {
+            font-size: 0.85rem;
+            color: var(--charcoal);
+        }
+
+        .step.active .step-label {
+            color: var(--terracotta);
+            font-weight: 600;
+        }
+
+        .modal-body {
+            padding: 2rem 3rem 3rem;
+        }
+
+        .booking-panel {
+            display: none;
+        }
+
+        .booking-panel.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        .panel-title {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .panel-subtitle {
+            color: var(--charcoal);
+            margin-bottom: 2rem;
+        }
+
+        /* Session Type Selection */
+        .session-types {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .session-type {
+            border: 2px solid var(--sand);
+            border-radius: 12px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .session-type:hover {
+            border-color: var(--terracotta);
+            transform: translateY(-4px);
+        }
+
+        .session-type.selected {
+            border-color: var(--terracotta);
+            background: rgba(212, 116, 94, 0.05);
+        }
+
+        .session-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .session-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .session-duration {
+            color: var(--charcoal);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .session-price {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--terracotta);
+        }
+
+        /* Calendar */
+        .calendar-container {
+            background: var(--cream);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .calendar-month {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .calendar-nav button {
+            background: var(--soft-white);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .calendar-nav button:hover {
+            background: var(--sand);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .calendar-day.header {
+            font-weight: 600;
+            color: var(--charcoal);
+            cursor: default;
+        }
+
+        .calendar-day.available:hover {
+            background: var(--sand);
+        }
+
+        .calendar-day.selected {
+            background: var(--terracotta);
+            color: white;
+        }
+
+        .calendar-day.disabled {
+            color: #CCC;
+            cursor: not-allowed;
+        }
+
+        /* Time Slots */
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .time-slot {
+            padding: 1rem;
+            border: 2px solid var(--sand);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .time-slot:hover {
+            border-color: var(--terracotta);
+        }
+
+        .time-slot.selected {
+            background: var(--terracotta);
+            color: white;
+            border-color: var(--terracotta);
+        }
+
+        .time-slot.unavailable {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* Payment Form */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--sand);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--terracotta);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .booking-summary {
+            background: var(--cream);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--sand);
+        }
+
+        .summary-row:last-child {
+            border-bottom: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: var(--terracotta);
+        }
+
+        /* Virtual Session */
+        .session-container {
+            background: var(--navy);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .video-main {
+            background: #000;
+            border-radius: 12px;
+            aspect-ratio: 16/9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            position: relative;
+        }
+
+        .video-self {
+            background: #1a1a1a;
+            border-radius: 8px;
+            aspect-ratio: 4/3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .session-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .control-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .control-btn.mic {
+            background: var(--soft-white);
+            color: var(--navy);
+        }
+
+        .control-btn.video {
+            background: var(--soft-white);
+            color: var(--navy);
+        }
+
+        .control-btn.end {
+            background: #E74C3C;
+            color: white;
+        }
+
+        .control-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .session-info {
+            background: var(--soft-white);
+            padding: 1.5rem;
+            border-radius: 12px;
+        }
+
+        .session-timer {
+            font-size: 2rem;
+            font-weight: 600;
+            text-align: center;
+            color: var(--terracotta);
+            margin-bottom: 1rem;
+        }
+
+        .session-details {
+            font-size: 0.95rem;
+            color: var(--charcoal);
+        }
+
+        /* Navigation Buttons */
+        .modal-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-secondary {
+            background: var(--sand);
+            color: var(--navy);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: var(--charcoal);
+            color: white;
+        }
+
+        .btn-primary {
+            background: var(--terracotta);
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #C25D47;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 116, 94, 0.3);
+        }
+
+        /* Features Section */
+        .features {
+            background: var(--soft-white);
+            padding: 5rem 4rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-text {
+            color: var(--charcoal);
+            line-height: 1.7;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 5rem 4rem;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--sand) 50%, var(--cream) 100%);
+        }
+
+        .steps-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .process-step {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            align-items: start;
+        }
+
+        .process-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .process-number {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: var(--terracotta);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(212, 116, 94, 0.3);
+        }
+
+        .process-content h3 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .process-content p {
+            font-size: 1.1rem;
+            color: var(--charcoal);
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--navy);
+            color: var(--cream);
+            padding: 4rem;
+            text-align: center;
+        }
+
+        footer p {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--cream);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--terracotta);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 2rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .hero {
+                padding: 4rem 2rem 3rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .search-bar {
+                flex-direction: column;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 0 2rem;
+            }
+
+            .tutor-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .session-types {
+                grid-template-columns: 1fr;
+            }
+
+            .time-slots {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-step {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .process-number {
+                margin: 0 auto;
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">EduConnect</div>
+        <div class="nav-links">
+            <a href="#tutors">Find Tutors</a>
+            <a href="#how">How It Works</a>
+            <a href="#features">Features</a>
+            <div class="user-toggle">
+                <button class="toggle-btn active" onclick="switchView('student')">Student</button>
+                <button class="toggle-btn" onclick="switchView('tutor')">Tutor</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Expert tutoring,<br>whenever you're ready.</h1>
+            <p class="hero-subtitle">Connect with qualified tutors for SAT prep, math, science, and essay writing. Find your perfect match and start learning today.</p>
+            
+            <div class="search-bar">
+                <select>
+                    <option>Select Subject</option>
+                    <option>SAT Prep</option>
+                    <option>Math</option>
+                    <option>Science</option>
+                    <option>Essay Writing</option>
+                    <option>AP Courses</option>
+                </select>
+                <input type="text" placeholder="Budget ($/hour)">
+                <button class="search-btn">Search Tutors</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <div class="stats">
+        <div class="stat-card">
+            <div class="stat-number">2,847</div>
+            <div class="stat-label">Qualified Tutors</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">15,392</div>
+            <div class="stat-label">Sessions Completed</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">4.9/5</div>
+            <div class="stat-label">Average Rating</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">98%</div>
+            <div class="stat-label">Student Satisfaction</div>
+        </div>
+    </div>
+
+    <!-- Tutors Section -->
+    <div class="container" id="tutors">
+        <div class="section-header">
+            <h2>Featured Tutors</h2>
+            <p>Meet our expert educators ready to help you succeed</p>
+        </div>
+
+        <div class="tutor-grid">
+            <!-- Tutor Card 1 -->
+            <div class="tutor-card" onclick="openBookingModal('Sarah Chen', 'SAT Specialist')">
+                <div class="tutor-header">
+                    <div class="tutor-avatar">SC</div>
+                    <h3 class="tutor-name">Sarah Chen</h3>
+                    <p class="tutor-title">SAT Specialist & Math Expert</p>
+                </div>
+                <div class="tutor-body">
+                    <div class="tutor-subjects">
+                        <span class="subject-tag">SAT Prep</span>
+                        <span class="subject-tag">Calculus</span>
+                        <span class="subject-tag">Algebra</span>
+                    </div>
+                    <div class="tutor-stats">
+                        <div class="tutor-stat">
+                            <div class="tutor-stat-value">4.9★</div>
+                            <div class="tutor-stat-label">Rating</div>
+                        </div>
+                        <div class="tutor-stat">
+                            <div class="tutor-stat-value">347</div>
+                            <div class="tutor-stat-label">Sessions</div>
+                        </div>
+                    </div>
+                    <div class="tutor-price">
+                        <div class="price-amount">$75</div>
+                        <div class="price-label">per hour</div>
+                    </div>
+                    <button class="book-btn">View Profile & Book</button>
+                </div>
+            </div>
+
+            <!-- Tutor Card 2 -->
+            <div class="tutor-card" onclick="openBookingModal('Marcus Williams', 'Science Educator')">
+                <div class="tutor-header">
+                    <div class="tutor-avatar">MW</div>
+                    <h3 class="tutor-name">Marcus Williams</h3>
+                    <p class="tutor-title">Science Educator & Lab Expert</p>
+                </div>
+                <div class="tutor-body">
+                    <div class="tutor-subjects">
+                        <span class="subject-tag">Chemistry</span>
+                        <span class="subject-tag">Biology</span>
+                        <span class="subject-tag">Physics</span>
+                    </div>
+                    <div class="tutor-stats">
+                        <div class="tutor-stat">
+                            <div class="tutor-stat-value">5.0★</div>
+                            <div class="tutor-stat-label">Rating</div>
+                        </div>
+                        <div class="tutor-stat">
+                            <div class="tutor-stat-value">289</div>
+                            <div class="tutor-stat-label">Sessions</div>
+                        </div>
+                    </div>
+                    <div class="tutor-price">
+                        <div class="price-amount">$65</div>
+                        <div class="price-label">per hour</div>
+                    </div>
+                    <button class="book-btn">View Profile & Book</button>
+                </div>
+            </div>
+
+            <!-- Tutor Card 3 -->
+            <div class="tutor-card" onclick="openBookingModal('Emily Rodriguez', 'Writing Coach')">
+                <div class="tutor-header">
+                    <div class="tutor-avatar">ER</div>
+                    <h3 class="tutor-name">Emily Rodriguez</h3>
+                    <p class="tutor-title">Writing Coach & Essay Specialist</p>
+                </div>
+                <div class="tutor-body">
+                    <div class="tutor-subjects">
+                        <span class="subject-tag">Essay Writing</span>
+                        <span class="subject-tag">Literature</span>
+                        <span class="subject-tag">AP English</span>
+                    </div>
+                    <div class="tutor-stats">
+                        <div class="tutor-stat">
+                            <div class="tutor-stat-value">4.8★</div>
+                            <div class="tutor-stat-label">Rating</div>
+                        </div>
+                        <div class="tutor-stat">
+                            <div class="tutor-stat-value">412</div>
+                            <div class="tutor-stat-label">Sessions</div>
+                        </div>
+                    </div>
+                    <div class="tutor-price">
+                        <div class="price-amount">$70</div>
+                        <div class="price-label">per hour</div>
+                    </div>
+                    <button class="book-btn">View Profile & Book</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="section-header">
+            <h2>Why Choose EduConnect</h2>
+            <p>Everything you need for successful online tutoring</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3 class="feature-title">Verified Experts</h3>
+                <p class="feature-text">All tutors are thoroughly vetted with verified credentials and teaching experience.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📅</div>
+                <h3 class="feature-title">Flexible Scheduling</h3>
+                <p class="feature-text">Book sessions that fit your schedule with easy rescheduling and cancellation.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">💻</div>
+                <h3 class="feature-title">Built-in Video</h3>
+                <p class="feature-text">HD video sessions with screen sharing and interactive whiteboard tools.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3 class="feature-title">Progress Tracking</h3>
+                <p class="feature-text">Monitor improvement with session notes and performance analytics.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">💳</div>
+                <h3 class="feature-title">Secure Payments</h3>
+                <p class="feature-text">Safe, encrypted payment processing with transparent pricing.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">⭐</div>
+                <h3 class="feature-title">Money-Back Guarantee</h3>
+                <p class="feature-text">Not satisfied with your first session? We'll refund you, no questions asked.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how">
+        <div class="section-header">
+            <h2>How It Works</h2>
+            <p>From discovery to mastery in four simple steps</p>
+        </div>
+
+        <div class="steps-container">
+            <div class="process-step">
+                <div class="process-number">1</div>
+                <div class="process-content">
+                    <h3>Find Your Tutor</h3>
+                    <p>Browse tutor profiles by subject and budget. Read reviews from other students and check their availability in real-time.</p>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="process-number">2</div>
+                <div class="process-content">
+                    <h3>Book a Trial Session</h3>
+                    <p>Schedule your first session at a discounted rate. Choose from 1-hour standard, 2-hour intensive, or group sessions.</p>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="process-number">3</div>
+                <div class="process-content">
+                    <h3>Attend Your Session</h3>
+                    <p>Meet your tutor in our built-in virtual classroom with HD video, screen sharing, and interactive tools.</p>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="process-number">4</div>
+                <div class="process-content">
+                    <h3>Build Your Success</h3>
+                    <p>Continue with regular sessions, track your progress, and watch your grades improve over time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>EduConnect - Connecting students with expert tutors since 2020</p>
+        <div class="footer-links">
+            <a href="#">About Us</a>
+            <a href="#">Become a Tutor</a>
+            <a href="#">Support</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+        </div>
+        <p style="margin-top: 2rem; font-size: 0.9rem;">© 2024 EduConnect. All rights reserved.</p>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div class="modal" id="bookingModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close-modal" onclick="closeBookingModal()">×</button>
+                <h2 id="modalTutorName">Book Session with Sarah Chen</h2>
+                <p id="modalTutorTitle">SAT Specialist & Math Expert</p>
+
+                <div class="booking-steps">
+                    <div class="step-progress" id="stepProgress"></div>
+                    <div class="step active" data-step="1">
+                        <div class="step-number">1</div>
+                        <div class="step-label">Session Type</div>
+                    </div>
+                    <div class="step" data-step="2">
+                        <div class="step-number">2</div>
+                        <div class="step-label">Date & Time</div>
+                    </div>
+                    <div class="step" data-step="3">
+                        <div class="step-number">3</div>
+                        <div class="step-label">Payment</div>
+                    </div>
+                    <div class="step" data-step="4">
+                        <div class="step-number">4</div>
+                        <div class="step-label">Confirmation</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <!-- Step 1: Session Type -->
+                <div class="booking-panel active" id="panel1">
+                    <h3 class="panel-title">Choose Your Session Type</h3>
+                    <p class="panel-subtitle">Select the format that works best for you</p>
+
+                    <div class="session-types">
+                        <div class="session-type" onclick="selectSessionType(this, 'standard', 75)">
+                            <div class="session-icon">⏱️</div>
+                            <div class="session-name">Standard Session</div>
+                            <div class="session-duration">60 minutes</div>
+                            <div class="session-price">$75</div>
+                        </div>
+
+                        <div class="session-type" onclick="selectSessionType(this, 'intensive', 140)">
+                            <div class="session-icon">🚀</div>
+                            <div class="session-name">Intensive Session</div>
+                            <div class="session-duration">120 minutes</div>
+                            <div class="session-price">$140</div>
+                        </div>
+
+                        <div class="session-type" onclick="selectSessionType(this, 'group', 45)">
+                            <div class="session-icon">👥</div>
+                            <div class="session-name">Group Session</div>
+                            <div class="session-duration">60 minutes (2-4 students)</div>
+                            <div class="session-price">$45</div>
+                        </div>
+                    </div>
+
+                    <div class="modal-actions">
+                        <button class="btn-secondary" onclick="closeBookingModal()">Cancel</button>
+                        <button class="btn-primary" onclick="nextStep(2)" disabled id="step1Next">Continue to Scheduling</button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Date & Time -->
+                <div class="booking-panel" id="panel2">
+                    <h3 class="panel-title">Select Date & Time</h3>
+                    <p class="panel-subtitle">Choose a time that works for your schedule</p>
+
+                    <div class="calendar-container">
+                        <div class="calendar-header">
+                            <div class="calendar-month">April 2026</div>
+                            <div class="calendar-nav">
+                                <button>‹</button>
+                                <button>›</button>
+                            </div>
+                        </div>
+
+                        <div class="calendar-grid">
+                            <div class="calendar-day header">Sun</div>
+                            <div class="calendar-day header">Mon</div>
+                            <div class="calendar-day header">Tue</div>
+                            <div class="calendar-day header">Wed</div>
+                            <div class="calendar-day header">Thu</div>
+                            <div class="calendar-day header">Fri</div>
+                            <div class="calendar-day header">Sat</div>
+
+                            <div class="calendar-day disabled">30</div>
+                            <div class="calendar-day disabled">31</div>
+                            <div class="calendar-day disabled">1</div>
+                            <div class="calendar-day disabled">2</div>
+                            <div class="calendar-day disabled">3</div>
+                            <div class="calendar-day disabled">4</div>
+                            <div class="calendar-day disabled">5</div>
+                            
+                            <div class="calendar-day disabled">6</div>
+                            <div class="calendar-day disabled">7</div>
+                            <div class="calendar-day disabled">8</div>
+                            <div class="calendar-day disabled">9</div>
+                            <div class="calendar-day disabled">10</div>
+                            <div class="calendar-day disabled">11</div>
+                            <div class="calendar-day disabled">12</div>
+                            
+                            <div class="calendar-day disabled">13</div>
+                            <div class="calendar-day disabled">14</div>
+                            <div class="calendar-day disabled">15</div>
+                            <div class="calendar-day disabled">16</div>
+                            <div class="calendar-day disabled">17</div>
+                            <div class="calendar-day disabled">18</div>
+                            <div class="calendar-day disabled">19</div>
+                            
+                            <div class="calendar-day disabled">20</div>
+                            <div class="calendar-day disabled">21</div>
+                            <div class="calendar-day available" onclick="selectDate(this, '22')">22</div>
+                            <div class="calendar-day available" onclick="selectDate(this, '23')">23</div>
+                            <div class="calendar-day available" onclick="selectDate(this, '24')">24</div>
+                            <div class="calendar-day available" onclick="selectDate(this, '25')">25</div>
+                            <div class="calendar-day available" onclick="selectDate(this, '26')">26</div>
+                            
+                            <div class="calendar-day available" onclick="selectDate(this, '27')">27</div>
+                            <div class="calendar-day available" onclick="selectDate(this, '28')">28</div>
+                            <div class="calendar-day available" onclick="selectDate(this, '29')">29</div>
+                            <div class="calendar-day available" onclick="selectDate(this, '30')">30</div>
+                        </div>
+
+                        <div class="time-slots">
+                            <div class="time-slot" onclick="selectTime(this, '9:00 AM')">9:00 AM</div>
+                            <div class="time-slot" onclick="selectTime(this, '10:00 AM')">10:00 AM</div>
+                            <div class="time-slot unavailable">11:00 AM</div>
+                            <div class="time-slot" onclick="selectTime(this, '1:00 PM')">1:00 PM</div>
+                            <div class="time-slot" onclick="selectTime(this, '2:00 PM')">2:00 PM</div>
+                            <div class="time-slot" onclick="selectTime(this, '3:00 PM')">3:00 PM</div>
+                            <div class="time-slot unavailable">4:00 PM</div>
+                            <div class="time-slot" onclick="selectTime(this, '5:00 PM')">5:00 PM</div>
+                            <div class="time-slot" onclick="selectTime(this, '6:00 PM')">6:00 PM</div>
+                            <div class="time-slot" onclick="selectTime(this, '7:00 PM')">7:00 PM</div>
+                        </div>
+                    </div>
+
+                    <div class="modal-actions">
+                        <button class="btn-secondary" onclick="nextStep(1)">Back</button>
+                        <button class="btn-primary" onclick="nextStep(3)" disabled id="step2Next">Continue to Payment</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Payment -->
+                <div class="booking-panel" id="panel3">
+                    <h3 class="panel-title">Payment Information</h3>
+                    <p class="panel-subtitle">Your information is secure and encrypted</p>
+
+                    <div class="booking-summary">
+                        <div class="summary-row">
+                            <span>Session Type</span>
+                            <span id="summaryType">-</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Date & Time</span>
+                            <span id="summaryDateTime">-</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Tutor</span>
+                            <span id="summaryTutor">Sarah Chen</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Total</span>
+                            <span id="summaryTotal">$0</span>
+                        </div>
+                    </div>
+
+                    <form>
+                        <div class="form-group">
+                            <label class="form-label">Cardholder Name</label>
+                            <input type="text" class="form-input" placeholder="John Doe">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Card Number</label>
+                            <input type="text" class="form-input" placeholder="1234 5678 9012 3456">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Expiry Date</label>
+                                <input type="text" class="form-input" placeholder="MM/YY">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">CVV</label>
+                                <input type="text" class="form-input" placeholder="123">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-input" placeholder="your@email.com">
+                        </div>
+                    </form>
+
+                    <div class="modal-actions">
+                        <button class="btn-secondary" onclick="nextStep(2)">Back</button>
+                        <button class="btn-primary" onclick="nextStep(4)">Confirm & Pay</button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Confirmation -->
+                <div class="booking-panel" id="panel4">
+                    <h3 class="panel-title">Booking Confirmed! 🎉</h3>
+                    <p class="panel-subtitle">Your session has been scheduled</p>
+
+                    <div class="booking-summary">
+                        <div class="summary-row">
+                            <span>Confirmation #</span>
+                            <span>#EDU-2024-8472</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Session Type</span>
+                            <span id="confirmType">-</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Date & Time</span>
+                            <span id="confirmDateTime">-</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Tutor</span>
+                            <span id="confirmTutor">Sarah Chen</span>
+                        </div>
+                    </div>
+
+                    <div class="session-container">
+                        <h3 style="color: white; margin-bottom: 1rem;">Session Access</h3>
+                        <p style="color: var(--cream); margin-bottom: 1rem;">You'll receive an email with the meeting link. Join 5 minutes early to test your setup.</p>
+                        <button class="btn-primary" style="width: 100%;" onclick="showVirtualSession()">Preview Virtual Classroom</button>
+                    </div>
+
+                    <div class="modal-actions">
+                        <button class="btn-secondary" onclick="closeBookingModal()">Close</button>
+                        <button class="btn-primary" onclick="closeBookingModal()">Add to Calendar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Virtual Session Modal -->
+    <div class="modal" id="sessionModal">
+        <div class="modal-content" style="max-width: 1200px;">
+            <div class="modal-header">
+                <button class="close-modal" onclick="closeSessionModal()">×</button>
+                <h2>Virtual Session with Sarah Chen</h2>
+                <p>SAT Prep - Algebra Review</p>
+            </div>
+
+            <div class="modal-body">
+                <div class="session-container">
+                    <div class="video-grid">
+                        <div class="video-main">
+                            <div style="text-align: center;">
+                                <div style="font-size: 4rem; margin-bottom: 1rem;">👩‍🏫</div>
+                                <div>Tutor Video Stream</div>
+                                <div style="font-size: 0.9rem; opacity: 0.7; margin-top: 0.5rem;">HD Video Active</div>
+                            </div>
+                        </div>
+                        <div class="video-self">
+                            <div style="text-align: center;">
+                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">🧑‍🎓</div>
+                                <div style="font-size: 0.9rem;">Your Camera</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="session-controls">
+                        <button class="control-btn mic" title="Mute/Unmute">🎤</button>
+                        <button class="control-btn video" title="Camera On/Off">📹</button>
+                        <button class="control-btn end" title="End Session">📞</button>
+                    </div>
+                </div>
+
+                <div class="session-info">
+                    <div class="session-timer">45:23</div>
+                    <div class="session-details">
+                        <p><strong>Session Notes:</strong> Reviewing quadratic equations and problem-solving strategies</p>
+                        <p style="margin-top: 0.5rem;"><strong>Next Steps:</strong> Practice problems will be shared after the session</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // View Toggle
+        function switchView(view) {
+            const buttons = document.querySelectorAll('.toggle-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // In production, this would update content based on view
+            console.log('Switched to ' + view + ' view');
+        }
+
+        // Booking Modal State
+        let bookingState = {
+            tutorName: '',
+            tutorTitle: '',
+            sessionType: '',
+            sessionPrice: 0,
+            selectedDate: '',
+            selectedTime: '',
+            currentStep: 1
+        };
+
+        function openBookingModal(tutorName, tutorTitle) {
+            bookingState.tutorName = tutorName;
+            bookingState.tutorTitle = tutorTitle;
+            bookingState.currentStep = 1;
+            
+            document.getElementById('modalTutorName').textContent = 'Book Session with ' + tutorName;
+            document.getElementById('modalTutorTitle').textContent = tutorTitle;
+            document.getElementById('summaryTutor').textContent = tutorName;
+            document.getElementById('confirmTutor').textContent = tutorName;
+            
+            document.getElementById('bookingModal').classList.add('active');
+            updateStepProgress();
+        }
+
+        function closeBookingModal() {
+            document.getElementById('bookingModal').classList.remove('active');
+            resetBooking();
+        }
+
+        function resetBooking() {
+            bookingState = {
+                tutorName: '',
+                tutorTitle: '',
+                sessionType: '',
+                sessionPrice: 0,
+                selectedDate: '',
+                selectedTime: '',
+                currentStep: 1
+            };
+            
+            // Reset UI
+            document.querySelectorAll('.session-type').forEach(el => el.classList.remove('selected'));
+            document.querySelectorAll('.calendar-day').forEach(el => el.classList.remove('selected'));
+            document.querySelectorAll('.time-slot').forEach(el => el.classList.remove('selected'));
+        }
+
+        function selectSessionType(element, type, price) {
+            document.querySelectorAll('.session-type').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+            
+            bookingState.sessionType = type;
+            bookingState.sessionPrice = price;
+            
+            document.getElementById('step1Next').disabled = false;
+            
+            const typeText = element.querySelector('.session-name').textContent;
+            document.getElementById('summaryType').textContent = typeText;
+            document.getElementById('confirmType').textContent = typeText;
+            document.getElementById('summaryTotal').textContent = '$' + price;
+        }
+
+        function selectDate(element, date) {
+            if (element.classList.contains('disabled')) return;
+            
+            document.querySelectorAll('.calendar-day.available').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+            
+            bookingState.selectedDate = 'April ' + date + ', 2026';
+            updateDateTimeSummary();
+        }
+
+        function selectTime(element, time) {
+            if (element.classList.contains('unavailable')) return;
+            
+            document.querySelectorAll('.time-slot').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+            
+            bookingState.selectedTime = time;
+            updateDateTimeSummary();
+        }
+
+        function updateDateTimeSummary() {
+            if (bookingState.selectedDate && bookingState.selectedTime) {
+                const dateTime = bookingState.selectedDate + ' at ' + bookingState.selectedTime;
+                document.getElementById('summaryDateTime').textContent = dateTime;
+                document.getElementById('confirmDateTime').textContent = dateTime;
+                document.getElementById('step2Next').disabled = false;
+            }
+        }
+
+        function nextStep(step) {
+            // Hide current panel
+            document.querySelectorAll('.booking-panel').forEach(panel => {
+                panel.classList.remove('active');
+            });
+            
+            // Show target panel
+            document.getElementById('panel' + step).classList.add('active');
+            
+            // Update steps
+            bookingState.currentStep = step;
+            updateStepProgress();
+        }
+
+        function updateStepProgress() {
+            const steps = document.querySelectorAll('.step');
+            const progress = document.getElementById('stepProgress');
+            
+            steps.forEach((step, index) => {
+                const stepNum = index + 1;
+                step.classList.remove('active', 'completed');
+                
+                if (stepNum < bookingState.currentStep) {
+                    step.classList.add('completed');
+                } else if (stepNum === bookingState.currentStep) {
+                    step.classList.add('active');
+                }
+            });
+            
+            // Update progress bar
+            const progressWidth = ((bookingState.currentStep - 1) / 3) * 100;
+            progress.style.width = 'calc(' + progressWidth + '% - 80px)';
+        }
+
+        function showVirtualSession() {
+            closeBookingModal();
+            document.getElementById('sessionModal').classList.add('active');
+        }
+
+        function closeSessionModal() {
+            document.getElementById('sessionModal').classList.remove('active');
+        }
+    </script>
+</body>
+</html>

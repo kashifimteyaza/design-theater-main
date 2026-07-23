@@ -1,0 +1,1469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillBridge - Peer Learning & Mentorship Platform</title>
+    <style>
+        :root {
+            --color-cream: #FFF8F0;
+            --color-terracotta: #D97757;
+            --color-warm-brown: #8B5E3C;
+            --color-deep-teal: #2C5F5D;
+            --color-sage: #7A9B76;
+            --color-charcoal: #2D2D2D;
+            --color-soft-gray: #F5F5F0;
+            --color-border: #E8DFD2;
+            
+            --font-display: 'Playfair Display', Georgia, serif;
+            --font-body: 'Literata', 'Georgia', serif;
+            --font-ui: 'DM Sans', system-ui, sans-serif;
+            
+            --shadow-soft: 0 4px 20px rgba(139, 94, 60, 0.08);
+            --shadow-medium: 0 8px 30px rgba(139, 94, 60, 0.12);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background: var(--color-cream);
+            color: var(--color-charcoal);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        
+        /* Custom Google Fonts Alternative - Using system fonts with character */
+        @import url('data:text/css;charset=utf-8,');
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 248, 240, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--color-border);
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--color-deep-teal);
+            letter-spacing: -0.02em;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            font-family: var(--font-ui);
+        }
+        
+        .nav-links a {
+            color: var(--color-charcoal);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-terracotta);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--color-terracotta);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .cta-button {
+            background: var(--color-terracotta);
+            color: white;
+            padding: 0.75rem 1.8rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-family: var(--font-ui);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--shadow-soft);
+        }
+        
+        .cta-button:hover {
+            background: var(--color-warm-brown);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: 6rem 2rem 4rem;
+            background: linear-gradient(135deg, var(--color-cream) 0%, #FFF5E8 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(217, 119, 87, 0.08) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-30px, -30px) rotate(5deg); }
+        }
+        
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-content {
+            max-width: 720px;
+        }
+        
+        h1 {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1.1;
+            color: var(--color-charcoal);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero-subtitle {
+            font-size: 1.4rem;
+            color: var(--color-warm-brown);
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+        
+        .hero-features {
+            display: flex;
+            gap: 3rem;
+            margin-top: 3rem;
+            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+        }
+        
+        .hero-feature {
+            flex: 1;
+        }
+        
+        .hero-feature-icon {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .hero-feature h3 {
+            font-family: var(--font-ui);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--color-deep-teal);
+            margin-bottom: 0.5rem;
+        }
+        
+        .hero-feature p {
+            font-size: 0.95rem;
+            color: var(--color-charcoal);
+            opacity: 0.85;
+        }
+        
+        /* Dual Role Interactive Section */
+        .dual-role {
+            padding: 6rem 2rem;
+            background: white;
+        }
+        
+        .section-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            color: var(--color-charcoal);
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--color-warm-brown);
+            max-width: 650px;
+            margin: 0 auto;
+        }
+        
+        .role-switcher {
+            display: flex;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .role-card {
+            flex: 1;
+            background: var(--color-soft-gray);
+            padding: 3rem;
+            border-radius: 20px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid transparent;
+        }
+        
+        .role-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--color-terracotta), var(--color-sage));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .role-card.active {
+            background: white;
+            border-color: var(--color-terracotta);
+            box-shadow: var(--shadow-medium);
+            transform: translateY(-8px);
+        }
+        
+        .role-card.active::before {
+            opacity: 0.05;
+        }
+        
+        .role-card-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .role-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            transition: transform 0.4s ease;
+        }
+        
+        .role-card:hover .role-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .role-card h3 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--color-charcoal);
+        }
+        
+        .role-card p {
+            font-size: 1.05rem;
+            color: var(--color-charcoal);
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+        
+        .role-details {
+            margin-top: 3rem;
+            padding: 3rem;
+            background: var(--color-soft-gray);
+            border-radius: 20px;
+            min-height: 300px;
+            transition: all 0.4s ease;
+        }
+        
+        .role-detail-content {
+            display: none;
+        }
+        
+        .role-detail-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .role-detail-content h4 {
+            font-family: var(--font-ui);
+            font-size: 1.3rem;
+            color: var(--color-deep-teal);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .role-capabilities {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .capability-item {
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+        }
+        
+        .capability-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--color-terracotta);
+            color: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.2rem;
+        }
+        
+        .capability-text h5 {
+            font-family: var(--font-ui);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: var(--color-charcoal);
+        }
+        
+        .capability-text p {
+            font-size: 0.9rem;
+            color: var(--color-charcoal);
+            opacity: 0.75;
+        }
+        
+        /* Privacy Controls */
+        .privacy-section {
+            padding: 6rem 2rem;
+            background: var(--color-deep-teal);
+            color: white;
+        }
+        
+        .privacy-content {
+            display: flex;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .privacy-text {
+            flex: 1;
+        }
+        
+        .privacy-text h2 {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+        
+        .privacy-text p {
+            font-size: 1.15rem;
+            line-height: 1.7;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+        }
+        
+        .privacy-demo {
+            flex: 1;
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            color: var(--color-charcoal);
+        }
+        
+        .privacy-demo h4 {
+            font-family: var(--font-ui);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--color-deep-teal);
+            font-weight: 700;
+        }
+        
+        .privacy-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+        
+        .privacy-toggle:last-child {
+            border-bottom: none;
+        }
+        
+        .privacy-toggle-label {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+        
+        .privacy-toggle-label strong {
+            font-family: var(--font-ui);
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        
+        .privacy-toggle-label span {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 56px;
+            height: 30px;
+            background: var(--color-border);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .toggle-switch.active {
+            background: var(--color-sage);
+        }
+        
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .toggle-switch.active::after {
+            transform: translateX(26px);
+        }
+        
+        /* Balance Section */
+        .balance-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(to bottom, white, var(--color-soft-gray));
+        }
+        
+        .balance-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        .balance-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-soft);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .balance-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--color-terracotta), var(--color-sage));
+        }
+        
+        .balance-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .balance-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--color-charcoal);
+        }
+        
+        .balance-card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .balance-features {
+            margin-top: 2rem;
+        }
+        
+        .balance-feature {
+            display: flex;
+            align-items: start;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+        
+        .balance-feature::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--color-terracotta);
+            font-weight: bold;
+        }
+        
+        .balance-feature p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        /* Community Features */
+        .community-section {
+            padding: 6rem 2rem;
+            background: white;
+        }
+        
+        .community-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .community-card {
+            background: var(--color-soft-gray);
+            padding: 2.5rem;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .community-card:hover {
+            background: white;
+            box-shadow: var(--shadow-soft);
+            transform: translateY(-5px);
+        }
+        
+        .community-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+        
+        .community-card h4 {
+            font-family: var(--font-ui);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: var(--color-deep-teal);
+        }
+        
+        .community-card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            opacity: 0.85;
+        }
+        
+        /* How It Works */
+        .how-it-works {
+            padding: 6rem 2rem;
+            background: var(--color-sage);
+            color: white;
+        }
+        
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .step {
+            text-align: center;
+            position: relative;
+        }
+        
+        .step::after {
+            content: '→';
+            position: absolute;
+            right: -1.5rem;
+            top: 40px;
+            font-size: 2rem;
+            opacity: 0.4;
+        }
+        
+        .step:last-child::after {
+            display: none;
+        }
+        
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .step h4 {
+            font-family: var(--font-ui);
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+        }
+        
+        .step p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        /* Final CTA */
+        .final-cta {
+            padding: 8rem 2rem;
+            background: var(--color-charcoal);
+            color: white;
+            text-align: center;
+        }
+        
+        .final-cta h2 {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+        
+        .final-cta p {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+        
+        .cta-primary {
+            background: var(--color-terracotta);
+            color: white;
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-family: var(--font-ui);
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .cta-primary:hover {
+            background: var(--color-warm-brown);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(217, 119, 87, 0.3);
+        }
+        
+        .cta-secondary {
+            background: transparent;
+            color: white;
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-family: var(--font-ui);
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .cta-secondary:hover {
+            border-color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--color-charcoal);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 3rem 2rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+        }
+        
+        .footer-section h5 {
+            font-family: var(--font-ui);
+            color: white;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.6rem;
+        }
+        
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section a:hover {
+            color: var(--color-terracotta);
+        }
+        
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.85rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            h1 {
+                font-size: 3rem;
+            }
+            
+            .hero-features {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .role-switcher {
+                flex-direction: column;
+            }
+            
+            .balance-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .community-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .steps-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .step::after {
+                display: none;
+            }
+            
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .privacy-content {
+                flex-direction: column;
+            }
+            
+            .steps-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .final-cta h2 {
+                font-size: 2.5rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+        
+        /* Focus styles for keyboard navigation */
+        a:focus,
+        button:focus,
+        .toggle-switch:focus {
+            outline: 3px solid var(--color-terracotta);
+            outline-offset: 3px;
+        }
+        
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">SkillBridge</div>
+            <ul class="nav-links">
+                <li><a href="#learn">Learn</a></li>
+                <li><a href="#teach">Teach</a></li>
+                <li><a href="#community">Community</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+            <button class="cta-button" aria-label="Get started with SkillBridge">Get Started</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Where Learning Meets Teaching. Where Everyone Grows.</h1>
+                <p class="hero-subtitle">Join thousands of professionals who learn from each other. Be a student in one room, a mentor in another. All on your terms.</p>
+                <button class="cta-button" style="font-size: 1.1rem; padding: 1rem 2.5rem;">Join SkillBridge</button>
+                
+                <div class="hero-features">
+                    <div class="hero-feature">
+                        <div class="hero-feature-icon">🎓</div>
+                        <h3>Learn Anything</h3>
+                        <p>From Python to public speaking, find courses and mentors in every field</p>
+                    </div>
+                    <div class="hero-feature">
+                        <div class="hero-feature-icon">👥</div>
+                        <h3>Teach What You Know</h3>
+                        <p>Share your expertise, build your reputation, help others succeed</p>
+                    </div>
+                    <div class="hero-feature">
+                        <div class="hero-feature-icon">🔒</div>
+                        <h3>Control Your Privacy</h3>
+                        <p>Choose exactly what colleagues and connections can see about your learning journey</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dual Role Section -->
+    <section class="dual-role" id="learn">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">You're Both Teacher and Student</h2>
+                <p class="section-subtitle">Most platforms make you choose. We know you're multifaceted. Explore both sides of your professional journey.</p>
+            </div>
+            
+            <div class="role-switcher">
+                <div class="role-card active" data-role="learner" tabindex="0" role="button" aria-pressed="true">
+                    <div class="role-card-content">
+                        <span class="role-icon">📚</span>
+                        <h3>As a Learner</h3>
+                        <p>Discover courses, find mentors, track your progress, and join study groups with peers at your level</p>
+                    </div>
+                </div>
+                
+                <div class="role-card" data-role="teacher" tabindex="0" role="button" aria-pressed="false">
+                    <div class="role-card-content">
+                        <span class="role-icon">✨</span>
+                        <h3>As a Teacher</h3>
+                        <p>Create courses, mentor individuals, lead discussions, and build your reputation as a subject expert</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="role-details">
+                <div class="role-detail-content active" data-content="learner">
+                    <h4>Everything You Need to Learn Effectively</h4>
+                    <div class="role-capabilities">
+                        <div class="capability-item">
+                            <div class="capability-icon">🔍</div>
+                            <div class="capability-text">
+                                <h5>Smart Discovery</h5>
+                                <p>Find courses by skill level, time commitment, or teaching style</p>
+                            </div>
+                        </div>
+                        <div class="capability-item">
+                            <div class="capability-icon">📊</div>
+                            <div class="capability-text">
+                                <h5>Progress Tracking</h5>
+                                <p>Visual dashboards show your learning journey and milestones</p>
+                            </div>
+                        </div>
+                        <div class="capability-item">
+                            <div class="capability-icon">💬</div>
+                            <div class="capability-text">
+                                <h5>Peer Reviews</h5>
+                                <p>Get constructive feedback from fellow learners and instructors</p>
+                            </div>
+                        </div>
+                        <div class="capability-item">
+                            <div class="capability-icon">🎯</div>
+                            <div class="capability-text">
+                                <h5>1-on-1 Mentorship</h5>
+                                <p>Match with experienced professionals for personalized guidance</p>
+                            </div>
+                        </div>
+                        <div class="capability-item">
+                            <div class="capability-icon">🌐</div>
+                            <div class="capability-text">
+                                <h5>Global Community</h5>
+                                <p>Join study groups across time zones with async and live options</p>
+                            </div>
+                        </div>
+                        <div class="capability-item">
+                            <div class="capability-icon">♿</div>
+                            <div class="capability-text">
+                                <h5>Accessible Learning</h5>
+                                <p>Adjustable pacing, transcripts, and alternative formats available</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="role-detail-content" data-content="teacher">
+                    <h4>Tools to Share Your Expertise</h4>
+                    <div class="role-capabilities">
+                        <div class="capability-item">
+                            <div class="capability-icon">📝</div>
+                            <div class="capability-text">
+                                <h5>Course Builder</h5>
+                                <p>Intuitive tools to structure lessons, assignments, and assessments</p>
+                            </div>
+                        </div>
+                        <div class="capability-item">
+                            <div class="capability-icon">👁️</div>
+                            <div class="capability-text">
+                                <h5>Quality Review</h5>
+                                <p>Peer educators review your content before it goes live</p>
+                            </div>
+                        </div>
+                        <div class="capability-item">
+                            <div class="capability-icon">📅</div>
+                            <div class="capability-text">
+                                <h5>Flexible Scheduling</h5>
+                                <p>Offer live sessions, office hours, or fully asynchronous courses</p>
+                            </div>
+                        </div>
+                        <div class="capability-item">
+                            <div class="capability-icon">💡</div>
+                            <div class="capability-text">
+                                <h5>Discussion Forums</h5>
+                                <p>Facilitate meaningful conversations and answer student questions</p>
+                            </div>
+                        </div>
+                        <div class="capability-item">
+                            <div class="capability-icon">⭐</div>
+                            <div class="capability-text">
+                                <h5>Reputation Building</h5>
+                                <p>Earn badges, testimonials, and recognition as students succeed</p>
+                            </div>
+                        </div>
+                        <div class="capability-item">
+                            <div class="capability-icon">🎥</div>
+                            <div class="capability-text">
+                                <h5>Virtual Meetups</h5>
+                                <p>Host live sessions with screen sharing, breakout rooms, and recording</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Privacy Controls Section -->
+    <section class="privacy-section">
+        <div class="section-container">
+            <div class="privacy-content">
+                <div class="privacy-text">
+                    <h2>Your Professional Image, Your Control</h2>
+                    <p>Learning shouldn't put your reputation at risk. Maybe you're a senior engineer learning design basics, or a manager exploring a career pivot. We get it.</p>
+                    <p>Choose exactly who sees what you're learning, who you're learning from, and what progress you've made. Granular privacy controls mean you can explore freely without worrying about judgment.</p>
+                    <p><strong>Your LinkedIn connections won't see you're taking "Intro to Excel" unless you want them to.</strong></p>
+                </div>
+                
+                <div class="privacy-demo">
+                    <h4>Privacy Controls Demo</h4>
+                    <div class="privacy-toggle">
+                        <div class="privacy-toggle-label">
+                            <strong>Profile Visibility</strong>
+                            <span>Who can see your profile and activity</span>
+                        </div>
+                        <div class="toggle-switch active" tabindex="0" role="switch" aria-checked="true" aria-label="Profile visibility toggle"></div>
+                    </div>
+                    <div class="privacy-toggle">
+                        <div class="privacy-toggle-label">
+                            <strong>Course Enrollments</strong>
+                            <span>Display courses you're taking</span>
+                        </div>
+                        <div class="toggle-switch" tabindex="0" role="switch" aria-checked="false" aria-label="Course enrollments visibility toggle"></div>
+                    </div>
+                    <div class="privacy-toggle">
+                        <div class="privacy-toggle-label">
+                            <strong>Learning Progress</strong>
+                            <span>Show completion rates and badges</span>
+                        </div>
+                        <div class="toggle-switch" tabindex="0" role="switch" aria-checked="false" aria-label="Learning progress visibility toggle"></div>
+                    </div>
+                    <div class="privacy-toggle">
+                        <div class="privacy-toggle-label">
+                            <strong>Teaching Activity</strong>
+                            <span>Display courses you teach or mentor</span>
+                        </div>
+                        <div class="toggle-switch active" tabindex="0" role="switch" aria-checked="true" aria-label="Teaching activity visibility toggle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Balance Section -->
+    <section class="balance-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Structured Learning Meets Organic Discovery</h2>
+                <p class="section-subtitle">We've designed SkillBridge to give you the best of both worlds</p>
+            </div>
+            
+            <div class="balance-grid">
+                <div class="balance-card">
+                    <div class="balance-card-icon">🎯</div>
+                    <h3>Structured Paths</h3>
+                    <p>When you need a clear roadmap to mastery</p>
+                    <div class="balance-features">
+                        <div class="balance-feature">
+                            <p><strong>Curated Courses:</strong> Expert-reviewed content with clear learning objectives</p>
+                        </div>
+                        <div class="balance-feature">
+                            <p><strong>Progress Milestones:</strong> Track your advancement through defined checkpoints</p>
+                        </div>
+                        <div class="balance-feature">
+                            <p><strong>Skill Assessments:</strong> Validate your knowledge with peer-reviewed assignments</p>
+                        </div>
+                        <div class="balance-feature">
+                            <p><strong>Certification Paths:</strong> Complete recognized skill tracks for your resume</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="balance-card">
+                    <div class="balance-card-icon">🌊</div>
+                    <h3>Organic Discovery</h3>
+                    <p>When serendipity leads to your next breakthrough</p>
+                    <div class="balance-features">
+                        <div class="balance-feature">
+                            <p><strong>Browse by Interest:</strong> Explore topics you didn't know you needed</p>
+                        </div>
+                        <div class="balance-feature">
+                            <p><strong>Peer Recommendations:</strong> Discover what learners like you are exploring</p>
+                        </div>
+                        <div class="balance-feature">
+                            <p><strong>Discussion Threads:</strong> Follow conversations into unexpected learning paths</p>
+                        </div>
+                        <div class="balance-feature">
+                            <p><strong>Mentor Matching:</strong> Connect with teachers through shared interests, not just titles</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="balance-card">
+                    <div class="balance-card-icon">🔄</div>
+                    <h3>Easy Error Recovery</h3>
+                    <p>Mistakes happen. We make fixing them simple.</p>
+                    <div class="balance-features">
+                        <div class="balance-feature">
+                            <p><strong>Unenroll Anytime:</strong> No penalties for trying courses that don't fit</p>
+                        </div>
+                        <div class="balance-feature">
+                            <p><strong>Move Discussions:</strong> Posted in the wrong forum? Moderators will help relocate</p>
+                        </div>
+                        <div class="balance-feature">
+                            <p><strong>Edit Everything:</strong> Update your posts, questions, and reviews freely</p>
+                        </div>
+                        <div class="balance-feature">
+                            <p><strong>Reset Progress:</strong> Start over without losing your notes or connections</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="balance-card">
+                    <div class="balance-card-icon">🌍</div>
+                    <h3>Global Accessibility</h3>
+                    <p>Learn on your schedule, in your way</p>
+                    <div class="balance-features">
+                        <div class="balance-feature">
+                            <p><strong>Async-First Design:</strong> Participate across time zones without missing out</p>
+                        </div>
+                        <div class="balance-feature">
+                            <p><strong>Multiple Formats:</strong> Video, text, audio, and interactive options for every lesson</p>
+                        </div>
+                        <div class="balance-feature">
+                            <p><strong>Adjustable Pacing:</strong> Take extra time when you need it, no judgment</p>
+                        </div>
+                        <div class="balance-feature">
+                            <p><strong>Screen Reader Support:</strong> Full accessibility for assistive technologies</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Features -->
+    <section class="community-section" id="community">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">More Than Courses: A Real Community</h2>
+                <p class="section-subtitle">The platform is the foundation. The connections are what make it valuable.</p>
+            </div>
+            
+            <div class="community-grid">
+                <div class="community-card">
+                    <div class="community-icon">💬</div>
+                    <h4>Discussion Forums</h4>
+                    <p>Ask questions, share insights, and debate ideas. Organized by topic with expert moderation to keep conversations constructive.</p>
+                </div>
+                
+                <div class="community-card">
+                    <div class="community-icon">📹</div>
+                    <h4>Virtual Meetups</h4>
+                    <p>Join live sessions, workshops, and office hours. Recorded for those who can't attend in real-time.</p>
+                </div>
+                
+                <div class="community-card">
+                    <div class="community-icon">👥</div>
+                    <h4>Study Groups</h4>
+                    <p>Form small groups with peers at your level. Keep each other accountable and learn together.</p>
+                </div>
+                
+                <div class="community-card">
+                    <div class="community-icon">⭐</div>
+                    <h4>Peer Reviews</h4>
+                    <p>Give and receive constructive feedback on projects. Learn from seeing how others approach the same challenges.</p>
+                </div>
+                
+                <div class="community-card">
+                    <div class="community-icon">🎓</div>
+                    <h4>Mentor Network</h4>
+                    <p>Connect 1-on-1 with experienced professionals. Get personalized guidance for your specific goals.</p>
+                </div>
+                
+                <div class="community-card">
+                    <div class="community-icon">🏆</div>
+                    <h4>Recognition System</h4>
+                    <p>Earn badges for achievements. Build your reputation through teaching, helping others, and quality contributions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">How SkillBridge Works</h2>
+                <p class="section-subtitle">Getting started is simple. Growing together is the journey.</p>
+            </div>
+            
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h4>Create Your Profile</h4>
+                    <p>Tell us what you want to learn and what you can teach. Set your privacy preferences.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h4>Explore & Enroll</h4>
+                    <p>Browse courses, find mentors, join discussions. Try things out—you can always change direction.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h4>Learn & Contribute</h4>
+                    <p>Complete lessons, engage with peers, get feedback. Share your own knowledge as you grow.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h4>Build Your Reputation</h4>
+                    <p>Earn recognition for learning and teaching. Open doors to new opportunities and connections.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <div class="section-container">
+            <h2>Ready to Bridge Your Skills?</h2>
+            <p>Join thousands of professionals who are learning, teaching, and growing together on SkillBridge.</p>
+            <div class="cta-buttons">
+                <a href="#" class="cta-primary">Start Learning Today</a>
+                <a href="#" class="cta-secondary">Explore Courses</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="about">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h5>For Learners</h5>
+                <ul>
+                    <li><a href="#">Browse Courses</a></li>
+                    <li><a href="#">Find Mentors</a></li>
+                    <li><a href="#">Study Groups</a></li>
+                    <li><a href="#">Skill Tracks</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h5>For Teachers</h5>
+                <ul>
+                    <li><a href="#">Create a Course</a></li>
+                    <li><a href="#">Become a Mentor</a></li>
+                    <li><a href="#">Teacher Resources</a></li>
+                    <li><a href="#">Quality Guidelines</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h5>Community</h5>
+                <ul>
+                    <li><a href="#">Discussion Forums</a></li>
+                    <li><a href="#">Virtual Meetups</a></li>
+                    <li><a href="#">Success Stories</a></li>
+                    <li><a href="#">Community Guidelines</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h5>Support</h5>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Accessibility</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 SkillBridge. Built for professionals who never stop learning.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Role Switcher Interaction
+        const roleCards = document.querySelectorAll('.role-card');
+        const roleContents = document.querySelectorAll('.role-detail-content');
+        
+        function switchRole(selectedRole) {
+            // Update active states on cards
+            roleCards.forEach(card => {
+                const isActive = card.dataset.role === selectedRole;
+                card.classList.toggle('active', isActive);
+                card.setAttribute('aria-pressed', isActive);
+            });
+            
+            // Update active content
+            roleContents.forEach(content => {
+                const isActive = content.dataset.content === selectedRole;
+                content.classList.toggle('active', isActive);
+            });
+        }
+        
+        roleCards.forEach(card => {
+            // Mouse click
+            card.addEventListener('click', () => {
+                switchRole(card.dataset.role);
+            });
+            
+            // Keyboard support
+            card.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    switchRole(card.dataset.role);
+                }
+            });
+        });
+        
+        // Privacy Toggle Interaction
+        const toggleSwitches = document.querySelectorAll('.toggle-switch');
+        
+        toggleSwitches.forEach(toggle => {
+            // Mouse click
+            toggle.addEventListener('click', () => {
+                const isActive = toggle.classList.toggle('active');
+                toggle.setAttribute('aria-checked', isActive);
+            });
+            
+            // Keyboard support
+            toggle.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    const isActive = toggle.classList.toggle('active');
+                    toggle.setAttribute('aria-checked', isActive);
+                }
+            });
+        });
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80; // Account for fixed nav
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Add scroll-based animations for cards
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe balance cards and community cards
+        document.querySelectorAll('.balance-card, .community-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+        
+        // Add focus-visible polyfill behavior for better keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab') {
+                document.body.classList.add('user-is-tabbing');
+            }
+        });
+        
+        document.addEventListener('mousedown', () => {
+            document.body.classList.remove('user-is-tabbing');
+        });
+    </script>
+</body>
+</html>

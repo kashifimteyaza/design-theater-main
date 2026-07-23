@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bella Vista — Italian Dining</title>
+  <meta name="description" content="Bella Vista — Upscale Italian restaurant. Reserve a table online. Dinner Tue–Sun, 5–10pm." />
+  <style>
+    :root{
+      --bg: #0f1115;
+      --panel: #151922;
+      --accent: #d6b37d; /* warm gold */
+      --accent-2: #9ac8a3; /* sage */
+      --text: #f2f4f8;
+      --muted: #9aa3b2;
+      --danger: #ec5b62;
+      --ok: #35c46a;
+      --focus: #4b90ff;
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial}
+    a{color:var(--accent)}
+    button{cursor:pointer}
+    .container{max-width:1100px;margin:0 auto;padding:24px}
+
+    /* Top bar */
+    .topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;position:sticky;top:0;background:rgba(15,17,21,.75);backdrop-filter:saturate(140%) blur(8px);z-index:5;border-bottom:1px solid rgba(255,255,255,.06)}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:40px;height:40px;border-radius:50%;background:radial-gradient(circle at 30% 30%, #fff2, #0000), linear-gradient(135deg, #3a3f4a, #1b1f29);border:1px solid #ffffff22;box-shadow:var(--shadow)}
+    .brand h1{font-size:20px;margin:0;letter-spacing:.08em;text-transform:uppercase}
+    .topbar .actions{display:flex;gap:10px}
+    .btn{border:none;padding:14px 18px;border-radius:12px;background:#242a36;color:var(--text);font-weight:600}
+    .btn.primary{background:linear-gradient(180deg, #e6c58e, #caa86c);color:#161718}
+    .btn.ghost{background:transparent;border:1px solid #ffffff33}
+    .btn.small{padding:8px 10px;font-size:14px;border-radius:8px}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center;padding:48px 24px}
+    .hero .panel{background:linear-gradient(180deg, #171b25, #121620);border:1px solid #ffffff10;border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
+    .hero h2{font-size:44px;line-height:1.1;margin:0 0 10px}
+    .hero p{color:var(--muted);margin:0 0 18px}
+    .badges{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 18px}
+    .badge{border:1px solid #ffffff22;color:#dcdfe5;padding:8px 10px;border-radius:999px;font-size:14px}
+    .hero .photo{border-radius:var(--radius);height:420px;background:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 500%22><defs><linearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22><stop offset=%220%25%22 stop-color=%22%232a303d%22/><stop offset=%22100%25%22 stop-color=%22%23151922%22/></linearGradient></defs><rect width=%22800%22 height=%22500%22 fill=%22url(%23g)%22/><g fill=%22%23ffffff18%22><circle cx=%22280%22 cy=%22260%22 r=%22120%22/><rect x=%22480%22 y=%22100%22 width=%22140%22 height=%22180%22 rx=%2220%22/><rect x=%22120%22 y=%22350%22 width=%22560%22 height=%2250%22 rx=%2225%22/></g></svg>') center/cover;border:1px solid #ffffff10;box-shadow:var(--shadow)}
+
+    /* Reservation widget */
+    .res-card{background:linear-gradient(180deg,#171b25,#10141e);border:1px solid #ffffff10;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+    .steps{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+    .step{flex:1;min-width:120px;display:flex;align-items:center;gap:8px;padding:10px;border-radius:10px;background:#0e121a;border:1px dashed #ffffff20;color:#cdd3dd}
+    .step.active{border-style:solid;background:#151b27}
+    .grid{display:grid;gap:12px}
+    .grid.cols-2{grid-template-columns:1fr 1fr}
+    @media (max-width:900px){.hero{grid-template-columns:1fr}.hero .photo{height:260px}.grid.cols-2{grid-template-columns:1fr}}
+
+    label{display:block;font-weight:600;margin-bottom:6px}
+    input[type="date"],select,input[type="text"],input[type="tel"],input[type="email"]{width:100%;padding:14px 12px;border-radius:10px;border:1px solid #ffffff22;background:#0e121a;color:var(--text)}
+    input:focus,select:focus{outline:2px solid var(--focus);border-color:transparent}
+    .inline{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .chip{padding:10px 12px;border-radius:999px;border:1px solid #ffffff22;background:#10141e}
+    .chip[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 2px #000 inset}
+    .times{display:flex;flex-wrap:wrap;gap:8px}
+    .time-btn{padding:10px 12px;border:1px solid #ffffff22;border-radius:10px;background:#0f141d}
+    .time-btn[disabled]{opacity:.4;cursor:not-allowed}
+
+    .notice{padding:12px;border-radius:10px;background:#0e1512;border:1px solid #2a3b2f;color:#cfe8d2}
+    .error{padding:12px;border-radius:10px;background:#1a1012;border:1px solid #5a2a32;color:#f1c6cd}
+
+    .divider{height:1px;background:#ffffff14;margin:12px 0}
+
+    .footer{padding:40px 24px;color:#b9c0cc;border-top:1px solid #ffffff12}
+    .cols{display:grid;gap:12px;grid-template-columns:2fr 1fr 1fr}
+    @media (max-width:900px){.cols{grid-template-columns:1fr}}
+
+    /* Admin panel */
+    dialog{border:none;border-radius:16px;background:#0f141d;color:var(--text);width:min(100%,900px);box-shadow:var(--shadow)}
+    dialog::backdrop{background:rgba(0,0,0,.6)}
+    .admin-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr .8fr .8fr;gap:8px;align-items:center;padding:8px;border-radius:10px}
+    .admin-row:nth-child(even){background:#0e121a}
+    .pill{padding:6px 10px;border-radius:999px;background:#10151f;border:1px solid #ffffff22;font-size:12px}
+    .kbd{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas; background:#111520;border:1px solid #ffffff1a;padding:2px 6px;border-radius:6px}
+    .tbl{border:1px solid #ffffff12;border-radius:12px;overflow:hidden}
+    .tbl-header,.tbl-row{display:grid;grid-template-columns:1.2fr .8fr .8fr .8fr .8fr .8fr;gap:0}
+    .tbl-header>div{background:#121827;padding:10px;font-weight:700;border-right:1px solid #ffffff10}
+    .tbl-row>div{padding:10px;border-top:1px solid #ffffff10;border-right:1px solid #ffffff08}
+    .right{display:flex;justify-content:flex-end}
+  </style>
+</head>
+<body>
+  <header class="topbar" role="banner">
+    <div class="brand" aria-label="Bella Vista">
+      <div class="logo" aria-hidden="true"></div>
+      <h1>Bella Vista</h1>
+    </div>
+    <div class="actions">
+      <button class="btn ghost" id="btnAdmin">Staff</button>
+      <button class="btn primary" id="ctaReserve">Reserve</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container" aria-labelledby="tagline">
+      <div class="panel">
+        <h2 id="tagline">Modern Italian, downtown views.</h2>
+        <p>Handmade pastas, wood-fired mains, and a wine list that leans old-world. Dinner <strong>Tuesday–Sunday, 5–10pm</strong>. Parties of <strong>1–8</strong>.</p>
+        <div class="badges">
+          <span class="badge" aria-label="80 seats">80 seats • 20 tables</span>
+          <span class="badge">Window & corner seating</span>
+          <span class="badge">Online reservations</span>
+        </div>
+        <div class="inline">
+          <button class="btn primary" id="reserveNow">Find a table</button>
+          <button class="btn" id="btnMenu">View menu</button>
+        </div>
+        <div class="divider"></div>
+        <div class="notice">Prefer a human? We’re happy to help in person when you arrive — but tables go fast, so booking online is best.</div>
+      </div>
+      <div class="photo" role="img" aria-label="Dining room at Bella Vista"></div>
+    </section>
+
+    <section class="container">
+      <div class="res-card" aria-labelledby="reserve-heading">
+        <div class="steps" aria-hidden="true">
+          <div class="step" id="s1"><span>①</span><span>Date & party</span></div>
+          <div class="step" id="s2"><span>②</span><span>Time</span></div>
+          <div class="step" id="s3"><span>③</span><span>Details</span></div>
+          <div class="step" id="s4"><span>④</span><span>Confirm</span></div>
+        </div>
+        <div id="app"></div>
+      </div>
+    </section>
+
+    <section class="container cols" aria-label="Info">
+      <div>
+        <h3>Location & Hours</h3>
+        <p>Downtown • Tue–Sun 5:00–10:00pm • Closed Monday</p>
+        <p>Smart casual attire • We accommodate most dietary needs</p>
+      </div>
+      <div>
+        <h3>Private Dining</h3>
+        <p>For groups of 9–20, email <a href="#" aria-label="email">events@bellavista.example</a>.</p>
+      </div>
+      <div>
+        <h3>Gift Cards</h3>
+        <p>Ask a host or purchase at the bar.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      © <span id="year"></span> Bella Vista. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Admin Panel -->
+  <dialog id="adminDialog" aria-label="Staff tools">
+    <div class="container">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px">
+        <h3 style="margin:0">Staff Console</h3>
+        <button class="btn small ghost" id="closeAdmin">Close</button>
+      </div>
+      <div id="adminAuth"></div>
+      <div id="adminTools" hidden>
+        <div class="grid cols-2" style="margin:12px 0">
+          <div class="res-card">
+            <h4 style="margin-top:0">Today’s Reservations</h4>
+            <div class="tbl" id="adminTable"></div>
+            <div class="inline" style="margin-top:10px">
+              <button class="btn small" id="exportCsv">Export CSV</button>
+              <button class="btn small ghost" id="clearNoShows">Clear No‑shows</button>
+            </div>
+          </div>
+          <div class="res-card">
+            <h4 style="margin-top:0">Manage</h4>
+            <div class="grid">
+              <div>
+                <label for="blkDate">Block a date (exception)</label>
+                <input type="date" id="blkDate"/>
+                <div class="inline" style="margin-top:6px">
+                  <button class="btn small" id="blockDate">Block</button>
+                  <button class="btn small ghost" id="unblockDate">Unblock</button>
+                </div>
+              </div>
+              <div>
+                <label for="holdTime">Place a 15‑min hold (pre‑assign)</label>
+                <div class="inline">
+                  <input type="date" id="holdDate"/>
+                  <select id="holdTime"></select>
+                  <select id="holdTable"></select>
+                  <button class="btn small" id="placeHold">Hold</button>
+                </div>
+                <div class="inline" style="margin-top:6px"><button class="btn small ghost" id="clearHolds">Clear holds</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <details class="res-card">
+          <summary><strong>Floor (20 tables / 80 seats)</strong></summary>
+          <div id="floor"></div>
+        </details>
+      </div>
+    </div>
+  </dialog>
+
+  <script>
+  ;(() => {
+    const $ = (sel, el=document) => el.querySelector(sel);
+    const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
+
+    // ----- Config -----
+    const OPEN_DAYS = [2,3,4,5,6,0]; // Tue–Sun (0 = Sun)
+    const START_MIN = 17*60; // 17:00
+    const END_MIN = 22*60;   // venue closes 22:00
+    const SLOT_EVERY = 30;   // minutes
+    const DURATION = 90;     // minutes per reservation
+    const MAX_PARTY = 8;
+
+    // 20 tables => seats = 80. Mix of sizes; with some windows/corners.
+    const TABLES = [
+      // id, capacity, tags
+      {id:'T01', cap:2, tags:['window']},
+      {id:'T02', cap:2, tags:[]},
+      {id:'T03', cap:2, tags:['corner']},
+      {id:'T04', cap:2, tags:[]},
+      {id:'T05', cap:2, tags:['window']},
+      {id:'T06', cap:2, tags:[]},
+      {id:'T07', cap:4, tags:[]},
+      {id:'T08', cap:4, tags:['window']},
+      {id:'T09', cap:4, tags:[]},
+      {id:'T10', cap:4, tags:[]},
+      {id:'T11', cap:4, tags:['corner']},
+      {id:'T12', cap:4, tags:[]},
+      {id:'T13', cap:4, tags:['window']},
+      {id:'T14', cap:4, tags:[]},
+      {id:'T15', cap:4, tags:[]},
+      {id:'T16', cap:4, tags:[]},
+      {id:'T17', cap:6, tags:[]},
+      {id:'T18', cap:6, tags:['window']},
+      {id:'T19', cap:8, tags:[]},
+      {id:'T20', cap:8, tags:[]},
+    ];
+
+    const state = {
+      step: 1,
+      date: null,
+      party: 2,
+      time: null,
+      pref: 'none',
+      name: '',
+      phone: '',
+      email: '',
+      code: ''
+    };
+
+    // Storage helpers
+    const store = {
+      get(k, d){ try { return JSON.parse(localStorage.getItem(k)) ?? d } catch { return d } },
+      set(k, v){ localStorage.setItem(k, JSON.stringify(v)) }
+    };
+
+    function todayStr(){ const d = new Date(); d.setHours(0,0,0,0); return d.toISOString().slice(0,10); }
+
+    function dateToKey(dateStr){ return dateStr; }
+
+    function slotsForDay(){
+      const out=[]; for(let m=START_MIN; m<=END_MIN-DURATION; m+=SLOT_EVERY){
+        const hh = String(Math.floor(m/60)).padStart(2,'0');
+        const mm = String(m%60).padStart(2,'0');
+        out.push(`${hh}:${mm}`);
+      } return out;
+    }
+
+    function isOpen(dateStr){
+      const d = new Date(dateStr+'T00:00');
+      return OPEN_DAYS.includes(d.getDay());
+    }
+
+    // Reservations format: {id, name, phone, email, date, time, party, tableId, pref, createdAt, status}
+    // Holds format: {date, time, tableId, reason}
+
+    function getReservations(){ return store.get('bv.res', []); }
+    function setReservations(arr){ store.set('bv.res', arr); }
+    function getHolds(){ return store.get('bv.holds', []); }
+    function setHolds(arr){ store.set('bv.holds', arr); }
+    function getBlockedDates(){ return new Set(store.get('bv.blocked', [])); }
+    function setBlockedDates(set){ store.set('bv.blocked', Array.from(set)); }
+
+    function overlap(t1, t2){
+      // t1 and t2 are strings HH:MM; reservation lasts DURATION
+      const toM = t => parseInt(t.slice(0,2))*60 + parseInt(t.slice(3,5));
+      const a = toM(t1), b = toM(t2);
+      return Math.max(a, b) < Math.min(a+DURATION, b+DURATION);
+    }
+
+    function availableTables(dateStr, time, party, pref){
+      const blocked = getBlockedDates();
+      if(blocked.has(dateStr)) return [];
+      const res = getReservations().filter(r => r.date===dateStr && r.status!=='no-show');
+      const holds = getHolds().filter(h => h.date===dateStr && (h.time===time));
+
+      // tables busy at this time
+      const busyIds = new Set();
+      for(const r of res){ if(overlap(r.time, time)) busyIds.add(r.tableId); }
+      for(const h of holds){ busyIds.add(h.tableId); }
+
+      // Filter tables by size and availability
+      let candidates = TABLES.filter(t => !busyIds.has(t.id) && t.cap >= party);
+      // Preference gentle bias: try to show preferred first; but keep others too
+      if(pref && pref!=='none'){
+        const prefList = candidates.filter(t => t.tags.includes(pref));
+        const otherList = candidates.filter(t => !t.tags.includes(pref));
+        candidates = [...prefList, ...otherList];
+      }
+      return candidates;
+    }
+
+    function assignTable(dateStr, time, party, pref){
+      const avail = availableTables(dateStr, time, party, pref);
+      if(avail.length===0) return null;
+      // pick the smallest that fits (to preserve larger tables)
+      avail.sort((a,b)=> a.cap - b.cap);
+      return avail[0];
+    }
+
+    function formatTime12(t){
+      let [h,m] = t.split(':').map(Number);
+      const ampm = h>=12? 'pm':'am';
+      h = ((h+11)%12)+1; return `${h}:${String(m).padStart(2,'0')} ${ampm}`;
+    }
+
+    function uuid(){ return 'BV' + Math.random().toString(36).slice(2,8).toUpperCase(); }
+
+    // ----- App UI -----
+    const app = $('#app');
+
+    function render(){
+      $('#s1').classList.toggle('active', state.step===1);
+      $('#s2').classList.toggle('active', state.step===2);
+      $('#s3').classList.toggle('active', state.step===3);
+      $('#s4').classList.toggle('active', state.step===4);
+      app.innerHTML = '';
+      if(state.step===1) renderStep1();
+      else if(state.step===2) renderStep2();
+      else if(state.step===3) renderStep3();
+      else renderStep4();
+    }
+
+    function next(){ state.step = Math.min(4, state.step+1); render(); }
+    function back(){ state.step = Math.max(1, state.step-1); render(); }
+
+    function renderStep1(){
+      const el = document.createElement('div');
+      el.className='grid cols-2';
+      const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate()+1);
+      const minDate = tomorrow.toISOString().slice(0,10);
+      el.innerHTML = `
+        <div>
+          <label for="date">Choose date</label>
+          <input id="date" type="date" min="${minDate}" value="${state.date||minDate}" aria-describedby="dateHelp"/>
+          <div id="dateHelp" class="muted" style="color:var(--muted);margin-top:6px">Closed on Mondays.</div>
+        </div>
+        <div>
+          <label for="party">Party size</label>
+          <div class="inline">
+            <button class="btn small" id="minus" aria-label="decrease">−</button>
+            <div class="chip" aria-live="polite" id="partyLabel">${state.party}</div>
+            <button class="btn small" id="plus" aria-label="increase">+</button>
+          </div>
+          <div style="color:var(--muted);margin-top:6px">1–${MAX_PARTY} guests</div>
+        </div>
+        <div>
+          <label for="pref">Seating preference (optional)</label>
+          <select id="pref">
+            <option value="none" ${state.pref==='none'?'selected':''}>No preference</option>
+            <option value="window" ${state.pref==='window'?'selected':''}>Window</option>
+            <option value="corner" ${state.pref==='corner'?'selected':''}>Cozy corner</option>
+          </select>
+        </div>
+        <div class="right">
+          <button class="btn" id="step1next">See times</button>
+        </div>
+      `;
+      app.appendChild(el);
+
+      $('#plus', el).onclick = ()=>{ state.party = Math.min(MAX_PARTY, state.party+1); $('#partyLabel', el).textContent = state.party };
+      $('#minus', el).onclick = ()=>{ state.party = Math.max(1, state.party-1); $('#partyLabel', el).textContent = state.party };
+      $('#date', el).onchange = (e)=> state.date = e.target.value;
+      $('#pref', el).onchange = (e)=> state.pref = e.target.value;
+      $('#step1next', el).onclick = ()=>{
+        const dateStr = state.date || minDate;
+        if(!isOpen(dateStr)){
+          alert('We’re closed that day. Please choose Tue–Sun.'); return;
+        }
+        state.date = dateStr; next();
+      }
+    }
+
+    function renderStep2(){
+      const el = document.createElement('div');
+      el.innerHTML = `
+        <div>
+          <label>Available times on <strong>${state.date}</strong> for <strong>${state.party}</strong></label>
+          <div class="times" id="times"></div>
+        </div>
+        <div class="inline" style="margin-top:6px">
+          <button class="btn ghost" id="back1">Back</button>
+          <button class="btn" id="step2next" disabled>Continue</button>
+        </div>
+      `;
+      app.appendChild(el);
+
+      const timesEl = $('#times', el);
+      const slots = slotsForDay();
+      const blocked = getBlockedDates();
+
+      slots.forEach(t=>{
+        const btn = document.createElement('button');
+        btn.className='time-btn';
+        btn.textContent = formatTime12(t);
+        btn.setAttribute('data-time', t);
+        const noTables = availableTables(state.date, t, state.party, state.pref).length===0;
+        const disabled = blocked.has(state.date) || noTables;
+        if(disabled) btn.disabled = true;
+        if(state.time===t) btn.setAttribute('aria-pressed', 'true');
+        btn.onclick = ()=>{ state.time=t; $$('#times .time-btn', el).forEach(b=>b.removeAttribute('aria-pressed')); btn.setAttribute('aria-pressed','true'); $('#step2next', el).disabled=false };
+        timesEl.appendChild(btn);
+      });
+
+      $('#back1', el).onclick = back;
+      $('#step2next', el).onclick = ()=>{
+        if(!state.time){ alert('Please select a time.'); return; }
+        next();
+      };
+    }
+
+    function renderStep3(){
+      const el = document.createElement('div');
+      el.className='grid cols-2';
+      el.innerHTML = `
+        <div>
+          <label for="name">Your name</label>
+          <input id="name" type="text" placeholder="Full name" value="${state.name}"/>
+        </div>
+        <div>
+          <label for="phone">Mobile number</label>
+          <input id="phone" type="tel" placeholder="e.g. 555-123-4567" value="${state.phone}"/>
+        </div>
+        <div>
+          <label for="email">Email (for confirmation)</label>
+          <input id="email" type="email" placeholder="you@example.com" value="${state.email}"/>
+        </div>
+        <div class="right">
+          <button class="btn ghost" id="back2">Back</button>
+          <button class="btn" id="step3next">Review</button>
+        </div>
+      `;
+      app.appendChild(el);
+
+      $('#back2', el).onclick = back;
+      $('#step3next', el).onclick = ()=>{
+        state.name = $('#name', el).value.trim();
+        state.phone = $('#phone', el).value.trim();
+        state.email = $('#email', el).value.trim();
+        if(state.name.length < 2){ alert('Please enter your name.'); return; }
+        if(!/^\+?[0-9 ()-]{7,}$/.test(state.phone)){ alert('Please enter a valid phone number.'); return; }
+        if(state.email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(state.email)){ alert('Email looks off.'); return; }
+        next();
+      }
+    }
+
+    function renderStep4(){
+      const table = assignTable(state.date, state.time, state.party, state.pref);
+      const el = document.createElement('div');
+      if(!table){
+        el.innerHTML = `<div class="error">Sorry, that time just filled up. Please go back and choose another time.</div>
+        <div class="inline" style="margin-top:10px"><button class="btn" id="back3">Choose another time</button></div>`;
+        app.appendChild(el);
+        $('#back3', el).onclick = ()=>{ state.step=2; render(); }
+        return;
+      }
+
+      el.innerHTML = `
+        <div class="notice" style="margin-bottom:10px">We’ll hold this table while you confirm.</div>
+        <div class="grid">
+          <div>
+            <strong>When:</strong> ${state.date} at ${formatTime12(state.time)} (90 min)
+          </div>
+          <div><strong>Party:</strong> ${state.party}</div>
+          <div><strong>Seating:</strong> ${state.pref==='none'?'No preference':state.pref}</div>
+          <div><strong>Table:</strong> ${table.id} (seats ${table.cap})</div>
+          <div><strong>Name:</strong> ${state.name}</div>
+          <div><strong>Phone:</strong> ${state.phone}</div>
+          <div><strong>Email:</strong> ${state.email||'—'}</div>
+        </div>
+        <div class="inline" style="margin-top:12px">
+          <button class="btn ghost" id="back3">Back</button>
+          <button class="btn primary" id="confirm">Confirm reservation</button>
+        </div>
+      `;
+      app.appendChild(el);
+
+      $('#back3', el).onclick = back;
+      $('#confirm', el).onclick = ()=>{
+        const id = uuid();
+        const reservation = {
+          id,
+          name: state.name,
+          phone: state.phone,
+          email: state.email,
+          date: state.date,
+          time: state.time,
+          party: state.party,
+          pref: state.pref,
+          tableId: table.id,
+          createdAt: new Date().toISOString(),
+          status: 'booked'
+        };
+        const all = getReservations();
+        // Double-check still available
+        if(!availableTables(state.date, state.time, state.party, state.pref).some(t=>t.id===table.id)){
+          alert('That slot just became unavailable. Please pick another time.'); state.step=2; render(); return;
+        }
+        all.push(reservation); setReservations(all);
+        state.code = id; state.step = 4.5; renderConfirmation();
+      };
+    }
+
+    function renderConfirmation(){
+      app.innerHTML = `
+        <div class="res-card" style="background:#0e1512;border-color:#2a3b2f">
+          <h3 style="margin-top:0">You’re booked! 🎉</h3>
+          <p>See you on <strong>${state.date}</strong> at <strong>${formatTime12(state.time)}</strong> for <strong>${state.party}</strong>.</p>
+          <p>Confirmation code: <span class="kbd">${state.code}</span></p>
+          <p style="color:var(--muted)">To modify or cancel, keep your code and phone number handy and speak to the host on arrival.
+          </p>
+          <div class="inline">
+            <button class="btn" id="bookAnother">Make another booking</button>
+          </div>
+        </div>
+      `;
+      $('#bookAnother').onclick = ()=>{ state.step=1; state.time=null; render(); };
+    }
+
+    // ----- Admin (simple local tool) -----
+    const adminDialog = $('#adminDialog');
+    $('#btnAdmin').onclick = ()=> adminDialog.showModal();
+    $('#closeAdmin').onclick = ()=> adminDialog.close();
+
+    function adminLoginView(){
+      const wrap = $('#adminAuth');
+      wrap.innerHTML = `
+        <div class="res-card">
+          <label for="pw">Enter staff passcode</label>
+          <div class="inline"><input id="pw" type="password" placeholder="passcode"/><button class="btn small" id="go">Unlock</button></div>
+          <div style="color:var(--muted);margin-top:6px">Default: <span class="kbd">bellavista</span> (edit in code)</div>
+        </div>`;
+      $('#go').onclick = ()=>{
+        const ok = $('#pw').value === 'bellavista';
+        if(!ok){ alert('Wrong passcode'); return; }
+        $('#adminTools').hidden = false; wrap.innerHTML = '';
+        adminInit();
+      };
+    }
+
+    function adminInit(){
+      // fill slot and table dropdowns
+      const times = slotsForDay();
+      const ht = $('#holdTime'); ht.innerHTML = times.map(t=>`<option>${t}</option>`).join('');
+      const htab = $('#holdTable'); htab.innerHTML = TABLES.map(t=>`<option value="${t.id}">${t.id} (${t.cap})</option>`).join('');
+      renderAdminTable();
+      renderFloor();
+    }
+
+    function renderAdminTable(){
+      const today = todayStr();
+      const resToday = getReservations().filter(r=>r.date===today);
+      resToday.sort((a,b)=> a.time.localeCompare(b.time));
+      const wrap = $('#adminTable');
+      wrap.innerHTML = '';
+      const head = document.createElement('div'); head.className='tbl-header';
+      ;['Name','Time','Party','Table','Status','Code'].forEach(x=>{
+        const d = document.createElement('div'); d.textContent = x; head.appendChild(d);
+      });
+      wrap.appendChild(head);
+      resToday.forEach(r=>{
+        const row = document.createElement('div'); row.className='tbl-row';
+        row.innerHTML = `
+          <div>${r.name}<div style="color:var(--muted);font-size:12px">${r.phone}${r.email?' · '+r.email:''}</div></div>
+          <div>${formatTime12(r.time)}</div>
+          <div>${r.party}</div>
+          <div>${r.tableId}</div>
+          <div>
+            <select data-id="${r.id}">
+              <option value="booked" ${r.status==='booked'?'selected':''}>booked</option>
+              <option value="seated" ${r.status==='seated'?'selected':''}>seated</option>
+              <option value="completed" ${r.status==='completed'?'selected':''}>completed</option>
+              <option value="no-show" ${r.status==='no-show'?'selected':''}>no‑show</option>
+              <option value="cancelled" ${r.status==='cancelled'?'selected':''}>cancelled</option>
+            </select>
+          </div>
+          <div>${r.id}</div>
+        `;
+        wrap.appendChild(row);
+      });
+
+      $$('select[data-id]', wrap).forEach(sel=>{
+        sel.onchange = (e)=>{
+          const id = e.target.getAttribute('data-id');
+          const all = getReservations();
+          const idx = all.findIndex(x=>x.id===id);
+          if(idx>-1){ all[idx].status = e.target.value; setReservations(all); }
+        }
+      });
+
+      $('#exportCsv').onclick = ()=>{
+        const csv = ['Name,Phone,Email,Date,Time,Party,Table,Status,Code'];
+        for(const r of resToday){ csv.push([r.name,r.phone,r.email,r.date,r.time,r.party,r.tableId,r.status,r.id].join(',')); }
+        const blob = new Blob([csv.join('\n')], {type:'text/csv'});
+        const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `bellavista-${today}.csv`; a.click();
+      };
+
+      $('#clearNoShows').onclick = ()=>{
+        const all = getReservations().filter(r=>!(r.date===today && r.status==='no-show'));
+        setReservations(all); renderAdminTable();
+      };
+    }
+
+    function renderFloor(){
+      const el = $('#floor'); el.innerHTML = '';
+      const tag = t => t.tags.map(x=>`<span class="pill">${x}</span>`).join(' ');
+      TABLES.forEach(t=>{
+        const d = document.createElement('div'); d.className='admin-row';
+        d.innerHTML = `<div><strong>${t.id}</strong></div><div>Seats ${t.cap}</div><div>${tag(t) || '—'}</div><div id="${t.id}-status">—</div><div><button class="btn small ghost" data-hold="${t.id}">Hold</button></div><div><button class="btn small" data-release="${t.id}">Release</button></div>`;
+        el.appendChild(d);
+      });
+      updateFloorStatus();
+
+      $$('button[data-hold]').forEach(b=>{
+        b.onclick = ()=>{
+          const date = $('#holdDate').value || todayStr();
+          const time = $('#holdTime').value;
+          const tableId = b.getAttribute('data-hold');
+          const holds = getHolds();
+          holds.push({date,time,tableId,reason:'manual'}); setHolds(holds); updateFloorStatus();
+        }
+      });
+      $$('button[data-release]').forEach(b=>{
+        b.onclick = ()=>{
+          const date = $('#holdDate').value || todayStr();
+          const time = $('#holdTime').value;
+          const tableId = b.getAttribute('data-release');
+          const holds = getHolds().filter(h=>!(h.date===date && h.time===time && h.tableId===tableId));
+          setHolds(holds); updateFloorStatus();
+        }
+      });
+
+      $('#placeHold').onclick = ()=>{
+        const date = $('#holdDate').value || todayStr();
+        const time = $('#holdTime').value; const tableId = $('#holdTable').value;
+        const holds = getHolds(); holds.push({date,time,tableId,reason:'manual'}); setHolds(holds); updateFloorStatus();
+      };
+      $('#clearHolds').onclick = ()=>{ setHolds([]); updateFloorStatus(); };
+      $('#blockDate').onclick = ()=>{ const d = $('#blkDate').value; if(!d) return; const set = getBlockedDates(); set.add(d); setBlockedDates(set); alert('Date blocked.'); };
+      $('#unblockDate').onclick = ()=>{ const d = $('#blkDate').value; if(!d) return; const set = getBlockedDates(); set.delete(d); setBlockedDates(set); alert('Date unblocked.'); };
+    }
+
+    function updateFloorStatus(){
+      const date = $('#holdDate').value || todayStr();
+      const time = $('#holdTime').value || slotsForDay()[0];
+      const holds = getHolds().filter(h=>h.date===date && h.time===time);
+      const res = getReservations().filter(r=>r.date===date && overlap(r.time, time) && r.status!=='no-show');
+      const held = new Set(holds.map(h=>h.tableId));
+      const busy = new Set(res.map(r=>r.tableId));
+      TABLES.forEach(t=>{
+        const cell = document.getElementById(`${t.id}-status`);
+        let txt = 'free';
+        if(held.has(t.id)) txt = 'held';
+        if(busy.has(t.id)) txt = 'booked';
+        cell.textContent = txt;
+      });
+      renderAdminTable();
+    }
+
+    // CTA wiring
+    $('#reserveNow').onclick = ()=>{ window.scrollTo({top: document.querySelector('.res-card').offsetTop - 80, behavior:'smooth'}); };
+    $('#ctaReserve').onclick = $('#reserveNow').onclick;
+
+    // Menu button placeholder
+    $('#btnMenu').onclick = ()=> alert('Menu coming soon. Ask at the host stand meanwhile.');
+
+    // Init app
+    document.getElementById('year').textContent = new Date().getFullYear();
+    adminLoginView();
+    state.date = (function(){
+      const d = new Date(); d.setDate(d.getDate()+1);
+      // bump to Tue if Monday
+      while(!OPEN_DAYS.includes(d.getDay())) d.setDate(d.getDate()+1);
+      return d.toISOString().slice(0,10);
+    })();
+    state.party = 2; state.pref='none'; render();
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,809 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ProjectMaster Enterprise — Portfolio Management for Fortune 500</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/style.css" />
+    <meta property="og:image" content="https://bolt.new/static/og_default.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
+</head>
+  <body>
+
+    <!-- NAV -->
+    <header class="site-header" id="site-header">
+      <nav class="nav-inner">
+        <a href="#" class="nav-logo">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+            <rect width="12" height="12" rx="2" fill="#2563EB"/>
+            <rect x="16" width="12" height="12" rx="2" fill="#3B82F6" opacity=".7"/>
+            <rect y="16" width="12" height="12" rx="2" fill="#1D4ED8" opacity=".85"/>
+            <rect x="16" y="16" width="12" height="12" rx="2" fill="#60A5FA" opacity=".5"/>
+          </svg>
+          <span class="logo-text">ProjectMaster<span class="logo-badge">Enterprise</span></span>
+        </a>
+
+        <ul class="nav-links" id="nav-links">
+          <li><a href="#platform">Platform</a></li>
+          <li><a href="#roles">By Role</a></li>
+          <li><a href="#integrations">Integrations</a></li>
+          <li><a href="#security">Security</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <a href="#" class="btn-ghost">Sign In</a>
+          <a href="#demo" class="btn-primary">Request Demo</a>
+          <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <div class="hero-bg-grid" aria-hidden="true"></div>
+      <div class="hero-bg-glow" aria-hidden="true"></div>
+
+      <div class="hero-inner container">
+        <div class="hero-eyebrow">
+          <span class="badge-live"></span>
+          Trusted by 340+ Fortune 500 companies
+        </div>
+
+        <h1 class="hero-heading">
+          Enterprise project<br/>
+          <span class="hero-heading-accent">command center</span>
+        </h1>
+
+        <p class="hero-subhead">
+          One platform for portfolio visibility, resource orchestration, budget governance,
+          and executive reporting — built for initiatives spanning hundreds of stakeholders
+          and millions of dollars.
+        </p>
+
+        <div class="hero-cta-row">
+          <a href="#demo" class="btn-hero-primary">Schedule a Demo</a>
+          <a href="#platform" class="btn-hero-secondary">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <circle cx="9" cy="9" r="8.25" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M7 6l4 3-4 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Watch Overview
+          </a>
+        </div>
+
+        <!-- ROLE SWITCHER -->
+        <div class="role-switcher" id="role-switcher">
+          <p class="role-switcher-label">Explore by role:</p>
+          <div class="role-tabs" role="tablist">
+            <button class="role-tab active" role="tab" aria-selected="true" data-role="executive">C-Suite Executive</button>
+            <button class="role-tab" role="tab" aria-selected="false" data-role="pm">Project Manager</button>
+            <button class="role-tab" role="tab" aria-selected="false" data-role="contributor">Team Member</button>
+            <button class="role-tab" role="tab" aria-selected="false" data-role="vendor">External Vendor</button>
+          </div>
+          <div class="role-content" id="role-content">
+            <!-- populated by JS -->
+          </div>
+        </div>
+
+        <!-- LIVE STAT BAR -->
+        <div class="hero-stats" aria-label="Platform statistics">
+          <div class="stat-item">
+            <span class="stat-number" data-target="4200">0</span><span class="stat-suffix">+</span>
+            <span class="stat-label">Active Projects</span>
+          </div>
+          <div class="stat-divider" aria-hidden="true"></div>
+          <div class="stat-item">
+            <span class="stat-prefix">$</span><span class="stat-number" data-target="18" data-suffix="B">0</span><span class="stat-suffix">B</span>
+            <span class="stat-label">Budget Under Management</span>
+          </div>
+          <div class="stat-divider" aria-hidden="true"></div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="98">0</span><span class="stat-suffix">%</span>
+            <span class="stat-label">On-Time Delivery Rate</span>
+          </div>
+          <div class="stat-divider" aria-hidden="true"></div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="127">0</span><span class="stat-suffix">k</span>
+            <span class="stat-label">Users Worldwide</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DASHBOARD PREVIEW -->
+    <section class="dashboard-preview" id="platform">
+      <div class="container">
+        <div class="section-label">Platform Preview</div>
+        <h2 class="section-heading">A single pane of glass<br/>for every stakeholder</h2>
+        <p class="section-subhead">
+          Real-time portfolio health, resource utilization, budget burn, and risk exposure — consolidated across every project and department.
+        </p>
+
+        <div class="dashboard-frame">
+          <div class="dash-titlebar">
+            <span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span>
+            <span class="dash-url">app.projectmaster.io / portfolio / overview</span>
+          </div>
+          <div class="dash-body">
+            <!-- Sidebar -->
+            <aside class="dash-sidebar">
+              <div class="dash-nav-item active">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx="1" fill="currentColor"/><rect x="9" y="1" width="6" height="6" rx="1" fill="currentColor" opacity=".5"/><rect x="1" y="9" width="6" height="6" rx="1" fill="currentColor" opacity=".5"/><rect x="9" y="9" width="6" height="6" rx="1" fill="currentColor"/></svg>
+                Portfolio
+              </div>
+              <div class="dash-nav-item">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 12V4l6-2 6 2v8l-6 2-6-2z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+                Projects
+              </div>
+              <div class="dash-nav-item">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.3"/><path d="M2 13c0-2.5 2.7-4 6-4s6 1.5 6 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+                Resources
+              </div>
+              <div class="dash-nav-item">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 4H3a1 1 0 00-1 1v7a1 1 0 001 1h10a1 1 0 001-1V5a1 1 0 00-1-1z" stroke="currentColor" stroke-width="1.3"/><path d="M5 4V3a1 1 0 011-1h4a1 1 0 011 1v1" stroke="currentColor" stroke-width="1.3"/></svg>
+                Budget
+              </div>
+              <div class="dash-nav-item">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v4l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.3"/></svg>
+                Timeline
+              </div>
+              <div class="dash-nav-item">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3L3 8l5 5 5-5-5-5z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+                Risks
+              </div>
+              <div class="dash-nav-item dash-nav-divider">Reports</div>
+              <div class="dash-nav-item">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M5 8h6M5 5h6M5 11h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+                Audit Log
+              </div>
+              <div class="dash-nav-item">Settings</div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="dash-main">
+              <div class="dash-top-bar">
+                <div>
+                  <div class="dash-page-title">Portfolio Overview</div>
+                  <div class="dash-page-sub">Q2 2026 · 47 active initiatives</div>
+                </div>
+                <div class="dash-top-actions">
+                  <div class="dash-alert-badge">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1L1 11h12L7 1z" stroke="#F59E0B" stroke-width="1.3" stroke-linejoin="round"/><path d="M7 5v3M7 9.5v.5" stroke="#F59E0B" stroke-width="1.3" stroke-linecap="round"/></svg>
+                    3 alerts
+                  </div>
+                  <div class="dash-avatar">SL</div>
+                </div>
+              </div>
+
+              <!-- KPI Row -->
+              <div class="dash-kpi-row">
+                <div class="dash-kpi green">
+                  <div class="kpi-label">Portfolio Health</div>
+                  <div class="kpi-value">87%</div>
+                  <div class="kpi-trend up">+2.4%</div>
+                </div>
+                <div class="dash-kpi amber">
+                  <div class="kpi-label">Budget Utilized</div>
+                  <div class="kpi-value">$1.2B</div>
+                  <div class="kpi-trend">of $2.8B</div>
+                </div>
+                <div class="dash-kpi blue">
+                  <div class="kpi-label">Resources Allocated</div>
+                  <div class="kpi-value">342</div>
+                  <div class="kpi-trend up">94% util.</div>
+                </div>
+                <div class="dash-kpi red">
+                  <div class="kpi-label">At-Risk Projects</div>
+                  <div class="kpi-value">5</div>
+                  <div class="kpi-trend down">↑ from 3</div>
+                </div>
+              </div>
+
+              <!-- Chart + Project List -->
+              <div class="dash-content-row">
+                <div class="dash-chart-card">
+                  <div class="chart-title">Budget Burn Rate — Q2</div>
+                  <div class="chart-area">
+                    <svg width="100%" height="100" viewBox="0 0 320 100" preserveAspectRatio="none">
+                      <defs>
+                        <linearGradient id="burnGrad" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stop-color="#2563EB" stop-opacity="0.35"/>
+                          <stop offset="100%" stop-color="#2563EB" stop-opacity="0"/>
+                        </linearGradient>
+                      </defs>
+                      <path d="M0 80 C40 75,60 60,90 55 C120 50,140 45,170 40 C200 35,230 30,260 25 C280 22,300 20,320 18" stroke="#2563EB" stroke-width="2" fill="none"/>
+                      <path d="M0 80 C40 75,60 60,90 55 C120 50,140 45,170 40 C200 35,230 30,260 25 C280 22,300 20,320 18 L320 100 L0 100Z" fill="url(#burnGrad)"/>
+                      <path d="M0 85 C40 82,80 78,120 72 C160 66,200 60,240 55 C270 51,300 48,320 46" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
+                    </svg>
+                    <div class="chart-legend">
+                      <span class="legend-dot blue"></span>Actual
+                      <span class="legend-dot gray"></span>Forecast
+                    </div>
+                  </div>
+                </div>
+
+                <div class="dash-project-list">
+                  <div class="project-list-title">Critical Projects</div>
+                  <div class="project-row at-risk">
+                    <span class="project-indicator red"></span>
+                    <div class="project-info">
+                      <div class="project-name">SAP ERP Migration</div>
+                      <div class="project-meta">Operations · $48M</div>
+                    </div>
+                    <div class="project-progress">
+                      <div class="progress-bar"><div class="progress-fill red" style="width:62%"></div></div>
+                      <span>62%</span>
+                    </div>
+                  </div>
+                  <div class="project-row">
+                    <span class="project-indicator green"></span>
+                    <div class="project-info">
+                      <div class="project-name">APAC Facility Build</div>
+                      <div class="project-meta">Real Estate · $240M</div>
+                    </div>
+                    <div class="project-progress">
+                      <div class="progress-bar"><div class="progress-fill green" style="width:78%"></div></div>
+                      <span>78%</span>
+                    </div>
+                  </div>
+                  <div class="project-row">
+                    <span class="project-indicator amber"></span>
+                    <div class="project-info">
+                      <div class="project-name">Product Launch — Vertex</div>
+                      <div class="project-meta">Product · $12M</div>
+                    </div>
+                    <div class="project-progress">
+                      <div class="progress-bar"><div class="progress-fill amber" style="width:41%"></div></div>
+                      <span>41%</span>
+                    </div>
+                  </div>
+                  <div class="project-row">
+                    <span class="project-indicator blue"></span>
+                    <div class="project-info">
+                      <div class="project-name">Compliance — GDPR Cycle</div>
+                      <div class="project-meta">Legal · $3.2M</div>
+                    </div>
+                    <div class="project-progress">
+                      <div class="progress-bar"><div class="progress-fill blue" style="width:91%"></div></div>
+                      <span>91%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </main>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURE PILLARS -->
+    <section class="features" id="features">
+      <div class="container">
+        <div class="section-label">Platform Capabilities</div>
+        <h2 class="section-heading">Every system your enterprise needs,<br/>unified in one platform</h2>
+
+        <div class="features-grid">
+
+          <div class="feature-card reveal" data-delay="0">
+            <div class="feature-icon blue">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.8"/><rect x="13" y="3" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.8" opacity=".5"/><rect x="3" y="13" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.8" opacity=".5"/><rect x="13" y="13" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.8"/></svg>
+            </div>
+            <h3>Portfolio Management</h3>
+            <p>Holistic visibility across all initiatives with real-time health scoring, dependency mapping, and strategic alignment tracking across business units.</p>
+            <ul class="feature-list">
+              <li>Cross-project dependency graph</li>
+              <li>Strategic portfolio scoring</li>
+              <li>Executive heat maps</li>
+            </ul>
+          </div>
+
+          <div class="feature-card reveal" data-delay="80">
+            <div class="feature-icon teal">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M18 6l2 2-2 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h3>Resource Planning</h3>
+            <p>Capacity forecasting and allocation across 50–500 team members, with conflict detection, skill matching, and cross-department optimization.</p>
+            <ul class="feature-list">
+              <li>Capacity heat mapping</li>
+              <li>Skills-based allocation</li>
+              <li>Contractor vs. FTE modeling</li>
+            </ul>
+          </div>
+
+          <div class="feature-card reveal" data-delay="160">
+            <div class="feature-icon amber">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </div>
+            <h3>Budget Governance</h3>
+            <p>Multi-tier approval workflows, variance tracking, EAC forecasting, and cost-center rollups — with an immutable audit trail for every financial decision.</p>
+            <ul class="feature-list">
+              <li>Change order approvals</li>
+              <li>Earned value management</li>
+              <li>SAP / Oracle integration</li>
+            </ul>
+          </div>
+
+          <div class="feature-card reveal" data-delay="0">
+            <div class="feature-icon red">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 4l-8 14h16L12 4z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 9v5M12 15.5v.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </div>
+            <h3>Risk Management</h3>
+            <p>Quantified risk registers with probability-impact matrices, automated escalation rules, mitigation playbooks, and Monte Carlo schedule modeling.</p>
+            <ul class="feature-list">
+              <li>Risk heat maps &amp; registers</li>
+              <li>Automated escalation</li>
+              <li>Mitigation playbooks</li>
+            </ul>
+          </div>
+
+          <div class="feature-card reveal" data-delay="80">
+            <div class="feature-icon blue">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2v10z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+            </div>
+            <h3>Stakeholder Communication</h3>
+            <p>Role-filtered dashboards, automated status report generation, and multi-channel notifications — ensuring every audience gets the right detail level.</p>
+            <ul class="feature-list">
+              <li>Automated executive briefs</li>
+              <li>Stakeholder portals</li>
+              <li>Slack / Teams integration</li>
+            </ul>
+          </div>
+
+          <div class="feature-card reveal" data-delay="160">
+            <div class="feature-icon teal">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z" stroke="currentColor" stroke-width="1.8"/></svg>
+            </div>
+            <h3>Compliance Tracking</h3>
+            <p>Regulatory gate management for SOX, GDPR, ISO, and industry-specific frameworks — with evidence collection, sign-off workflows, and audit-ready exports.</p>
+            <ul class="feature-list">
+              <li>Regulatory gate checklists</li>
+              <li>Evidence management</li>
+              <li>Audit-ready reporting</li>
+            </ul>
+          </div>
+
+          <div class="feature-card reveal" data-delay="0">
+            <div class="feature-icon amber">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M14 2v6h6M9 13h6M9 17h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </div>
+            <h3>Document Control</h3>
+            <p>Version-controlled document repository with approval workflows, access controls, and automated distribution — ensuring every stakeholder has the current version.</p>
+            <ul class="feature-list">
+              <li>Version lineage tracking</li>
+              <li>Approval workflows</li>
+              <li>SharePoint / Box sync</li>
+            </ul>
+          </div>
+
+          <div class="feature-card reveal" data-delay="80">
+            <div class="feature-icon red">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 21h8M12 17v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M7 8h3v5H7zM14 6h3v7h-3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+            </div>
+            <h3>Executive Dashboards</h3>
+            <p>Configurable C-suite views with portfolio-level KPIs, trend analysis, and scenario modeling — enabling data-driven decisions without operational noise.</p>
+            <ul class="feature-list">
+              <li>Drag-and-drop KPI builder</li>
+              <li>Board-ready PDF export</li>
+              <li>Scenario modeling</li>
+            </ul>
+          </div>
+
+          <div class="feature-card reveal" data-delay="160">
+            <div class="feature-icon blue">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h3>Vendor Coordination</h3>
+            <p>External collaboration portals, contract milestone tracking, SLA monitoring, and payment approval workflows for managing complex vendor ecosystems.</p>
+            <ul class="feature-list">
+              <li>Vendor-scoped portals</li>
+              <li>SLA monitoring</li>
+              <li>Contract milestone tracking</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ROLES SECTION -->
+    <section class="roles-section" id="roles">
+      <div class="container">
+        <div class="section-label">Role-Based Experience</div>
+        <h2 class="section-heading">The right view for every user,<br/>without compromise</h2>
+        <p class="section-subhead">
+          Permissions, dashboards, and workflows adapt automatically to each user's role —
+          from C-suite executives who need one-click insight to contributors who need zero distraction.
+        </p>
+
+        <div class="roles-grid">
+          <div class="role-card reveal" data-delay="0">
+            <div class="role-card-header executive">
+              <div class="role-icon">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="9" r="5" stroke="currentColor" stroke-width="1.8"/><path d="M4 24c0-5.5 4.5-9 10-9s10 3.5 10 9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M20 6l2 2-2 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <div class="role-card-title">C-Suite Executive</div>
+                <div class="role-card-subtitle">CEO · CFO · COO · CTO</div>
+              </div>
+            </div>
+            <ul class="role-feature-list">
+              <li>Portfolio-level KPI dashboard</li>
+              <li>Budget variance alerts &amp; approvals</li>
+              <li>Board-ready report generation</li>
+              <li>Strategic initiative scoring</li>
+              <li>One-click executive briefings</li>
+            </ul>
+            <div class="role-permission-tag">Read + Approve</div>
+          </div>
+
+          <div class="role-card reveal" data-delay="80">
+            <div class="role-card-header pm">
+              <div class="role-icon">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="4" y="4" width="20" height="20" rx="3" stroke="currentColor" stroke-width="1.8"/><path d="M9 10h10M9 14h7M9 18h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              </div>
+              <div>
+                <div class="role-card-title">Project Manager</div>
+                <div class="role-card-subtitle">PM · Program Manager · PMO</div>
+              </div>
+            </div>
+            <ul class="role-feature-list">
+              <li>Full project lifecycle control</li>
+              <li>Resource request &amp; conflict resolution</li>
+              <li>Risk register management</li>
+              <li>Budget change order submission</li>
+              <li>Vendor milestone management</li>
+            </ul>
+            <div class="role-permission-tag">Full Project Access</div>
+          </div>
+
+          <div class="role-card reveal" data-delay="160">
+            <div class="role-card-header contributor">
+              <div class="role-icon">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M9 14l4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="14" cy="14" r="10" stroke="currentColor" stroke-width="1.8"/></svg>
+              </div>
+              <div>
+                <div class="role-card-title">Team Member</div>
+                <div class="role-card-subtitle">Engineer · Analyst · Designer</div>
+              </div>
+            </div>
+            <ul class="role-feature-list">
+              <li>Personal task queue &amp; timeline</li>
+              <li>Time logging &amp; capacity reporting</li>
+              <li>Document access &amp; review</li>
+              <li>Issue flagging &amp; escalation</li>
+              <li>Cross-project availability view</li>
+            </ul>
+            <div class="role-permission-tag">Task-Scoped Access</div>
+          </div>
+
+          <div class="role-card reveal" data-delay="240">
+            <div class="role-card-header vendor">
+              <div class="role-icon">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 4l10 6v8l-10 6L4 18V10l10-6z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <div class="role-card-title">External Vendor</div>
+                <div class="role-card-subtitle">Contractor · Supplier · Partner</div>
+              </div>
+            </div>
+            <ul class="role-feature-list">
+              <li>Isolated vendor portal</li>
+              <li>Milestone &amp; deliverable tracking</li>
+              <li>Document submission &amp; review</li>
+              <li>Invoice &amp; payment status</li>
+              <li>No access to internal data</li>
+            </ul>
+            <div class="role-permission-tag">Vendor-Scoped Only</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTEGRATIONS -->
+    <section class="integrations" id="integrations">
+      <div class="container">
+        <div class="section-label">Enterprise Integrations</div>
+        <h2 class="section-heading">Connects to the tools<br/>your enterprise already uses</h2>
+        <p class="section-subhead">Pre-built, certified integrations with the most critical enterprise systems — no custom dev required.</p>
+
+        <div class="integrations-grid">
+          <div class="integration-card reveal" data-delay="0">
+            <div class="int-logo sap">SAP</div>
+            <span>SAP S/4HANA</span>
+          </div>
+          <div class="integration-card reveal" data-delay="40">
+            <div class="int-logo sf">SF</div>
+            <span>Salesforce</span>
+          </div>
+          <div class="integration-card reveal" data-delay="80">
+            <div class="int-logo ms">MS</div>
+            <span>Microsoft 365</span>
+          </div>
+          <div class="integration-card reveal" data-delay="120">
+            <div class="int-logo jira">J</div>
+            <span>Jira</span>
+          </div>
+          <div class="integration-card reveal" data-delay="160">
+            <div class="int-logo slack">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 3a2 2 0 100 4 2 2 0 000-4z" fill="#E01E5A"/><path d="M17 9a2 2 0 100 4 2 2 0 000-4z" fill="#ECB22E"/><path d="M9 17a2 2 0 100 4 2 2 0 000-4z" fill="#2EB67D"/><path d="M3 11a2 2 0 100 4 2 2 0 000-4z" fill="#36C5F0"/></svg>
+            </div>
+            <span>Slack</span>
+          </div>
+          <div class="integration-card reveal" data-delay="200">
+            <div class="int-logo teams">T</div>
+            <span>MS Teams</span>
+          </div>
+          <div class="integration-card reveal" data-delay="240">
+            <div class="int-logo workday">W</div>
+            <span>Workday</span>
+          </div>
+          <div class="integration-card reveal" data-delay="280">
+            <div class="int-logo box">Box</div>
+            <span>Box / SharePoint</span>
+          </div>
+        </div>
+
+        <div class="api-callout reveal">
+          <div class="api-callout-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M10 12l-4 4 4 4M22 12l4 4-4 4M18 8l-4 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <div class="api-callout-title">REST API &amp; Webhooks</div>
+            <div class="api-callout-text">Full OpenAPI 3.0 documentation, webhooks for real-time event streaming, and an SDK for custom integrations with any enterprise system.</div>
+          </div>
+          <a href="#" class="btn-outline">View API Docs</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECURITY -->
+    <section class="security-section" id="security">
+      <div class="container">
+        <div class="security-inner">
+          <div class="security-content">
+            <div class="section-label light">Security &amp; Compliance</div>
+            <h2 class="section-heading light">Enterprise-grade security,<br/>by default</h2>
+            <p class="section-subhead light">Every data access, every configuration change, every approval is logged, encrypted, and auditable. Built for regulated industries.</p>
+
+            <div class="security-items">
+              <div class="security-item">
+                <div class="security-check">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l4 4 7-7" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div>
+                  <div class="security-item-title">SOC 2 Type II Certified</div>
+                  <div class="security-item-text">Independently audited annually for security, availability, and confidentiality controls.</div>
+                </div>
+              </div>
+              <div class="security-item">
+                <div class="security-check">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l4 4 7-7" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div>
+                  <div class="security-item-title">SAML 2.0 / SSO</div>
+                  <div class="security-item-text">Native integration with Okta, Azure AD, and any SAML 2.0 identity provider.</div>
+                </div>
+              </div>
+              <div class="security-item">
+                <div class="security-check">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l4 4 7-7" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div>
+                  <div class="security-item-title">Immutable Audit Trail</div>
+                  <div class="security-item-text">Every action, approval, and data change is cryptographically logged and tamper-evident.</div>
+                </div>
+              </div>
+              <div class="security-item">
+                <div class="security-check">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l4 4 7-7" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div>
+                  <div class="security-item-title">Data Residency &amp; GDPR</div>
+                  <div class="security-item-text">Choose your data region (US, EU, APAC) with full GDPR and data residency compliance.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="security-certs">
+            <div class="cert-badge">
+              <div class="cert-icon">SOC 2</div>
+              <div class="cert-label">Type II</div>
+            </div>
+            <div class="cert-badge">
+              <div class="cert-icon">ISO</div>
+              <div class="cert-label">27001</div>
+            </div>
+            <div class="cert-badge">
+              <div class="cert-icon">GDPR</div>
+              <div class="cert-label">Compliant</div>
+            </div>
+            <div class="cert-badge">
+              <div class="cert-icon">FedRAMP</div>
+              <div class="cert-label">Ready</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOCIAL PROOF -->
+    <section class="testimonials">
+      <div class="container">
+        <div class="section-label">Customer Success</div>
+        <h2 class="section-heading">Trusted by the world's largest organizations</h2>
+
+        <div class="testimonial-grid">
+          <div class="testimonial-card reveal" data-delay="0">
+            <div class="testimonial-quote">"ProjectMaster replaced six disparate tools for our $2.4B infrastructure program. Executive reporting that took days now takes minutes. Our PMO can't imagine going back."</div>
+            <div class="testimonial-author">
+              <div class="author-avatar">RK</div>
+              <div>
+                <div class="author-name">Rachel Kim</div>
+                <div class="author-role">Chief Program Officer, Apex Energy</div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card reveal" data-delay="120">
+            <div class="testimonial-quote">"The risk management module alone paid for the platform in the first quarter. We caught a $40M schedule risk six weeks before it would have become a crisis."</div>
+            <div class="testimonial-author">
+              <div class="author-avatar">DM</div>
+              <div>
+                <div class="author-name">David Morales</div>
+                <div class="author-role">VP Project Management, Meridian Financial</div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card reveal" data-delay="240">
+            <div class="testimonial-quote">"Bringing 340 external vendors into a single coordinated view was something we thought impossible. ProjectMaster Enterprise made it our new standard of operation."</div>
+            <div class="testimonial-author">
+              <div class="author-avatar">SL</div>
+              <div>
+                <div class="author-name">Sandra Lee</div>
+                <div class="author-role">Global PMO Director, Vantara Manufacturing</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA / DEMO -->
+    <section class="cta-section" id="demo">
+      <div class="container">
+        <div class="cta-inner">
+          <div class="cta-eyebrow">Get Started</div>
+          <h2 class="cta-heading">See ProjectMaster Enterprise<br/>in action</h2>
+          <p class="cta-subhead">Schedule a personalized demo with our enterprise team. We'll map your specific use cases to the platform and build a deployment plan tailored to your organization.</p>
+
+          <form class="demo-form" id="demo-form" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fname">First Name</label>
+                <input type="text" id="fname" name="fname" placeholder="Rachel" autocomplete="given-name" required />
+              </div>
+              <div class="form-group">
+                <label for="lname">Last Name</label>
+                <input type="text" id="lname" name="lname" placeholder="Kim" autocomplete="family-name" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="work-email">Work Email</label>
+                <input type="email" id="work-email" name="work-email" placeholder="rachel@company.com" autocomplete="email" required />
+              </div>
+              <div class="form-group">
+                <label for="company">Company</label>
+                <input type="text" id="company" name="company" placeholder="Apex Energy" autocomplete="organization" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="team-size">Team Size</label>
+                <select id="team-size" name="team-size" required>
+                  <option value="">Select range</option>
+                  <option>50–100 people</option>
+                  <option>100–250 people</option>
+                  <option>250–500 people</option>
+                  <option>500+ people</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="use-case">Primary Use Case</label>
+                <select id="use-case" name="use-case" required>
+                  <option value="">Select use case</option>
+                  <option>IT / Digital Transformation</option>
+                  <option>Construction / Facilities</option>
+                  <option>Product Launch</option>
+                  <option>M&amp;A / Corporate Restructuring</option>
+                  <option>Regulatory Compliance</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" class="btn-form-submit">
+              <span id="submit-text">Request Your Demo</span>
+            </button>
+            <div class="form-disclaimer">No credit card required. Our team responds within 2 business hours.</div>
+            <div class="form-success" id="form-success" hidden>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="#22C55E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Thank you! An enterprise specialist will reach out within 2 business hours.
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <a href="#" class="nav-logo" style="margin-bottom:12px;display:inline-flex">
+              <svg width="24" height="24" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+                <rect width="12" height="12" rx="2" fill="#2563EB"/>
+                <rect x="16" width="12" height="12" rx="2" fill="#3B82F6" opacity=".7"/>
+                <rect y="16" width="12" height="12" rx="2" fill="#1D4ED8" opacity=".85"/>
+                <rect x="16" y="16" width="12" height="12" rx="2" fill="#60A5FA" opacity=".5"/>
+              </svg>
+              <span class="logo-text" style="font-size:15px">ProjectMaster<span class="logo-badge">Enterprise</span></span>
+            </a>
+            <p class="footer-tagline">Enterprise portfolio management for the world's most complex initiatives.</p>
+          </div>
+          <div class="footer-links-group">
+            <div class="footer-col">
+              <div class="footer-col-title">Platform</div>
+              <a href="#">Portfolio Management</a>
+              <a href="#">Resource Planning</a>
+              <a href="#">Budget Governance</a>
+              <a href="#">Risk Management</a>
+              <a href="#">Reporting &amp; Analytics</a>
+            </div>
+            <div class="footer-col">
+              <div class="footer-col-title">By Role</div>
+              <a href="#">Executives</a>
+              <a href="#">Project Managers</a>
+              <a href="#">Team Members</a>
+              <a href="#">Vendors</a>
+            </div>
+            <div class="footer-col">
+              <div class="footer-col-title">Company</div>
+              <a href="#">About Us</a>
+              <a href="#">Customers</a>
+              <a href="#">Pricing</a>
+              <a href="#">Careers</a>
+              <a href="#">Blog</a>
+            </div>
+            <div class="footer-col">
+              <div class="footer-col-title">Resources</div>
+              <a href="#">Documentation</a>
+              <a href="#">API Reference</a>
+              <a href="#">Security &amp; Compliance</a>
+              <a href="#">Status Page</a>
+              <a href="#">Support</a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>© 2026 ProjectMaster Enterprise Inc. All rights reserved.</span>
+          <div class="footer-legal">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Cookie Settings</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

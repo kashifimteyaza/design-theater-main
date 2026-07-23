@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Harmony Family Therapy | Couples, Family & Adolescent Counseling</title>
+  <meta name="description" content="Harmony Family Therapy specializes in couples counseling, family mediation, and adolescent therapy. Compassionate, evidence-based care led by Dr. Sarah Chen (15 years of experience)." />
+  <meta name="theme-color" content="#2b7a78" />
+  <meta property="og:title" content="Harmony Family Therapy" />
+  <meta property="og:description" content="Couples, family, and adolescent therapy with warmth and professionalism." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.example.com/" />
+  <style>
+    :root {
+      --bg: #f6f7f7;             /* Canvas */
+      --panel: #ffffff;           /* Cards */
+      --ink: #1f2a2e;             /* Primary text */
+      --muted: #4e5a5e;           /* Secondary text */
+      --sage-1: #e9f3ef;          /* Light accent */
+      --sage-2: #d7ebe4;          /* Mid accent */
+      --teal: #2b7a78;            /* Primary brand */
+      --teal-600: #245f5d;        /* Hover */
+      --sand: #e8b98a;            /* Warm accent */
+      --danger: #b33b3b;          /* Crisis bar */
+      --ok: #207a3a;
+      --ring: #86c5be;            /* Focus ring */
+      --maxw: 1120px;
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(0,0,0,.06);
+    }
+
+    /* Reset-ish */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0; color: var(--ink); background: var(--bg);
+      font: 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      text-rendering: optimizeLegibility;
+    }
+    a { color: var(--teal); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { max-width: 100%; display: block; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+    /* Layout helpers */
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+    .grid { display: grid; gap: 24px; }
+
+    /* Skip link */
+    .skip-link { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+    .skip-link:focus { left: 16px; top: 16px; width: auto; height: auto; background: #fff; padding: 10px 14px; border-radius: 8px; box-shadow: var(--shadow); z-index: 1000; }
+
+    /* Header */
+    header {
+      position: sticky; top: 0; z-index: 50; background: rgba(246,247,247,.9); backdrop-filter: saturate(140%) blur(8px);
+      border-bottom: 1px solid rgba(0,0,0,.05);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; letter-spacing: .2px; }
+    .brand-logo { width: 36px; height: 36px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, var(--sage-1), var(--sage-2)); display: grid; place-items: center; box-shadow: var(--shadow); }
+    .brand-logo svg { width: 22px; height: 22px; }
+
+    .nav a { color: var(--ink); font-weight: 600; }
+    .menu { display: flex; align-items: center; gap: 22px; }
+    .cta { display: inline-flex; align-items: center; gap: 10px; background: var(--teal); color: #fff; padding: 12px 16px; border-radius: 999px; border: none; cursor: pointer; box-shadow: var(--shadow); font-weight: 700; }
+    .cta:hover { background: var(--teal-600); }
+    .cta.secondary { background: #fff; color: var(--teal); border: 2px solid var(--teal); }
+    .cta.secondary:hover { background: var(--sage-1); }
+
+    .nav .cta { padding: 10px 14px; }
+
+    /* Hero */
+    .hero {
+      position: relative; isolation: isolate; padding: 80px 0 40px; overflow: hidden;
+      background: linear-gradient(180deg, #f6f9f9 0%, #f6f7f7 100%);
+    }
+    .hero::before {
+      content:""; position: absolute; inset: -10% -5% auto -5%; height: 60%; z-index: -1; opacity: .7;
+      background: radial-gradient(1200px 400px at 50% 0%, var(--sage-1), transparent 70%);
+    }
+    .hero .wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; }
+
+    h1 { font-size: clamp(28px, 4.2vw, 48px); line-height: 1.15; margin: 0 0 14px; letter-spacing: .2px; }
+    .lead { font-size: clamp(16px, 2.2vw, 20px); color: var(--muted); margin: 0 0 24px; }
+
+    .pill { display: inline-flex; align-items: center; gap: 8px; background: #fff; border: 1px solid var(--sage-2); padding: 8px 12px; border-radius: 999px; font-weight: 600; color: var(--teal); box-shadow: var(--shadow); }
+
+    .hero-illus { position: relative; min-height: 280px; border-radius: var(--radius); background: var(--panel); box-shadow: var(--shadow); overflow: hidden; }
+    .hero-illus svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+    .trust { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; margin-top: 18px; color: var(--muted); }
+    .trust .b { font-weight: 800; color: var(--ink); }
+
+    /* Sections */
+    section { padding: 60px 0; }
+    .card { background: var(--panel); border: 1px solid rgba(0,0,0,.06); border-radius: var(--radius); box-shadow: var(--shadow); }
+    .card.pad { padding: 22px; }
+
+    .services { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .service h3 { margin: 6px 0 8px; }
+    .service p { margin: 0; color: var(--muted); }
+    .service svg { width: 28px; height: 28px; }
+
+    .how { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .step { position: relative; padding-left: 42px; }
+    .step .num { position: absolute; left: 0; top: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--sage-2); color: var(--ink); display: grid; place-items: center; font-weight: 800; }
+
+    .bio { display: grid; grid-template-columns: .9fr 1.1fr; gap: 28px; align-items: center; }
+    .avatar { width: 120px; height: 120px; border-radius: 999px; background: radial-gradient(circle at 60% 35%, #fefefe, #e8e8e8); border: 3px solid var(--sage-2); box-shadow: var(--shadow); }
+
+    .testimonials { position: relative; }
+    .quote { font-size: 18px; color: var(--muted); }
+    .carousel { display: grid; grid-template-columns: 1fr; align-items: center; }
+    .carousel .slides { list-style: none; padding: 0; margin: 0; position: relative; min-height: 160px; }
+    .carousel .slides li { position: absolute; inset: 0; opacity: 0; transition: opacity .6s ease; }
+    .carousel .slides li.active { opacity: 1; }
+    .dots { display: flex; gap: 8px; justify-content: center; margin-top: 12px; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--teal); background: transparent; cursor: pointer; }
+    .dot[aria-current="true"], .dot:hover { background: var(--teal); }
+
+    details { background: var(--panel); border: 1px solid rgba(0,0,0,.06); border-radius: 12px; padding: 14px 16px; }
+    details + details { margin-top: 12px; }
+    summary { cursor: pointer; font-weight: 700; }
+
+    .contact { display: grid; grid-template-columns: 1.1fr .9fr; gap: 28px; align-items: start; }
+    form { display: grid; gap: 12px; }
+    label { font-weight: 700; }
+    input, textarea, select { padding: 12px 14px; border-radius: 12px; border: 1px solid #d9dede; background: #fff; font: inherit; }
+    textarea { min-height: 120px; resize: vertical; }
+    input:focus, textarea:focus, select:focus, button:focus { outline: none; box-shadow: 0 0 0 3px var(--ring); }
+    .helptext { color: var(--muted); font-size: 14px; }
+
+    .notice { background: #fff7f7; color: #5c1a1a; border: 1px solid #f3d2d2; padding: 12px 14px; border-radius: 10px; }
+    .success { background: #f2fbf4; color: #13451f; border: 1px solid #cfe9d6; padding: 10px 12px; border-radius: 10px; }
+
+    /* Crisis bar */
+    .crisis {
+      position: sticky; bottom: 0; z-index: 40; background: linear-gradient(90deg, #fff, #ffecec);
+      border-top: 1px solid rgba(0,0,0,.06);
+    }
+    .crisis .wrap { display: flex; gap: 12px; align-items: center; justify-content: space-between; padding: 12px 20px; }
+    .crisis .btn { background: var(--danger); color: #fff; padding: 8px 12px; border-radius: 999px; border: none; cursor: pointer; font-weight: 800; }
+    .crisis .btn:hover { filter: brightness(.95); }
+
+    /* Footer */
+    footer { padding: 40px 0; color: var(--muted); }
+    footer .grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+
+    /* Media */
+    @media (max-width: 960px) {
+      .hero .wrap, .bio, .contact { grid-template-columns: 1fr; }
+      .menu { display: none; }
+      .nav { padding: 12px 0; }
+    }
+
+    /* Motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header>
+    <div class="wrap nav" role="navigation" aria-label="Main">
+      <div class="brand">
+        <div class="brand-logo" aria-hidden="true">
+          <!-- Simple leaf mark -->
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 3c4 3 7 6 7 10 0 4-3 7-7 7s-7-3-7-7C5 9 8 6 12 3Z" fill="url(#g)"/>
+            <defs>
+              <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0%" stop-color="#bde3d8"/>
+                <stop offset="100%" stop-color="#86c5be"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <span aria-label="Harmony Family Therapy">Harmony Family Therapy</span>
+      </div>
+      <nav class="menu" aria-label="Sections">
+        <a href="#services">Services</a>
+        <a href="#how">What to Expect</a>
+        <a href="#dr-chen">Dr. Chen</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#contact" class="cta">Book a free consult</a>
+      </nav>
+      <a class="cta secondary" href="tel:+15551234567" aria-label="Call Harmony Family Therapy">
+        <!-- phone icon -->
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 2h3l2 5-2 2a16 16 0 007 7l2-2 5 2v3a3 3 0 01-3 3A18 18 0 016 5a3 3 0 013-3z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Call</a>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="hero">
+      <div class="wrap">
+        <div>
+          <span class="pill">Evidence‑based care • Warm, human support</span>
+          <h1>You don’t have to navigate this alone.</h1>
+          <p class="lead">We help couples, families, and teens move through conflict, anxiety, and big transitions—together. Confidential, compassionate therapy with Dr. Sarah Chen (15 years of experience).</p>
+          <div class="grid" style="grid-template-columns: auto auto; gap: 12px; align-items: center;">
+            <a class="cta" href="#contact">Book a free 15‑minute consultation</a>
+            <a class="cta secondary" href="tel:+15551234567">Call now</a>
+          </div>
+          <div class="trust">
+            <span class="b">Licensed • Private • Secure</span>
+            <span>•</span>
+            <span>In‑person & secure video sessions</span>
+          </div>
+        </div>
+        <div>
+          <div class="hero-illus card" aria-hidden="true">
+            <!-- Gentle abstract waves -->
+            <svg viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="g1" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stop-color="#eaf5f1"/>
+                  <stop offset="100%" stop-color="#ffffff"/>
+                </linearGradient>
+                <linearGradient id="g2" x1="0" x2="1" y1="0" y2="1">
+                  <stop offset="0%" stop-color="#d7ebe4"/>
+                  <stop offset="100%" stop-color="#bde3d8"/>
+                </linearGradient>
+              </defs>
+              <rect width="800" height="480" fill="url(#g1)"/>
+              <path d="M0 300 C 150 260, 250 340, 400 300 S 650 260, 800 300 L 800 480 L 0 480 Z" fill="url(#g2)" opacity="0.8"/>
+              <path d="M0 340 C 180 380, 300 320, 480 360 S 720 400, 800 360 L 800 480 L 0 480 Z" fill="#eef7f4"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="wrap">
+      <h2>Areas of focus</h2>
+      <p class="lead">Care tailored to your family’s goals.</p>
+      <div class="grid services">
+        <article class="card pad service">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21C7 16 3 12 3 8a6 6 0 1112 0c0 4-4 8-9 13z" stroke="currentColor" stroke-width="1.6"/></svg>
+          <h3>Couples Counseling</h3>
+          <p>Rebuild trust, improve communication, and reconnect with what brought you together.</p>
+        </article>
+        <article class="card pad service">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h16M2 7h20M6 17h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <h3>Family Mediation</h3>
+          <p>Navigate change with clarity—co‑parenting plans, boundary setting, and conflict resolution.</p>
+        </article>
+        <article class="card pad service">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 7a4 4 0 118 0v3h2a2 2 0 012 2v7H4v-7a2 2 0 012-2h2V7z" stroke="currentColor" stroke-width="1.6"/></svg>
+          <h3>Adolescent Therapy</h3>
+          <p>Support for anxiety, school stress, and identity development—space teens can trust.</p>
+        </article>
+        <article class="card pad service">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="1.6"/></svg>
+          <h3>Transitions & Crisis</h3>
+          <p>Compassionate support through grief, separation, moves, and other life shifts.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="how" class="wrap">
+      <h2>What to expect</h2>
+      <div class="grid how">
+        <div class="card pad step">
+          <div class="num" aria-hidden="true">1</div>
+          <h3>Free 15‑minute consult</h3>
+          <p class="helptext">We’ll talk about your goals, answer questions, and see if we’re a good fit.</p>
+        </div>
+        <div class="card pad step">
+          <div class="num" aria-hidden="true">2</div>
+          <h3>Personalized plan</h3>
+          <p class="helptext">We’ll choose an approach that matches your situation and pace.</p>
+        </div>
+        <div class="card pad step">
+          <div class="num" aria-hidden="true">3</div>
+          <h3>Weekly or bi‑weekly sessions</h3>
+          <p class="helptext">In‑person or secure video—whatever helps you show up consistently.</p>
+        </div>
+        <div class="card pad step">
+          <div class="num" aria-hidden="true">4</div>
+          <h3>Progress you can feel</h3>
+          <p class="helptext">Small wins add up—better conversations, clearer boundaries, steadier days.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="dr-chen" class="wrap">
+      <div class="bio">
+        <div>
+          <div class="avatar" aria-hidden="true"></div>
+        </div>
+        <div>
+          <h2>Meet Dr. Sarah Chen</h2>
+          <p class="lead">Licensed family therapist with 15 years helping couples, parents, and teens move through tough seasons with clarity and care.</p>
+          <ul>
+            <li>Specialties: couples communication, parenting & co‑parenting, transitions, anxiety</li>
+            <li>Approach: emotionally focused therapy, CBT tools, and strengths‑based mediation</li>
+            <li>Inclusive & affirming care for all family structures and identities</li>
+          </ul>
+          <div class="grid" style="grid-template-columns: auto auto; gap: 10px; margin-top: 12px;">
+            <a class="cta" href="#contact">Ask a question</a>
+            <a class="cta secondary" href="#faqs">View FAQs</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="testimonials" class="wrap testimonials">
+      <h2>What clients say</h2>
+      <div class="card pad carousel" aria-roledescription="carousel" aria-label="Testimonials">
+        <ul class="slides" aria-live="polite">
+          <li class="active"><p class="quote">“We learned how to actually hear each other. Arguments don’t spiral anymore.”</p><p>— Couple, married 7 years</p></li>
+          <li><p class="quote">“Dr. Chen gave our teen a space to be honest. We’re having calmer weeks.”</p><p>— Parent of a 15‑year‑old</p></li>
+          <li><p class="quote">“The first call eased my nerves. Having a plan made all the difference.”</p><p>— Client after first month</p></li>
+        </ul>
+        <div class="dots" role="tablist" aria-label="Testimonial slides">
+          <button class="dot" aria-label="Go to slide 1" aria-current="true"></button>
+          <button class="dot" aria-label="Go to slide 2"></button>
+          <button class="dot" aria-label="Go to slide 3"></button>
+        </div>
+      </div>
+    </section>
+
+    <section id="faqs" class="wrap">
+      <h2>FAQs</h2>
+      <details>
+        <summary>Is therapy right for us if we’re skeptical?</summary>
+        <p>It’s normal to feel unsure. Our first call is about understanding your goals and making an honest plan. You’re in control of the pace and the process.</p>
+      </details>
+      <details>
+        <summary>Do you offer virtual sessions?</summary>
+        <p>Yes—secure video sessions are available for individuals, couples, and families.</p>
+      </details>
+      <details>
+        <summary>Is everything confidential?</summary>
+        <p>Yes. We follow strict privacy standards. We’ll also discuss limits to confidentiality (like safety concerns) during your first session.</p>
+      </details>
+      <details>
+        <summary>What are your fees?</summary>
+        <p>We’ll review fees and sliding‑scale options during your consult so you can make an informed decision.</p>
+      </details>
+    </section>
+
+    <section id="contact" class="wrap">
+      <h2>Get in touch</h2>
+      <div class="contact">
+        <form id="contact-form" class="card pad" novalidate>
+          <div class="notice" role="note">Prefer to call? <a href="tel:+15551234567">(555) 123‑4567</a> • Or email <a href="mailto:info@harmonyfamilytherapy.com">info@harmonyfamilytherapy.com</a></div>
+          <div>
+            <label for="name">Your name</label>
+            <input id="name" name="name" autocomplete="name" required />
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required />
+          </div>
+          <div>
+            <label for="phone">Phone (optional)</label>
+            <input id="phone" name="phone" type="tel" autocomplete="tel" />
+          </div>
+          <div>
+            <label for="times">Preferred times</label>
+            <select id="times" name="times">
+              <option>Weekdays — mornings</option>
+              <option>Weekdays — afternoons</option>
+              <option>Weekdays — evenings</option>
+              <option>Saturday</option>
+            </select>
+          </div>
+          <div>
+            <label for="message">How can we help?</label>
+            <textarea id="message" name="message" required></textarea>
+            <p class="helptext">We’ll respond within one business day. Your information is kept private.</p>
+          </div>
+          <button class="cta" type="submit">Send message</button>
+          <div id="form-alert" class="success" role="status" style="display:none;">Thank you—your message is ready to send. We’ll reply within one business day.</div>
+        </form>
+        <aside class="card pad">
+          <h3>Location & hours</h3>
+          <p>In‑person sessions in our quiet, comfortable office. Secure video also available.</p>
+          <p><strong>Phone:</strong> <a href="tel:+15551234567">(555) 123‑4567</a><br>
+             <strong>Email:</strong> <a href="mailto:info@harmonyfamilytherapy.com">info@harmonyfamilytherapy.com</a></p>
+          <p><strong>Hours:</strong> Mon–Sat, 9am–6pm</p>
+          <p class="helptext">If you are in immediate danger, call local emergency services.</p>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <section class="crisis" aria-label="Crisis support">
+    <div class="wrap">
+      <div><strong>Crisis?</strong> If you’re thinking about harming yourself or someone else, please use emergency resources right away.</div>
+      <a class="btn" href="#contact">Get help now</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap grid">
+      <div>
+        <div class="brand" style="margin-bottom:8px;">
+          <div class="brand-logo" aria-hidden="true"></div>
+          <strong>Harmony Family Therapy</strong>
+        </div>
+        <p>Compassionate, evidence‑based care for couples, families, and teens.</p>
+      </div>
+      <div>
+        <p><strong>Quick links</strong></p>
+        <p><a href="#services">Services</a><br/>
+           <a href="#how">What to expect</a><br/>
+           <a href="#dr-chen">Dr. Chen</a><br/>
+           <a href="#contact">Contact</a></p>
+      </div>
+      <div>
+        <p><strong>Contact</strong></p>
+        <p><a href="tel:+15551234567">(555) 123‑4567</a><br/>
+           <a href="mailto:info@harmonyfamilytherapy.com">info@harmonyfamilytherapy.com</a></p>
+      </div>
+    </div>
+    <div class="wrap" style="margin-top: 10px; font-size: 14px;">© <span id="year"></span> Harmony Family Therapy. All rights reserved.</div>
+  </footer>
+
+  <script>
+    // Current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Testimonials carousel (no autoplay if user prefers reduced motion)
+    (function(){
+      const slides = Array.from(document.querySelectorAll('.slides li'));
+      const dots = Array.from(document.querySelectorAll('.dot'));
+      let i = 0; let timer; const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function show(idx){
+        slides.forEach((s, j) => s.classList.toggle('active', j === idx));
+        dots.forEach((d, j) => { d.setAttribute('aria-current', j === idx ? 'true' : 'false'); });
+        i = idx;
+      }
+      dots.forEach((d, idx) => d.addEventListener('click', () => { show(idx); if (timer) clearInterval(timer); if (!reduce) start(); }));
+      function start(){ timer = setInterval(() => show((i+1)%slides.length), 6000); }
+      show(0); if (!reduce) start();
+    })();
+
+    // Simple client-side form validation + friendly feedback
+    (function(){
+      const form = document.getElementById('contact-form');
+      const alert = document.getElementById('form-alert');
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const data = new FormData(form);
+        const name = String(data.get('name')||'').trim();
+        const email = String(data.get('email')||'').trim();
+        const message = String(data.get('message')||'').trim();
+        const emailOk = /.+@.+\..+/.test(email);
+        if (!name || !emailOk || !message) {
+          alert.textContent = 'Please provide your name, a valid email, and a short message.';
+          alert.className = 'notice';
+          alert.style.display = 'block';
+          alert.setAttribute('role','alert');
+          return;
+        }
+        // Replace this with your form handler endpoint if available.
+        alert.textContent = 'Thank you—your message is ready to send. We’ll reply within one business day.';
+        alert.className = 'success';
+        alert.style.display = 'block';
+        alert.setAttribute('role','status');
+        form.reset();
+      });
+    })();
+
+    // Respect reduced motion for any future scripted effects
+    (function(){
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+      prefersReduced.addEventListener?.('change', () => { /* hook for future */ });
+    })();
+  </script>
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalBusiness",
+    "name": "Harmony Family Therapy",
+    "url": "https://www.example.com/",
+    "description": "Couples, family, and adolescent therapy. Compassionate, evidence‑based care led by Dr. Sarah Chen.",
+    "telephone": "+1-555-123-4567",
+    "areaServed": "Local and telehealth",
+    "medicalSpecialty": ["Counseling", "FamilyTherapy", "Adolescent", "CouplesTherapy"],
+    "founder": { "@type": "Person", "name": "Dr. Sarah Chen" },
+    "foundingDate": "2010",
+    "sameAs": []
+  }
+  </script>
+</body>
+</html>

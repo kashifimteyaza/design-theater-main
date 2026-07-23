@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metro Daily News</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1><a href="/">Metro Daily News</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#politics">Politics</a></li>
+                    <li><a href="#business">Business</a></li>
+                    <li><a href="#sports">Sports</a></li>
+                    <li><a href="#community">Community</a></li>
+                </ul>
+            </nav>
+            <div class="actions">
+                <button id="lang-switcher">Español</button>
+                <a href="#subscribe" class="subscribe-btn">Subscribe</a>
+                <a href="#login">Login</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="top-stories">
+            <div class="container">
+                <h2>Top Stories</h2>
+                <div class="stories-grid">
+                    </div>
+            </div>
+        </section>
+
+        <section id="latest-news">
+            <div class="container">
+                <h2>Latest News</h2>
+                <div class="tabs">
+                    <button class="tab-btn active" data-category="all">All</button>
+                    <button class="tab-btn" data-category="politics">Politics</button>
+                    <button class="tab-btn" data-category="business">Business</button>
+                    <button class="tab-btn" data-category="sports">Sports</button>
+                    <button class="tab-btn" data-category="community">Community</button>
+                </div>
+                <div class="news-grid">
+                </div>
+            </div>
+        </section>
+
+        <section id="featured-content">
+            <div class="container">
+                <h2>Featured</h2>
+                <div class="featured-grid">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Metro Daily News. All rights reserved.</p>
+            <ul>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#privacy">Privacy Policy</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <template id="article-card-template">
+        <style>
+            .article-card {
+                background: #fff;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                overflow: hidden;
+                transition: transform 0.2s;
+            }
+            .article-card:hover {
+                transform: translateY(-5px);
+            }
+            .article-card img {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+            }
+            .article-card-content {
+                padding: 1rem;
+            }
+            .article-card-content h3 {
+                margin: 0 0 0.5rem;
+                font-size: 1.25rem;
+            }
+            .article-card-content p {
+                margin: 0;
+                color: #555;
+            }
+            .article-card-content .category {
+                font-size: 0.8rem;
+                color: #888;
+                text-transform: uppercase;
+                margin-bottom: 0.5rem;
+            }
+        </style>
+        <div class="article-card">
+            <img src="" alt="">
+            <div class="article-card-content">
+                <div class="category"></div>
+                <h3></h3>
+                <p></p>
+            </div>
+        </div>
+    </template>
+
+    <script src="main.js"></script>
+</body>
+</html>

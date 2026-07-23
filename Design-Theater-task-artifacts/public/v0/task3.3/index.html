@@ -1,0 +1,1037 @@
+ <html lang="en">
+      <head>
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>PhotoCommunity - Photographers Helping Photographers</title>
+        <style>
+          * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+          }
+
+          :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --accent: #f59e0b;
+            --accent-light: #fcd34d;
+            --bg: #0f172a;
+            --bg-light: #1e293b;
+            --bg-lighter: #334155;
+            --text: #f1f5f9;
+            --text-muted: #cbd5e1;
+            --success: #10b981;
+            --warning: #ef4444;
+          }
+
+          body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+          }
+
+          /* Navigation */
+          nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--bg-lighter);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+          }
+
+          .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            cursor: pointer;
+          }
+
+          .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+          }
+
+          .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+          }
+
+          .nav-links a:hover {
+            color: var(--accent);
+          }
+
+          .nav-buttons {
+            display: flex;
+            gap: 1rem;
+          }
+
+          button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+          }
+
+          .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+          }
+
+          .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+          }
+
+          .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+          }
+
+          .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+          }
+
+          /* Hero Section */
+          .hero {
+            padding: 6rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
+            border-bottom: 1px solid var(--bg-lighter);
+          }
+
+          .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+          }
+
+          h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+          }
+
+          .subtitle {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+          }
+
+          .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+          }
+
+          .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--bg-lighter);
+          }
+
+          .stat {
+            text-align: center;
+          }
+
+          .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+          }
+
+          .stat-label {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+          }
+
+          /* Value Props Section */
+          .value-props {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+          }
+
+          .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--text);
+          }
+
+          .props-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+          }
+
+          .prop-card {
+            background: var(--bg-light);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--bg-lighter);
+            transition: all 0.3s;
+          }
+
+          .prop-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.15);
+          }
+
+          .prop-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+          }
+
+          .prop-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--text);
+          }
+
+          .prop-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+          }
+
+          /* Features Showcase */
+          .features {
+            padding: 5rem 2rem;
+            background: var(--bg-light);
+            border-top: 1px solid var(--bg-lighter);
+            border-bottom: 1px solid var(--bg-lighter);
+          }
+
+          .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+          }
+
+          .feature-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 4rem;
+          }
+
+          .feature-row:nth-child(even) {
+            direction: rtl;
+          }
+
+          .feature-row:nth-child(even) > * {
+            direction: ltr;
+          }
+
+          .feature-text h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+          }
+
+          .feature-text p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+          }
+
+          .feature-list {
+            list-style: none;
+          }
+
+          .feature-list li {
+            margin-bottom: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+          }
+
+          .feature-list li:before {
+            content: "✓";
+            color: var(--success);
+            font-weight: bold;
+            font-size: 1.2rem;
+          }
+
+          .feature-image {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(245, 158, 11, 0.2));
+            border-radius: 12px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            border: 1px solid var(--bg-lighter);
+          }
+
+          /* Strategy Section */
+          .strategy {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+          }
+
+          .strategy-boxes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+          }
+
+          .strategy-box {
+            background: var(--bg-light);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 2px solid var(--bg-lighter);
+          }
+
+          .strategy-box.highlight {
+            border-color: var(--accent);
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(37, 99, 235, 0.1));
+          }
+
+          .strategy-box h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            color: var(--accent);
+          }
+
+          .strategy-box p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.8;
+          }
+
+          /* Flow Diagram */
+          .flow-diagram {
+            background: var(--bg-light);
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+            border: 1px solid var(--bg-lighter);
+            overflow-x: auto;
+          }
+
+          .flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            min-width: fit-content;
+            padding: 1rem;
+          }
+
+          .flow-step {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            white-space: nowrap;
+            font-weight: 600;
+          }
+
+          .flow-arrow {
+            color: var(--accent);
+            font-size: 1.5rem;
+          }
+
+          /* CTA Section */
+          .cta {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            text-align: center;
+            border-radius: 12px;
+            margin: 4rem 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+          }
+
+          .cta h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: white;
+          }
+
+          .cta p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+          }
+
+          /* Footer */
+          footer {
+            background: var(--bg-light);
+            border-top: 1px solid var(--bg-lighter);
+            padding: 3rem 2rem;
+          }
+
+          .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+          }
+
+          .footer-col h4 {
+            margin-bottom: 1rem;
+            color: var(--text);
+          }
+
+          .footer-col ul {
+            list-style: none;
+          }
+
+          .footer-col li {
+            margin-bottom: 0.5rem;
+          }
+
+          .footer-col a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s;
+          }
+
+          .footer-col a:hover {
+            color: var(--accent);
+          }
+
+          .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--bg-lighter);
+            color: var(--text-muted);
+          }
+
+          /* Interactive Elements */
+          .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+          }
+
+          .modal.active {
+            display: flex;
+          }
+
+          .modal-content {
+            background: var(--bg);
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            border: 1px solid var(--bg-lighter);
+          }
+
+          .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+          }
+
+          .modal-close {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0;
+          }
+
+          .form-group {
+            margin-bottom: 1rem;
+          }
+
+          .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+            font-weight: 500;
+          }
+
+          .form-group input,
+          .form-group textarea,
+          .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--bg-light);
+            border: 1px solid var(--bg-lighter);
+            border-radius: 8px;
+            color: var(--text);
+            font-family: inherit;
+          }
+
+          .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+          }
+
+          .community-card {
+            background: var(--bg-light);
+            border: 1px solid var(--bg-lighter);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s;
+          }
+
+          .community-card:hover {
+            border-color: var(--primary);
+          }
+
+          .card-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.3), rgba(245, 158, 11, 0.3));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+          }
+
+          .card-content {
+            padding: 1.5rem;
+          }
+
+          .card-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+          }
+
+          .card-meta {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+          }
+
+          .card-badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+          }
+
+          .engagement-bar {
+            margin-top: 1rem;
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9rem;
+          }
+
+          .engagement-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: var(--text-muted);
+          }
+
+          @media (max-width: 768px) {
+            h1 {
+              font-size: 2.5rem;
+            }
+
+            .nav-links {
+              display: none;
+            }
+
+            .feature-row {
+              grid-template-columns: 1fr;
+            }
+
+            .feature-row:nth-child(even) {
+              direction: ltr;
+            }
+
+            .hero-stats {
+              grid-template-columns: 1fr;
+            }
+
+            .flow {
+              flex-wrap: wrap;
+            }
+
+            .props-grid {
+              grid-template-columns: 1fr;
+            }
+          }
+        </style>
+      </head>
+      <body>
+        <nav>
+          <div className="logo" onclick="location.reload()">📸 PhotoCommunity</div>
+          <ul className="nav-links">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#strategy">Why Join</a></li>
+            <li><a href="#community">Community</a></li>
+          </ul>
+          <div className="nav-buttons">
+            <button className="btn-secondary" onclick="openModal('login')">Sign In</button>
+            <button className="btn-primary" onclick="openModal('signup')">Join Now</button>
+          </div>
+        </nav>
+
+        <section className="hero">
+          <div className="hero-content">
+            <h1>Photographers Helping Photographers</h1>
+            <p className="subtitle">Get constructive feedback, find clients, and build your photography business with a community that genuinely cares about your growth.</p>
+            <div className="hero-buttons">
+              <button className="btn-primary" onclick="openModal('signup')">Start Sharing</button>
+              <button className="btn-secondary" onclick="openModal('login')">Explore Galleries</button>
+            </div>
+            <div className="hero-stats">
+              <div className="stat">
+                <div className="stat-number">8,400+</div>
+                <div className="stat-label">Active Photographers</div>
+              </div>
+              <div className="stat">
+                <div className="stat-number">127,000+</div>
+                <div className="stat-label">Photos Shared</div>
+              </div>
+              <div className="stat">
+                <div className="stat-number">$2.3M</div>
+                <div className="stat-label">Earned Through Platform</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="value-props" id="features">
+          <h2 className="section-title">What Makes PhotoCommunity Different</h2>
+          <div className="props-grid">
+            <div className="prop-card">
+              <div className="prop-icon">🎯</div>
+              <h3>Constructive Feedback First</h3>
+              <p>Meaningful critiques from experienced photographers who care about your growth, not just flattery.</p>
+            </div>
+            <div className="prop-card">
+              <div className="prop-icon">🏆</div>
+              <h3>Weekly Challenges</h3>
+              <p>Compete and collaborate on themed challenges that push your creativity and showcase your best work.</p>
+            </div>
+            <div className="prop-card">
+              <div className="prop-icon">💼</div>
+              <h3>Real Business Opportunities</h3>
+              <p>Connect directly with clients looking for event, portrait, and commercial photography services.</p>
+            </div>
+            <div className="prop-card">
+              <div className="prop-icon">👥</div>
+              <h3>Local Community Focus</h3>
+              <p>Build relationships with photographers in your area—network, collaborate, and grow together.</p>
+            </div>
+            <div className="prop-card">
+              <div className="prop-icon">📊</div>
+              <h3>Smart Moderation</h3>
+              <p>Community-moderated feedback system ensures quality and kindness. Negative critique isn't welcome here.</p>
+            </div>
+            <div className="prop-card">
+              <div className="prop-icon">🚀</div>
+              <h3>Monetization Built In</h3>
+              <p>Services listings, client bookings, and commission-based projects—all integrated into your profile.</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="features" id="strategy">
+          <div className="features-container">
+            <h2 className="section-title">Platform Features</h2>
+
+            <div className="feature-row">
+              <div className="feature-text">
+                <h2>Gallery System</h2>
+                <p>Photographers create collections organized by theme, style, or project. Each photo gets constructive feedback through our moderated critique system.</p>
+                <ul className="feature-list">
+                  <li>Unlimited uploads for portfolio building</li>
+                  <li>Community voting for featured galleries</li>
+                  <li>Detailed photo metadata and technique discussion</li>
+                  <li>Share progress and before/afters</li>
+                </ul>
+              </div>
+              <div className="feature-image">🖼️</div>
+            </div>
+
+            <div className="feature-row">
+              <div className="feature-text">
+                <h2>Weekly Challenges</h2>
+                <p>Community-set themes keep photographers engaged and create friendly competition. Past challenges include "Golden Hour," "Urban Geometry," and "Unexpected Perspectives."</p>
+                <ul className="feature-list">
+                  <li>Themed prompts voted by community</li>
+                  <li>Featured gallery for top submissions</li>
+                  <li>Cross-photographer collaboration opportunities</li>
+                  <li>Showcase diverse interpretations</li>
+                </ul>
+              </div>
+              <div className="feature-image">🎨</div>
+            </div>
+
+            <div className="feature-row">
+              <div className="feature-text">
+                <h2>Feedback & Mentorship</h2>
+                <p>Our core feature—genuine, constructive critique. Members give focused feedback on composition, light, storytelling, and technique. Reputation system rewards helpful contributors.</p>
+                <ul className="feature-list">
+                  <li>Structured feedback templates</li>
+                  <li>Reputation scores for quality reviews</li>
+                  <li>Follow photographers for mentorship</li>
+                  <li>Moderation prevents negativity</li>
+                </ul>
+              </div>
+              <div className="feature-image">💬</div>
+            </div>
+
+            <div className="feature-row">
+              <div className="feature-text">
+                <h2>Services & Hiring</h2>
+                <p>Turn your portfolio into revenue. List your services, rates, and availability. Clients discover you through your work, gallery, and community reputation.</p>
+                <ul className="feature-list">
+                  <li>Event photography packages</li>
+                  <li>Portrait session booking</li>
+                  <li>Commercial/stock licensing</li>
+                  <li>Integrated messaging & contracts</li>
+                </ul>
+              </div>
+              <div className="feature-image">💰</div>
+            </div>
+          </div>
+        </section>
+
+        <section className="strategy">
+          <h2 className="section-title">How We Balance Community & Commerce</h2>
+          <p style="text-align: center; color: var(--text-muted); margin-bottom: 2rem; max-width: 700px; margin-left: auto; margin-right: auto;">
+            Our design keeps genuine connection at the center while creating natural monetization paths. Here's our strategy:
+          </p>
+
+          <div className="strategy-boxes">
+            <div className="strategy-box highlight">
+              <h3>🤝 Community First</h3>
+              <p><strong>The Core Value:</strong> Free feedback, challenges, and connections are the foundation. No paywall to participate or help others. This builds genuine community trust and participation.</p>
+              <p style="margin-top: 1rem; font-size: 0.9rem;"><em>"We succeed when photographers help photographers grow."</em></p>
+            </div>
+
+            <div className="strategy-box">
+              <h3>📈 Reputation = Opportunity</h3>
+              <p>Active community members (good feedback, challenge winners, engaged followers) naturally become visible to potential clients. Your reputation is your business card.</p>
+            </div>
+
+            <div className="strategy-box">
+              <h3>💡 Services Enable Commerce</h3>
+              <p>Services listings are optional but powerful—they let your portfolio directly lead to bookings. Clients hire based on your work AND community standing, not just pricing.</p>
+            </div>
+
+            <div className="strategy-box">
+              <h3>🎯 Organic Discovery</h3>
+              <p>We don't push ads or force upsells. Instead, we make it easy for clients to find photographers—through galleries, challenges, portfolios, and local searches.</p>
+            </div>
+
+            <div className="strategy-box">
+              <h3>⚖️ Fair Commission Model</h3>
+              <p>When bookings happen through the platform, we take a small cut (5-8%)—not enough to hurt, but enough to ensure platform sustainability. No hidden fees.</p>
+            </div>
+
+            <div className="strategy-box">
+              <h3>🛡️ Quality Moderation</h3>
+              <p>Negative or unhelpful feedback gets flagged by community and removed by mods. Professional photographers take the community seriously because it's high-quality.</p>
+            </div>
+          </div>
+
+          <div style="margin-top: 4rem;">
+            <h3 style="color: var(--text); margin-bottom: 1rem; font-size: 1.3rem;">User-Generated Content Flows</h3>
+            <div className="flow-diagram">
+              <div className="flow">
+                <div className="flow-step">Share Galleries</div>
+                <div className="flow-arrow">→</div>
+                <div className="flow-step">Get Feedback</div>
+                <div className="flow-arrow">→</div>
+                <div className="flow-step">Build Reputation</div>
+                <div className="flow-arrow">→</div>
+                <div className="flow-step">List Services</div>
+                <div className="flow-arrow">→</div>
+                <div className="flow-step">Land Clients</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 3rem;">
+            <h3 style="color: var(--text); margin-bottom: 1rem; font-size: 1.3rem;">Encouraging Participation While Maintaining Quality</h3>
+            <div className="strategy-boxes">
+              <div className="strategy-box">
+                <h3>Gamification Without Gaming</h3>
+                <p><strong>Problem:</strong> Reputation systems can be gamed with fake praise. <br/>
+                <strong>Solution:</strong> Only meaningful engagement counts—detailed feedback, thoughtful critiques, quality comments. Quick likes don't build reputation. This keeps quality high.</p>
+              </div>
+
+              <div className="strategy-box">
+                <h3>Feedback Quality Standards</h3>
+                <p><strong>What We Require:</strong> Feedback must be specific ("Great use of negative space in the corner composition") not generic ("Nice photo"). Comments must offer something actionable or constructive.</p>
+              </div>
+
+              <div className="strategy-box">
+                <h3>Curated Challenges</h3>
+                <p><strong>How:</strong> Challenges are themed by community voting monthly. Winners are featured (traffic & visibility), not paid. The prize is prominence and feedback from serious photographers.</p>
+              </div>
+
+              <div className="strategy-box">
+                <h3>Moderation by Reputation</h3>
+                <p><strong>System:</strong> New members' feedback goes to queue for approval. Experienced photographers with high reputation can post directly. Scales from strict → trusted</p>
+              </div>
+
+              <div className="strategy-box">
+                <h3>Mentorship Matching</h3>
+                <p><strong>Feature:</strong> Follow photographers doing work you admire. They can grant "mentee" status. Mentees get direct feedback & guidance. Creates investment in growth.</p>
+              </div>
+
+              <div className="strategy-box">
+                <h3>Analytics That Matter</h3>
+                <p><strong>For Photographers:</strong> See which photos resonated, what feedback improved your work, which galleries led to bookings. Data shows real business value of being active.</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="cta">
+            <h2>Ready to Join the Community?</h2>
+            <p>Whether you're a weekend hobbyist or a professional looking for your next client, PhotoCommunity is where photographers help each other succeed.</p>
+            <button className="btn-secondary" style="border-color: white; color: white; margin: 0 0.5rem;" onclick="openModal('signup')">Create Profile</button>
+            <button className="btn-secondary" style="border-color: rgba(255,255,255,0.5); color: rgba(255,255,255,0.8);" onclick="alert('Join our newsletter for weekly challenges and community highlights!')">Stay Updated</button>
+          </div>
+        </section>
+
+        <section style="padding: 4rem 2rem; background: var(--bg-light); border-top: 1px solid var(--bg-lighter);">
+          <h2 className="section-title" style="margin-bottom: 3rem;">Featured Community</h2>
+          <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+            <div className="community-card">
+              <div className="card-image">📍</div>
+              <div className="card-content">
+                <div className="card-title">Sarah Chen - Portrait Specialist</div>
+                <div className="card-meta">
+                  <span>Portland, OR</span>
+                  <span>⭐ 4.9/5</span>
+                </div>
+                <div style="margin-bottom: 1rem;">
+                  <span className="card-badge">Verified Pro</span>
+                  <span className="card-badge">Featured</span>
+                </div>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Specializes in family & wedding portraits. This week's featured gallery winner.</p>
+                <div className="engagement-bar">
+                  <div className="engagement-item">❤️ 342 followers</div>
+                  <div className="engagement-item">📷 28 galleries</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="community-card">
+              <div className="card-image">🏆</div>
+              <div className="card-content">
+                <div className="card-title">This Week's Challenge</div>
+                <div className="card-meta">
+                  <span>Ends in 4 days</span>
+                  <span>347 entries</span>
+                </div>
+                <p style="color: var(--text); font-weight: 600; margin-bottom: 0.5rem;">Theme: Reflections</p>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Find beauty in reflections—water, glass, mirrors, or surfaces. Get creative!</p>
+                <button className="btn-primary" onclick="alert('You need to sign up to enter challenges!')" style="width: 100%; margin-top: 0.5rem;">Submit Entry</button>
+              </div>
+            </div>
+
+            <div className="community-card">
+              <div className="card-image">💼</div>
+              <div className="card-content">
+                <div className="card-title">Mike Rodriguez - Event Photography</div>
+                <div className="card-meta">
+                  <span>San Francisco, CA</span>
+                  <span>⭐ 4.8/5</span>
+                </div>
+                <div style="margin-bottom: 1rem;">
+                  <span className="card-badge">Available</span>
+                  <span className="card-badge">Verified Pro</span>
+                </div>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Shoots 50+ weddings/year. Booked 60% of 2024 clients through PhotoCommunity.</p>
+                <div className="engagement-bar">
+                  <div className="engagement-item">💰 $15k avg booking</div>
+                  <div className="engagement-item">📅 18 booked this month</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <footer>
+          <div className="footer-content">
+            <div className="footer-col">
+              <h4>📸 PhotoCommunity</h4>
+              <p style="color: var(--text-muted); font-size: 0.95rem;">Photographers helping photographers grow.</p>
+            </div>
+            <div className="footer-col">
+              <h4>Platform</h4>
+              <ul>
+                <li><a href="#0">Galleries</a></li>
+                <li><a href="#0">Challenges</a></li>
+                <li><a href="#0">Services</a></li>
+                <li><a href="#0">Photographers</a></li>
+              </ul>
+            </div>
+            <div className="footer-col">
+              <h4>Community</h4>
+              <ul>
+                <li><a href="#0">Guidelines</a></li>
+                <li><a href="#0">Feedback Standards</a></li>
+                <li><a href="#0">Moderation Policy</a></li>
+                <li><a href="#0">Blog</a></li>
+              </ul>
+            </div>
+            <div className="footer-col">
+              <h4>For Professionals</h4>
+              <ul>
+                <li><a href="#0">Services Setup</a></li>
+                <li><a href="#0">Pricing</a></li>
+                <li><a href="#0">Analytics</a></li>
+                <li><a href="#0">Success Stories</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="footer-bottom">
+            <p>&copy; 2026 PhotoCommunity. All rights reserved. | <a href="#0" style="color: var(--accent);">Privacy</a> | <a href="#0" style="color: var(--accent);">Terms</a></p>
+          </div>
+        </footer>
+
+        {/* Auth Modals */}
+        <div id="loginModal" className="modal">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h2 style="font-size: 1.5rem;">Sign In</h2>
+              <button className="modal-close" onclick="closeModal('login')">✕</button>
+            </div>
+            <div className="form-group">
+              <label>Email</label>
+              <input type="email" placeholder="your@email.com" />
+            </div>
+            <div className="form-group">
+              <label>Password</label>
+              <input type="password" placeholder="••••••••" />
+            </div>
+            <button className="btn-primary" style="width: 100%; margin-top: 1.5rem;" onclick="handleAuth('login')">Sign In</button>
+            <p style="text-align: center; color: var(--text-muted); margin-top: 1rem;">New here? <a href="#0" onclick="switchModal('login', 'signup'); return false;" style="color: var(--primary); cursor: pointer;">Create an account</a></p>
+          </div>
+        </div>
+
+        <div id="signupModal" className="modal">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h2 style="font-size: 1.5rem;">Join PhotoCommunity</h2>
+              <button className="modal-close" onclick="closeModal('signup')">✕</button>
+            </div>
+            <div className="form-group">
+              <label>Full Name</label>
+              <input type="text" placeholder="Your Name" />
+            </div>
+            <div className="form-group">
+              <label>Email</label>
+              <input type="email" placeholder="your@email.com" />
+            </div>
+            <div className="form-group">
+              <label>Username (for portfolio)</label>
+              <input type="text" placeholder="yourname" />
+            </div>
+            <div className="form-group">
+              <label>Photography Type</label>
+              <select>
+                <option>Hobbyist - Learning & sharing</option>
+                <option>Semi-Professional - Some paid work</option>
+                <option>Professional - Full-time photography</option>
+              </select>
+            </div>
+            <button className="btn-primary" style="width: 100%; margin-top: 1.5rem;" onclick="handleAuth('signup')">Create Account</button>
+            <p style="text-align: center; color: var(--text-muted); margin-top: 1rem;">Already have an account? <a href="#0" onclick="switchModal('signup', 'login'); return false;" style="color: var(--primary); cursor: pointer;">Sign in</a></p>
+          </div>
+        </div>
+
+        <script>
+          function openModal(type) {
+            const modal = document.getElementById(type + 'Modal');
+            if (modal) modal.classList.add('active');
+          }
+
+          function closeModal(type) {
+            const modal = document.getElementById(type + 'Modal');
+            if (modal) modal.classList.remove('active');
+          }
+
+          function switchModal(from, to) {
+            closeModal(from);
+            openModal(to);
+          }
+
+          function handleAuth(type) {
+            const action = type === 'login' ? 'logged in' : 'joined';
+            alert('Welcome! In a full app, we would ' + action + ' here. Today you get to explore the platform.');
+            closeModal(type);
+          }
+
+          // Close modals when clicking outside
+          document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+              if (e.target === modal) {
+                modal.classList.remove('active');
+              }
+            });
+          });
+
+          // Smooth scroll for anchor links
+          document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+              if (this.getAttribute('href') === '#0') return;
+              e.preventDefault();
+              const target = document.querySelector(this.getAttribute('href'));
+              if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+          });
+        </script>
+      </body>
+    </html>
