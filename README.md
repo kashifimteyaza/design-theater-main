@@ -1,12 +1,25 @@
-# DesignTheater Main
+# Design Theater Main
 
-This branch contains the uploaded `Design-Theater-task-artifacts` folder.
+This repository contains the merged benchmark artifacts and evaluation pipeline.
 
 ## Contents
 
-- `Design-Theater-task-artifacts/`
+- `artifacts/` - benchmark tasks and generated interface artifacts
+- `pipeline/` - evaluation pipeline code, configuration, and docs
+
+## Reuse Locally
+
+```bash
+git clone https://github.com/kashifimteyaza/design-theater-main.git
+cd design-theater-main
+git checkout main
+```
+
+Then browse `artifacts/` for benchmark content or `pipeline/README.md` for the
+pipeline setup and run instructions.
 
 ## Notes
 
-- This branch is kept separate from the evaluation pipeline branch.
-- Add or update files in this branch only if they belong with the uploaded artifacts folder.
+- Keep benchmark artifacts in `artifacts/`.
+- Keep the evaluation code in `pipeline/`.
+- This branch is the consolidated view of both repositories.
