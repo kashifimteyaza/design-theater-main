@@ -4,7 +4,7 @@ Benchmark artifacts and evaluation code for Design Theater: A Benchmark for Gene
 a study of whether generative UI tools implement the design rationales they
 present to users.
 
-📄 :
+📄 : https://arxiv.org/pdf/2607.22928
 
 ## Contents
 
