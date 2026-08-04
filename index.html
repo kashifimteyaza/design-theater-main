@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Design Theater: A Benchmark for Generative UI - AIES 2026</title>
+
+  <!-- Primary SEO -->
+  <meta name="description"
+    content="Design Theater is a benchmark measuring the gap between stated design rationales and actual implementations across 5 generative UI tools and 120 interfaces. Over 25% of rationales go unimplemented. Accepted at AIES 2026.">
+  <meta name="keywords"
+    content="Design Theater, generative UI, benchmark, AIES 2026, design rationale, thinking fidelity, Claude, ChatGPT, Vercel v0, Bolt, Firebase, HCI, AI design tools, UX">
+  <meta name="author" content="Kashif Imteyaz, Kaif Imteyaz, Nakul Rajpal, Kaif Shaikh, Michael Muller, Saiph Savage">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Design Theater: A Benchmark for Generative UI">
+  <meta property="og:description"
+    content="Over 25% of stated design rationales are never implemented. 5 tools, 120 interfaces, 3 metrics. Accepted at AIES 2026.">
+  <meta property="og:url" content="https://arxiv.org/abs/2607.22928">
+  <meta property="og:site_name" content="Design Theater">
+  <meta property="article:published_time" content="2026">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Design Theater: A Benchmark for Generative UI">
+  <meta name="twitter:description"
+    content="Over 25% of stated design rationales are never implemented. 5 tools, 120 interfaces, 3 metrics. Accepted at AIES 2026.">
+
+  <!-- Google Scholar / academic crawlers -->
+  <meta name="citation_title" content="Design Theater: A Benchmark for Generative UI">
+  <meta name="citation_author" content="Imteyaz, Kashif">
+  <meta name="citation_author" content="Imteyaz, Kaif">
+  <meta name="citation_author" content="Rajpal, Nakul">
+  <meta name="citation_author" content="Shaikh, Kaif">
+  <meta name="citation_author" content="Muller, Michael">
+  <meta name="citation_author" content="Savage, Saiph">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="citation_conference_title" content="AAAI/ACM Conference on AI, Ethics, and Society (AIES 2026)">
+  <meta name="citation_arxiv_id" content="2607.22928">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2607.22928">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+</head>
+
+<body>
+  <div class="app-shell">
+
+    <nav class="nav">
+      <span class="nav-brand">Design Theater</span>
+      <span class="nav-links">
+        <span class="nav-badge">Accepted, AIES 2026</span>
+        <a id="nav-artifacts" href="https://design-theater.vercel.app/" target="_blank" rel="noopener noreferrer"
+          class="nav-badge">Artifacts</a>
+        <a id="nav-github" href="https://github.com/kashifimteyaza/design-theater.io" target="_blank" rel="noopener noreferrer"
+          class="nav-badge"><i class="fa-brands fa-github nav-icon"></i>GitHub</a>
+        <!-- <a href="https://arxiv.org/pdf/2607.22928v1" target="_blank" rel="noopener noreferrer" class="nav-badge">Paper</a> -->
+        <a href="https://arxiv.org/abs/2607.22928" id="nav-paper" target="_blank" rel="noopener noreferrer" class="nav-badge"><i
+            class="ai ai-arxiv nav-icon"></i>ArXiv</a>
+      </span>
+    </nav>
+
+    <div id="tab-bar">
+      <div class="page tab-bar-inner">
+        <button class="tab-btn" data-tab="overview">Overview</button>
+        <button class="tab-btn" data-tab="paper">Paper</button>
+        <button class="tab-btn" data-tab="method">Method</button>
+        <button class="tab-btn" data-tab="results">Results</button>
+        <button class="tab-btn" data-tab="authors">Authors</button>
+      </div>
+    </div>
+
+    <div class="content-flex">
+      <!-- OVERVIEW -->
+      <div id="tab-overview" class="tab">
+        <main class="page">
+          <section class="section-hero">
+            <div class="hero-split">
+              <div>
+                <h1 class="hero-h1">
+                  <span class="d-block">The rationale sounds</span>
+                  <span class="d-block">like design.</span>
+                  <span class="d-block text-accent">The interface isn't.</span>
+                </h1>
+                <p class="hero-lead">Generative UI tools narrate their own design decisions - a three-column grid,
+                  accessible contrast, keyboard-navigable tabs. We built a benchmark to check whether any of it is
+                  actually in the code. Across 120 generated interfaces, over a quarter of stated design rationales were
+                  never implemented.</p>
+                <p class="hero-sub muted">We call the gap <strong>Design Theater</strong>: plausible, confident design
+                  reasoning that bears little relationship to the artifact it describes.</p>
+                <div class="hero-actions">
+                  <button class="btn btn-primary" id="btn-see-results">See the results</button>
+                </div>
+              </div>
+              <div>
+                <div class="theater-wrap">
+                  <div class="theater-stage-outer">
+                    <div class="theater-valance">
+                      <div class="valance-trim"></div>
+                    </div>
+                    <div class="theater-stage">
+                      <div class="theater-spotlight"></div>
+                      <div class="el-nav"></div>
+                      <div class="el-sidebar"></div>
+                      <div class="el-card1"></div>
+                      <div class="el-card2"></div>
+                      <div class="el-ghost"></div>
+                      <div class="spotlight-sweep"></div>
+                      <div class="curtain curtain-left">
+                        <div class="curtain-folds"><span></span><span></span><span></span><span></span><span></span>
+                        </div>
+                      </div>
+                      <div class="curtain curtain-right">
+                        <div class="curtain-folds"><span></span><span></span><span></span><span></span><span></span>
+                        </div>
+                      </div>
+                      <div class="sl-lamp-l"></div>
+                      <div class="sl-lamp-r"></div>
+                      <div class="sl-beam-l"></div>
+                      <div class="sl-beam-r"></div>
+                    </div>
+                  </div>
+                  <div class="theater-caption">
+                    <div class="theater-dots"><span></span><span></span><span></span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <hr class="hr">
+
+          <section class="section" aria-label="Study numbers">
+            <div class="study-stats">
+              <div>
+                <p class="stat-num">0.75</p>
+                <p class="stat-label dim">Mean thinking fidelity - 1 in 4 rationales unmet</p>
+              </div>
+              <div>
+                <p class="stat-num">34%</p>
+                <p class="stat-label dim">Failure rate on functional requirements</p>
+              </div>
+              <div>
+                <p class="stat-num">0.54</p>
+                <p class="stat-label dim">Mean adherence to UX principles in the prompt</p>
+              </div>
+              <div>
+                <p class="stat-num">120</p>
+                <p class="stat-label dim">Interfaces evaluated - 5 tools &times; 24 tasks</p>
+              </div>
+            </div>
+          </section>
+
+          <hr class="hr">
+
+          <section class="section-end">
+            <figure>
+              <div class="tool-grid">
+                <div class="tool-cell" tabindex="0">
+                  <div class="tool-img-wrap">
+                    <img src="assets/claude.png" alt="Claude Artifacts">
+                  </div>
+                  <p class="tool-label">Claude</p>
+                </div>
+                <div class="tool-cell" tabindex="0">
+                  <div class="tool-img-wrap">
+                    <img src="assets/bolt.png" alt="Bolt">
+                  </div>
+                  <p class="tool-label">Bolt</p>
+                </div>
+                <div class="tool-cell" tabindex="0">
+                  <div class="tool-img-wrap">
+                    <img src="assets/chatgpt.png" alt="ChatGPT">
+                  </div>
+                  <p class="tool-label">ChatGPT</p>
+                </div>
+                <div class="tool-cell" tabindex="0">
+                  <div class="tool-img-wrap">
+                    <img src="assets/v0.png" alt="Vercel v0">
+                  </div>
+                  <p class="tool-label">Vercel v0</p>
+                </div>
+                <div class="tool-cell" tabindex="0">
+                  <div class="tool-img-wrap">
+                    <img src="assets/firebase.png" alt="Firebase Studio">
+                  </div>
+                  <p class="tool-label">Firebase</p>
+                </div>
+              </div>
+              <figcaption class="tool-grid-caption dim">All 120 generated interfaces are
+                browsable at <a id="figcaption-artifacts" href="https://design-theater.vercel.app/" target="_blank"
+                  rel="noopener noreferrer">Artifacts</a>.</figcaption>
+            </figure>
+          </section>
+
+          <hr class="hr">
+
+          <section class="section">
+            <span class="kicker">Start here</span>
+            <div class="rows">
+              <div class="row">
+                <p class="row-num">01</p>
+                <h3 class="row-h">What user-facing design reasoning is</h3>
+                <p class="row-p muted">When you ask a tool for an interface, it usually explains itself first: what it
+                  will build, which principles it is honoring, what tradeoffs it made. That explanation is written for
+                  you, not for the compiler - nothing checks it against the output.</p>
+              </div>
+              <div class="row">
+                <p class="row-num">02</p>
+                <h3 class="row-h">Why the gap matters</h3>
+                <p class="row-p muted">Design Theater is not a hallucination - it is a performance of design expertise.
+                  Fluent rationales invite less scrutiny, so the people now reviewing generated interfaces (product
+                  managers, engineers, first-time creators) may accept them precisely because they read as deliberate.
+                </p>
+              </div>
+              <div class="row">
+                <p class="row-num">03</p>
+                <h3 class="row-h">What the benchmark adds</h3>
+                <p class="row-p muted">Three metrics make three specific failure modes auditable: unimplemented
+                  rationales, missed UX obligations that were implied rather than stated, and homogenized design
+                  defaults dressed up as situated choices.</p>
+              </div>
+            </div>
+          </section>
+
+        </main>
+      </div>
+
+      <!-- PAPER -->
+      <div id="tab-paper" class="tab">
+        <main class="page">
+          <section class="section-hero">
+            <span class="kicker">Paper - accepted, AIES 2026</span>
+            <h1 class="paper-h1">Design Theater: A Benchmark for Generative UI</h1>
+            <div class="paper-actions">
+              <a id="paper-pdf" class="btn btn-primary" href="https://arxiv.org/pdf/2607.22928" target="_blank"
+                rel="noopener noreferrer">Read paper</a>
+              <a id="paper-github" class="btn btn-secondary" href="https://github.com/kashifimteyaza/design-theater.io"
+                target="_blank" rel="noopener noreferrer">GitHub</a>
+              <a id="paper-artifacts" class="btn btn-secondary" href="https://design-theater.vercel.app/"
+                target="_blank" rel="noopener noreferrer">Artifacts</a>
+              <button class="btn btn-secondary" id="cite-copy-hero">
+                <i class="fa-regular fa-copy cite-icon"></i>Cite
+              </button>
+            </div>
+          </section>
+
+          <hr class="hr">
+
+          <section class="section">
+            <div class="paper-layout">
+              <div>
+                <span class="kicker">Abstract</span>
+                <p class="abstract-p">Generative user interface tools promise to democratize UI design by turning
+                  natural language descriptions into complete interfaces. Tools such as Claude Artifacts, ChatGPT and
+                  Replit generate user-facing design rationales that explain their layout, accessibility and design
+                  choices. However, it remains unclear whether these stated rationales are actually reflected in the
+                  interfaces they produce. We call this disconnect &#8220;Design Theater&#8221;: plausible and confident
+                  design rationales that have little relationship to the actual implementation.</p>
+                <p class="abstract-p">To study this phenomenon, we introduce a benchmark and three metrics for measuring
+                  Design Theater. The benchmark includes 24 UI generation tasks spanning structural, styling and
+                  functional design requirements. Using it, we evaluate 120 interfaces created by generative UI tools.
+                  On average, over 25% of user-facing design rationales are not implemented in the generated interface,
+                  and the implementation failure increases to 34% for functional requirements. Tools recognize roughly
+                  half of the UX principles embedded in prompts (mean = 0.54), with four of five tools implementing 6%
+                  or fewer functional principles.</p>
+                <p class="abstract-p abstract-p--last">We also measure interface similarity across tools and find signs
+                  of design homogenization, with relatively narrow pairwise differences in overall visual appearance and
+                  layout organization and greater spread in color choices. We discuss what these findings mean for the
+                  design and evaluation of generative UI tools.</p>
+
+              </div>
+
+              <div class="paper-pdf-panel">
+                <iframe src="assets/paper.pdf" title="Paper PDF" class="pdf-iframe"></iframe>
+                <a id="pdf-newtab" href="https://arxiv.org/pdf/2607.22928" target="_blank" rel="noopener noreferrer"
+                  class="pdf-newtab-link dim">Open in new tab &#8599;</a>
+              </div>
+            </div>
+          </section>
+
+          <hr class="hr">
+
+          <section class="section-end">
+            <span class="kicker">Cite</span>
+            <div class="cite-section">
+              <div>
+                <p class="cite-label dim">BibTeX</p>
+                <div class="cite-wrap">
+                  <div class="cite-block" id="cite-bib">@misc{imteyaz2026designtheaterbenchmarkgenerative,
+                    title = {Design Theater: A Benchmark for Generative UI},
+                    author = {Kashif Imteyaz and Kaif Imteyaz and Nakul Rajpal and Kaif Shaikh and Michael Muller and
+                    Saiph Savage},
+                    year = {2026},
+                    eprint = {2607.22928},
+                    archivePrefix = {arXiv},
+                    primaryClass = {cs.AI},
+                    url = {https://arxiv.org/abs/2607.22928}
+                    }</div>
+                  <button class="cite-copy-btn" id="cite-copy-bib" title="Copy BibTeX">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="9" y="9" width="13" height="13" rx="2" />
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+
+      <!-- METHOD -->
+      <div id="tab-method" class="tab">
+        <main class="page">
+          <section class="section-hero">
+            <span class="kicker">Method</span>
+            <h1 class="display-h1">
+              <span class="d-block">24 tasks, 5 tools,</span>
+              <span class="d-block">three metrics.</span>
+            </h1>
+            <p class="section-lead">Each of the five tools received the same 24 natural-language prompts, in its default
+              configuration, with one fixed instruction: build the interface in plain HTML, CSS and JavaScript - no
+              frameworks, no libraries, no web search. For every output we captured the code, the rendered interface,
+              and the complete user-facing reasoning trace.</p>
+          </section>
+
+          <hr class="hr">
+
+          <section class="section">
+            <h2 class="section-h2">The tasks are written the way novices ask</h2>
+            <p class="section-p muted">Prompts never name a design principle. They describe users, contexts and
+              constraints - a bilingual audience, a low-end phone, a stressed reader - so the principle is implied.</p>
+            <div class="tier-grid">
+              <div class="tier-cell--left">
+                <span class="kicker">Tier 1 - Structural</span>
+                <h3 class="tier-h3">What the interface contains</h3>
+                <p class="row-p muted">Information architecture: grouping related content, ordering sections, building
+                  navigation paths, routing distinct audiences, surfacing what is urgent. Eight tasks.</p>
+              </div>
+              <div class="tier-cell--mid">
+                <span class="kicker">Tier 2 - Styling</span>
+                <h3 class="tier-h3">How it looks</h3>
+                <p class="row-p muted">Visual communication: color, typography, spacing, hierarchy, contrast, emotional
+                  tone. Eight tasks, from straightforward branding to interfaces for constrained devices and readers
+                  under stress.</p>
+              </div>
+              <div class="tier-cell--right">
+                <span class="kicker">Tier 3 - Functional</span>
+                <h3 class="tier-h3">How it behaves</h3>
+                <p class="row-p muted">Interaction: state, error prevention and recovery, user control, role switching,
+                  accessibility features. Eight tasks, from a four-step reservation flow to interactive systems serving
+                  large, diverse populations.</p>
+              </div>
+            </div>
+          </section>
+
+          <hr class="hr">
+
+          <section class="section-end">
+            <span class="kicker">The three metrics</span>
+            <div class="rows rows-wide">
+              <div class="row">
+                <div>
+                  <p class="metric-acronym">TFS</p>
+                  <p class="metric-label dim">Thinking Fidelity Score</p>
+                </div>
+                <div>
+                  <h3 class="metric-h3">Did the tool build what it said it would?</h3>
+                  <p class="metric-desc muted">We extract every concrete, checkable claim from the reasoning trace - "a
+                    three-column grid", "keyboard-navigable tabs". Vague claims are discarded. Two evaluators score each
+                    claim against the artifact: fully implemented (1.0), partially (0.5), not at all (0.0).</p>
+                  <p class="metric-formula">
+                    TFS = (1.0 · N<sub>full</sub> + 0.5 · N<sub>partial</sub>) / N<sub>total</sub> &nbsp;
+                  </p>
+                </div>
+              </div>
+              <div class="row">
+                <div>
+                  <p class="metric-acronym">PAS</p>
+                  <p class="metric-label dim">Principle Adherence Score</p>
+                </div>
+                <div>
+                  <h3 class="metric-h3">Did it honor the obligations nobody stated?</h3>
+                  <p class="row-p muted">Two target UX principles are chosen per prompt <em>before</em> evaluation -
+                    structural tasks from information architecture, styling from WCAG, functional from Nielsen's
+                    heuristics. Each scores 1 or 0; PAS is their mean.</p>
+                </div>
+              </div>
+              <div class="row">
+                <div>
+                  <p class="metric-acronym">DHI</p>
+                  <p class="metric-label dim">Design Homogeneity Index</p>
+                </div>
+                <div>
+                  <h3 class="metric-h3">Do five tools quietly build the same thing?</h3>
+                  <p class="metric-desc muted">All 120 interfaces are rendered as 1200 x 1200 screenshots giving ten
+                    pairwise comparisons per prompt. Similarity is kept as three separate dimensions:</p>
+                  <div class="dhi-dims">
+                    <div class="dhi-dim">
+                      <p class="dhi-dim-title">Visual</p>
+                      <p class="dhi-dim-desc muted">UIClip embeddings.</p>
+                    </div>
+                    <div class="dhi-dim">
+                      <p class="dhi-dim-title">Color</p>
+                      <p class="dhi-dim-desc muted">CIELCh + Earth Mover's Distance.</p>
+                    </div>
+                    <div class="dhi-dim">
+                      <p class="dhi-dim-title">Layout</p>
+                      <p class="dhi-dim-desc muted">OmniParser v2 + tree edit distance.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+
+      <!-- RESULTS + DHI -->
+      <div id="tab-results" class="tab">
+        <main class="page">
+          <section class="section-hero">
+            <span class="kicker">Results</span>
+            <h1 class="display-h1">
+              <span class="d-block">No tool delivered on</span>
+              <span class="d-block">its own reasoning.</span>
+            </h1>
+            <!-- <br> -->
+            <p class="hero-lead">Cross-tool mean TFS was 0.75 - roughly one stated rationale in four did not fully
+              appear in the interface. Four tools clustered between 0.74 and 0.87; Firebase Studio sat well below at
+              0.53.</p>
+          </section>
+
+          <hr class="hr">
+
+          <section class="section">
+            <h2 class="section-h2 section-h2--wide">Thinking Fidelity Score by tool</h2>
+            <div class="bar-rows">
+              <div class="bar-row">
+                <span class="bar-tool-label">Claude</span>
+                <span class="bar-track" style="width:87%"></span>
+                <span class="bar-score">0.87</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-tool-label">Bolt</span>
+                <span class="bar-track" style="width:84%"></span>
+                <span class="bar-score">0.84</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-tool-label">ChatGPT</span>
+                <span class="bar-track" style="width:80%"></span>
+                <span class="bar-score">0.80</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-tool-label">Vercel v0</span>
+                <span class="bar-track" style="width:74%"></span>
+                <span class="bar-score">0.74</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-tool-label">Firebase</span>
+                <span class="bar-track" style="width:53%"></span>
+                <span class="bar-score">0.53</span>
+              </div>
+            </div>
+
+            <div class="tbl-wrap">
+              <table class="dt-table">
+                <caption>Table 1 - Mean TFS by tool and tier</caption>
+                <thead>
+                  <tr>
+                    <th>Tool</th>
+                    <th class="num">Overall</th>
+                    <th class="num">95% CI</th>
+                    <th class="num">Structural</th>
+                    <th class="num">Styling</th>
+                    <th class="num">Functional</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="nowrap">Claude</td>
+                    <td class="num"><strong>0.87</strong></td>
+                    <td class="num ci">0.82–0.91</td>
+                    <td class="num">0.83</td>
+                    <td class="num">0.93</td>
+                    <td class="num"><strong>0.85</strong></td>
+                  </tr>
+                  <tr>
+                    <td class="nowrap">Bolt</td>
+                    <td class="num">0.84</td>
+                    <td class="num ci">0.75–0.91</td>
+                    <td class="num">0.83</td>
+                    <td class="num"><strong>0.95</strong></td>
+                    <td class="num">0.73</td>
+                  </tr>
+                  <tr>
+                    <td class="nowrap">ChatGPT</td>
+                    <td class="num">0.80</td>
+                    <td class="num ci">0.75–0.84</td>
+                    <td class="num"><strong>0.85</strong></td>
+                    <td class="num">0.78</td>
+                    <td class="num">0.75</td>
+                  </tr>
+                  <tr>
+                    <td class="nowrap">Vercel v0</td>
+                    <td class="num">0.74</td>
+                    <td class="num ci">0.63–0.84</td>
+                    <td class="num">0.83</td>
+                    <td class="num">0.83</td>
+                    <td class="num">0.56</td>
+                  </tr>
+                  <tr>
+                    <td class="nowrap">Firebase</td>
+                    <td class="num">0.53</td>
+                    <td class="num ci">0.45–0.61</td>
+                    <td class="num">0.62</td>
+                    <td class="num">0.55</td>
+                    <td class="num worst">0.43</td>
+                  </tr>
+                  <tr class="tbl-summary">
+                    <td class="nowrap"><strong>Across tools</strong></td>
+                    <td class="num"><strong>0.75</strong></td>
+                    <td class="num ci"></td>
+                    <td class="num"><strong>0.79</strong></td>
+                    <td class="num"><strong>0.81</strong></td>
+                    <td class="num"><strong>0.66</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="section-lead muted">Functional tasks were weakest across the board (0.66), but the shape of
+              failure differs by tool: Claude held steady while Vercel v0 dropped sharply to 0.56 with a wide interval
+              (0.36-0.77). A tool with moderate but stable fidelity is a different risk than one that is unpredictable.
+            </p>
+          </section>
+
+          <hr class="hr">
+
+          <section class="section">
+            <h2 class="section-h2">Principle adherence collapses on interaction</h2>
+            <p class="section-p muted">Mean PAS ran from 0.29 (Firebase Studio) to 0.73 (ChatGPT). Tools handled
+              structural and styling principles reasonably well and then fell off a cliff: four of five implemented 6%
+              or fewer of the functional principles.</p>
+            <div class="tbl-wrap">
+              <table class="dt-table">
+                <caption>Table 2 - Principle Adherence Score by tool and tier</caption>
+                <thead>
+                  <tr>
+                    <th>Tool</th>
+                    <th class="num">Mean PAS</th>
+                    <th class="num">95% CI</th>
+                    <th class="num">Structural</th>
+                    <th class="num">Styling</th>
+                    <th class="num">Functional</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="nowrap">ChatGPT</td>
+                    <td class="num"><strong>0.73</strong></td>
+                    <td class="num ci">0.59–0.83</td>
+                    <td class="num"><strong>0.94</strong></td>
+                    <td class="num"><strong>0.88</strong></td>
+                    <td class="num"><strong>0.38</strong></td>
+                  </tr>
+                  <tr>
+                    <td class="nowrap">Bolt</td>
+                    <td class="num">0.60</td>
+                    <td class="num ci">0.46–0.73</td>
+                    <td class="num">0.88</td>
+                    <td class="num"><strong>0.88</strong></td>
+                    <td class="num">0.06</td>
+                  </tr>
+                  <tr>
+                    <td class="nowrap">Vercel v0</td>
+                    <td class="num">0.56</td>
+                    <td class="num ci">0.42–0.69</td>
+                    <td class="num">0.81</td>
+                    <td class="num">0.81</td>
+                    <td class="num">0.06</td>
+                  </tr>
+                  <tr>
+                    <td class="nowrap">Claude</td>
+                    <td class="num">0.54</td>
+                    <td class="num ci">0.40–0.67</td>
+                    <td class="num">0.81</td>
+                    <td class="num">0.75</td>
+                    <td class="num">0.06</td>
+                  </tr>
+                  <tr>
+                    <td class="nowrap">Firebase</td>
+                    <td class="num">0.29</td>
+                    <td class="num ci">0.18–0.43</td>
+                    <td class="num">0.50</td>
+                    <td class="num">0.38</td>
+                    <td class="num worst">0.00</td>
+                  </tr>
+                  <tr class="tbl-summary">
+                    <td class="nowrap"><strong>Across tools</strong></td>
+                    <td class="num"><strong>0.54</strong></td>
+                    <td class="num ci"></td>
+                    <td class="num"><strong>0.79</strong></td>
+                    <td class="num"><strong>0.74</strong></td>
+                    <td class="num"><strong>0.11</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <hr class="hr">
+
+          <section class="section">
+            <span class="kicker">Figures</span>
+            <div class="chart-legend">
+              <span class="legend-item"><span class="legend-swatch"></span>Structural</span>
+              <span class="legend-item"><span class="legend-swatch legend-styling"></span>Styling</span>
+              <span class="legend-item"><span class="legend-swatch legend-functional"></span>Functional</span>
+            </div>
+
+            <figure class="chart-fig">
+              <div class="chart-grid">
+                <div class="chart-yaxis">
+                  <span class="chart-ytick chart-ytick--top dim">1.0</span>
+                  <span class="chart-ytick chart-ytick--mid dim">0.5</span>
+                  <span class="chart-ytick chart-ytick--bot dim">0</span>
+                </div>
+                <div class="chart-bars">
+                  <div class="chart-group">
+                    <div class="bar-wrap"><span class="bar-label">0.83</span><span class="bar-val" style="height:166px"
+                        title="Structural 0.83"></span></div>
+                    <div class="bar-wrap"><span class="bar-label">0.93</span><span class="bar-val bar-styling"
+                        style="height:186px" title="Styling 0.93"></span></div>
+                    <div class="bar-wrap"><span class="bar-label">0.85</span><span class="bar-val bar-functional"
+                        style="height:170px" title="Functional 0.85"></span></div>
+                  </div>
+                  <div class="chart-group">
+                    <div class="bar-wrap"><span class="bar-label">0.83</span><span class="bar-val" style="height:166px"
+                        title="Structural 0.83"></span></div>
+                    <div class="bar-wrap"><span class="bar-label">0.95</span><span class="bar-val bar-styling"
+                        style="height:190px" title="Styling 0.95"></span></div>
+                    <div class="bar-wrap"><span class="bar-label">0.73</span><span class="bar-val bar-functional"
+                        style="height:146px" title="Functional 0.73"></span></div>
+                  </div>
+                  <div class="chart-group">
+                    <div class="bar-wrap"><span class="bar-label">0.85</span><span class="bar-val" style="height:170px"
+                        title="Structural 0.85"></span></div>
+                    <div class="bar-wrap"><span class="bar-label">0.78</span><span class="bar-val bar-styling"
+                        style="height:156px" title="Styling 0.78"></span></div>
+                    <div class="bar-wrap"><span class="bar-label">0.75</span><span class="bar-val bar-functional"
+                        style="height:150px" title="Functional 0.75"></span></div>
+                  </div>
+                  <div class="chart-group">
+                    <div class="bar-wrap"><span class="bar-label">0.83</span><span class="bar-val" style="height:166px"
+                        title="Structural 0.83"></span></div>
+                    <div class="bar-wrap"><span class="bar-label">0.83</span><span class="bar-val bar-styling"
+                        style="height:166px" title="Styling 0.83"></span></div>
+                    <div class="bar-wrap"><span class="bar-label">0.56</span><span class="bar-val bar-functional"
+                        style="height:112px" title="Functional 0.56"></span></div>
+                  </div>
+                  <div class="chart-group">
+                    <div class="bar-wrap"><span class="bar-label">0.62</span><span class="bar-val" style="height:124px"
+                        title="Structural 0.62"></span></div>
+                    <div class="bar-wrap"><span class="bar-label">0.55</span><span class="bar-val bar-styling"
+                        style="height:110px" title="Styling 0.55"></span></div>
+                    <div class="bar-wrap"><span class="bar-label">0.43</span><span class="bar-val bar-functional"
+                        style="height:86px" title="Functional 0.43"></span></div>
+                  </div>
+                </div>
+                <div></div>
+                <div class="chart-xlabels">
+                  <span class="chart-xlabel">Claude</span>
+                  <span class="chart-xlabel">Bolt</span>
+                  <span class="chart-xlabel">ChatGPT</span>
+                  <span class="chart-xlabel">Vercel v0</span>
+                  <span class="chart-xlabel">Firebase</span>
+                </div>
+              </div>
+              <figcaption class="fig-caption dim">Figure 1. Thinking Fidelity Score across the three task tiers, by
+                tool. Bars run 0 to 1.0.</figcaption>
+            </figure>
+
+            <figure>
+              <div class="chart-grid">
+                <div class="chart-yaxis">
+                  <span class="chart-ytick chart-ytick--top dim">1.0</span>
+                  <span class="chart-ytick chart-ytick--mid dim">0.5</span>
+                  <span class="chart-ytick chart-ytick--bot dim">0</span>
+                </div>
+                <div class="chart-bars">
+                  <div class="chart-group">
+                    <div class="bar-wrap"><span class="bar-label">0.94</span><span class="bar-val" style="height:188px"
+                        title="Structural 0.94"></span></div>
+                    <div class="bar-wrap"><span class="bar-label">0.88</span><span class="bar-val bar-styling"
+                        style="height:176px" title="Styling 0.88"></span></div>
+                    <div class="bar-wrap"><span class="bar-label">0.38</span><span class="bar-val bar-functional"
+                        style="height:76px" title="Functional 0.38"></span></div>
+                  </div>
+                  <div class="chart-group">
+                    <div class="bar-wrap"><span class="bar-label">0.88</span><span class="bar-val" style="height:176px"
+                        title="Structural 0.88"></span></div>
+                    <div class="bar-wrap"><span class="bar-label">0.88</span><span class="bar-val bar-styling"
+                        style="height:176px" title="Styling 0.88"></span></div>
+                    <div class="bar-wrap"><span class="bar-label">0.06</span><span class="bar-val bar-functional"
+                        style="height:12px" title="Functional 0.06"></span></div>
+                  </div>
+                  <div class="chart-group">
+                    <div class="bar-wrap"><span class="bar-label">0.81</span><span class="bar-val" style="height:162px"
+                        title="Structural 0.81"></span></div>
+                    <div class="bar-wrap"><span class="bar-label">0.81</span><span class="bar-val bar-styling"
+                        style="height:162px" title="Styling 0.81"></span></div>
+                    <div class="bar-wrap"><span class="bar-label">0.06</span><span class="bar-val bar-functional"
+                        style="height:12px" title="Functional 0.06"></span></div>
+                  </div>
+                  <div class="chart-group">
+                    <div class="bar-wrap"><span class="bar-label">0.81</span><span class="bar-val" style="height:162px"
+                        title="Structural 0.81"></span></div>
+                    <div class="bar-wrap"><span class="bar-label">0.75</span><span class="bar-val bar-styling"
+                        style="height:150px" title="Styling 0.75"></span></div>
+                    <div class="bar-wrap"><span class="bar-label">0.06</span><span class="bar-val bar-functional"
+                        style="height:12px" title="Functional 0.06"></span></div>
+                  </div>
+                  <div class="chart-group">
+                    <div class="bar-wrap"><span class="bar-label">0.50</span><span class="bar-val" style="height:100px"
+                        title="Structural 0.50"></span></div>
+                    <div class="bar-wrap"><span class="bar-label">0.38</span><span class="bar-val bar-styling"
+                        style="height:76px" title="Styling 0.38"></span></div>
+                    <div class="bar-wrap"><span class="bar-label">0.00</span><span class="bar-val bar-functional"
+                        style="height:2px" title="Functional 0.00"></span></div>
+                  </div>
+                </div>
+                <div></div>
+                <div class="chart-xlabels">
+                  <span class="chart-xlabel">ChatGPT</span>
+                  <span class="chart-xlabel">Bolt</span>
+                  <span class="chart-xlabel">Vercel v0</span>
+                  <span class="chart-xlabel">Claude</span>
+                  <span class="chart-xlabel">Firebase</span>
+                </div>
+              </div>
+              <figcaption class="fig-caption dim">Figure 2. Principle Adherence Score by tier. Four of five tools sit at
+                or below 0.06 on functional principles; Firebase Studio implemented none.</figcaption>
+            </figure>
+          </section>
+
+          <hr class="hr">
+
+          <section class="section-end">
+            <span class="kicker">Design Homogeneity</span>
+            <h2 class="section-h2">Five tools, one house style.</h2>
+            <p class="section-p muted">Given the same prompt, the five tools produced interfaces that differed
+              surprisingly little in overall appearance and layout. Color was the main dimension of divergence. Claude
+              and Vercel v0 were consistently the closest pair on both visual and color distance.</p>
+            <div class="tbl-wrap tbl-wrap--mb">
+              <table class="dt-table">
+                <caption>Table 3 - DHI sub-measures. Lower distance = more similar.</caption>
+                <thead>
+                  <tr>
+                    <th>Sub-measure</th>
+                    <th>Most similar pair</th>
+                    <th>Least similar pair</th>
+                    <th class="num">Range</th>
+                    <th class="num">Mean</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="nowrap">Visual</td>
+                    <td>Claude – v0</td>
+                    <td>ChatGPT – Firebase</td>
+                    <td class="num">0.119–0.151</td>
+                    <td class="num">0.137</td>
+                  </tr>
+                  <tr>
+                    <td class="nowrap">Color</td>
+                    <td>Claude – v0</td>
+                    <td>Bolt – ChatGPT</td>
+                    <td class="num">20.6–39.7</td>
+                    <td class="num">31.9</td>
+                  </tr>
+                  <tr>
+                    <td class="nowrap">Layout</td>
+                    <td>Bolt – Claude</td>
+                    <td>Claude – ChatGPT</td>
+                    <td class="num">0.181–0.211</td>
+                    <td class="num">0.196</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <figure class="dhi-figure">
+              <div class="dhi-grid">
+                <span class="chart-xlabel">Visual</span>
+                <div class="dhi-range">
+                  <span class="range-fill" style="left:0;right:47.4%"></span>
+                  <span class="range-tick" style="left:0"></span>
+                  <span class="range-tick" style="left:52.6%"></span>
+                  <span class="range-mean" style="left:28.3%"></span>
+                  <span class="range-label" style="left:0">0.119</span>
+                  <span class="range-label range-label--mean" style="left:28.3%">0.137</span>
+                  <span class="range-label range-label--max" style="left:52.6%">0.151</span>
+                </div>
+                <span class="chart-xlabel">Color</span>
+                <div class="dhi-range">
+                  <span class="range-fill" style="inset:14px 0 0"></span>
+                  <span class="range-tick" style="left:0"></span>
+                  <span class="range-tick" style="right:0"></span>
+                  <span class="range-mean" style="left:59.2%"></span>
+                  <span class="range-label" style="left:0">20.6</span>
+                  <span class="range-label range-label--mean" style="left:59.2%">31.9</span>
+                  <span class="range-label range-label--max" style="right:0">39.7</span>
+                </div>
+                <span class="chart-xlabel">Layout</span>
+                <div class="dhi-range">
+                  <span class="range-fill" style="left:0;right:50.7%"></span>
+                  <span class="range-tick" style="left:0"></span>
+                  <span class="range-tick" style="left:49.3%"></span>
+                  <span class="range-mean" style="left:24.6%"></span>
+                  <span class="range-label" style="left:0">0.181</span>
+                  <span class="range-label range-label--mean" style="left:24.6%">0.196</span>
+                  <span class="range-label range-label--max" style="left:49.3%">0.211</span>
+                </div>
+              </div>
+              <figcaption class="fig-caption dim">Figure 3. Spread of pairwise distances per sub-measure. Red ticks mark
+                closest/most-distant pairs; dark tick is the mean.</figcaption>
+            </figure>
+          </section>
+        </main>
+      </div>
+
+      <!-- AUTHORS -->
+      <div id="tab-authors" class="tab">
+        <main class="page">
+
+          <section class="section-end section-end--flush">
+            <span class="kicker kicker--top">Authors</span>
+            <div class="author-grid">
+              <div class="author-card">
+                <!-- <div class="author-avatar">KI</div> -->
+                <span><a href="https://www.kimteyaz.com/" target="_blank" rel="noopener noreferrer">Kashif
+                    Imteyaz</a><sup>1*</sup></span>
+                <p class="role dim">Researcher</p>
+              </div>
+              <div class="author-card">
+                <!-- <div class="author-avatar">KI</div> -->
+                <span><a href="https://kaif-imteyaz.github.io/" target="_blank" rel="noopener noreferrer">Kaif
+                    Imteyaz</a><sup>2</sup></span>
+                <p class="role dim">Researcher</p>
+              </div>
+              <div class="author-card">
+                <!-- <div class="author-avatar">NR</div> -->
+                <span><a href="https://www.nakulrajpal.com/" target="_blank" rel="noopener noreferrer">Nakul
+                    Rajpal</a><sup>1</sup></span>
+                <p class="role dim">Researcher</p>
+              </div>
+              <div class="author-card">
+                <!-- <div class="author-avatar">KS</div> -->
+                <span><a href="https://kaifshaikh.com/" target="_blank" rel="noopener noreferrer">Kaif
+                    Shaikh</a><sup>3</sup></span>
+                <p class="role dim">Researcher</p>
+              </div>
+              <div class="author-card">
+                <!-- <div class="author-avatar">MM</div> -->
+                <span>
+                  <!--  https://sites.google.com/view/michael-muller-independent-res/home/ -->
+                  <a href="#" target="_blank"
+                    rel="noopener noreferrer">
+                    Michael Muller
+                  </a><sup>4</sup></span>
+                <p class="role dim">PhD</p>
+              </div>
+              <div class="author-card">
+                <!-- <div class="author-avatar">SS</div> -->
+                <span><a href="https://www.saiph.org/" target="_blank" rel="noopener noreferrer">Saiph
+                    Savage</a><sup>1</sup></span>
+                <p class="role dim">PhD</p>
+              </div>
+            </div>
+
+            <div class="inst-grid">
+              <div class="inst-card">
+                <div class="inst-logo-box"><img src="assets/NU-logo.svg" alt="Northeastern University"></div>
+                <p class="inst-name"><sup>1</sup> Northeastern University</p>
+                <p class="inst-country dim">United States</p>
+              </div>
+              <div class="inst-card">
+                <div class="inst-logo-box"><img src="assets/jh.svg" alt="Jamia Hamdard"></div>
+                <p class="inst-name"><sup>2</sup> Jamia Hamdard</p>
+                <p class="inst-country dim">India</p>
+              </div>
+              <div class="inst-card">
+                <div class="inst-logo-box"><img src="assets/logo_uni_saarland.svg" alt="Saarland University"></div>
+                <p class="inst-name"><sup>3</sup> Saarland University</p>
+                <p class="inst-country dim">Germany</p>
+              </div>
+              <div class="inst-card">
+                <div class="inst-logo-box inst-logo-none"><i class="fa-solid fa-user-tie inst-icon"></i></div>
+                <p class="inst-name"><sup>4</sup> Independent Researcher</p>
+                <p class="inst-country dim">United States</p>
+              </div>
+            </div>
+            <p class="corresponding-note dim">* Corresponding author</p>
+
+            <div class="contact-section">
+              <span class="kicker">Get in Touch</span>
+              <p class="row-p">Have suggestions or ideas? Open an issue or pull request on our <a id="authors-github"
+                  href="https://github.com/kashifimteyaza/design-theater.io" target="_blank" rel="noopener noreferrer">GitHub</a>
+                repository, or email <a href="mailto:imteyaz.k@northeastern.edu">imteyaz.k@northeastern.edu</a>.</p>
+            </div>
+
+          </section>
+        </main>
+      </div>
+
+      <!-- PDF modal -->
+      <div id="pdf-modal" class="pdf-modal">
+        <button class="pdf-modal-close" id="pdf-modal-close">&#10005; Close</button>
+        <iframe id="pdf-modal-frame" src="" title="Full paper PDF" sandbox="allow-scripts allow-same-origin"></iframe>
+      </div>
+
+      <!-- toast notification -->
+      <div id="toast" class="toast"></div>
+
+    </div>
+  </div>
+  <div class="page">
+    <footer class="footer">
+      <span>&copy; 2026 The Authors.</span>
+      <span class="footer-right">Design Theater, accepted to AIES 2026.</span>
+      <!-- <span class="footer-right">
+        <a href="https://design-theater.vercel.app/" target="_blank" rel="noopener noreferrer">Artifacts</a>
+        <a href="https://github.com/kashifimteyaza/design-theater.io" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="#" id="footer-paper">Paper</a>
+      </span>
+    </footer> -->
+  </div>
+  </div>
+
+  <script src="content.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
