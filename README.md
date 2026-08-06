@@ -48,7 +48,7 @@ the DHI evaluation.
 
 ```bibtex
 @inproceedings{imteyaz2026design,
-  title     = {[ Design Theater: A Benchmark for Generative UI]},
+  title     = {[Design Theater: Evaluating the Gap Between User-Facing Design Reasoning and Implementation in Generative UI Tools]},
   author    = {Imteyaz, Kashif and Imteyaz, Kaif and Rajpal, Nakul and
                Shaikh, Kaif and Muller, Michael and Savage, Saiph},
   booktitle = {Proceedings of the AAAI/ACM Conference on AI, Ethics, and Society},
